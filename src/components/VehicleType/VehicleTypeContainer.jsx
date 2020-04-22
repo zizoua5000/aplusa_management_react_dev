@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect, DefaultRootState } from 'react-redux';
+import { connect } from 'react-redux';
 import { requestVehicleTypes } from '../../redux/Reducers/vehicleTypes_reducer';
 import VehicleTypes from './VehicleTypes';
-import { compose } from "redux";
 import { getVehicleTypesSelector } from "../../redux/Selectors/vehicleTypes_selectors";
 
-import axios from 'axios';
 
 class VehicleTypeContainer extends React.Component {
     constructor(props) {

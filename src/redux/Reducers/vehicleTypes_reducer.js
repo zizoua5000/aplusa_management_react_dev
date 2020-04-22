@@ -1,6 +1,4 @@
 import { vehicleTypeAPI } from "../../api/api";
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
 const SET_VEHICLE_TYPES = "SET_VEHICLE_TYPES"
 

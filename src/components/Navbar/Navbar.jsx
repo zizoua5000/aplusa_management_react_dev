@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                 <hr className="sidebar-divider my-0"></hr>
 
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
+                    <a className="nav-link collapsed" href="User" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>User</span>
                     </a>
@@ -30,7 +30,7 @@ class Navbar extends React.Component {
                 </li>
 
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseVehicle" aria-expanded="true" aria-controls="collapseTwo">
+                    <a className="nav-link collapsed" href="Vehicle" data-toggle="collapse" data-target="#collapseVehicle" aria-expanded="true" aria-controls="collapseTwo">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>Vehicle</span>
                     </a>
@@ -44,7 +44,7 @@ class Navbar extends React.Component {
                     </div>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseSimcard" aria-expanded="true" aria-controls="collapseTwo">
+                    <a className="nav-link collapsed" href="Simcard" data-toggle="collapse" data-target="#collapseSimcard" aria-expanded="true" aria-controls="collapseTwo">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>Simcard</span>
                     </a>
@@ -55,7 +55,7 @@ class Navbar extends React.Component {
                     </div>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseJobTitle" aria-expanded="true" aria-controls="collapseTwo">
+                    <a className="nav-link collapsed" href="JobTitle" data-toggle="collapse" data-target="#collapseJobTitle" aria-expanded="true" aria-controls="collapseTwo">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>JobTitle</span>
                     </a>
