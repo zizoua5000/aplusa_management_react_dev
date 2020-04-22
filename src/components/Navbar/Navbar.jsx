@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                         <span>Vehicle</span>
                     </a>
                     <div id="collapseVehicle" className="collapse" aria-labelledby="headingVehicle" data-parent="#accordionSidebar">
-                        <div class="bg-dark py-2 collapse-inner">
+                        <div className="bg-dark py-2 collapse-inner">
                             <NavLink to="/vehicle" className="collapse-item bg-dark text-light">Vehicle</NavLink>
                             <NavLink to="/vehicle_mark" className="collapse-item bg-dark text-light">Vehicle mark</NavLink>
                             <NavLink to="/vehicle_model" className="collapse-item bg-dark text-light">Vehicle model</NavLink>
@@ -46,7 +46,7 @@ class Navbar extends React.Component {
                         <span>Simcard</span>
                     </a>
                     <div id="collapseSimcard" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-dark py-2 collapse-inner rounded">
+                        <div className="bg-dark py-2 collapse-inner rounded">
                             <NavLink to="/simcard" className="collapse-item bg-dark text-light">Simcard</NavLink>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ class Navbar extends React.Component {
                         <span>JobTitle</span>
                     </a>
                     <div id="collapseJobTitle" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-dark py-2 collapse-inner rounded">
+                        <div className="bg-dark py-2 collapse-inner rounded">
                             <NavLink to="/job_title" className="collapse-item bg-dark text-light">JobTitle</NavLink>
                         </div>
                     </div>

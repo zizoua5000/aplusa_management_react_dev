@@ -1,20 +1,18 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
-import vehicleMarkReducer from "./vehicleMark-reducer";
-import vehicleTypeReducer from "./vehicleType_reducer"
-import vehicleModelReducer from "./vehicleModel_reducer"
-import simcardReducer from "./simcard_reducer"
-import jobTitleReducer from "./jobTitle_reducer"
+import vehicleMarksReducer from './Reducers/vehicleMarks_reducer'
+import vehicleTypesReducer from './Reducers/vehicleTypes_reducer'
+import vehicleModelListReducer from './Reducers/vehicleModelList_reducer'
 import thunkMiddleware from "redux-thunk";
 
 
 
 let rootReducer = combineReducers({
-    vehicleMarkPage: vehicleMarkReducer,
-    vehicleTypePage: vehicleTypeReducer,
-    vehicleModelPage: vehicleModelReducer,
-    simcardPage: simcardReducer,
-    jobTitlePage: jobTitleReducer,
+    vehicleMarkPage: vehicleMarksReducer,
+    vehicleTypePage: vehicleTypesReducer,
+    vehicleModelPage: vehicleModelListReducer,
 })
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 window.__store__ = store
 

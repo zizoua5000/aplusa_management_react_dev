@@ -1,16 +1,14 @@
 import React from 'react';
 
-class VehicleType extends React.Component {
-    render() {
-        return (
-           
-                <div >
-                   VehicleType
-                  
-                </div>
-         
-        )
-    }
+let VehicleType= ({vehicleType}) => {
+    console.log(vehicleType.key)
+    return (
+        <div key={vehicleType.key}>
+            <span>{vehicleType.id}</span>
+            <span>{vehicleType.name}</span>  
+            <span>{vehicleType.name} ve {vehicleType.id} </span>           
+        </div>
+    )
 }
 
-export default VehicleType
+export default VehicleType;
