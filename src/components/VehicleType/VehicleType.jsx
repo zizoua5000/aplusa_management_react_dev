@@ -1,7 +1,7 @@
 import React from 'react';
 
 let VehicleType= ({vehicleType}) => {
-    console.log(vehicleType.key)
+    console.log(vehicleType)
     return (
         <div key={vehicleType.key}>
             <span>{vehicleType.id}</span>

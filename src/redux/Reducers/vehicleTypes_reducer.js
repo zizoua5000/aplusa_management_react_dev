@@ -5,7 +5,7 @@ import { ThunkAction } from 'redux-thunk';
 const SET_VEHICLE_TYPES = "SET_VEHICLE_TYPES"
 
 let initialState = {
-    vehicleTypes: [{ id: 1, name: "niko" }]
+    vehicleTypes: [{ id: 1, name: "nizam" }]
 };
 
 const vehicleTypesReducer = (state = initialState, action) => {
@@ -32,7 +32,7 @@ export const requestVehicleTypes = () => {
     return async(dispatch, getState) => {
         let data = await vehicleTypeAPI.getvehicleType();
         console.log("thunkdayam");
-        console.log(data.results);
+        console.log(data);
         console.log("thunkdayam");
         dispatch(actions.setVehicleTypes(data.results));
     }

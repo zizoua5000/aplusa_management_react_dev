@@ -44,14 +44,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         requestVehicleTypes
-        
-//     }
-// }
-
-// export default compose(
 export default connect(mapStateToProps, {requestVehicleTypes})(VehicleTypeContainer)
-
-// export default VehicleTypeContainer
