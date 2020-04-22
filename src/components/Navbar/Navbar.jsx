@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                 <hr className="sidebar-divider my-0"></hr>
 
                 <li className="nav-item">
-                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
+                    <a className="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>User</span>
                     </a>
