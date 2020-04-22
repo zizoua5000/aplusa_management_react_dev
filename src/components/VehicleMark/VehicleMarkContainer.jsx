@@ -26,7 +26,7 @@ class VehicleMarkContainer extends React.Component {
         console.log("-----RENDER- --- -")
         const vehicleMarks = this.props.vehicleMarks;
         console.log(vehicleMarks)
-        console.log("-----RENDER- --- -")
+        console.log("-----ASADASAD- --- -")
 
      
         return (
