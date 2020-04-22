@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, DefaultRootState } from 'react-redux';
+import { connect } from 'react-redux';
 import { requestVehicleMarkList } from '../../redux/Reducers/vehicleMarks_reducer';
 import VehicleMarks from './VehicleMarks';
 import { getVehicleMarksSelector } from "../../redux/Selectors/vehicleMarks_selectors";
