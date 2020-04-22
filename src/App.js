@@ -17,8 +17,7 @@ class App extends React.Component {
                 
                     <div id="wrapper" >
                         <Navbar />
-                        <Content />
-                        <Footer />
+                        <Content />                        
                     </div>
                 </Provider>
             </BrowserRouter >

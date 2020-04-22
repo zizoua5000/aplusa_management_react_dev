@@ -3,6 +3,7 @@ import VehicleMarkContainer from '../VehicleMark/VehicleMarkContainer'
 import VehicleTypeContainer from '../VehicleType/VehicleTypeContainer'
 import VehicleModelContainer from '../VehicleModel/VehicleModelContainer'
 import {  Route } from 'react-router-dom';
+import Footer from '../Footer/Footer'
 
 class Content extends React.Component {
     render() {
@@ -18,6 +19,7 @@ class Content extends React.Component {
 
                     </div>
                 </div>
+                <Footer />
             </div>
         )
     }
