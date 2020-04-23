@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect, DefaultRootState } from 'react-redux';
-import { requestVehicleTypes } from '../../redux/Reducers/vehicleTypes_reducer';
+import { requestVehicleTypes,setIsFetching } from '../../redux/Reducers/vehicleTypes_reducer';
 import VehicleTypes from './VehicleTypes';
-import { compose } from "redux";
-import { getVehicleTypesSelector } from "../../redux/Selectors/vehicleTypes_selectors";
+import { compose } from 'redux';
+import { getVehicleTypesSelector } from '../../redux/Selectors/vehicleTypes_selectors';
+import { getIsFetchingSelector } from '../../redux/Selectors/vehicleTypes_selectors';
+import Preloader from '../Common/Preloader/Preloader'
 
 import axios from 'axios';
 
@@ -29,19 +31,22 @@ class VehicleTypeContainer extends React.Component {
         console.log("renderdeyem");
         console.log(this.props.vehicleTypes);
         console.log("renderdeyem");
-        return (  
-            <VehicleTypes vehicleTypes={this.props.vehicleTypes} /> 
-            // <div>TSET</div>
-        );
+        return (
+                <div>
+                    { this.props.isFetching ? <Preloader /> : null }
+                    <VehicleTypes vehicleTypes={this.props.vehicleTypes} /> 
+                </div>
+            );
     }
 
 
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
         vehicleTypes: getVehicleTypesSelector(state),
+        isFetching:getIsFetchingSelector(state)
     }
 }
 
-export default connect(mapStateToProps, {requestVehicleTypes})(VehicleTypeContainer)
+export default connect(mapStateToProps,{requestVehicleTypes})(VehicleTypeContainer)
