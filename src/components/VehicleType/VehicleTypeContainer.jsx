@@ -21,6 +21,7 @@ class VehicleTypeContainer extends React.Component {
         //     .then((result) => {
         //         this.setState({vehicleTypes:result.data})
         //     });
+        console.log('-----COMMIT TEST------')
         console.log("componentDidMountdayam")
         this.props.requestVehicleTypes();
         
