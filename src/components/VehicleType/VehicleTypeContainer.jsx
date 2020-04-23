@@ -7,7 +7,6 @@ import { getVehicleTypesSelector } from '../../redux/Selectors/vehicleTypes_sele
 import { getIsFetchingSelector } from '../../redux/Selectors/vehicleTypes_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 
-import axios from 'axios';
 
 class VehicleTypeContainer extends React.Component {
     constructor(props) {

@@ -2,13 +2,13 @@ import React from 'react';
 
 
 const VehicleMark = (vehicleMark) => {
-    console.log(vehicleMark)
     return (
-        <div>
-               
-            <span>{vehicleMark.vehicleMark.id}</span>   
-            <span>{vehicleMark.vehicleMark.name}</span>           
-        </div>
+
+        <tr key={vehicleMark.vehicleMark.id}>
+            <td>{vehicleMark.vehicleMark.id}</td>
+            <td>{vehicleMark.vehicleMark.name}</td>
+        </tr>
+
     )
 }
 
