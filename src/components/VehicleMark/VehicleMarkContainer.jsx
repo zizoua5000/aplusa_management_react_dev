@@ -7,13 +7,6 @@ import { getVehicleMarksSelector } from "../../redux/Selectors/vehicleMarks_sele
 
 class VehicleMarkContainer extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            vehicleMarks: []
-        };
-    }
-
     componentDidMount() {
         this.props.requestVehicleMarkList();
     }
