@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-const VehicleMarkItem = (vehicleMarkItem) => {
+const VehicleMarkItem = ({vehicleMarkItem}) => {
     return (
 
-        <tr key={vehicleMarkItem.vehicleMarkItem.id}>
-            <td>{vehicleMarkItem.vehicleMarkItem.id}</td>
-            <td>{vehicleMarkItem.vehicleMarkItem.name}</td>
+        <tr key={vehicleMarkItem.id}>
+            <td>{vehicleMarkItem.id}</td>
+            <td>{vehicleMarkItem.name}</td>
         </tr>
 
     )
