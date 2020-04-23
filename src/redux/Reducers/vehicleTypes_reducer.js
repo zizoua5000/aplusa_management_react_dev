@@ -15,9 +15,6 @@ const vehicleTypesReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_VEHICLE_TYPES:
             {
-                console.log("reducerdeyem");
-                console.log(...state);
-                console.log("reducerdeyem");
                 return {...state, vehicleTypes: action.vehicleTypes }
             }
             case IS_FETCHING:

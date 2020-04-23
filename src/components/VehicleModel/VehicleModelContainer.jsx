@@ -1,52 +1,51 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, DefaultRootState } from 'react-redux';
 import {requestVehicleModelList} from '../../redux/Reducers/vehicleModelList_reducer'
-import {getVehicleModelListSelector} from '../../redux/Selectors/vehicleModelList_selectors'
+import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching} from '../../redux/Selectors/vehicleModelList_selectors'
 import VehicleModelList from './VehicleModelList';
+import Preloader from '../Common/Preloader/Preloader'
 
 class VehicleModelContainer extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            vehicleModelList:[]
-        };   
     }
 
     componentDidMount() {
-        // axios.get('http://192.168.20.142:8010/api/vehicle_type/list_create/')
-        //     .then((result) => {
-        //         this.setState({vehicleTypes:result.data})
-        //     });
-        console.log("----- ---- --- --- -")
-        this.props.requestVehicleModelList();
-        console.log("----- ---- --- --- -")
-        
+        this.props.requestVehicleModelList();   
+    }
+
+    onPageChanged = (pageNumber) => {
+        const {pageSize} = this.props;
+        this.props.requestVehicleModelList(pageNumber);
     }
 
     render() {
-        console.log('--------- render-------')
-        console.log(this.props.vehicleModelList);
-        console.log('--------- render-------')
         return (  
-            <VehicleModelList vehicleModelList={this.props.vehicleModelList} /> 
+            <>
+            { this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
+            {this.props.vehicleModelList!=null &&
+                <VehicleModelList 
+                    vehicleModelList={this.props.vehicleModelList} 
+                    currentPage={this.props.currentPage}
+                    pageSize={this.props.pageSize}
+                    totalItemsCount={this.props.totalItemsCount}
+                    onPageChanged={this.onPageChanged}
+                /> 
+            }
+            </>
         );
     }
-
-
 }
 
 let mapStateToProps = (state) => {
     return {
-        vehicleModelList: getVehicleModelListSelector(state),
+        vehicleModelList: getVehicleModelList(state),
+        currentPage: getCurrentPage(state),
+        pageSize: getPageSize(state),
+        totalItemsCount: getTotalItemsCount(state),
+        isFetching:getIsFetching(state)
     }
 }
-
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         requestVehicleTypes
-        
-//     }
-// }
 
 // export default compose(
 export default connect(mapStateToProps, {requestVehicleModelList})(VehicleModelContainer)

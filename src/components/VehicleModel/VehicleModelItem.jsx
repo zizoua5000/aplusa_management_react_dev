@@ -3,10 +3,10 @@ import React from 'react';
 const VehicleModelItem= ({vehicleModelItem}) => {
     console.log(vehicleModelItem)
     return (
-        <div key={vehicleModelItem.key}>
-
-            <span>{vehicleModelItem.name}</span>           
-        </div>
+        <tr key={vehicleModelItem.id}>
+            <td>{vehicleModelItem.id}</td>
+            <td>{vehicleModelItem.name}</td>
+        </tr>
     )
 }
 

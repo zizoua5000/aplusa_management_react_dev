@@ -1,11 +1,11 @@
 import React from 'react';
-import VehicleMark from './VehicleMark';
+import VehicleMarkItem from './VehicleMarkItem';
 
-let VehicleMarks = ({ vehicleMarks }) => {
+let VehicleMarkList = ({ vehicleMarkList }) => {
 
     return (
         <div>
-            <h2>Vehicle Marks</h2>
+            <h2>Vehicle Mark List</h2>
             <table className="table table-default table-bordered">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -14,7 +14,9 @@ let VehicleMarks = ({ vehicleMarks }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {vehicleMarks.map((vm, key) => <VehicleMark vehicleMark={vm} key={key} />)}
+                    {
+                        vehicleMarkList.map((vm, key) => <VehicleMarkItem vehicleMarkItem={vm} key={key} />)
+                    }
                 </tbody>
             </table>
         </div>
@@ -22,4 +24,4 @@ let VehicleMarks = ({ vehicleMarks }) => {
 
 }
 
-export default VehicleMarks;
+export default VehicleMarkList;
