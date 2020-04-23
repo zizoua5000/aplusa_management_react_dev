@@ -8,7 +8,7 @@ const IS_FETCHING = "IS_FETCHING"
 
 let initialState = {
     vehicleTypes: [{ id: 1, name: "nizam" }],
-    isFetching: false
+    isFetching: true
 };
 
 const vehicleTypesReducer = (state = initialState, action) => {
@@ -44,7 +44,7 @@ export const requestVehicleTypes = () => {
         console.log(data);
         console.log("thunkdayam");
         dispatch(actions.setVehicleTypes(data.results));
-        dispatch(actions.setIsFetching(false))
+        dispatch(actions.setIsFetching(true))
     }
 }
 
