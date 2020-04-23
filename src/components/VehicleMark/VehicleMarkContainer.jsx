@@ -25,6 +25,4 @@ let mapStateToProps = (state) => {
         vehicleMarks: getVehicleMarksSelector(state),
     }
 }
-
-
 export default connect(mapStateToProps, { requestVehicleMarkList })(VehicleMarkContainer)
