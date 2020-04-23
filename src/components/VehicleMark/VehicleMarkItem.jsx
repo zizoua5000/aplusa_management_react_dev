@@ -4,9 +4,9 @@ import React from 'react';
 const VehicleMarkItem = (vehicleMarkItem) => {
     return (
 
-        <tr key={vehicleMarkItem.vehicleMark.id}>
-            <td>{vehicleMarkItem.vehicleMark.id}</td>
-            <td>{vehicleMarkItem.vehicleMark.name}</td>
+        <tr key={vehicleMarkItem.vehicleMarkItem.id}>
+            <td>{vehicleMarkItem.vehicleMarkItem.id}</td>
+            <td>{vehicleMarkItem.vehicleMarkItem.name}</td>
         </tr>
 
     )

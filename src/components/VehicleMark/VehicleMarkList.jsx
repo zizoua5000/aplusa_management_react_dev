@@ -14,7 +14,9 @@ let VehicleMarkList = ({ vehicleMarkList }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {vehicleMarkList.map((vm, key) => <VehicleMarkItem vehicleMarkItem={vm} key={key} />)}
+                    {
+                        vehicleMarkList.map((vm, key) => <VehicleMarkItem vehicleMarkItem={vm} key={key} />)
+                    }
                 </tbody>
             </table>
         </div>
