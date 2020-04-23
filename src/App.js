@@ -10,15 +10,18 @@ class App extends React.Component {
     render() {
         
         return (
+            
             <BrowserRouter >
                 <Provider store={store} >
-                
+
                     <div id="wrapper" >
                         <Navbar />
-                        <Content />                        
+                        
+                        <Content />           
                     </div>
                 </Provider>
             </BrowserRouter >
+
         )
     }
 }

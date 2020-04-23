@@ -34,11 +34,27 @@ export const simcardAPI = {
 
 
 export const vehicleTypeAPI = {
-    getvehicleType() {
+    getvehicleType(dispatch,actions) {
+        
         return instance.get('vehicle_type/list_create/')
             .then(response => {
-                return response.data;
-            });
+                return response;
+            })   
+            .catch(err=> {  
+                if(err.response){
+                    console.log("response error",err)
+                    dispatch(actions.setIsFetching(false))
+                    dispatch(actions.setErrorMessage(err))
+                }else if(err.request){
+                    console.log("request error",err)
+                    dispatch(actions.setIsFetching(false))
+                    dispatch(actions.setErrorMessage(err))
+                } else {
+                    console.log("some dif error")
+                    dispatch(actions.setIsFetching(false))
+                }
+            
+            })       
     }
 }
 

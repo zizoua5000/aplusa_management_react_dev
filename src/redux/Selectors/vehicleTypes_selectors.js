@@ -7,3 +7,7 @@ export const getVehicleTypesSelector = (state) => {
 export const getIsFetchingSelector = (state) => {
     return state.vehicleTypePage.isFetching;
 }
+
+export const getSetErrorMessage = (state) => {
+    return state.vehicleTypePage.error;
+}

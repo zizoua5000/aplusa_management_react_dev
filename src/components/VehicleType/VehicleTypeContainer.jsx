@@ -1,11 +1,11 @@
 import React from 'react';
-import { connect, DefaultRootState } from 'react-redux';
-import { requestVehicleTypes,setIsFetching } from '../../redux/Reducers/vehicleTypes_reducer';
+import { connect } from 'react-redux';
+import { requestVehicleTypes} from '../../redux/Reducers/vehicleTypes_reducer';
 import VehicleTypes from './VehicleTypes';
-import { compose } from 'redux';
 import { getVehicleTypesSelector } from '../../redux/Selectors/vehicleTypes_selectors';
-import { getIsFetchingSelector } from '../../redux/Selectors/vehicleTypes_selectors';
+import { getIsFetchingSelector ,getSetErrorMessage} from '../../redux/Selectors/vehicleTypes_selectors';
 import Preloader from '../Common/Preloader/Preloader'
+import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 
 class VehicleTypeContainer extends React.Component {
@@ -18,19 +18,20 @@ class VehicleTypeContainer extends React.Component {
 
     componentDidMount() {
         console.log('-----COMMIT TEST------')
-        // axios.get('http://192.168.20.142:8010/api/vehicle_type/list_create/')
+
         console.log("componentDidMountdayam")
         this.props.requestVehicleTypes();
-        
     }
 
     render() {
         console.log("renderdeyem");
         console.log(this.props.vehicleTypes);
+        // console.log(this.props.setErrorMessage)
         console.log("renderdeyem");
         return (
                 <div>
-                    { this.props.isFetching ? <Preloader /> : null }
+                    {this.props.isFetching ? <Preloader /> : null }
+                    {this.props.setErrorMessage ? <ErrorMessage nizam = {this.props.setErrorMessage}/> :null}
                     <VehicleTypes vehicleTypes={this.props.vehicleTypes} /> 
                 </div>
             );
@@ -42,7 +43,8 @@ class VehicleTypeContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         vehicleTypes: getVehicleTypesSelector(state),
-        isFetching:getIsFetchingSelector(state)
+        isFetching:getIsFetchingSelector(state),
+        setErrorMessage: getSetErrorMessage(state)
     }
 }
 
