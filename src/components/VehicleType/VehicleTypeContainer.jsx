@@ -9,18 +9,8 @@ import Preloader from '../Common/Preloader/Preloader'
 
 
 class VehicleTypeContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            vehicleTypes:[]
-        };   
-    }
 
     componentDidMount() {
-        // axios.get('http://192.168.20.142:8010/api/vehicle_type/list_create/')
-        //     .then((result) => {
-        //         this.setState({vehicleTypes:result.data})
-        //     });
         console.log("componentDidMountdayam")
         this.props.requestVehicleTypes();
         
