@@ -1,10 +1,10 @@
 // import {createSelector} from "reselect";
 
-export const getVehicleTypesSelector = (state) => {
-    return state.vehicleTypePage.vehicleTypes;
+export const getVehicleTypeList = (state) => {
+    return state.vehicleTypePage.vehicleTypeList;
 }
 
-export const getIsFetchingSelector = (state) => {
+export const getIsFetching = (state) => {
     return state.vehicleTypePage.isFetching;
 }
 

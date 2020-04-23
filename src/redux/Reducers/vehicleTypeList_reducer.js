@@ -6,16 +6,16 @@ const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 
 
 let initialState = {
-    vehicleTypes: [],
+    vehicleTypeList: [],
     isFetching: true,
     error:null
 };
 
-const vehicleTypesReducer = (state = initialState, action) => {
+const vehicleTypeListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_VEHICLE_TYPES:
             {
-                return {...state, vehicleTypes: action.vehicleTypes }
+                return {...state, vehicleTypeList: action.vehicleTypeList }
             }
             case IS_FETCHING:
                 {
@@ -32,26 +32,27 @@ const vehicleTypesReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setVehicleTypes: (vehicleTypes) => ({ type: SET_VEHICLE_TYPES, vehicleTypes }),
+    setVehicleTypeList: (vehicleTypeList) => ({ type: SET_VEHICLE_TYPES, vehicleTypeList }),
     setIsFetching:(isFetching)=>({type:IS_FETCHING, isFetching}),
     setErrorMessage:(error) => ({type:SET_ERROR_MESSAGE, error})
 }
 
 
-export const requestVehicleTypes = () => {
+export const requestVehicleTypeList = () => {
     return async(dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         let response = await vehicleTypeAPI.getvehicleType(dispatch,actions);
         console.log("thunkdayam");
         console.log(response);
         console.log("thunkdayam");
-        if(response.status ===200){
-        dispatch(actions.setVehicleTypes(response.data.results));
-        dispatch(actions.setIsFetching(false))
-        }
+        if(response!=null){
+        dispatch(actions.setVehicleTypeList(response.results));
+        dispatch(actions.setIsFetching(false));
+        
+    }
     }
 }
 
 
 
-export default vehicleTypesReducer;
+export default vehicleTypeListReducer;

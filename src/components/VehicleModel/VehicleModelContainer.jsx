@@ -21,7 +21,7 @@ class VehicleModelContainer extends React.Component {
 
     render() {
         return (  
-            <>
+            <div>
             { this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
             {this.props.vehicleModelList!=null &&
                 <VehicleModelList 
@@ -32,7 +32,7 @@ class VehicleModelContainer extends React.Component {
                     onPageChanged={this.onPageChanged}
                 /> 
             }
-            </>
+            </div>
         );
     }
 }

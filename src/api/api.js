@@ -8,9 +8,6 @@ const instance = axios.create({
     // }
 });
 
-
-
-
 export const vehicleMarkAPI = {
     getvehicleMark() {
         return instance.get('vehicle_mark/list_create/')
@@ -18,10 +15,7 @@ export const vehicleMarkAPI = {
                 return response.data;
             })
     }
-
-
 }
-
 
 export const simcardAPI = {
     getsimcard() {
@@ -38,7 +32,7 @@ export const vehicleTypeAPI = {
         
         return instance.get('vehicle_type/list_create/')
             .then(response => {
-                return response;
+                return response.data;
             })   
             .catch(err=> {  
                 if(err.response){

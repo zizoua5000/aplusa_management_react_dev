@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestVehicleTypes} from '../../redux/Reducers/vehicleTypes_reducer';
-import VehicleTypes from './VehicleTypes';
-import { getVehicleTypesSelector } from '../../redux/Selectors/vehicleTypes_selectors';
-import { getIsFetchingSelector ,getSetErrorMessage} from '../../redux/Selectors/vehicleTypes_selectors';
+import { requestVehicleTypeList} from '../../redux/Reducers/vehicleTypeList_reducer';
+import VehicleTypeList from './VehicleTypeList';
+import { getVehicleTypeList,getIsFetching ,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
@@ -12,7 +11,7 @@ class VehicleTypeContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            vehicleTypes:[]
+            vehicleTypeList:[]
         };   
     }
 
@@ -20,19 +19,19 @@ class VehicleTypeContainer extends React.Component {
         console.log('-----COMMIT TEST------')
 
         console.log("componentDidMountdayam")
-        this.props.requestVehicleTypes();
+        this.props.requestVehicleTypeList();
     }
 
     render() {
         console.log("renderdeyem");
-        console.log(this.props.vehicleTypes);
+        console.log(this.props.vehicleTypeList);
         // console.log(this.props.setErrorMessage)
         console.log("renderdeyem");
         return (
                 <div>
                     {this.props.isFetching ? <Preloader /> : null }
-                    {this.props.setErrorMessage ? <ErrorMessage nizam = {this.props.setErrorMessage}/> :null}
-                    <VehicleTypes vehicleTypes={this.props.vehicleTypes} /> 
+                    {this.props.setErrorMessage ? <ErrorMessage /> :null}
+                    <VehicleTypeList vehicleTypeList={this.props.vehicleTypeList} /> 
                 </div>
             );
     }
@@ -42,10 +41,10 @@ class VehicleTypeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        vehicleTypes: getVehicleTypesSelector(state),
-        isFetching:getIsFetchingSelector(state),
+        vehicleTypeList: getVehicleTypeList(state),
+        isFetching:getIsFetching(state),
         setErrorMessage: getSetErrorMessage(state)
     }
 }
 
-export default connect(mapStateToProps,{requestVehicleTypes})(VehicleTypeContainer)
+export default connect(mapStateToProps,{requestVehicleTypeList})(VehicleTypeContainer)
