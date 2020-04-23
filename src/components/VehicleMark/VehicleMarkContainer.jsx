@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestVehicleMarkList } from '../../redux/Reducers/vehicleMarks_reducer';
-import VehicleMarks from './VehicleMarks';
-import { getVehicleMarksSelector } from "../../redux/Selectors/vehicleMarks_selectors";
+import {requestVehicleMarkList} from '../../redux/Reducers/vehicleMarkList_reducer'
+import VehicleMarkList from './VehicleMarkList';
+import { getVehicleMarkListSelector } from "../../redux/Selectors/vehicleMarkList_selectors";
 
 
 class VehicleMarkContainer extends React.Component {
@@ -13,7 +13,7 @@ class VehicleMarkContainer extends React.Component {
 
     render() {
         return (
-            <VehicleMarks vehicleMarks={this.props.vehicleMarks} />
+            <VehicleMarkList vehicleMarkList={this.props.vehicleMarkList} />
         );
     }
 
@@ -22,7 +22,7 @@ class VehicleMarkContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        vehicleMarks: getVehicleMarksSelector(state),
+        vehicleMarkList: getVehicleMarkListSelector(state),
     }
 }
 

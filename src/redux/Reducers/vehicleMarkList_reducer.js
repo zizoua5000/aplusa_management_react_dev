@@ -1,21 +1,21 @@
 import { vehicleMarkAPI } from "../../api/api";
 
-const SET_VEHICLE_MARKS = "SET_VEHICLE_MARKS"
+const SET_VEHICLE_MARK_LIST = "SET_VEHICLE_MARK_LIST"
 
 let initialState = {
-    vehicleMarks: [
+    vehicleMarkList: [
         { id: 1, name: "Vehicle Mark 1" },
         { id: 2, name: "Vehicle Mark 2" },
         { id: 3, name: "Vehicle Mark 3" }
     ]
 };
 
-const vehicleMarksReducer = (state = initialState, action) => {
+const vehicleMarkListReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case SET_VEHICLE_MARKS:
+        case SET_VEHICLE_MARK_LIST:
             {
-                return { ...state, vehicleMarks: action.vehicleMarks }
+                return { ...state, vehicleMarkList: action.vehicleMarkList }
             }
         default:
             return state;
@@ -24,7 +24,7 @@ const vehicleMarksReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setVehicleMarks: (vehicleMarks) => ({ type: SET_VEHICLE_MARKS, vehicleMarks })
+    setVehicleMarkList: (vehicleMarkList) => ({ type: SET_VEHICLE_MARK_LIST, vehicleMarkList })
 }
 
 export const requestVehicleMarkList = () => {
@@ -33,10 +33,10 @@ export const requestVehicleMarkList = () => {
         console.log("thunkdayam");
         console.log(data.results);
         console.log("thunkdayam");
-        dispatch(actions.setVehicleMarks(data.results));
+        dispatch(actions.setVehicleMarkList(data.results));
     }
 }
 
 
 
-export default vehicleMarksReducer;
+export default vehicleMarkListReducer;

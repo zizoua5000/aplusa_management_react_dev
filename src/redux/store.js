@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import vehicleMarksReducer from './Reducers/vehicleMarks_reducer'
+import vehicleMarkListReducer from './Reducers/vehicleMarkList_reducer'
 import vehicleTypesReducer from './Reducers/vehicleTypes_reducer'
 import vehicleModelListReducer from './Reducers/vehicleModelList_reducer'
 import thunkMiddleware from "redux-thunk";
@@ -7,7 +7,7 @@ import thunkMiddleware from "redux-thunk";
 
 
 let rootReducer = combineReducers({
-    vehicleMarkPage: vehicleMarksReducer,
+    vehicleMarkPage: vehicleMarkListReducer,
     vehicleTypePage: vehicleTypesReducer,
     vehicleModelPage: vehicleModelListReducer,
 })
