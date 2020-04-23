@@ -43,8 +43,8 @@ export const vehicleTypeAPI = {
 }
 
 export const vehicleModelAPI = {
-    getvehicleModel() {
-        return instance.get(`vehicle_model/list_create/`)
+    getvehicleModel(pageNumber) {
+        return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
             });

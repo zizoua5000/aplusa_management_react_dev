@@ -13,15 +13,12 @@ const vehicleTypesReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_VEHICLE_TYPES:
             {
-                console.log("reducerdeyem");
-                console.log(...state);
-                console.log("reducerdeyem");
                 return {...state, vehicleTypes: action.vehicleTypes }
             }
             case IS_FETCHING:
-                {
-                   return { ...state, isFetching:action.isFetching}
-                }
+            {
+                return { ...state, isFetching:action.isFetching}
+            }
         default:
             return state;
     }
@@ -42,7 +39,7 @@ export const requestVehicleTypes = () => {
         console.log(data);
         console.log("thunkdayam");
         dispatch(actions.setVehicleTypes(data.results));
-        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setIsFetching(false))
     }
 }
 
