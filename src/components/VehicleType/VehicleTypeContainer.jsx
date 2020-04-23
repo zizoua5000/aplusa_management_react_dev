@@ -17,11 +17,8 @@ class VehicleTypeContainer extends React.Component {
     }
 
     componentDidMount() {
-        // axios.get('http://192.168.20.142:8010/api/vehicle_type/list_create/')
-        //     .then((result) => {
-        //         this.setState({vehicleTypes:result.data})
-        //     });
         console.log('-----COMMIT TEST------')
+        // axios.get('http://192.168.20.142:8010/api/vehicle_type/list_create/')
         console.log("componentDidMountdayam")
         this.props.requestVehicleTypes();
         
