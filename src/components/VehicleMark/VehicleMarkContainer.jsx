@@ -20,7 +20,6 @@ class VehicleMarkContainer extends React.Component {
 
     render() {
         return (
-
             <VehicleMarks vehicleMarks={this.props.vehicleMarks} />
         );
     }
