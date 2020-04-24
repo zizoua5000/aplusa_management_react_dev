@@ -30,7 +30,7 @@ class VehicleTypeContainer extends React.Component {
         return (
                 <div>
                     {this.props.isFetching ? <Preloader /> : null }
-                    {this.props.setErrorMessage ? <ErrorMessage message={this.props.setErrorMessage}/> :null}
+                    {this.props.setErrorMessage ? <ErrorMessage /> :null}
                     <VehicleTypeList vehicleTypeList={this.props.vehicleTypeList} /> 
                 </div>
             );

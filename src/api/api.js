@@ -28,27 +28,15 @@ export const simcardAPI = {
 
 
 export const vehicleTypeAPI = {
-    getvehicleType(dispatch,actions) {
+    getvehicleType() {
         
         return instance.get('vehicle_type/list_create/')
             .then(response => {
                 return response.data;
             })   
-            .catch(err=> {  
-                if(err.response){
-                    console.log("response error",err)
-                    dispatch(actions.setIsFetching(false))
-                    dispatch(actions.setErrorMessage('response'))
-                } else if(err.request){
-                    console.log("request error",err)
-                    dispatch(actions.setIsFetching(false))
-                    dispatch(actions.setErrorMessage('request'))
-                } else {
-                    console.log("some dif error")
-                    dispatch(actions.setIsFetching(false))
-                }
-            
-            })       
+            .catch(error=>{
+                return 'error';
+            })   
     }
 }
 
@@ -68,3 +56,5 @@ export const jobTitleAPI = {
             });
     }
 }
+
+ 
