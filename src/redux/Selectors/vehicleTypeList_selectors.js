@@ -9,5 +9,5 @@ export const getIsFetching = (state) => {
 }
 
 export const getSetErrorMessage = (state) => {
-    return state.vehicleTypePage.error;
+    return state.vehicleTypePage.message;
 }

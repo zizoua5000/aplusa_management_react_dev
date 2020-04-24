@@ -8,7 +8,7 @@ const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 let initialState = {
     vehicleTypeList: [],
     isFetching: true,
-    error:null
+    message:null
 };
 
 const vehicleTypeListReducer = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const vehicleTypeListReducer = (state = initialState, action) => {
                 }
             case SET_ERROR_MESSAGE:
                 {
-                   return { ...state, error:action.error}
+                   return { ...state, message:action.message}
                 }
         default:
             return state;
@@ -34,7 +34,7 @@ const vehicleTypeListReducer = (state = initialState, action) => {
 export const actions = {
     setVehicleTypeList: (vehicleTypeList) => ({ type: SET_VEHICLE_TYPES, vehicleTypeList }),
     setIsFetching:(isFetching)=>({type:IS_FETCHING, isFetching}),
-    setErrorMessage:(error) => ({type:SET_ERROR_MESSAGE, error})
+    setErrorMessage:(message) => ({type:SET_ERROR_MESSAGE, message})
 }
 
 

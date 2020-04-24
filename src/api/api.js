@@ -38,11 +38,11 @@ export const vehicleTypeAPI = {
                 if(err.response){
                     console.log("response error",err)
                     dispatch(actions.setIsFetching(false))
-                    dispatch(actions.setErrorMessage(err))
-                }else if(err.request){
+                    dispatch(actions.setErrorMessage('response'))
+                } else if(err.request){
                     console.log("request error",err)
                     dispatch(actions.setIsFetching(false))
-                    dispatch(actions.setErrorMessage(err))
+                    dispatch(actions.setErrorMessage('request'))
                 } else {
                     console.log("some dif error")
                     dispatch(actions.setIsFetching(false))

@@ -25,12 +25,12 @@ class VehicleTypeContainer extends React.Component {
     render() {
         console.log("renderdeyem");
         console.log(this.props.vehicleTypeList);
-        // console.log(this.props.setErrorMessage)
+        console.log(this.props.setErrorMessage)
         console.log("renderdeyem");
         return (
                 <div>
                     {this.props.isFetching ? <Preloader /> : null }
-                    {this.props.setErrorMessage ? <ErrorMessage /> :null}
+                    {this.props.setErrorMessage ? <ErrorMessage message={this.props.setErrorMessage}/> :null}
                     <VehicleTypeList vehicleTypeList={this.props.vehicleTypeList} /> 
                 </div>
             );
