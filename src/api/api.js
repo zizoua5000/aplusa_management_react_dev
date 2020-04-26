@@ -53,8 +53,26 @@ export const vehicleTypeAPI = {
 }
 
 export const vehicleModelAPI = {
-    getvehicleModel(pageNumber) {
+    getVehicleModelList(pageNumber=1) {
         return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    createVehicleModel(formData) {
+        return instance.post(`vehicle_model/list_create/`,formData)
+            .then(response => {
+                return response.data;
+            });
+    },
+    getVehicleModel(id) {
+        return instance.get(`vehicle_model/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    updateVehicleModel(formData) {
+        return instance.put(`vehicle_model/update_delete/${formData.id}`,formData)
             .then(response => {
                 return response.data;
             });

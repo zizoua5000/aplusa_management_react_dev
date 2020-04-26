@@ -15,7 +15,7 @@ class VehicleModelContainer extends React.Component {
     }
 
     onPageChanged = (pageNumber) => {
-        const {pageSize} = this.props;
+        // const {pageSize} = this.props;
         this.props.requestVehicleModelList(pageNumber);
     }
 
