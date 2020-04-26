@@ -25,8 +25,8 @@ const vehicleTypeListReducer = (state = initialState, action) => {
                 {
                    return { ...state, message:action.message}
                 }
-        default:
-            return state;
+            default:
+                  return state;
     }
 }
 
@@ -41,15 +41,16 @@ export const actions = {
 export const requestVehicleTypeList = () => {
     return async(dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
-        let response = await vehicleTypeAPI.getvehicleType(dispatch,actions);
+        let response = await vehicleTypeAPI.getvehicleType();
         console.log("thunkdayam");
         console.log(response);
         console.log("thunkdayam");
-        if(response!=null){
-        dispatch(actions.setVehicleTypeList(response.results));
-        dispatch(actions.setIsFetching(false));
-        
-    }
+        dispatch(actions.setIsFetching(false)); 
+        if(response !== 'error'){
+        dispatch(actions.setVehicleTypeList(response.results));         
+        } else {
+        dispatch(actions.setErrorMessage(response))
+        }
     }
 }
 

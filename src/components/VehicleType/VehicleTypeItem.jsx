@@ -1,11 +1,11 @@
 import React from 'react';
 
-let VehicleTypeItem= ({vehicleTypeItem}) => {
+let VehicleTypeItem = ({ vehicleTypeItem }) => {
     return (
-        <div key={vehicleTypeItem.key}>
-            <span>{vehicleTypeItem.id}</span>
-            <span>{vehicleTypeItem.name}</span>        
-        </div>
+        <tr key={vehicleTypeItem.key}>
+            <td>{vehicleTypeItem.id}</td>
+            <td>{vehicleTypeItem.name}</td>
+        </tr>
     )
 }
 
