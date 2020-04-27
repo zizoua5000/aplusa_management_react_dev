@@ -2,11 +2,24 @@ import React from 'react';
 import VehicleTypeItem from './VehicleTypeItem';
 
 let VehicleTypeList = ({ vehicleTypeList }) => {
-    console.log(vehicleTypeList)
     return (
-        vehicleTypeList.map(vt => <VehicleTypeItem vehicleTypeItem={vt}/>
-        )
-    )     
+        <div>
+            <h2>Vehicle Type List</h2>
+            <table className="table table-default table-bordered">
+                <thead className="bg-secondary text-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        vehicleTypeList.map(vt => <VehicleTypeItem vehicleTypeItem={vt} />)
+                    }
+                </tbody>
+            </table>
+        </div>
+    )
 
 }
 

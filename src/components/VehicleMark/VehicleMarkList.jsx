@@ -2,7 +2,6 @@ import React from 'react';
 import VehicleMarkItem from './VehicleMarkItem';
 
 let VehicleMarkList = ({ vehicleMarkList }) => {
-
     return (
         <div>
             <h2>Vehicle Mark List</h2>
