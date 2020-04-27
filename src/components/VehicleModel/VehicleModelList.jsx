@@ -9,8 +9,8 @@ let VehicleModelList = ({ vehicleModelList, currentPage, pageSize, totalItemsCou
         <div >
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Vehicle Model List</h1>
-                    <NavLink to="/vehicle_model_create" className="btn btn-secondary aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle Model List</h1>
+                    <NavLink to="/vehicle_model_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
                 <table className="table table-default table-bordered text-nowrap">
                     <thead className="bg-secondary text-light">
