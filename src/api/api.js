@@ -28,8 +28,7 @@ export const simcardAPI = {
 
 
 export const vehicleTypeAPI = {
-    getvehicleType() {
-        
+    getvehicleType() {       
         return instance.get('vehicle_type/list_create/')
             .then(response => {
                 return response.data;
