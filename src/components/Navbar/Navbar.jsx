@@ -9,7 +9,7 @@ class Navbar extends React.Component {
                     <div className="sidebar-brand-icon rotate-n-15">
                     </div>
                     <div className="sidebar-brand-text mx-3">
-                        A+A Security
+                        <span className="text-info">A+A Security</span>
                         <br/>
                         Management
                     </div>

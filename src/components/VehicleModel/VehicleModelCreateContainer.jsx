@@ -33,10 +33,9 @@ class VehicleModelCreateContainer extends React.Component {
             {this.props.vehicleMarkList!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Create Vehicle Model</h1>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Create Vehicle Model</h1>
                 </div>
                 <div className="card shadow mb-4">
-                    <div className="card-header"></div>
                     <div className="card-body">
                     <VehicleModelCreateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList}/>
                     </div>
@@ -59,7 +58,7 @@ const VehicleModelForm= ({handleSubmit, error, options, initialValues}) => {
             </div>
             }
             <div>
-                <button className="btn btn-primary">Submit</button>
+                <button className="btn btn-info">Submit</button>
             </div>
         </form>
     )
