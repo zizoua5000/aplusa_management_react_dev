@@ -10,6 +10,7 @@ const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_FETCHING = "IS_FETCHING"
 const IS_CREATED = "IS_CREATED"
+const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 
 let initialState = {
     vehicleModelList: null,
@@ -18,44 +19,49 @@ let initialState = {
     currentPage: 1,
     pageSize: 10,
     totalItemsCount: 0,
-    isFetching: true,
-    isCreated:false
+    isFetching: false,
+    isCreated: false,
+    message: null
 };
 
 const vehicleModelListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_VEHICLE_MODELS:
             {
-                return {...state, vehicleModelList: action.vehicleModelList }
+                return { ...state, vehicleModelList: action.vehicleModelList }
             }
         case SET_VEHICLE_MARKS:
             {
-                return {...state, vehicleMarkList: action.vehicleMarkList }
+                return { ...state, vehicleMarkList: action.vehicleMarkList }
             }
         case SET_VEHICLE_MODEL_ITEM:
             {
-                return {...state, vehicleModelItem: action.vehicleModelItem }
-            }      
+                return { ...state, vehicleModelItem: action.vehicleModelItem }
+            }
         case SET_CURRENT_PAGE:
             {
-                return {...state, currentPage: action.currentPage}
+                return { ...state, currentPage: action.currentPage }
             }
         case SET_PAGE_SIZE:
             {
-                return {...state, pageSize: action.pageSize}
+                return { ...state, pageSize: action.pageSize }
             }
         case SET_TOTAL_ITEMS_COUNT:
             {
-                return {...state, totalItemsCount: action.totalItemsCount}
+                return { ...state, totalItemsCount: action.totalItemsCount }
             }
         case IS_FETCHING:
             {
-                return { ...state, isFetching:action.isFetching}
+                return { ...state, isFetching: action.isFetching }
+            }
+        case SET_ERROR_MESSAGE:
+            {
+                return { ...state, message: action.message }
             }
         case IS_CREATED:
             {
-                return { ...state, isCreated:action.isCreated}
-            }   
+                return { ...state, isCreated: action.isCreated }
+            }
         default:
             return state;
     }
@@ -66,26 +72,32 @@ export const actions = {
     setVehicleModelList: (vehicleModelList) => ({ type: SET_VEHICLE_MODELS, vehicleModelList }),
     setVehicleMarkList: (vehicleMarkList) => ({ type: SET_VEHICLE_MARKS, vehicleMarkList }),
     setVehicleModelItem: (vehicleModelItem) => ({ type: SET_VEHICLE_MODEL_ITEM, vehicleModelItem }),
-    setCurrentPage: (currentPage) => ({type: SET_CURRENT_PAGE, currentPage}),
-    setPageSize: (pageSize) => ({type: SET_PAGE_SIZE, pageSize}),
-    setTotalItemsCount: (totalItemsCount) => ({type: SET_TOTAL_ITEMS_COUNT, totalItemsCount}),
-    setIsFetching:(isFetching)=>({type:IS_FETCHING, isFetching}),
-    setIsCreated:(isCreated)=>({type:IS_CREATED, isCreated}),
+    setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
+    setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
+    setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
+    setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
+    setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
+    setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
 }
 
-export const requestVehicleModelList = (pageNumber=1) => {
-    return async(dispatch, getState) => {
+export const requestVehicleModelList = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
-        let data = await vehicleModelAPI.getVehicleModelList(pageNumber);
-        dispatch(actions.setVehicleModelList(data.results));
-        dispatch(actions.setTotalItemsCount(data.count));
+        let response = await vehicleModelAPI.getVehicleModelList(pageNumber);
         dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleModelList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+
     }
 }
 
 export const requestVehicleMarkList = () => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let data = await vehicleMarkAPI.getvehicleMark();
         dispatch(actions.setVehicleMarkList(data.results));
@@ -94,7 +106,7 @@ export const requestVehicleMarkList = () => {
 }
 
 export const createVehicleModel = (formData) => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let data = await vehicleModelAPI.createVehicleModel(formData);
         dispatch(actions.setIsCreated(true));
@@ -103,7 +115,7 @@ export const createVehicleModel = (formData) => {
 }
 
 export const getVehicleModelItem = (id) => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let data = await vehicleModelAPI.getVehicleModel(id);
         dispatch(actions.setVehicleModelItem(data));
@@ -113,7 +125,7 @@ export const getVehicleModelItem = (id) => {
 }
 
 export const updateVehicleModelItem = (formData) => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let data = await vehicleModelAPI.updateVehicleModel(formData);
         dispatch(actions.setIsCreated(true));

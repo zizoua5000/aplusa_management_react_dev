@@ -9,7 +9,7 @@ let VehicleTypeList = ({ vehicleTypeList }) => {
                 <thead className="bg-secondary text-light">
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th className="w-100">Name</th>
                     </tr>
                 </thead>
                 <tbody>
