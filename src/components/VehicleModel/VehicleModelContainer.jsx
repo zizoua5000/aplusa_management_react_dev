@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect, DefaultRootState } from 'react-redux';
-import {requestVehicleModelList} from '../../redux/Reducers/vehicleModelList_reducer'
-import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching} from '../../redux/Selectors/vehicleModelList_selectors'
+import swal from 'sweetalert';
+import {requestVehicleModelList, deleteVehicleModelItem} from '../../redux/Reducers/vehicleModelList_reducer';
+import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching} from '../../redux/Selectors/vehicleModelList_selectors';
 import VehicleModelList from './VehicleModelList';
-import Preloader from '../Common/Preloader/Preloader'
+import Preloader from '../Common/Preloader/Preloader';
 
 class VehicleModelContainer extends React.Component {
     constructor(props) {
@@ -48,6 +49,4 @@ let mapStateToProps = (state) => {
 }
 
 // export default compose(
-export default connect(mapStateToProps, {requestVehicleModelList})(VehicleModelContainer)
-
-// export default VehicleTypeContainer
+export default connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem})(VehicleModelContainer)

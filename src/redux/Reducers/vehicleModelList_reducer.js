@@ -121,6 +121,14 @@ export const updateVehicleModelItem = (formData) => {
     }
 }
 
+export const deleteVehicleModelItem = (id) => {
+    return async(dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let data = await vehicleModelAPI.deleteVehicleModel(id);
+        dispatch(actions.setIsFetching(false));
+    }
+}
+
 
 
 export default vehicleModelListReducer;

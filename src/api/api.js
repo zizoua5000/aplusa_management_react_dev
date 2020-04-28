@@ -48,14 +48,14 @@ export const vehicleModelAPI = {
                 return response.data;
             });
     },
-    createVehicleModel(formData) {
-        return instance.post(`vehicle_model/list_create/`,formData)
+    getVehicleModel(id) {
+        return instance.get(`vehicle_model/update_delete/${id}`)
             .then(response => {
                 return response.data;
             });
     },
-    getVehicleModel(id) {
-        return instance.get(`vehicle_model/update_delete/${id}`)
+    createVehicleModel(formData) {
+        return instance.post(`vehicle_model/list_create/`,formData)
             .then(response => {
                 return response.data;
             });
@@ -65,7 +65,14 @@ export const vehicleModelAPI = {
             .then(response => {
                 return response.data;
             });
-    }
+    },
+    deleteVehicleModel(id) {
+        return instance.delete(`vehicle_model/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+
 }
 export const jobTitleAPI = {
     getjobTitle() {
