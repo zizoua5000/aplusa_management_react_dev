@@ -7,7 +7,7 @@ const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 
 let initialState = {
     vehicleTypeList: [],
-    isFetching: true,
+    isFetching: false,
     message:null
 };
 

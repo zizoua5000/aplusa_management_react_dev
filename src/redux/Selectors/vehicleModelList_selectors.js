@@ -31,3 +31,7 @@ export const getIsFetching = (state) => {
 export const getIsCreated= (state) => {
     return state.vehicleModelPage.isCreated;
 }
+
+export const getSetErrorMessage = (state) => {
+    return state.vehicleModelPage.message;
+}

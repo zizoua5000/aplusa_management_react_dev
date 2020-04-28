@@ -15,6 +15,9 @@ export const vehicleMarkAPI = {
             .then(response => {
                 return response.data;
             })
+            .catch(error=>{
+                return 'error';
+            });
     }
 }
 
@@ -23,6 +26,9 @@ export const simcardAPI = {
         return instance.get(`simcard/list_create/`)
             .then(response => {
                 return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     }
 }
@@ -45,6 +51,9 @@ export const vehicleModelAPI = {
         return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     },
     createVehicleModel(formData) {
@@ -71,6 +80,9 @@ export const jobTitleAPI = {
         return instance.get(`job_title/list_create/`)
             .then(response => {
                 return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     }
 }
