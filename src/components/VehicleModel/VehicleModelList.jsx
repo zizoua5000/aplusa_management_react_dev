@@ -22,7 +22,7 @@ let VehicleModelList = ({ vehicleModelList, currentPage, pageSize, totalItemsCou
                         </tr>
                     </thead>
                     <tbody>
-                        {vehicleModelList.map(item => <VehicleModelItem vehicleModelItem={item} itemCount={itemCount++} />)}
+                        {vehicleModelList.map(item => <VehicleModelItem vehicleModelItem={item} itemCount={itemCount++} key={itemCount}/>)}
                     </tbody>
                 </table>
                 <div className="text-center">
