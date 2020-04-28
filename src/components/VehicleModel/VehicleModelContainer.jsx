@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect, DefaultRootState } from 'react-redux';
 import {requestVehicleModelList} from '../../redux/Reducers/vehicleModelList_reducer'
-import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching} from '../../redux/Selectors/vehicleModelList_selectors'
+import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleModelList_selectors'
 import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
+import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleModelContainer extends React.Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class VehicleModelContainer extends React.Component {
         return (  
             <div>
             { this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
+            {this.props.setErrorMessage ? <ErrorMessage /> :null}
             {this.props.vehicleModelList!=null &&
                 <VehicleModelList 
                     vehicleModelList={this.props.vehicleModelList} 
@@ -43,11 +45,10 @@ let mapStateToProps = (state) => {
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
-        isFetching:getIsFetching(state)
+        isFetching:getIsFetching(state),
+        setErrorMessage: getSetErrorMessage(state)
     }
 }
 
 // export default compose(
-export default connect(mapStateToProps, {requestVehicleModelList})(VehicleModelContainer)
-
-// export default VehicleTypeContainer
+export default connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem})(VehicleModelContainer)

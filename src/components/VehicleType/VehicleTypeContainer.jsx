@@ -9,10 +9,7 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleTypeContainer extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            vehicleTypeList:[]
-        };   
+        super(props);  
     }
 
     componentDidMount() {

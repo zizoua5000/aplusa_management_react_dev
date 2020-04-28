@@ -15,7 +15,8 @@
     "redux-form": "^8.3.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "save-dev": "0.0.1-security"
+    "save-dev": "0.0.1-security",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {},
   "scripts": {

@@ -15,6 +15,9 @@ export const vehicleMarkAPI = {
             .then(response => {
                 return response.data;
             })
+            .catch(error=>{
+                return 'error';
+            });
     }
 }
 
@@ -23,14 +26,16 @@ export const simcardAPI = {
         return instance.get(`simcard/list_create/`)
             .then(response => {
                 return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     }
 }
 
 
 export const vehicleTypeAPI = {
-    getvehicleType() {
-        
+    getvehicleType() {       
         return instance.get('vehicle_type/list_create/')
             .then(response => {
                 return response.data;
@@ -46,16 +51,19 @@ export const vehicleModelAPI = {
         return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
-            });
-    },
-    createVehicleModel(formData) {
-        return instance.post(`vehicle_model/list_create/`,formData)
-            .then(response => {
-                return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     },
     getVehicleModel(id) {
         return instance.get(`vehicle_model/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    createVehicleModel(formData) {
+        return instance.post(`vehicle_model/list_create/`,formData)
             .then(response => {
                 return response.data;
             });
@@ -65,13 +73,23 @@ export const vehicleModelAPI = {
             .then(response => {
                 return response.data;
             });
-    }
+    },
+    deleteVehicleModel(id) {
+        return instance.delete(`vehicle_model/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+
 }
 export const jobTitleAPI = {
     getjobTitle() {
         return instance.get(`job_title/list_create/`)
             .then(response => {
                 return response.data;
+            })
+            .catch(error=>{
+                return 'error';
             });
     }
 }

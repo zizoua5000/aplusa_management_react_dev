@@ -7,7 +7,7 @@ const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 
 let initialState = {
     vehicleTypeList: [],
-    isFetching: true,
+    isFetching: false,
     message:null
 };
 
@@ -39,7 +39,7 @@ export const actions = {
 
 
 export const requestVehicleTypeList = () => {
-    return async(dispatch, getState) => {
+    return async(dispatch) => {
         dispatch(actions.setIsFetching(true))
         let response = await vehicleTypeAPI.getvehicleType();
         console.log("thunkdayam");
