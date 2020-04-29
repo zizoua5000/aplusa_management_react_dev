@@ -15,7 +15,7 @@ export const vehicleMarkAPI = {
             .then(response => {
                 return response.data;
             })
-            .catch(error=>{
+            .catch(error => {
                 return 'error';
             });
     }
@@ -27,7 +27,7 @@ export const simcardAPI = {
             .then(response => {
                 return response.data;
             })
-            .catch(error=>{
+            .catch(error => {
                 return 'error';
             });
     }
@@ -35,24 +35,76 @@ export const simcardAPI = {
 
 
 export const vehicleTypeAPI = {
-    getvehicleType() {       
-        return instance.get('vehicle_type/list_create/')
+    getvehicleTypeList(pageNumber = 1) {
+        return instance.get(`vehicle_type/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
-            })   
-            .catch(error=>{
+            })
+            .catch(() => {
                 return 'error';
-            })   
-    }
+            })
+    },
+    createVehicleType(formData) {
+        return instance.post(`vehicle_type/list_create/`, formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    getVehicleType(id) {
+        return instance.get(`vehicle_type/update_delete/${id}`)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    updateVehicleType(formData) {
+        return instance.put(`vehicle_type/update_delete/${formData.id}`, formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    deleteVehicleType(id) {
+        return instance.delete(`vehicle_type/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
 }
 
 export const vehicleModelAPI = {
-    getVehicleModelList(pageNumber=1) {
+    getVehicleModelList(pageNumber = 1) {
         return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
             })
-            .catch(error=>{
+            .catch(error => {
                 return 'error';
             });
     },
@@ -63,13 +115,13 @@ export const vehicleModelAPI = {
             });
     },
     createVehicleModel(formData) {
-        return instance.post(`vehicle_model/list_create/`,formData)
+        return instance.post(`vehicle_model/list_create/`, formData)
             .then(response => {
                 return response.data;
             });
     },
     updateVehicleModel(formData) {
-        return instance.put(`vehicle_model/update_delete/${formData.id}`,formData)
+        return instance.put(`vehicle_model/update_delete/${formData.id}`, formData)
             .then(response => {
                 return response.data;
             });
@@ -88,10 +140,9 @@ export const jobTitleAPI = {
             .then(response => {
                 return response.data;
             })
-            .catch(error=>{
+            .catch(error => {
                 return 'error';
             });
     }
 }
 
- 

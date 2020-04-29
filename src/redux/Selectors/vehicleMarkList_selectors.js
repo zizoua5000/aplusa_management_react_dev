@@ -1,5 +1,5 @@
 
-export const getVehicleMarkListSelector = (state) => {
+export const getVehicleMarkList = (state) => {
     return state.vehicleMarkPage.vehicleMarkList;
 }
 export const getIsFetching = (state) => {

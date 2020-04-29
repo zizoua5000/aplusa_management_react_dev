@@ -11,3 +11,20 @@ export const getIsFetching = (state) => {
 export const getSetErrorMessage = (state) => {
     return state.vehicleTypePage.message;
 }
+export const getCurrentPage = (state) => {
+    return state.vehicleTypePage.currentPage;
+}
+
+export const getPageSize = (state) => {
+    return state.vehicleTypePage.pageSize;
+}
+
+export const getTotalItemsCount = (state) => {
+    return state.vehicleTypePage.totalItemsCount;
+}
+export const getIsCreated = (state) => {
+    return state.vehicleTypePage.isCreated;
+}
+export const getVehicleTypeItemSel = (state) => {
+    return state.vehicleTypePage.vehicleTypeItem;
+}

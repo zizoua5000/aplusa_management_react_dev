@@ -4,6 +4,8 @@ import VehicleTypeContainer from '../VehicleType/VehicleTypeContainer'
 import VehicleModelContainer from '../VehicleModel/VehicleModelContainer'
 import VehicleModelCreateContainer from '../VehicleModel/VehicleModelCreateContainer'
 import VehicleModelUpdateContainer from '../VehicleModel/VehicleModelUpdateContainer'
+import VehicleTypeCreateContainer from '../VehicleType/VehicleTypeCreateContainer'
+import VehicleTypeUpdateContainer from '../VehicleType/VehicleTypeUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -22,7 +24,8 @@ class Content extends React.Component {
                         <Route path='/vehicle_model' render={() => <VehicleModelContainer />}></Route>
                         <Route path='/vehicle_model_create' render={() => <VehicleModelCreateContainer />}></Route>
                         <Route path='/vehicle_model_update/:id?' render={() => <VehicleModelUpdateContainer />}></Route>
-                        
+                        <Route path='/vehicle_type_create' render={() => <VehicleTypeCreateContainer />}></Route>
+                        <Route path='/vehicle_type_update/:id?' render={() => <VehicleTypeUpdateContainer />}></Route>
                     </div>
                 </div>
                 <Footer />

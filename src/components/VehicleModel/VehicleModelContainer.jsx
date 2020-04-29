@@ -51,4 +51,4 @@ let mapStateToProps = (state) => {
 }
 
 // export default compose(
-export default connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem})(VehicleModelContainer)
+export default connect(mapStateToProps, {requestVehicleModelList})(VehicleModelContainer)
