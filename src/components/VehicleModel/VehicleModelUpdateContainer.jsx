@@ -83,8 +83,6 @@ const mapStateToProps = (state) => ({
     currentPage:getCurrentPage(state)
 })
 
-// export default connect(mapStateToProps, { getVehicleModelItem, updateVehicleModelItem, requestVehicleMarkList})(VehicleModelUpdateContainer);
-
 export default compose(
     connect(mapStateToProps, { getVehicleModelItem, updateVehicleModelItem, requestVehicleMarkList}),
     withRouter
