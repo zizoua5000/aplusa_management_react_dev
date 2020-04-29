@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Paginator from "../Common/Paginator/Paginator";
 import VehicleModelItem from './VehicleModelItem';
 
-let VehicleModelList = ({ vehicleModelList, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
+let VehicleModelList = ({ vehicleModelList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     return (
         <div >
@@ -22,7 +22,7 @@ let VehicleModelList = ({ vehicleModelList, currentPage, pageSize, totalItemsCou
                         </tr>
                     </thead>
                     <tbody>
-                        {vehicleModelList.map(item => <VehicleModelItem vehicleModelItem={item} itemCount={itemCount++} />)}
+                        {vehicleModelList.map(item => <VehicleModelItem vehicleModelItem={item} deleteItem={deleteItem} itemCount={itemCount++} />)}
                     </tbody>
                 </table>
                 <div className="text-center">

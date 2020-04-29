@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect, DefaultRootState } from 'react-redux';
-import {requestVehicleModelList} from '../../redux/Reducers/vehicleModelList_reducer'
+import {Redirect, withRouter} from "react-router-dom";
+import {compose} from "redux";
+import swal from 'sweetalert';
+import {requestVehicleModelList, deleteVehicleModelItem} from '../../redux/Reducers/vehicleModelList_reducer'
 import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleModelList_selectors'
 import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
@@ -12,22 +15,58 @@ class VehicleModelContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.requestVehicleModelList();   
+        let pageNumber = this.props.match.params.pageNumber;
+        this.props.requestVehicleModelList(pageNumber);   
     }
 
     onPageChanged = (pageNumber) => {
-        // const {pageSize} = this.props;
         this.props.requestVehicleModelList(pageNumber);
+    }
+
+    deleteItem=(id)=>{
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                let niko=this.props.deleteVehicleModelItem(id)
+                console.log(niko)
+                niko.then(res => {
+                        swal("Deleted", {
+                        icon: "success",
+                    })
+                    this.props.requestVehicleModelList(this.props.currentPage);
+                })
+                .catch(err => { 
+                    if (!err.response){
+                        swal("Network error", {
+                            icon: "warning",
+                        })
+                    }else{
+                        swal(err.response.data, {
+                            icon: "warning",
+                        })
+                    }    
+                  });
+            } else {
+                swal("Is safe!");
+            }
+          });
     }
 
     render() {
         return (  
             <div>
-            { this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
+            {this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
             {this.props.setErrorMessage ? <ErrorMessage /> :null}
             {this.props.vehicleModelList!=null &&
                 <VehicleModelList 
                     vehicleModelList={this.props.vehicleModelList} 
+                    deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalItemsCount={this.props.totalItemsCount}
@@ -50,5 +89,9 @@ let mapStateToProps = (state) => {
     }
 }
 
-// export default compose(
-export default connect(mapStateToProps, {requestVehicleModelList})(VehicleModelContainer)
+// export default connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem})(VehicleModelContainer)
+
+export default compose(
+    connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem}),
+    withRouter
+)(VehicleModelContainer);

@@ -4,11 +4,10 @@ import {createField, Input, Select} from "../Common/FormsControls/FormsControls"
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {createVehicleModel, requestVehicleMarkList} from "../../redux/Reducers/vehicleModelList_reducer";
-import {getIsCreated,getVehicleMarkList, getIsFetching} from '../../redux/Selectors/vehicleModelList_selectors';
+import {getIsCreated,getVehicleMarkList, getIsFetching,getCurrentPage} from '../../redux/Selectors/vehicleModelList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
-// import {AppStateType} from '../../redux/redux-store';
 
 class VehicleModelCreateContainer extends React.Component {
     constructor(props) {
@@ -25,7 +24,7 @@ class VehicleModelCreateContainer extends React.Component {
 
     render() {
         if (this.props.isCreated) {
-            return <Redirect to={"/vehicle_model"}/>
+            return <Redirect to={`/vehicle_model/${this.props.currentPage}`}/>
         }
         return (
             <div>
@@ -33,10 +32,9 @@ class VehicleModelCreateContainer extends React.Component {
             {this.props.vehicleMarkList!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Create Vehicle Model</h1>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Create Vehicle Model</h1>
                 </div>
                 <div className="card shadow mb-4">
-                    <div className="card-header"></div>
                     <div className="card-body">
                     <VehicleModelCreateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList}/>
                     </div>
@@ -59,7 +57,7 @@ const VehicleModelForm= ({handleSubmit, error, options, initialValues}) => {
             </div>
             }
             <div>
-                <button className="btn btn-primary">Submit</button>
+                <button className="btn btn-info">Submit</button>
             </div>
         </form>
     )
@@ -72,7 +70,8 @@ const VehicleModelCreateReduxForm = reduxForm({form: 'vehicleModelCreate', initi
 const mapStateToProps = (state) => ({
     vehicleMarkList: getVehicleMarkList(state),
     isCreated: getIsCreated(state),
-    isFetching: getIsFetching(state)
+    isFetching: getIsFetching(state),
+    currentPage:getCurrentPage(state)
 })
 
 export default connect(mapStateToProps, {createVehicleModel, requestVehicleMarkList})(VehicleModelCreateContainer);

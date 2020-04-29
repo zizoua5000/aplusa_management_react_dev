@@ -15,13 +15,13 @@ class Content extends React.Component {
         return (
             <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
-                    <div className="container-fluid pt-5 px-3">
+                    <div className="container-fluid pt-3 px-3">
                         
                         <Route path='/vehicle_mark' render={() => <VehicleMarkContainer />}></Route>
                         
                         <Route path='/vehicle_type' render={() => <VehicleTypeContainer />}></Route>
                         
-                        <Route path='/vehicle_model' render={() => <VehicleModelContainer />}></Route>
+                        <Route path='/vehicle_model/:pageNumber?' render={() => <VehicleModelContainer />}></Route>
                         <Route path='/vehicle_model_create' render={() => <VehicleModelCreateContainer />}></Route>
                         <Route path='/vehicle_model_update/:id?' render={() => <VehicleModelUpdateContainer />}></Route>
                         <Route path='/vehicle_type_create' render={() => <VehicleTypeCreateContainer />}></Route>
