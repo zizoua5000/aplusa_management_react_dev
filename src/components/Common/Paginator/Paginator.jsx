@@ -7,8 +7,6 @@ let Paginator = ({totalItemsCount, pageSize,
                                       currentPage,
                                       onPageChanged,
                                       portionSize = 10}) => {
-
-    console.log("==========Paginator=============") 
                                   
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
@@ -22,15 +20,6 @@ let Paginator = ({totalItemsCount, pageSize,
    
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
-
-    console.log(portionNumber)
-    console.log(portionCount)
-  
-
-    console.log("==========Paginator=============") 
-  
-
-     
 
     return <div className={cn(styles.paginator)}>
         { portionNumber > 1 &&

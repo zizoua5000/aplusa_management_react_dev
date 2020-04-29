@@ -72,13 +72,11 @@ export const vehicleModelAPI = {
         return instance.put(`vehicle_model/update_delete/${formData.id}`,formData)
             .then(response => {
                 return response.data;
-            });
+            })
+          
     },
     deleteVehicleModel(id) {
         return instance.delete(`vehicle_model/update_delete/${id}`)
-            .then(response => {
-                return response.data;
-            });
     },
 
 }

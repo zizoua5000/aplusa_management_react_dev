@@ -82,6 +82,8 @@ export const actions = {
 
 export const requestVehicleModelList = (pageNumber = 1) => {
     return async (dispatch, getState) => {
+        dispatch(actions.setErrorMessage(null));
+        dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
         let response = await vehicleModelAPI.getVehicleModelList(pageNumber);
@@ -135,12 +137,8 @@ export const updateVehicleModelItem = (formData) => {
 
 export const deleteVehicleModelItem = (id) => {
     return async(dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let data = await vehicleModelAPI.deleteVehicleModel(id);
-        dispatch(actions.setIsFetching(false));
+        let response = await vehicleModelAPI.deleteVehicleModel(id);
     }
 }
-
-
 
 export default vehicleModelListReducer;
