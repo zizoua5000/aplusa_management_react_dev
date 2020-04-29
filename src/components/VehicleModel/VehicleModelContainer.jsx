@@ -95,4 +95,3 @@ export default compose(
     connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem}),
     withRouter
 )(VehicleModelContainer);
-)(VehicleModelContainer);
