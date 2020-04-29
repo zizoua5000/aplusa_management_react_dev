@@ -101,7 +101,7 @@ export const requestVehicleModelList = (pageNumber = 1) => {
 export const requestVehicleMarkList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.getvehicleMark();
+        let data = await vehicleMarkAPI.getVehicleMarkList()
         dispatch(actions.setVehicleMarkList(data.results));
         dispatch(actions.setIsFetching(false));
     }

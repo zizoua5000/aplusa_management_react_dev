@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     // withCredentials: true,
-    baseURL: 'http://192.168.20.142:8010/api/',
+     baseURL: 'http://192.168.20.142:8010/api/',
     // baseURL: 'http://127.0.0.1:8000/api/',
     // headers: {
     //     "API-KEY": "+*=#fk6hal!1g=97b%(2obmvq&&9l-h4rprwsq#1g5()hodm@j"
@@ -10,19 +10,44 @@ const instance = axios.create({
 });
 
 export const vehicleMarkAPI = {
-    getvehicleMark() {
-        return instance.get('vehicle_mark/list_create/')
+
+    getVehicleMarkList(pageNumber=1) {
+        return instance.get(`vehicle_mark/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
             })
             .catch(error=>{
                 return 'error';
             });
-    }
+    },
+    getVehicleMark(id) {
+        return instance.get(`vehicle_mark/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
+    createVehicleMark(formData) {
+        return instance.post(`vehicle_mark/list_create/`,formData)
+            .then(response => {
+                return response.data;
+            });
+    },
+    updateVehicleMark(formData) {
+        return instance.put(`vehicle_mark/update_delete/${formData.id}`,formData)
+            .then(response => {
+                return response.data;
+            });
+    },
+    deleteVehicleMark(id) {
+        return instance.delete(`vehicle_mark/update_delete/${id}`)
+            .then(response => {
+                return response.data;
+            });
+    },
 }
 
 export const simcardAPI = {
-    getsimcard() {
+    getSimcard() {
         return instance.get(`simcard/list_create/`)
             .then(response => {
                 return response.data;
@@ -35,7 +60,7 @@ export const simcardAPI = {
 
 
 export const vehicleTypeAPI = {
-    getvehicleType() {       
+    getVehicleType() {       
         return instance.get('vehicle_type/list_create/')
             .then(response => {
                 return response.data;
@@ -81,7 +106,7 @@ export const vehicleModelAPI = {
 
 }
 export const jobTitleAPI = {
-    getjobTitle() {
+    getJobTitle() {
         return instance.get(`job_title/list_create/`)
             .then(response => {
                 return response.data;

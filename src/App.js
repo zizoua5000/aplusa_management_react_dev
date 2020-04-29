@@ -16,7 +16,6 @@ class App extends React.Component {
 
                     <div id="wrapper" >
                         <Navbar />
-                        
                         <Content />           
                     </div>
                 </Provider>
