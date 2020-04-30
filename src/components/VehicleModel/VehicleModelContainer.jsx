@@ -33,9 +33,8 @@ class VehicleModelContainer extends React.Component {
           })
           .then((willDelete) => {
             if (willDelete) {
-                let niko=this.props.deleteVehicleModelItem(id)
-                console.log(niko)
-                niko.then(res => {
+                let respone=this.props.deleteVehicleModelItem(id)
+                respone.then(res => {
                         swal("Deleted", {
                         icon: "success",
                     })
