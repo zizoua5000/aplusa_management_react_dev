@@ -5,14 +5,14 @@ import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {getVehicleTypeItem,updateVehicleTypeItem} from "../../redux/Reducers/vehicleTypeList_reducer";
-import {getIsCreated, getVehicleTypeItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
+import {getSimcardItem,updateSimcardItem} from "../../redux/Reducers/simcardList_reducer";
+import {getIsCreated, getSimcardItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/simcardList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
 // import {AppStateType} from '../../redux/redux-store';
 
-class VehicleTypeUpdateContainer extends React.Component {
+class SimcardUpdateContainer extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -20,31 +20,31 @@ class VehicleTypeUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         console.log("DIDIDDIIDIDIDIDIDI")
-        this.props.getVehicleTypeItem(id);
+        this.props.getSimcardItem(id);
     }
 
     onSubmit = (formData) => {
-        this.props.updateVehicleTypeItem(formData);
+        this.props.updateSimcardItem(formData);
     }
  
     render() {
-        console.log(this.props.vehicleTypeItem)
+        console.log(this.props.simcardItem)
         if (this.props.isCreated) {
-            return <Redirect to={"/vehicle_type"}/>
+            return <Redirect to={"/simcard"}/>
         }
         return (
             <div>
-            {this.props.isFetching && this.props.vehicleTypeItem==null? <Preloader /> : null }
+            {this.props.isFetching && this.props.simcardItem==null? <Preloader /> : null }
             {this.props.setErrorMessage && <ErrorMessage />}
-            {this.props.vehicleTypeItem!=null &&
+            {this.props.simcardItem!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Update Vehicle Type</h1>
+                    <h1 className="h3 mb-0 text-gray-800">Update Simcard</h1>
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-header"></div>
                     <div className="card-body">
-                    <VehicleTypeUpdateReduxForm onSubmit={this.onSubmit} instance={this.props.vehicleTypeItem}/>
+                    <SimcardUpdateReduxForm onSubmit={this.onSubmit} instance={this.props.simcardItem}/>
                     </div>
                 </div>
             </>
@@ -54,7 +54,7 @@ class VehicleTypeUpdateContainer extends React.Component {
     }
 }
 
-const VehicleTypeForm= ({handleSubmit, error,instance, initialValues}) => {
+const SimcardForm= ({handleSubmit, error,instance, initialValues}) => {
     initialValues.id=instance.id
     initialValues.name=instance.name
     return (
@@ -72,13 +72,13 @@ const VehicleTypeForm= ({handleSubmit, error,instance, initialValues}) => {
     )
 }
 
-const VehicleTypeUpdateReduxForm = reduxForm({form: 'vehicleTypeUpdate', initialValues: {
+const SimcardUpdateReduxForm = reduxForm({form: 'simcardUpdate', initialValues: {
     id:"",
     name:"",
-}})(VehicleTypeForm)
+}})(SimcardForm)
 
 const mapStateToProps = (state) => ({
-    vehicleTypeItem: getVehicleTypeItemSel(state),
+    simcardItem: getSimcardItemSel(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     setErrorMessage: getSetErrorMessage(state)
@@ -87,6 +87,6 @@ const mapStateToProps = (state) => ({
 // export default connect(mapStateToProps, { getVehicleModelItem, updateVehicleModelItem, requestVehicleMarkList})(VehicleModelUpdateContainer);
 
 export default compose(
-    connect(mapStateToProps, { getVehicleTypeItem, updateVehicleTypeItem}),
+    connect(mapStateToProps, { getSimcardItem, updateSimcardItem}),
     withRouter
-)(VehicleTypeUpdateContainer);
+)(SimcardUpdateContainer);
