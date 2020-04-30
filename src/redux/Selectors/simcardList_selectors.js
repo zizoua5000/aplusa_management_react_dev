@@ -1,7 +1,7 @@
 // import {createSelector} from "reselect";
 
 export const getSimcardList = (state) => {
-    return state.SimcardPage.simcardList;
+    return state.simcardPage.simcardList;
 }
 
 export const getIsFetching = (state) => {

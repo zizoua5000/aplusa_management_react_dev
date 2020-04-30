@@ -7,6 +7,8 @@ import VehicleModelUpdateContainer from '../VehicleModel/VehicleModelUpdateConta
 import VehicleTypeCreateContainer from '../VehicleType/VehicleTypeCreateContainer'
 import VehicleTypeUpdateContainer from '../VehicleType/VehicleTypeUpdateContainer'
 import SimcardContainer from '../Simcard/SimcardContainer'
+import SimcardCreateContainer from '../Simcard/SimcardCreateContainer'
+import SimcardUpdateContainer from '../Simcard/SimcardUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -26,6 +28,8 @@ class Content extends React.Component {
                         <Route path='/vehicle_type_create' render={() => <VehicleTypeCreateContainer />}></Route>
                         <Route path='/vehicle_type_update/:id?' render={() => <VehicleTypeUpdateContainer />}></Route>
                         <Route path='/simcard' render={() => <SimcardContainer />}></Route>
+                        <Route path='/simcard_create' render={() => <SimcardCreateContainer />}></Route>
+                        <Route path='/simcard_update/:id?' render={() => <SimcardUpdateContainer />}></Route>
 
                     </div>
                 </div>

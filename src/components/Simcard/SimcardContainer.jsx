@@ -27,7 +27,7 @@ class SimcardContainer extends React.Component {
                 {this.props.isFetching && this.props.simcardList == null ? <Preloader /> : null}
                 {this.props.setErrorMessage && <ErrorMessage />}
                 {this.props.simcardList != null &&
-                    < SimcardList simcardList={this.props.simcardList}
+                    <SimcardList simcardList={this.props.simcardList}
                         currentPage={this.props.currentPage}
                         pageSize={this.props.pageSize}
                         totalItemsCount={this.props.totalItemsCount}

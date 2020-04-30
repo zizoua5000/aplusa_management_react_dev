@@ -56,11 +56,17 @@ class SimcardUpdateContainer extends React.Component {
 
 const SimcardForm= ({handleSubmit, error,instance, initialValues}) => {
     initialValues.id=instance.id
-    initialValues.name=instance.name
+    initialValues.number=instance.number
+    initialValues.package=instance.package
+    initialValues.is_active=instance.is_active
+    initialValues.has_roumnig=instance.has_roumnig
     return (
         <form onSubmit={handleSubmit}>
             {createField(null, 'id',[required],Input,null,null,'hidden')}
-            {createField('Name', 'name',[required],Input,'Name')}
+            {createField('Simcard', 'number',[required],Input,'Simcard')}
+            {createField('Package', 'package',[required],Input,'Package')}
+            {createField('Status', 'is_active',[required],Input,'Status')}
+            {createField('Rouming', 'has_roumnig',[required],Input,'Rouming')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

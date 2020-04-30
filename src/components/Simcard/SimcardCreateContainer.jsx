@@ -1,12 +1,12 @@
 import React , { useState } from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
-import {required} from "../../utils/validators/validators";
-import {connect} from "./node_modules/react-redux";
-import {createSimcard} from "../../redux/Reducers/simcardList_reducer";
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {createField, Input, Select} from '../Common/FormsControls/FormsControls';
+import {required} from '../../utils/validators/validators';
+import {connect} from 'react-redux';
+import {createSimcard} from '../../redux/Reducers/simcardList_reducer';
 import {getIsCreated, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/simcardList_selectors';
-import {Redirect} from "./node_modules/react-router-dom";
-import style from "./../Common/FormsControls/FormsControls.module.css";
+import {Redirect} from 'react-router-dom';
+import style from '../Common/FormsControls/FormsControls.module.css';
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 // import {AppStateType} from '../../redux/redux-store';
@@ -51,7 +51,10 @@ const SimcardForm= ({handleSubmit, error, options}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            {createField('Name', 'name',[required],Input,'Name')}
+            {createField('Simcard', 'number',[required],Input,'Simcard')}
+            {createField('Package', 'package',[required],Input,'Package')}
+            {createField('Status', 'is_active',[required],Input,'Status')}
+            {createField('Rouming', 'has_roumnig',[required],Input,'Rouming')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>}   
