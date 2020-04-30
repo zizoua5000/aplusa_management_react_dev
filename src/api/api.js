@@ -47,7 +47,7 @@ export const vehicleMarkAPI = {
 }
 
 export const simcardAPI = {
-    getSimcard() {
+    getSimcardList() {
         return instance.get(`simcard/list_create/`)
             .then(response => {
                 return response.data;

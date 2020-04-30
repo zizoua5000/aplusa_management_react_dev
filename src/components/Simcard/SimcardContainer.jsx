@@ -1,34 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { requestVehicleTypeList } from '../../redux/Reducers/vehicleTypeList_reducer';
-import VehicleTypeList from './VehicleTypeList';
-import { getVehicleTypeList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getSetErrorMessage } from '../../redux/Selectors/vehicleTypeList_selectors';
+import { requestSimcardList } from '../../redux/Reducers/simcardList_reducer';
+import SimcardList from './SimcardList';
+import { getSimcardList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getSetErrorMessage } from '../../redux/Selectors/simcardList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
-
-class VehicleTypeContainer extends React.Component {
+class SimcardContainer extends React.Component {
 
     componentDidMount() {
         console.log("componentDidMountdayam")
-        this.props.requestVehicleTypeList();
+        this.props.requestSimcardList();
     }
     onPageChanged = (pageNumber) => {
         // const {pageSize} = this.props;
-        this.props.requestVehicleTypeList(pageNumber);
+        this.props.requestSimcardList(pageNumber);
     }
 
     render() {
         console.log("renderdeyem");
-        console.log(this.props.vehicleTypeList);
+        console.log(this.props.simcardList);
         console.log(this.props.setErrorMessage)
         console.log("renderdeyem");
         return (
             <div>
-                {this.props.isFetching && this.props.vehicleTypeList == null ? <Preloader /> : null}
+                {this.props.isFetching && this.props.simcardList == null ? <Preloader /> : null}
                 {this.props.setErrorMessage && <ErrorMessage />}
-                {this.props.vehicleTypeList != null &&
-                    < VehicleTypeList vehicleTypeList={this.props.vehicleTypeList}
+                {this.props.simcardList != null &&
+                    < SimcardList simcardList={this.props.simcardList}
                         currentPage={this.props.currentPage}
                         pageSize={this.props.pageSize}
                         totalItemsCount={this.props.totalItemsCount}
@@ -42,7 +41,7 @@ class VehicleTypeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        vehicleTypeList: getVehicleTypeList(state),
+        simcardList: getSimcardList(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
@@ -51,4 +50,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { requestVehicleTypeList })(VehicleTypeContainer)
+export default connect(mapStateToProps, { requestSimcardList })(SimcardContainer)
