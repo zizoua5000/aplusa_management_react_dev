@@ -86,6 +86,7 @@ export const requestVehicleModelList = (pageNumber = 1) => {
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setVehicleModelList(null));
         let response = await vehicleModelAPI.getVehicleModelList(pageNumber);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
