@@ -107,6 +107,7 @@ export const createSimcard = (formData) => {
             dispatch(actions.setErrorMessage(null))
             dispatch(actions.setIsCreated(true));
         } else {
+            console.log('----STOP SUBMIT-----')
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('simcardCreate', response.data))
         }

@@ -10,7 +10,7 @@ let SimcardList = ({ simcardList, currentPage, pageSize, totalItemsCount, onPage
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Simcard List</h1>
-                    <NavLink to="/vehicle_type_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <NavLink to="/simcard_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
                 <table className="table table-default table-bordered text-nowrap">
                     <thead className="bg-secondary text-light">
@@ -18,6 +18,9 @@ let SimcardList = ({ simcardList, currentPage, pageSize, totalItemsCount, onPage
                             <th>#</th>
                             <th></th>
                             <th className="w-100">Simcard</th>
+                            <th className="w-100">Package</th>
+                            <th className="w-100">Active</th>
+                            <th className="w-100">Rouming</th>                       
                         </tr>
                     </thead>
                     <tbody>
