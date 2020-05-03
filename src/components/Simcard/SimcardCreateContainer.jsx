@@ -13,13 +13,6 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 // import {AppStateType} from '../../redux/redux-store';
 
 class SimcardCreateContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    // componentDidMount() {
-    //     this.props.requestsimcardList();
-    // }
 
     onSubmit = (formData) => {
         if(formData.is_active==null){
@@ -28,16 +21,11 @@ class SimcardCreateContainer extends React.Component {
         if(formData.has_roumnig==null){
             formData.has_roumnig=false;
         }
-        this.props.createSimcard(formData);
-        console.log(formData)
-        
+        this.props.createSimcard(formData);        
     }
 
     render() {
-        // console.log(this.props.setErrorMessage)
         if (this.props.isCreated) {
-            console.log("SIMCARD CREATE CONTAINER")
-            // custom_success_alert();
             return <Redirect to={`/simcard/${this.props.currentPage}`}/>
         }
         return (

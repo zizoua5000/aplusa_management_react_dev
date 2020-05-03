@@ -14,7 +14,6 @@ class VehicleModelUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         this.props.requestVehicleMarkList();
-        console.log("Vehicle Model UPDATE DIDMOUNT")
         this.props.getVehicleModelItem(id);
     }
 

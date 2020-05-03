@@ -21,7 +21,6 @@ let initialState = {
     pageSize: 10,
     totalItemsCount: 0,
     isCreated: false,
-    message: null
 };
 
 const vehicleTypeListReducer = (state = initialState, action) => {
@@ -79,14 +78,14 @@ export const actions = {
 export const requestVehicleTypeList = (pageNumber = 1) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         let response = await vehicleTypeAPI.getvehicleTypeList(pageNumber);
         console.log("thunkdayam type");
         console.log(response);
         console.log("thunkdayam type");
         dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setErrorMessage(null))
+        if (response !== 'error') {     
             dispatch(actions.setVehicleTypeList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
@@ -119,12 +118,12 @@ export const getVehicleTypeItem = (id) => {
         let response = await vehicleTypeAPI.getVehicleType(id);
         console.log(response)
         dispatch(actions.setIsFetching(false));
+        dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
             dispatch(actions.setVehicleTypeItem(response.data));
-            dispatch(actions.setIsCreated(false));
         } else {
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('vehicleTypeUpdate', response.data))

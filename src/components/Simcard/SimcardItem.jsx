@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 let SimcardItem = ({ simcardItem, deleteItem, itemCount}) => {
-    // console.log(simcardItem)
     return (
         <tr key={simcardItem.id}>
             <td>{itemCount}</td>

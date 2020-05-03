@@ -1,4 +1,5 @@
 import { vehicleModelAPI, vehicleMarkAPI } from "../../api/api";
+import { stopSubmit } from "redux-form";
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
@@ -102,43 +103,76 @@ export const requestVehicleModelList = (pageNumber = 1) => {
 export const requestVehicleMarkList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.getVehicleMarkList()
-        dispatch(actions.setVehicleMarkList(data.results));
+        let response = await vehicleMarkAPI.getVehicleMarkList()
         dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleMarkList(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+        
+
     }
 }
 
 export const createVehicleModel = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleModelAPI.createVehicleModel(formData);
-        dispatch(actions.setIsCreated(true));
+        let response = await vehicleModelAPI.createVehicleModel(formData);
         dispatch(actions.setIsFetching(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 201) {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(actions.setIsCreated(true));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleModelCreate', response.data))
+        }
     }
 }
 
 export const getVehicleModelItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleModelAPI.getVehicleModel(id);
-        dispatch(actions.setVehicleModelItem(data));
+        let response = await vehicleModelAPI.getVehicleModel(id);
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 200) {
+            dispatch(actions.setErrorMessage(null));
+            dispatch(actions.setVehicleModelItem(response.data));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleModelUpdate', response.data))
+        }
+
     }
 }
 
 export const updateVehicleModelItem = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleModelAPI.updateVehicleModel(formData);
-        dispatch(actions.setIsCreated(true));
+        let response = await vehicleModelAPI.updateVehicleModel(formData);
         dispatch(actions.setIsFetching(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 200) {
+            dispatch(actions.setErrorMessage(null));
+            dispatch(actions.setIsCreated(true));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleModelUpdate', response.data))
+        }
     }
 }
 
 export const deleteVehicleModelItem = (id) => {
     return async(dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
         let response = await vehicleModelAPI.deleteVehicleModel(id);
+        dispatch(actions.setIsFetching(false));
     }
 }
 

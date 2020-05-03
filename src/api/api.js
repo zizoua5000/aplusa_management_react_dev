@@ -179,20 +179,41 @@ export const vehicleModelAPI = {
     getVehicleModel(id) {
         return instance.get(`vehicle_model/update_delete/${id}`)
             .then(response => {
-                return response.data;
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
             });
     },
     createVehicleModel(formData) {
         return instance.post(`vehicle_model/list_create/`, formData)
             .then(response => {
-                return response.data;
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
             });
     },
     updateVehicleModel(formData) {
         return instance.put(`vehicle_model/update_delete/${formData.id}`, formData)
             .then(response => {
-                return response.data;
+                return response;
             })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
           
     },
     deleteVehicleModel(id) {

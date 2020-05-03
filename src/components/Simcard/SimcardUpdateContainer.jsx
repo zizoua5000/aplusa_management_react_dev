@@ -90,9 +90,6 @@ const mapStateToProps = (state) => ({
     
 })
 
-// export default connect(mapStateToProps, { getVehicleModelItem, updateVehicleModelItem, requestVehicleMarkList})(VehicleModelUpdateContainer);
-
 export default compose(
-    connect(mapStateToProps, { getSimcardItem, updateSimcardItem}),
-    withRouter
+    connect(mapStateToProps, { getSimcardItem, updateSimcardItem}),withRouter
 )(SimcardUpdateContainer);

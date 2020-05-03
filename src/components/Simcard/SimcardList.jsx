@@ -1,6 +1,5 @@
 import React from 'react';
 import SimcardItem from './SimcardItem';
-import { NavLink } from 'react-router-dom';
 import Paginator from "../Common/Paginator/Paginator";
 
 let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
@@ -8,10 +7,6 @@ let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCo
      return  (
         <div >
             <div>
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800 text-info">Simcard List</h1>
-                    <NavLink to="/simcard_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
-                </div>
                 <table className="table table-default table-bordered text-nowrap">
                     <thead className="bg-secondary text-light">
                         <tr>
