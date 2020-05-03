@@ -1,9 +1,8 @@
-import React , { useState } from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import React from 'react';
+import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
-import {custom_success_alert} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {compose} from "redux";
 import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
 import {getVehicleModelItem,updateVehicleModelItem, requestVehicleMarkList} from "../../redux/Reducers/vehicleModelList_reducer";
@@ -12,10 +11,6 @@ import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 
 class VehicleModelUpdateContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         let id = this.props.match.params.id;
         this.props.requestVehicleMarkList();
@@ -31,7 +26,6 @@ class VehicleModelUpdateContainer extends React.Component {
         console.log(this.props.VehicleModelItem)
 
         if (this.props.isCreated) {
-            custom_success_alert();
             return <Redirect to={`/vehicle_model/${this.props.currentPage}`}/>
         }
         return (

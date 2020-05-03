@@ -93,7 +93,7 @@ export const Select = (props) => {
     // debugger
     return <FormControl {...props}>
             <select {...input} {...restProps}>
-                {options.map(item=> <option value={item.id} selected>{item.name}</option>)}
+{options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
             </select>
         </FormControl>
 }

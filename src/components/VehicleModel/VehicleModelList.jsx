@@ -8,10 +8,6 @@ let VehicleModelList = ({ vehicleModelList, deleteItem, currentPage, pageSize, t
     return (
         <div >
             <div>
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle Model List</h1>
-                    <NavLink to="/vehicle_model_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
-                </div>
                 <table className="table table-default table-bordered text-nowrap">
                     <thead className="bg-secondary text-light">
                         <tr>
@@ -22,7 +18,7 @@ let VehicleModelList = ({ vehicleModelList, deleteItem, currentPage, pageSize, t
                         </tr>
                     </thead>
                     <tbody>
-                        {vehicleModelList.map(item => <VehicleModelItem vehicleModelItem={item} deleteItem={deleteItem} itemCount={itemCount++} />)}
+                        {vehicleModelList.map((item, key) => <VehicleModelItem vehicleModelItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                     </tbody>
                 </table>
                 <div className="text-center">
