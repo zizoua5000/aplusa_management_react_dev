@@ -1,10 +1,11 @@
 import React , { useState } from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
-import {createField, Input, Select} from '../Common/FormsControls/FormsControls';
+import {createField, Input, ToggleStatus,ToggleRouming} from "../Common/FormsControls/FormsControls";
 import {required} from '../../utils/validators/validators';
 import {connect} from 'react-redux';
 import {createSimcard} from '../../redux/Reducers/simcardList_reducer';
-import {getIsCreated, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/simcardList_selectors';
+import {custom_success_alert} from "../../utils/custom_sweet_alert/custom_sweet_alert";
+import {getIsCreated, getIsFetching,getSetErrorMessage,getCurrentPage} from '../../redux/Selectors/simcardList_selectors';
 import {Redirect} from 'react-router-dom';
 import style from '../Common/FormsControls/FormsControls.module.css';
 import Preloader from '../Common/Preloader/Preloader';
@@ -21,13 +22,23 @@ class SimcardCreateContainer extends React.Component {
     // }
 
     onSubmit = (formData) => {
+        if(formData.is_active==null){
+            formData.is_active=true;
+        }
+        if(formData.has_roumnig==null){
+            formData.has_roumnig=false;
+        }
         this.props.createSimcard(formData);
+        console.log(formData)
+        
     }
 
     render() {
-        console.log(this.props.setErrorMessage)
+        // console.log(this.props.setErrorMessage)
         if (this.props.isCreated) {
-            return <Redirect to={"/simcard"}/>
+            console.log("SIMCARD CREATE CONTAINER")
+            // custom_success_alert();
+            return <Redirect to={`/simcard/${this.props.currentPage}`}/>
         }
         return (
             <div>
@@ -47,14 +58,14 @@ class SimcardCreateContainer extends React.Component {
     }
 }
 
-const SimcardForm= ({handleSubmit, error, options}) => {
+const SimcardForm= ({handleSubmit, error}) => {
 
     return (
         <form onSubmit={handleSubmit}>
             {createField('Simcard', 'number',[required],Input,'Simcard')}
             {createField('Package', 'package',[required],Input,'Package')}
-            {createField('Status', 'is_active',[required],Input,'Status')}
-            {createField('Rouming', 'has_roumnig',[required],Input,'Rouming')}
+            {createField('Rouming', 'has_roumnig',[],ToggleRouming,'Rouming',null,'checkbox')}
+            {createField('Status', 'is_active',[],ToggleStatus,'Status',null,'checkbox')}    
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>}   
@@ -71,6 +82,7 @@ const mapStateToProps = (state) => ({
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     setErrorMessage: getSetErrorMessage(state),
+    currentPage:getCurrentPage(state)
 })
 
 export default connect(mapStateToProps, {createSimcard})(SimcardCreateContainer);

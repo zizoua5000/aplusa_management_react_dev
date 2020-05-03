@@ -2,8 +2,8 @@ import axios from "axios";
 
 const instance = axios.create({
     // withCredentials: true,
-    //  baseURL: 'http://192.168.20.142:8010/api/',
-    baseURL: 'http://127.0.0.1:8000/api/',
+     baseURL: 'http://192.168.20.142:8010/api/',
+    // baseURL: 'http://127.0.0.1:8000/api/',
     // headers: {
     //     "API-KEY": "+*=#fk6hal!1g=97b%(2obmvq&&9l-h4rprwsq#1g5()hodm@j"
     // }
@@ -47,8 +47,8 @@ export const vehicleMarkAPI = {
 }
 
 export const simcardAPI = {
-    getSimcardList() {
-        return instance.get(`simcard/list_create/`)
+    getSimcardList(pageNumber=1) {
+        return instance.get(`simcard/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
             })
@@ -96,6 +96,9 @@ export const simcardAPI = {
             });
     },
 
+    deleteSimcard(id) {
+        return instance.delete(`simcard/update_delete/${id}`)
+    }
 }
 
 

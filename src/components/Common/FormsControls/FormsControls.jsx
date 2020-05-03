@@ -1,11 +1,12 @@
-import React from "react"
+import React,{useState } from "react"
 import styles from "./FormsControls.module.css"
 import {FieldValidatorType} from "../../../utils/validators/validators"
 import {Field, WrappedFieldProps} from "redux-form"
 import {WrappedFieldMetaProps} from 'redux-form/lib/Field'
 
 export function createField(label,name,validators,component,placeholder,options=null,type="text", props = {}, text = "",className="form-control") {
-    return <>
+
+   return <>
         {label!=null &&
         <label>{label}</label>
         }
@@ -21,7 +22,7 @@ export function createField(label,name,validators,component,placeholder,options=
     </>
 }
 
-const FormControl = ({meta: {touched, error}, children}) => {
+const FormControl = ({meta: {touched, error}, children}) => {  
     const hasError = touched && error;
     return (
         <div className={"form-group" + " " + (hasError ? styles.error : "")}>
@@ -38,10 +39,55 @@ export const Textarea= (props) => {
 }
 
 export const Input = (props) => {
+    console.log(props)
     const {input, meta, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
+export const ToggleStatus = (props) => {
+    const {input, meta, ...restProps} = props;
+    console.log(input.value)
+    return (
+      <FormControl {...props}>
+        <input
+            {...input} {...restProps}
+          className={styles.reactSwitchCheckbox}
+          id={`react-switchs-new`}
+          checked={input.value===''?true:input.value}
+          value={input.value===''?true:input.value}
+        />
+        <label
+          className= {styles.reactSwitchLabel}
+          htmlFor={`react-switchs-new`}
+        >
+          <span className={styles.reactSwitchButton} />
+        </label>
+      </FormControl>
+    );
+  };
+
+  export const ToggleRouming = (props) => {
+    const {input, meta, ...restProps} = props;
+    console.log(input.value)
+    return (
+      <FormControl {...props}>
+        <input
+            {...input} {...restProps}
+          className={styles.reactSwitchCheckbox}
+          id={`react-switchr-new`}
+          checked={input.value===''?false:input.value}
+          value={input.value===''?false:input.value}
+        />
+        <label
+          className= {styles.reactSwitchLabel}
+          htmlFor={`react-switchr-new`}
+        >
+          <span className={styles.reactSwitchButton} />
+        </label>
+      </FormControl>
+    );
+  };
+  
 export const Select = (props) => {
     const {input, meta, options,...restProps} = props;
     // debugger

@@ -19,6 +19,7 @@ class VehicleModelUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         this.props.requestVehicleMarkList();
+        console.log("Vehicle Model UPDATE DIDMOUNT")
         this.props.getVehicleModelItem(id);
     }
 
@@ -27,6 +28,8 @@ class VehicleModelUpdateContainer extends React.Component {
     }
  
     render() {
+        console.log(this.props.VehicleModelItem)
+
         if (this.props.isCreated) {
             custom_success_alert();
             return <Redirect to={`/vehicle_model/${this.props.currentPage}`}/>

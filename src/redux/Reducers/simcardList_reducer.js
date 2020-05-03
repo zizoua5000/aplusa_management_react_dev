@@ -79,11 +79,12 @@ export const actions = {
 export const requestSimcardList = (pageNumber = 1) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true))
+        dispatch(actions.setIsCreated(false));
         dispatch(actions.setCurrentPage(pageNumber));
         let response = await simcardAPI.getSimcardList(pageNumber);
-        console.log("thunkdayam type");
+        console.log("-------------------SimcardList RESPOSE-----------");
         console.log(response);
-        console.log("thunkdayam type");
+        console.log("-------------------SimcardList RESPOSE-----------");
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setErrorMessage(null))
@@ -120,12 +121,12 @@ export const getSimcardItem = (id) => {
         let response = await simcardAPI.getSimcard(id);
         console.log(response)
         dispatch(actions.setIsFetching(false));
+        dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
             dispatch(actions.setSimcardItem(response.data));
-            dispatch(actions.setIsCreated(false));
         } else {
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('simcardUpdate', response.data))
@@ -136,7 +137,7 @@ export const getSimcardItem = (id) => {
 
 export const updateSimcardItem = (formData) => {
     return async (dispatch) => {
-        console.log("updatw")
+        console.log(formData)
         dispatch(actions.setIsFetching(true));
         let response = await simcardAPI.updateSimcard(formData);
         console.log(response)
@@ -155,11 +156,10 @@ export const updateSimcardItem = (formData) => {
 }
 
 export const deleteSimcardItem = (id) => {
-    return async (dispatch) => {
-        dispatch(actions.setIsFetching(true));
-        let data = await simcardAPI.deleteSimcard(id);
-        dispatch(actions.setIsFetching(false));
+    return async(dispatch, getState) => {
+        let response = await simcardAPI.deleteSimcard(id);
     }
 }
+
 
 export default simcardListReducer;

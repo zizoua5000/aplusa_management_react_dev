@@ -3,7 +3,7 @@ import SimcardItem from './SimcardItem';
 import { NavLink } from 'react-router-dom';
 import Paginator from "../Common/Paginator/Paginator";
 
-let SimcardList = ({ simcardList, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
+let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
      return  (
         <div >
@@ -19,12 +19,12 @@ let SimcardList = ({ simcardList, currentPage, pageSize, totalItemsCount, onPage
                             <th></th>
                             <th className="w-100">Simcard</th>
                             <th className="w-100">Package</th>
-                            <th className="w-100">Active</th>
                             <th className="w-100">Rouming</th>                       
+                            <th className="w-100">Active</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {simcardList.map(item => <SimcardItem simcardItem={item} itemCount={itemCount++} />)}
+                        {simcardList.map(item => <SimcardItem simcardItem={item} deleteItem={deleteItem} itemCount={itemCount++} />)}
                     </tbody>
                 </table>
                 <div className="text-center">
