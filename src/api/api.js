@@ -23,26 +23,44 @@ export const vehicleMarkAPI = {
     getVehicleMark(id) {
         return instance.get(`vehicle_mark/update_delete/${id}`)
             .then(response => {
-                return response.data;
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
             });
     },
     createVehicleMark(formData) {
         return instance.post(`vehicle_mark/list_create/`,formData)
             .then(response => {
-                return response.data;
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
             });
     },
     updateVehicleMark(formData) {
         return instance.put(`vehicle_mark/update_delete/${formData.id}`,formData)
             .then(response => {
-                return response.data;
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
             });
     },
     deleteVehicleMark(id) {
         return instance.delete(`vehicle_mark/update_delete/${id}`)
-            .then(response => {
-                return response.data;
-            });
     },
 }
 
@@ -130,13 +148,6 @@ export const vehicleTypeAPI = {
             .then(response => {
                 return response;
             })
-            .catch(function (error) {
-                if (error.response) {
-                    return error.response;
-                } else {
-                    return 'error'
-                }
-            });
     },
     updateVehicleType(formData) {
         return instance.put(`vehicle_type/update_delete/${formData.id}`, formData)
@@ -153,16 +164,6 @@ export const vehicleTypeAPI = {
     },
     deleteVehicleType(id) {
         return instance.delete(`vehicle_type/update_delete/${id}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(function (error) {
-                if (error.response) {
-                    return error.response;
-                } else {
-                    return 'error'
-                }
-            });
     },
 }
 

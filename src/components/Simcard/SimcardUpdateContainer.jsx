@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React from 'react';
 import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
@@ -10,7 +10,6 @@ import {getIsCreated, getSimcardItemSel, getIsFetching,getSetErrorMessage,getCur
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
-// import {AppStateType} from '../../redux/redux-store';
 
 class SimcardUpdateContainer extends React.Component {
 

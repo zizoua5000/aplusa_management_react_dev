@@ -1,8 +1,6 @@
-import React,{useState } from "react"
+import React from "react"
 import styles from "./FormsControls.module.css"
-import {FieldValidatorType} from "../../../utils/validators/validators"
-import {Field, WrappedFieldProps} from "redux-form"
-import {WrappedFieldMetaProps} from 'redux-form/lib/Field'
+import {Field} from "redux-form"
 
 export function createField(label,name,validators,component,placeholder,options=null,type="text", props = {}, text = "",className="form-control") {
 

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 let SimcardItem = ({ simcardItem, deleteItem, itemCount}) => {
     return (
-        <tr key={simcardItem.id}>
+        <tr>
             <td>{itemCount}</td>
             <td>
                 <NavLink title="Update" to={`/simcard_update/${simcardItem.id}`}><i className="text-secondary fas fa-edit ml-2"></i></NavLink>

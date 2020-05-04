@@ -19,7 +19,7 @@ let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCo
                         </tr>
                     </thead>
                     <tbody>
-                        {simcardList.map(item => <SimcardItem simcardItem={item} deleteItem={deleteItem} itemCount={itemCount++} />)}
+                        {simcardList.map((item, key) => <SimcardItem simcardItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                     </tbody>
                 </table>
                 <div className="text-center">

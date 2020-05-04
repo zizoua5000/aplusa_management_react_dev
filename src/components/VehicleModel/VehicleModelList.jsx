@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Paginator from "../Common/Paginator/Paginator";
 import VehicleModelItem from './VehicleModelItem';
 

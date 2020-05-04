@@ -4,7 +4,7 @@ import {compose} from "redux";
 import { requestSimcardList, deleteSimcardItem } from '../../redux/Reducers/simcardList_reducer';
 import SimcardList from './SimcardList';
 import { NavLink,withRouter} from 'react-router-dom';
-import { custom_success_alert } from "../../utils/custom_sweet_alert/custom_sweet_alert";
+import { custom_success_alert,custom_sweet_delete } from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import { getSimcardList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getSetErrorMessage, getIsCreated } from '../../redux/Selectors/simcardList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import swal from 'sweetalert';
@@ -24,13 +24,7 @@ class SimcardContainer extends React.Component {
     }
 
     deleteItem = (id) => {
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
+        swal(custom_sweet_delete)
             .then((willDelete) => {
                 if (willDelete) {
                     let respone = this.props.deleteSimcardItem(id)
@@ -92,8 +86,3 @@ const mapStateToProps = (state) => {
 
 export default compose( connect(mapStateToProps, { requestSimcardList, deleteSimcardItem }),
     withRouter)(SimcardContainer);
-
-// export default compose(
-//     connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem}),
-//     withRouter
-// )(VehicleModelContainer);

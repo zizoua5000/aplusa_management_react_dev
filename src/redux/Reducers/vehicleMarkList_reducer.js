@@ -1,4 +1,5 @@
 import { vehicleMarkAPI } from "../../api/api";
+import { stopSubmit } from "redux-form";
 
 const SET_VEHICLE_MARK_LIST = "SET_VEHICLE_MARK_LIST"
 const SET_VEHICLE_MARK_ITEM = "SET_VEHICLE_MARK_ITEM"
@@ -74,8 +75,11 @@ export const actions = {
 export const requestVehicleMarkList = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null));
         dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
         let response = await vehicleMarkAPI.getVehicleMarkList(pageNumber);
+        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));
@@ -86,15 +90,20 @@ export const requestVehicleMarkList = (pageNumber = 1) => {
     }
 }
 
-
-
-
 export const createVehicleMark = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.createVehicleMark(formData);
-        dispatch(actions.setIsCreated(true));
+        let response = await vehicleMarkAPI.createVehicleMark(formData);
         dispatch(actions.setIsFetching(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 201) {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(actions.setIsCreated(true));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleMarkCreate', response.data))
+        }
     }
 }
 
@@ -103,19 +112,36 @@ export const createVehicleMark = (formData) => {
 export const getVehicleMarkItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.getVehicleMark(id);
-        dispatch(actions.setVehicleMarkItem(data));
+        let response = await vehicleMarkAPI.getVehicleMark(id);
+        console.log(response)
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 200) {
+            dispatch(actions.setErrorMessage(null));
+            dispatch(actions.setVehicleMarkItem(response.data));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleMarkUpdate', response.data))
+        }
     }
 }
 
-export const updateVehiclMarkItem = (formData) => {
+export const updateVehicleMarkItem = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.updateVehicleMark(formData);
-        dispatch(actions.setIsCreated(true));
+        let response = await vehicleMarkAPI.updateVehicleMark(formData);
         dispatch(actions.setIsFetching(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 200) {
+            dispatch(actions.setErrorMessage(null));
+            dispatch(actions.setIsCreated(true));
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('vehicleMarkUpdate', response.data))
+        }
     }
 }
 
@@ -123,6 +149,7 @@ export const deleteVehicleMarkItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let data = await vehicleMarkAPI.deleteVehicleMark(id);
+        console.log(data)
         dispatch(actions.setIsFetching(false));
     }
 }

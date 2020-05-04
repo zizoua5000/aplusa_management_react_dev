@@ -1,16 +1,14 @@
-import React , { useState } from 'react';
-import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import React from 'react';
+import {reduxForm} from 'redux-form';
 import {createField, Input, ToggleStatus,ToggleRouming} from "../Common/FormsControls/FormsControls";
 import {required} from '../../utils/validators/validators';
 import {connect} from 'react-redux';
 import {createSimcard} from '../../redux/Reducers/simcardList_reducer';
-import {custom_success_alert} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {getIsCreated, getIsFetching,getSetErrorMessage,getCurrentPage} from '../../redux/Selectors/simcardList_selectors';
 import {Redirect} from 'react-router-dom';
 import style from '../Common/FormsControls/FormsControls.module.css';
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
-// import {AppStateType} from '../../redux/redux-store';
 
 class SimcardCreateContainer extends React.Component {
 
@@ -31,7 +29,7 @@ class SimcardCreateContainer extends React.Component {
         return (
             <div>
             {this.props.isFetching && this.props.simcardList==null? <Preloader /> : null }
-            {this.props.setErrorMessage ? <ErrorMessage /> : null}
+            {this.props.setErrorMessage && <ErrorMessage />}
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">Create Simcard</h1>
                 </div>

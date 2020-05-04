@@ -1,7 +1,5 @@
 import { vehicleModelAPI, vehicleMarkAPI } from "../../api/api";
 import { stopSubmit } from "redux-form";
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
 const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
 const SET_VEHICLE_MARKS = "SET_VEHICLE_MARKS"
@@ -171,7 +169,7 @@ export const updateVehicleModelItem = (formData) => {
 export const deleteVehicleModelItem = (id) => {
     return async(dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleModelAPI.deleteVehicleModel(id);
+        await vehicleModelAPI.deleteVehicleModel(id);
         dispatch(actions.setIsFetching(false));
     }
 }

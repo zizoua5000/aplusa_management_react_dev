@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect, DefaultRootState } from 'react-redux';
-import {Redirect, withRouter} from "react-router-dom";
-import { NavLink } from 'react-router-dom';
+import { connect} from 'react-redux';
+import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
@@ -12,10 +11,6 @@ import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleModelContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         if (this.props.isCreated) {
             custom_success_alert();
@@ -62,7 +57,7 @@ class VehicleModelContainer extends React.Component {
                     <NavLink to="/vehicle_model_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
                 {this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
-                {this.props.setErrorMessage ? <ErrorMessage /> :null}
+                {this.props.setErrorMessage && <ErrorMessage />}
                 {this.props.vehicleModelList!=null &&
                     <VehicleModelList 
                         vehicleModelList={this.props.vehicleModelList} 

@@ -10,8 +10,6 @@ const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_CREATED = "IS_CREATED"
 const SET_VEHICLE_TYPE_ITEM = "SET_VEHICLE_TYPE_ITEM"
 
-
-
 let initialState = {
     vehicleTypeList: null,
     vehicleTypeItem: null,
@@ -80,10 +78,8 @@ export const requestVehicleTypeList = (pageNumber = 1) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
         let response = await vehicleTypeAPI.getvehicleTypeList(pageNumber);
-        console.log("thunkdayam type");
-        console.log(response);
-        console.log("thunkdayam type");
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeList(response.results));
@@ -134,10 +130,8 @@ export const getVehicleTypeItem = (id) => {
 
 export const updateVehicleTypeItem = (formData) => {
     return async (dispatch) => {
-        console.log("updatw")
         dispatch(actions.setIsFetching(true));
         let response = await vehicleTypeAPI.updateVehicleType(formData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -155,7 +149,7 @@ export const updateVehicleTypeItem = (formData) => {
 export const deleteVehicleTypeItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleTypeAPI.deleteVehicleType(id);
+        await vehicleTypeAPI.deleteVehicleType(id);
         dispatch(actions.setIsFetching(false));
     }
 }

@@ -21,7 +21,6 @@ let initialState = {
     pageSize: 10,
     totalItemsCount: 0,
     isCreated: false,
-    message: null
 };
 
 const simcardListReducer = (state = initialState, action) => {
@@ -157,7 +156,7 @@ export const updateSimcardItem = (formData) => {
 
 export const deleteSimcardItem = (id) => {
     return async(dispatch, getState) => {
-        let response = await simcardAPI.deleteSimcard(id);
+        await simcardAPI.deleteSimcard(id);
     }
 }
 

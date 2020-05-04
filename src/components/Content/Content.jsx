@@ -1,5 +1,7 @@
 import React from 'react';
 import VehicleMarkContainer from '../VehicleMark/VehicleMarkContainer'
+import VehicleMarkCreateContainer from '../VehicleMark/VehicleMarkCreateContainer'
+import VehicleMarkUpdateContainer from '../VehicleMark/VehicleMarkUpdateContainer'
 import VehicleTypeContainer from '../VehicleType/VehicleTypeContainer'
 import VehicleModelContainer from '../VehicleModel/VehicleModelContainer'
 import VehicleModelCreateContainer from '../VehicleModel/VehicleModelCreateContainer'
@@ -20,7 +22,9 @@ class Content extends React.Component {
                 <div id="content">
                     <div className="container-fluid pt-3 px-3">
                         
-                        <Route path='/vehicle_mark' render={() => <VehicleMarkContainer />}></Route>                      
+                        <Route path='/vehicle_mark' render={() => <VehicleMarkContainer />}></Route>     
+                        <Route path='/vehicle_mark_create' render={() => <VehicleMarkCreateContainer />}></Route>
+                        <Route path='/vehicle_mark_update/:id?' render={() => <VehicleMarkUpdateContainer />}></Route>                 
                         <Route path='/vehicle_type' render={() => <VehicleTypeContainer />}></Route>                      
                         <Route path='/vehicle_model/:pageNumber?' render={() => <VehicleModelContainer />}></Route>
                         <Route path='/vehicle_model_create' render={() => <VehicleModelCreateContainer />}></Route>

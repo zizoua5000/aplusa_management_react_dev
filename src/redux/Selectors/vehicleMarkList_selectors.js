@@ -2,6 +2,10 @@
 export const getVehicleMarkList = (state) => {
     return state.vehicleMarkPage.vehicleMarkList;
 }
+export const getVehicleMarkItemSel = (state) => {
+    return state.vehicleMarkPage.vehicleMarkItem;
+}
+
 export const getIsFetching = (state) => {
     return state.vehicleMarkPage.isFetching;
 }
@@ -20,4 +24,7 @@ export const getPageSize = (state) => {
 
 export const getTotalItemsCount = (state) => {
     return state.vehicleMarkPage.totalItemsCount;
+}
+export const getIsCreated= (state) => {
+    return state.vehicleModelPage.isCreated;
 }

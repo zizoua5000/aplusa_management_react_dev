@@ -1,24 +1,20 @@
-import React , { useState } from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
+import React from 'react';
+import {reduxForm} from "redux-form";
+import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {createVehicleType} from "../../redux/Reducers/vehicleTypeList_reducer";
-import {getIsCreated, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
+import {createVehicleType,requestVehicleTypeList} from "../../redux/Reducers/vehicleTypeList_reducer";
+import {getIsCreated, getCurrentPage, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
-// import {AppStateType} from '../../redux/redux-store';
 
 class VehicleTypeCreateContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
-    // componentDidMount() {
-    //     this.props.requestVehicleTypeList();
-    // }
+    componentDidMount() {
+        this.props.requestVehicleTypeList();
+    }
 
     onSubmit = (formData) => {
         this.props.createVehicleType(formData);
@@ -27,7 +23,7 @@ class VehicleTypeCreateContainer extends React.Component {
     render() {
         console.log(this.props.setErrorMessage)
         if (this.props.isCreated) {
-            return <Redirect to={"/vehicle_type"}/>
+            return <Redirect to={`/vehicle_type/${this.props.currentPage}`}/>
         }
         return (
             <div>
@@ -67,7 +63,8 @@ const VehicleTypeCreateReduxForm = reduxForm({form: 'vehicleTypeCreate'})(Vehicl
 const mapStateToProps = (state) => ({
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
+    currentPage:getCurrentPage(state),
     setErrorMessage: getSetErrorMessage(state),
 })
 
-export default connect(mapStateToProps, {createVehicleType})(VehicleTypeCreateContainer);
+export default connect(mapStateToProps, {createVehicleType,requestVehicleTypeList})(VehicleTypeCreateContainer);

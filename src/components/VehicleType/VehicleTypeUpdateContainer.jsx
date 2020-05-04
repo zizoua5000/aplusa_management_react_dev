@@ -1,25 +1,20 @@
-import React , { useState } from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import React from 'react';
+import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
+import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {getVehicleTypeItem,updateVehicleTypeItem} from "../../redux/Reducers/vehicleTypeList_reducer";
-import {getIsCreated, getVehicleTypeItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
+import {getIsCreated, getCurrentPage,getVehicleTypeItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
-// import {AppStateType} from '../../redux/redux-store';
 
 class VehicleTypeUpdateContainer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+ 
     componentDidMount() {
         let id = this.props.match.params.id;
-        console.log("DIDIDDIIDIDIDIDIDI")
         this.props.getVehicleTypeItem(id);
     }
 
@@ -28,9 +23,8 @@ class VehicleTypeUpdateContainer extends React.Component {
     }
  
     render() {
-        console.log(this.props.vehicleTypeItem)
         if (this.props.isCreated) {
-            return <Redirect to={"/vehicle_type"}/>
+            return <Redirect to={`/vehicle_type/${this.props.currentPage}`}/>
         }
         return (
             <div>
@@ -81,10 +75,9 @@ const mapStateToProps = (state) => ({
     vehicleTypeItem: getVehicleTypeItemSel(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
-    setErrorMessage: getSetErrorMessage(state)
-})
-
-// export default connect(mapStateToProps, { getVehicleModelItem, updateVehicleModelItem, requestVehicleMarkList})(VehicleModelUpdateContainer);
+    setErrorMessage: getSetErrorMessage(state),
+    currentPage:getCurrentPage(state),
+});
 
 export default compose(
     connect(mapStateToProps, { getVehicleTypeItem, updateVehicleTypeItem}),
