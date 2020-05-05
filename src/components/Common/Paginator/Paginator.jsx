@@ -6,7 +6,7 @@ import cn from 'classnames'
 let Paginator = ({totalItemsCount, pageSize,
                                       currentPage,
                                       onPageChanged,
-                                      portionSize = 2}) => {
+                                      portionSize = 1}) => {
                                   
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
@@ -21,9 +21,23 @@ let Paginator = ({totalItemsCount, pageSize,
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
 
+    let onClickPrev=()=>{
+        onPageChanged(currentPage-1);
+        if(portionNumber>=currentPage){
+            setPortionNumber(portionNumber - 1)
+        }
+    }
+
+    let onClickNext=()=>{
+        onPageChanged(currentPage+1);
+        if(portionNumber>=currentPage){
+            setPortionNumber(portionNumber - 1)
+        }
+    }
+
     return <div className={cn(styles.paginator)}>
         { portionNumber > 1 &&
-        <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
+        <button className="btn btn-secondary" onClick={onClickPrev}>PREV</button> }
 
             {pages
                 .filter(p => p >= leftPortionPageNumber && p<=rightPortionPageNumber)
@@ -35,7 +49,7 @@ let Paginator = ({totalItemsCount, pageSize,
                              }}>{p}</span>
             })}
         { portionCount > portionNumber &&
-            <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
+            <button className="btn btn-secondary" onClick={onClickNext}>NEXT</button> }
     </div>
 }
 
