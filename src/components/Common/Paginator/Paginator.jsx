@@ -6,7 +6,7 @@ import cn from 'classnames'
 let Paginator = ({totalItemsCount, pageSize,
                                       currentPage,
                                       onPageChanged,
-                                      portionSize = 1}) => {
+                                      portionSize = 2}) => {
                                   
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
@@ -31,7 +31,7 @@ let Paginator = ({totalItemsCount, pageSize,
     let onClickNext=()=>{
         onPageChanged(currentPage+1);
         if(portionNumber>=currentPage){
-            setPortionNumber(portionNumber - 1)
+            setPortionNumber(portionNumber +1)
         }
     }
 
