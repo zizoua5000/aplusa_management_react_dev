@@ -1,4 +1,7 @@
 import React from 'react';
+import VehicleContainer from '../Vehicle/VehicleContainer'
+import VehicleCreateContainer from '../Vehicle/VehicleCreateContainer'
+import VehicleUpdateContainer from '../Vehicle/VehicleUpdateContainer'
 import VehicleMarkContainer from '../VehicleMark/VehicleMarkContainer'
 import VehicleMarkCreateContainer from '../VehicleMark/VehicleMarkCreateContainer'
 import VehicleMarkUpdateContainer from '../VehicleMark/VehicleMarkUpdateContainer'
@@ -21,7 +24,9 @@ class Content extends React.Component {
             <div id="content-wrapper" className="d-flex flex-column">
                 <div id="content">
                     <div className="container-fluid pt-3 px-3">
-                        
+                        <Route path='/vehicle' render={() => <VehicleContainer />}></Route>
+                        <Route path='/vehicle_update/:id?' render={() => <VehicleUpdateContainer />}></Route>
+                        <Route path='/vehicle_create' render={() => <VehicleCreateContainer />}></Route>
                         <Route path='/vehicle_mark' render={() => <VehicleMarkContainer />}></Route>     
                         <Route path='/vehicle_mark_create' render={() => <VehicleMarkCreateContainer />}></Route>
                         <Route path='/vehicle_mark_update/:id?' render={() => <VehicleMarkUpdateContainer />}></Route>                 
@@ -34,7 +39,6 @@ class Content extends React.Component {
                         <Route path='/simcard' render={() => <SimcardContainer />}></Route>
                         <Route path='/simcard_create' render={() => <SimcardCreateContainer />}></Route>
                         <Route path='/simcard_update/:id?' render={() => <SimcardUpdateContainer />}></Route>
-
                     </div>
                 </div>
                 <Footer />

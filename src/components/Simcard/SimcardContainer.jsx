@@ -8,7 +8,7 @@ import { custom_success_alert,custom_sweet_delete } from "../../utils/custom_swe
 import { getSimcardList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getSetErrorMessage, getIsCreated } from '../../redux/Selectors/simcardList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import swal from 'sweetalert';
-import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
+import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
 
 class SimcardContainer extends React.Component {
 
@@ -22,6 +22,11 @@ class SimcardContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.requestSimcardList(pageNumber);
     }
+
+    searchSpace=(event)=>{
+        let keyword = event.target.value;
+        this.setState({search:keyword})
+      }
 
     deleteItem = (id) => {
         swal(custom_sweet_delete)
@@ -46,15 +51,16 @@ class SimcardContainer extends React.Component {
                             }
                         });
                 }
-            });
+        });
     }
 
     render() {
+        console.log(this.props.simcardList)
         return (
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800 text-info">Simcard List</h1>
-                    <NavLink to="/simcard_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Simcard List</h1>   
+                    <NavLink to="/simcard_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>                   
                 </div>
                 {this.props.isFetching && this.props.simcardList == null ? <Preloader /> : null}
                 {this.props.setErrorMessage && <ErrorMessage />}
@@ -83,6 +89,5 @@ const mapStateToProps = (state) => {
         isCreated: getIsCreated(state)
     }
 }
-
 export default compose( connect(mapStateToProps, { requestSimcardList, deleteSimcardItem }),
     withRouter)(SimcardContainer);

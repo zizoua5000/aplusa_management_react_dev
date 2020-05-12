@@ -26,5 +26,5 @@ export const getTotalItemsCount = (state) => {
     return state.vehicleMarkPage.totalItemsCount;
 }
 export const getIsCreated= (state) => {
-    return state.vehicleModelPage.isCreated;
+    return state.vehicleMarkPage.isCreated;
 }

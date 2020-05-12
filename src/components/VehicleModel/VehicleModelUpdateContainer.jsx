@@ -4,11 +4,12 @@ import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {compose} from "redux";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
+import {createField, Input, Dropdown} from "../Common/FormsControls/FormsControls";
 import {getVehicleModelItem,updateVehicleModelItem, requestVehicleMarkList} from "../../redux/Reducers/vehicleModelList_reducer";
 import {getIsCreated, getVehicleModelItemSel, getVehicleMarkList, getIsFetching, getCurrentPage} from '../../redux/Selectors/vehicleModelList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
+import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleModelUpdateContainer extends React.Component {
     componentDidMount() {
@@ -30,6 +31,7 @@ class VehicleModelUpdateContainer extends React.Component {
         return (
             <div>
             {this.props.isFetching && this.props.vehicleMarkList==null && this.props.vehicleModelItem==null? <Preloader /> : null }
+            {this.props.setErrorMessage && <ErrorMessage />}
             {this.props.vehicleMarkList!=null && this.props.vehicleModelItem!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -55,7 +57,7 @@ const VehicleModelForm= ({handleSubmit, error, options, instance, initialValues}
         <form onSubmit={handleSubmit}>
             {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Select,null,options)}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options)}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

@@ -2,7 +2,7 @@ import React from "react"
 import {Field} from "redux-form"
 import Multiselect from 'react-widgets/lib/Multiselect'
 import styles from "./FormsControls.module.css"
-
+import { DropdownList } from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 
 export function createField(label,name,validators,component,placeholder,options=null,type="text", props = {}, text = "",className="form-control") {
@@ -40,14 +40,12 @@ export const Textarea= (props) => {
 }
 
 export const Input = (props) => {
-    console.log(props)
     const {input, meta, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
 export const ToggleStatus = (props) => {
     const {input, meta, ...restProps} = props;
-    console.log(input.value)
     return (
       <FormControl {...props}>
         <input
@@ -69,7 +67,6 @@ export const ToggleStatus = (props) => {
 
   export const ToggleRouming = (props) => {
     const {input, meta, ...restProps} = props;
-    console.log(input.value)
     return (
       <FormControl {...props}>
         <input
@@ -89,13 +86,27 @@ export const ToggleStatus = (props) => {
     );
   };
   
-export const Select = (props) => {
-    const {input, meta, options,...restProps} = props;
-    return <FormControl {...props}>
-            <select {...input} {...restProps}>
-              {options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
-            </select>
-        </FormControl>
+// export const Select = (props) => {
+//     const {input, meta, options,...restProps} = props;
+//     console.log(props)
+//     // debugger
+//     return <FormControl {...props}>
+      
+//             <select {...input} {...restProps}>
+// {options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
+//             </select>
+//         </FormControl>
+// }
+export const Dropdown =(props) =>{
+  const {input, meta, options, ...restProps} =props;
+  return <FormControl {...props}>
+    <DropdownList filter
+        data={options}
+        textField='name'
+        allowCreate='onFilter'
+        placeholder={props.placeholder}
+        />
+  </FormControl>
 }
 
 export const SelectWithCustomInitial = (props) => {

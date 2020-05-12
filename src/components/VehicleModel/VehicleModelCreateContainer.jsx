@@ -1,6 +1,6 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
+import {createField, Input, Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {createVehicleModel, requestVehicleMarkList} from "../../redux/Reducers/vehicleModelList_reducer";
@@ -47,7 +47,7 @@ const VehicleModelForm= ({handleSubmit, error, options, initialValues}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Select,null,options)}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options)}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

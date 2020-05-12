@@ -1,10 +1,11 @@
 import React from 'react';
-import SimcardItem from './SimcardItem';
 import Paginator from "../Common/Paginator/Paginator";
+import VehicleItem from './VehicleItem';
 
-let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
+
+let VehicleList = ({ vehicleList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-     return  (
+    return (
         <div >
             <div>
                 <table className="table table-default table-bordered text-nowrap">
@@ -12,14 +13,16 @@ let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCo
                         <tr>
                             <th>#</th>
                             <th></th>
-                            <th className="w-100" >Simcard</th>
-                            <th className="w-100">Package</th>
-                            <th className="w-100">Rouming</th>                       
-                            <th className="w-100">Active</th>
+                            <th className="w-100">Plate</th>
+                            <th className="w-100">Vehicle Serie Number</th>
+                            <th className="w-100">Vehicle Model</th>
+                            <th className="w-100">Vehicle Mark</th>
+                            <th className="w-100">Vehicle Type</th>
+                            <th className="w-100">Comment</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {simcardList.map((item, key) => <SimcardItem simcardItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
+                        {vehicleList.map((item, key) => <VehicleItem vehicleItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                     </tbody>
                 </table>
                 <div className="text-center">
@@ -30,7 +33,6 @@ let SimcardList = ({ simcardList,deleteItem, currentPage, pageSize, totalItemsCo
             </div>
         </div>
     )
-
 }
 
-export default SimcardList;
+export default VehicleList;

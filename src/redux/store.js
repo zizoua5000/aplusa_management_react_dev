@@ -1,4 +1,5 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
+import vehicleListReducer from './Reducers/vehicleList_reducer'
 import vehicleMarkListReducer from './Reducers/vehicleMarkList_reducer'
 import vehicleTypeListReducer from './Reducers/vehicleTypeList_reducer'
 import vehicleModelListReducer from './Reducers/vehicleModelList_reducer'
@@ -9,6 +10,7 @@ import simcardListReducer from "./Reducers/simcardList_reducer";
 
 
 let rootReducer = combineReducers({
+    vehiclePage:vehicleListReducer,
     vehicleMarkPage: vehicleMarkListReducer,
     vehicleTypePage: vehicleTypeListReducer,
     vehicleModelPage: vehicleModelListReducer,
