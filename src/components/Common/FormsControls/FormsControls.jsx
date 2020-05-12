@@ -88,6 +88,7 @@ export const ToggleStatus = (props) => {
   
 export const Select = (props) => {
     const {input, meta, options,...restProps} = props;
+    console.log(options)
     // debugger
     return <FormControl {...props}>
             <select {...input} {...restProps}>

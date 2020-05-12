@@ -2,12 +2,67 @@ import axios from "axios";
 
 const instance = axios.create({
     // withCredentials: true,
-     baseURL: 'http://192.168.20.142:8010/api/',
-    // baseURL: 'http://127.0.0.1:8000/api/',
+    //  baseURL: 'http://192.168.20.142:8010/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
     // headers: {
     //     "API-KEY": "+*=#fk6hal!1g=97b%(2obmvq&&9l-h4rprwsq#1g5()hodm@j"
     // }
 });
+
+export const vehicleAPI = {
+
+    getVehicleList(pageNumber=1) {
+        return instance.get(`vehicle/list_create/?page=${pageNumber}`)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return 'error';
+            });
+    },
+    getVehicle(id) {
+        return instance.get(`vehicle/update_delete/${id}`)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    createVehicle(formData) {
+        return instance.post(`vehicle/list_create/`,formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    updateVehicle(formData) {
+        return instance.put(`vehicle/update_delete/${formData.id}`,formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    deleteVehicle(id) {
+        return instance.delete(`vehicle/update_delete/${id}`)
+    },
+}
 
 export const vehicleMarkAPI = {
 

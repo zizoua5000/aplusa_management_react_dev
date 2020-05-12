@@ -108,8 +108,6 @@ export const requestVehicleMarkList = () => {
         } else{
             dispatch(actions.setErrorMessage(response))
         }
-        
-
     }
 }
 

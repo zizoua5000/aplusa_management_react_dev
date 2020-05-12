@@ -9,6 +9,7 @@ import {getVehicleModelItem,updateVehicleModelItem, requestVehicleMarkList} from
 import {getIsCreated, getVehicleModelItemSel, getVehicleMarkList, getIsFetching, getCurrentPage} from '../../redux/Selectors/vehicleModelList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
+import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleModelUpdateContainer extends React.Component {
     componentDidMount() {
@@ -30,6 +31,7 @@ class VehicleModelUpdateContainer extends React.Component {
         return (
             <div>
             {this.props.isFetching && this.props.vehicleMarkList==null && this.props.vehicleModelItem==null? <Preloader /> : null }
+            {this.props.setErrorMessage && <ErrorMessage />}
             {this.props.vehicleMarkList!=null && this.props.vehicleModelItem!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
