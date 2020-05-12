@@ -1,6 +1,6 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
-import {createField, Input, Select} from "../Common/FormsControls/FormsControls";
+import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {createVehicle, requestVehicleMarkList,requestVehicleTypeList,requestVehicleModelList} from "../../redux/Reducers/vehicleList_reducer";
@@ -62,9 +62,9 @@ const VehicleForm= ({handleSubmit, error, vehicleMarkOptions,vehicleModelOptions
         <form onSubmit={handleSubmit}>
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[],Input,'Serie Number')}
-            {createField('Vehicle Model', 'vehicle_model', [required], Select,null,vehicleModelOptions)}
-            {createField('Vehicle Mark', 'vehicle_mark', [required], Select,null,vehicleMarkOptions)}
-            {createField('Vehicle Type', 'vehicle_type', [required], Select,null,vehicleTypeOptions)}
+            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'Vehicle Model')}
+            {createField('Vehicle Mark', 'vehicle_mark', [required], Dropdown,'Vehicle Mark',vehicleMarkOptions,'Vehicle Mark')}
+            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,)}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}

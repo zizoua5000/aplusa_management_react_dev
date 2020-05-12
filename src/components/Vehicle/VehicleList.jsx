@@ -2,8 +2,10 @@ import React from 'react';
 import Paginator from "../Common/Paginator/Paginator";
 import VehicleItem from './VehicleItem';
 
+
 let VehicleList = ({ vehicleList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
+    let colors = ['orange', 'red', 'blue', 'purple']
     console.log(vehicleList)
     return (
         <div >
