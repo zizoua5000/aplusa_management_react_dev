@@ -14,15 +14,30 @@ let Paginator = ({totalItemsCount, pageSize,
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
+    let initialPortionNumber=Math.ceil(currentPage / portionSize);
     let portionCount = Math.ceil(pagesCount / portionSize);
-    let [portionNumber, setPortionNumber] = useState(1);
+    let [portionNumber, setPortionNumber] = useState(initialPortionNumber);
    
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
 
+    let onClickPrev=()=>{
+        onPageChanged(currentPage-1);
+        if(portionNumber>=currentPage){
+            setPortionNumber(portionNumber - 1)
+        }
+    }
+
+    let onClickNext=()=>{
+        onPageChanged(currentPage+1);
+        if(portionNumber>=currentPage){
+            setPortionNumber(portionNumber +1)
+        }
+    }
+
     return <div className={cn(styles.paginator)}>
         { portionNumber > 1 &&
-        <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber - 1) }}>PREV</button> }
+        <button className="btn btn-secondary" onClick={onClickPrev}>PREV</button> }
 
             {pages
                 .filter(p => p >= leftPortionPageNumber && p<=rightPortionPageNumber)
@@ -34,7 +49,7 @@ let Paginator = ({totalItemsCount, pageSize,
                              }}>{p}</span>
             })}
         { portionCount > portionNumber &&
-            <button className="btn btn-secondary" onClick={() => { setPortionNumber(portionNumber + 1) }}>NEXT</button> }
+            <button className="btn btn-secondary" onClick={onClickNext}>NEXT</button> }
     </div>
 }
 
