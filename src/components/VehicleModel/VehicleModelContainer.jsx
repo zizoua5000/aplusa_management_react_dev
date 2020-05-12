@@ -6,12 +6,10 @@ import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestVehicleModelList,filterVehicleModelList, sortVehicleModelList, requestVehicleMarkList, deleteVehicleModelItem} from '../../redux/Reducers/vehicleModelList_reducer'
 import {getVehicleModelList, getVehicleMarkList,getSortData ,getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage} from '../../redux/Selectors/vehicleModelList_selectors'
-import VehicleModelList from './VehicleModelList';
+// import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 import VehicleModelDataGrid from './VehicleModelDataGrid';
-
-
 
 class VehicleModelContainer extends React.Component {
     componentDidMount() {

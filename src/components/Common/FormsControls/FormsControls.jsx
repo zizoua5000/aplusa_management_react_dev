@@ -26,7 +26,7 @@ export function createField(label,name,validators,component,placeholder,options=
 const FormControl = ({meta: {touched, error}, children}) => {  
     const hasError = touched && error;
     return (
-        <div className={"form-group" + " " + (hasError ? styles.error : "")}>
+        <div className={"form-group " + (hasError ? styles.error : "")}>
                 {children}
             {hasError && <span>{error}</span>}
         </div>
