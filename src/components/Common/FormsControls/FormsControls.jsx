@@ -1,6 +1,9 @@
 import React from "react"
-import styles from "./FormsControls.module.css"
 import {Field} from "redux-form"
+import Multiselect from 'react-widgets/lib/Multiselect'
+import styles from "./FormsControls.module.css"
+
+import 'react-widgets/dist/css/react-widgets.css';
 
 export function createField(label,name,validators,component,placeholder,options=null,type="text", props = {}, text = "",className="form-control") {
 
@@ -88,11 +91,33 @@ export const ToggleStatus = (props) => {
   
 export const Select = (props) => {
     const {input, meta, options,...restProps} = props;
-    // debugger
     return <FormControl {...props}>
             <select {...input} {...restProps}>
-{options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
+              {options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
             </select>
         </FormControl>
+}
+
+export const SelectWithCustomInitial = (props) => {
+  const {input, meta, options,...restProps} = props;
+  return <FormControl {...props}>
+          <select {...input} {...restProps}  multiple="multiple">
+            <option value="" key="0"></option>  
+            {options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
+          </select>
+      </FormControl>
+}
+
+export const MultiSelect2 = (props) => {
+  const {input, meta, options,...restProps} = props;
+  return <FormControl {...props}>
+              <Multiselect {...input} {...restProps}
+                onBlur={() => props.input.onBlur(props.input.value)}
+                data={options}
+                valueField='id'
+                textField='name'
+                value={input.value|| []} 
+              />
+          </FormControl>
 }
 

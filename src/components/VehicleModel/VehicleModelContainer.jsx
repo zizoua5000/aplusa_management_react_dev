@@ -1,14 +1,17 @@
 import React from 'react';
 import { connect} from 'react-redux';
-import {withRouter,NavLink} from "react-router-dom";
+import {withRouter, NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestVehicleModelList, deleteVehicleModelItem} from '../../redux/Reducers/vehicleModelList_reducer'
-import {getVehicleModelList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage} from '../../redux/Selectors/vehicleModelList_selectors'
+import {requestVehicleModelList,filterVehicleModelList, sortVehicleModelList, requestVehicleMarkList, deleteVehicleModelItem} from '../../redux/Reducers/vehicleModelList_reducer'
+import {getVehicleModelList, getVehicleMarkList,getSortData ,getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage} from '../../redux/Selectors/vehicleModelList_selectors'
 import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
+import VehicleModelDataGrid from './VehicleModelDataGrid';
+
+
 
 class VehicleModelContainer extends React.Component {
     componentDidMount() {
@@ -16,11 +19,20 @@ class VehicleModelContainer extends React.Component {
             custom_success_alert();
         }
         let pageNumber = this.props.match.params.pageNumber;
-        this.props.requestVehicleModelList(pageNumber);   
+        this.props.requestVehicleModelList(pageNumber);
+        this.props.requestVehicleMarkList();   
     }
 
     onPageChanged = (pageNumber) => {
         this.props.requestVehicleModelList(pageNumber);
+    }
+
+    onSorting = (sortData) => {
+        this.props.sortVehicleModelList(sortData)
+    }
+
+    onSubmit = (formData) => {
+        this.props.filterVehicleModelList(formData);
     }
 
     deleteItem=(id)=>{
@@ -58,14 +70,27 @@ class VehicleModelContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
                 {this.props.setErrorMessage && <ErrorMessage />}
-                {this.props.vehicleModelList!=null &&
-                    <VehicleModelList 
+                {this.props.vehicleModelList!=null && this.props.vehicleMarkList!=null &&
+                    // <VehicleModelList 
+                    //     vehicleModelList={this.props.vehicleModelList} 
+                    //     deleteItem={this.deleteItem}
+                    //     currentPage={this.props.currentPage}
+                    //     pageSize={this.props.pageSize}
+                    //     totalItemsCount={this.props.totalItemsCount}
+                    //     onPageChanged={this.onPageChanged}
+                    // /> 
+                    <VehicleModelDataGrid 
                         vehicleModelList={this.props.vehicleModelList} 
+                        vehicleMarkList={this.props.vehicleMarkList}
                         deleteItem={this.deleteItem}
                         currentPage={this.props.currentPage}
                         pageSize={this.props.pageSize}
                         totalItemsCount={this.props.totalItemsCount}
                         onPageChanged={this.onPageChanged}
+                        filterVehicleModelList={this.props.filterVehicleModelList}
+                        onSorting={this.onSorting}
+                        sortData={this.props.sortData}
+                        onSubmit={this.onSubmit}
                     /> 
                 }
             </div>
@@ -76,16 +101,18 @@ class VehicleModelContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         vehicleModelList: getVehicleModelList(state),
+        vehicleMarkList: getVehicleMarkList(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
         isFetching:getIsFetching(state),
         isCreated:getIsCreated(state),
-        setErrorMessage: getSetErrorMessage(state)
+        setErrorMessage: getSetErrorMessage(state),
+        sortData: getSortData(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleModelList, deleteVehicleModelItem}),
+    connect(mapStateToProps, {requestVehicleModelList, filterVehicleModelList,sortVehicleModelList,requestVehicleMarkList,getVehicleMarkList,deleteVehicleModelItem}),
     withRouter
 )(VehicleModelContainer);
