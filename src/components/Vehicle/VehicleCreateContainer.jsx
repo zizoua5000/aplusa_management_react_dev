@@ -12,7 +12,6 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleCreateContainer extends React.Component {
     componentDidMount() {
-        console.log("DID MOUNT")
         this.props.requestVehicleMarkList();
         this.props.requestVehicleTypeList();        
         this.props.requestVehicleModelList();
@@ -24,7 +23,6 @@ class VehicleCreateContainer extends React.Component {
     }
 
     render() {
-        console.log("PROPS",this.props)
         if (this.props.isCreated) {
             return <Redirect to={`/vehicle/${this.props.currentPage}`}/>
         }
@@ -53,8 +51,7 @@ class VehicleCreateContainer extends React.Component {
 }
 
 const VehicleForm= ({handleSubmit, error, vehicleMarkOptions,vehicleModelOptions,vehicleTypeOptions, initialValues}) => {
-    console.log("INITIAL VALUES ",initialValues)
-    console.log("VEHICLE MARK OPTIONS ",vehicleMarkOptions)
+
     initialValues.vehicle_mark=vehicleMarkOptions[0].id
     initialValues.vehicle_model=vehicleModelOptions[0].id
     initialValues.vehicle_type=vehicleTypeOptions[0].id

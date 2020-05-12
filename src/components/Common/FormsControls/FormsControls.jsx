@@ -98,7 +98,6 @@ export const ToggleStatus = (props) => {
 // }
 export const Dropdown =(props) =>{
   const {input, meta, options, ...restProps} =props;
-  console.log(props)
   return <FormControl {...props}>
     <DropdownList filter
         data={options}

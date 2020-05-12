@@ -21,13 +21,10 @@ class VehicleUpdateContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
-        console.log(formData)
         this.props.updateVehicleItem(formData);
     }
  
     render() {
-        console.log("PROPS ",this.props)
-
         if (this.props.isCreated) {
             return <Redirect to={`/vehicle/${this.props.currentPage}`}/>
         }
@@ -55,7 +52,6 @@ class VehicleUpdateContainer extends React.Component {
 
 const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleMarkOptions,vehicleTypeOptions, instance, initialValues}) => {
 
-    console.log("INSTANCE ",instance)
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number
@@ -63,7 +59,6 @@ const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleMarkOptions
     initialValues.vehicle_mark=instance.vehicle_model_detail.vehicle_mark
     initialValues.vehicle_type=instance.vehicle_type
     initialValues.comment = instance.comment
-    console.log("INITIAL Values ",initialValues)
     return (
         <form onSubmit={handleSubmit}>
             {createField(null, 'id',[required],Input,null,null,'hidden')}
