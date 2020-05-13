@@ -1,4 +1,5 @@
 import axios from "axios";
+import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
 const instance = axios.create({
     // withCredentials: true,
@@ -223,6 +224,16 @@ export const vehicleTypeAPI = {
 }
 
 export const vehicleModelAPI = {
+    getVehicleModelListNEW(formData) {
+        let get_link=form_data_to_link(formData);
+        return instance.get(`vehicle_model/list_create/${get_link}`)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return 'error';
+            });
+    },
     getVehicleModelList(pageNumber = 1) {
         return instance.get(`vehicle_model/list_create/?page=${pageNumber}`)
             .then(response => {

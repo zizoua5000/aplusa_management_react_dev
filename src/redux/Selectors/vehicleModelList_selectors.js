@@ -35,3 +35,7 @@ export const getIsCreated= (state) => {
 export const getSetErrorMessage = (state) => {
     return state.vehicleModelPage.message;
 }
+
+export const getSortData = (state) => {
+    return state.vehicleModelPage.sortData;
+}
