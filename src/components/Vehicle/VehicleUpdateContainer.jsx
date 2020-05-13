@@ -51,7 +51,6 @@ class VehicleUpdateContainer extends React.Component {
 }
 
 const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleMarkOptions,vehicleTypeOptions, instance, initialValues}) => {
-
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number
