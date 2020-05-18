@@ -9,6 +9,10 @@ const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_CREATED = "IS_CREATED"
 const SET_VEHICLE_TYPE_ITEM = "SET_VEHICLE_TYPE_ITEM"
+const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
+const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
+const SET_SORT_DATA="SET_SORT_DATA"
+const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
 
 let initialState = {
     vehicleTypeList: null,
@@ -19,6 +23,8 @@ let initialState = {
     pageSize: 10,
     totalItemsCount: 0,
     isCreated: false,
+    formGetData:{},
+    sortData:{}
 };
 
 const vehicleTypeListReducer = (state = initialState, action) => {
@@ -55,6 +61,35 @@ const vehicleTypeListReducer = (state = initialState, action) => {
             {
                 return { ...state, vehicleTypeItem: action.vehicleTypeItem }
             }
+        case SET_FORM_GET_DATA:
+            {
+                return { ...state, formGetData:action.formGetData }
+            }
+        case ADD_PAGE_TO_FORM_GET_DATA:
+            {
+                let newFormGetData=state.formGetData
+                newFormGetData.page=action.pageNumber
+                return { ...state, formGetData:newFormGetData }
+            }
+        case SET_SORT_DATA:
+            {
+                let newSortData=state.sortData
+                if(action.sortData!=null){
+                    for (let [key, value] of Object.entries(action.sortData)) {
+                        newSortData[key]=value
+                    }
+                }else{
+                    newSortData={}
+                }
+               
+                return { ...state, sortData:newSortData }
+            }
+        case ADD_SORT_DATA_TO_FORM_GET_DATA:
+            {
+                let newFormGetData=state.formGetData
+                newFormGetData.sortData=action.sortData
+                return { ...state, formGetData:newFormGetData }
+            }            
         default:
             return state;
     }
@@ -70,16 +105,66 @@ export const actions = {
     setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
     setVehicleTypeItem: (vehicleTypeItem) => ({ type: SET_VEHICLE_TYPE_ITEM, vehicleTypeItem }),
+    setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
+    setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
+    setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
+    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData })
 }
 
+export const sortVehicleTypeList = (sortData) => {
+    return async (dispatch, getState) => {
+        console.log(sortData)
+        dispatch(actions.setErrorMessage(null));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setIsFetching(true));
+        dispatch(actions.setCurrentPage(1));
+        dispatch(actions.setVehicleTypeList(null));
+        await dispatch(actions.setSortData(sortData));
+        await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleTypePage.sortData));
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData);
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleTypeList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+
+    }
+}
+
+export const filterVehicleTypeList = (formGetData) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setErrorMessage(null));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setIsFetching(true));
+        dispatch(actions.setCurrentPage(1));
+        dispatch(actions.setVehicleTypeList(null));
+        dispatch(actions.setSortData(null));
+        dispatch(actions.setFormGetData(formGetData));
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(formGetData);
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleTypeList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+
+    }
+}
 
 export const requestVehicleTypeList = (pageNumber = 1) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);
+        dispatch(actions.setVehicleTypeList(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeList(response.results));

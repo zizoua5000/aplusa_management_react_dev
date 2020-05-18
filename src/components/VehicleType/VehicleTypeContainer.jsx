@@ -4,9 +4,9 @@ import {withRouter,NavLink} from "react-router-dom";
 import swal from 'sweetalert';
 import {compose} from "redux";
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import { requestVehicleTypeList,deleteVehicleTypeItem } from '../../redux/Reducers/vehicleTypeList_reducer';
-import VehicleTypeList from './VehicleTypeList';
-import { getVehicleTypeList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching,getIsCreated, getSetErrorMessage } from '../../redux/Selectors/vehicleTypeList_selectors';
+import { requestVehicleTypeList,filterVehicleTypeList, sortVehicleTypeList,deleteVehicleTypeItem } from '../../redux/Reducers/vehicleTypeList_reducer';
+import VehicleTypeDataGrid from './VehicleTypeDataGrid';
+import { getVehicleTypeList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage } from '../../redux/Selectors/vehicleTypeList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
@@ -22,6 +22,15 @@ class VehicleTypeContainer extends React.Component {
     }
     onPageChanged = (pageNumber) => {
         this.props.requestVehicleTypeList(pageNumber);
+    }
+    onSorting = (sortData) => {
+        console.log("SORTING")
+        this.props.sortVehicleTypeList(sortData)
+    }
+
+    onSubmit = (formData) => {
+        console.log("------ONSUBMIT------")
+        this.props.filterVehicleTypeList(formData);
     }
 
     deleteItem=(id)=>{
@@ -59,12 +68,25 @@ class VehicleTypeContainer extends React.Component {
                 {this.props.isFetching && this.props.vehicleTypeList == null ? <Preloader /> : null}
                 {this.props.setErrorMessage && <ErrorMessage />}
                 {this.props.vehicleTypeList != null &&
-                    < VehicleTypeList vehicleTypeList={this.props.vehicleTypeList}
-                        deleteItem={this.deleteItem}
-                        currentPage={this.props.currentPage}
-                        pageSize={this.props.pageSize}
-                        totalItemsCount={this.props.totalItemsCount}
-                        onPageChanged={this.onPageChanged} />}
+                    // < VehicleTypeList vehicleTypeList={this.props.vehicleTypeList}
+                    //     deleteItem={this.deleteItem}
+                    //     currentPage={this.props.currentPage}
+                    //     pageSize={this.props.pageSize}
+                    //     totalItemsCount={this.props.totalItemsCount}
+                    //     onPageChanged={this.onPageChanged} />
+                    <VehicleTypeDataGrid 
+                    vehicleTypeList={this.props.vehicleTypeList} 
+                    deleteItem={this.deleteItem}
+                    currentPage={this.props.currentPage}
+                    pageSize={this.props.pageSize}
+                    totalItemsCount={this.props.totalItemsCount}
+                    onPageChanged={this.onPageChanged}
+                    filterVehicleTypeList={this.props.filterVehicleTypeList}
+                    onSorting={this.onSorting}
+                    sortData={this.props.sortData}
+                    onSubmit={this.onSubmit}
+                /> 
+                }
             </div>
         );
     }
@@ -78,11 +100,12 @@ const mapStateToProps = (state) => {
         totalItemsCount: getTotalItemsCount(state),
         isFetching: getIsFetching(state),
         isCreated:getIsCreated(state),
-        setErrorMessage: getSetErrorMessage(state)
+        setErrorMessage: getSetErrorMessage(state),
+        sortData: getSortData(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleTypeList, deleteVehicleTypeItem}),
+    connect(mapStateToProps, {requestVehicleTypeList,filterVehicleTypeList,sortVehicleTypeList, deleteVehicleTypeItem}),
     withRouter
 )(VehicleTypeContainer);
