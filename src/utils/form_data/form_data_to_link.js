@@ -20,7 +20,7 @@ export const form_data_to_link= (formData) => {
                             link=link+arrayElementIds+"&";
                         }else if(typeof value=="object"){
                             // SORTING(OR ORDERING)
-                            if(key=="sortData"){
+                            if(key==="sortData"){
                                 for (let [sortKey, sortValue] of Object.entries(value)) {
                                     if(sortValue){
                                         link=link+`ordering=-${sortKey}&`
