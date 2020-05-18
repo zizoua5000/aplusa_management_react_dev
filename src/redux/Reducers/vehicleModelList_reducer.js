@@ -1,4 +1,5 @@
-import { vehicleModelAPI, vehicleMarkAPI } from "../../api/api";
+import { vehicleModelAPI} from "../../api/vehicleModelAPI";
+import { vehicleMarkAPI} from "../../api/vehicleMarkAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
@@ -120,6 +121,7 @@ export const actions = {
 
 export const sortVehicleModelList = (sortData) => {
     return async (dispatch, getState) => {
+        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
@@ -128,6 +130,7 @@ export const sortVehicleModelList = (sortData) => {
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleModelPage.sortData));
         let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData);
+        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleModelList(response.results));
@@ -188,6 +191,7 @@ export const requestVehicleMarkList = () => {
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));
+            
         } else{
             dispatch(actions.setErrorMessage(response))
         }

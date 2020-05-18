@@ -1,4 +1,4 @@
-import { vehicleTypeAPI } from "../../api/api";
+import { vehicleTypeAPI } from "../../api/vehicleTypeAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLE_TYPES = "SET_VEHICLE_TYPES"
@@ -79,7 +79,7 @@ export const requestVehicleTypeList = (pageNumber = 1) => {
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        let response = await vehicleTypeAPI.getvehicleTypeList(pageNumber);
+        let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeList(response.results));

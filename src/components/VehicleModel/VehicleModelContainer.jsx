@@ -26,10 +26,12 @@ class VehicleModelContainer extends React.Component {
     }
 
     onSorting = (sortData) => {
+        console.log("SORTING")
         this.props.sortVehicleModelList(sortData)
     }
 
     onSubmit = (formData) => {
+        console.log("------ONSUBMIT------")
         this.props.filterVehicleModelList(formData);
     }
 

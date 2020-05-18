@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {compose} from "redux";
-import {createField, Input, Dropdown} from "../Common/FormsControls/FormsControls";
+import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
 import {getVehicleItem,updateVehicleItem,requestVehicleModelList, requestVehicleMarkList,requestVehicleTypeList} from "../../redux/Reducers/vehicleList_reducer";
 import {getIsCreated, getVehicleItemSel,getVehicleModelList, getVehicleMarkList,getVehicleTypeList, getIsFetching,getSetErrorMessage, getCurrentPage} from '../../redux/Selectors/vehicleList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
@@ -21,6 +21,7 @@ class VehicleUpdateContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
+        console.log(formData)
         this.props.updateVehicleItem(formData);
     }
  
@@ -51,11 +52,13 @@ class VehicleUpdateContainer extends React.Component {
 }
 
 const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleMarkOptions,vehicleTypeOptions, instance, initialValues}) => {
+    console.log(instance)
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number
     initialValues.vehicle_model=instance.vehicle_model
     initialValues.vehicle_mark=instance.vehicle_model_detail.vehicle_mark
+    
     initialValues.vehicle_type=instance.vehicle_type
     initialValues.comment = instance.comment
     return (
@@ -64,9 +67,8 @@ const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleMarkOptions
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[required],Input,'Serie Number')}
             {createField("Vehicle Model", 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions)}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',vehicleMarkOptions)}
             {createField("Vehicle Type", 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions)}
-            {createField('Comment', 'comment',[required],Input,'Comment')}
+            {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
