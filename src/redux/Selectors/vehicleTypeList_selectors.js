@@ -31,3 +31,6 @@ export const getVehicleTypeItemSel = (state) => {
 export const getSortData = (state) => {
     return state.vehicleTypePage.sortData;
 }
+export const getVehicleTypeListExcel = (state) => {
+    return state.vehicleTypePage.vehicleTypeListExcel;
+}

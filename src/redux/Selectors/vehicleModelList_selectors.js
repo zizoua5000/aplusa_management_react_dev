@@ -39,3 +39,6 @@ export const getSetErrorMessage = (state) => {
 export const getSortData = (state) => {
     return state.vehicleModelPage.sortData;
 }
+export const getVehicleModelListExcel = (state) => {
+    return state.vehicleModelPage.vehicleModelListExcel;
+}

@@ -15,6 +15,8 @@ const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
+const SET_VEHICLE_MODEL_LIST_EXCEL = "SET_VEHICLE_MODEL_LIST_EXCEL"
+
 
 let initialState = {
     vehicleModelList: null,
@@ -22,12 +24,14 @@ let initialState = {
     vehicleModelItem: null,
     currentPage: 1,
     pageSize: 10,
+    max_page_size:10000,
     totalItemsCount: 0,
     isFetching: false,
     isCreated: false,
     message: null,
     formGetData:{},
-    sortData:{}
+    sortData:{},
+    vehicleModelListExcel: null,
 };
 
 const vehicleModelListReducer = (state = initialState, action) => {
@@ -97,6 +101,10 @@ const vehicleModelListReducer = (state = initialState, action) => {
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
             }
+        case SET_VEHICLE_MODEL_LIST_EXCEL:
+            {
+                return { ...state, vehicleModelListExcel: action.vehicleModelListExcel }
+            }             
         default:
             return state;
     }
@@ -116,7 +124,9 @@ export const actions = {
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
-    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData })
+    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
+    setVehicleModelListExcel: (vehicleModelListExcel) => ({ type: SET_VEHICLE_MODEL_LIST_EXCEL, vehicleModelListExcel }),
+
 }
 
 export const sortVehicleModelList = (sortData) => {
@@ -181,6 +191,25 @@ export const requestVehicleModelList = (pageNumber = 1) => {
             dispatch(actions.setErrorMessage(response))
         }
 
+    }
+}
+export const requestVehicleModelListExcel = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
+        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setVehicleModelListExcel(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData,
+                                                                getState().vehicleModelPage.max_page_size);
+        console.log(response)                                                        
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {     
+            dispatch(actions.setVehicleModelListExcel(response.results));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
     }
 }
 

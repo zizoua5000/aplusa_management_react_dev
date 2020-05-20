@@ -14,7 +14,7 @@ export const vehicleTypeAPI = {
             });
     },
     getVehicleTypeList(pageNumber = 1,page_size=null) {
-        return instance.get(`vehicle_type/list_create/?page=${pageNumber}page_size=${page_size}`)
+        return instance.get(`vehicle_type/list_create/?page=${pageNumber}&page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })

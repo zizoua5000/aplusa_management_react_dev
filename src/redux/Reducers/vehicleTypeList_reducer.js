@@ -13,14 +13,17 @@ const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
+const SET_VEHICLE_TYPE_LIST_EXCEL = "SET_VEHICLE_TYPE_LIST_EXCEL"
 
 let initialState = {
     vehicleTypeList: null,
     vehicleTypeItem: null,
+    vehicleTypeListExcel:null,
     isFetching: false,
     message: null,
     currentPage: 1,
     pageSize: 10,
+    max_page_size:10000,
     totalItemsCount: 0,
     isCreated: false,
     formGetData:{},
@@ -89,7 +92,11 @@ const vehicleTypeListReducer = (state = initialState, action) => {
                 let newFormGetData=state.formGetData
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
-            }            
+            }   
+        case SET_VEHICLE_TYPE_LIST_EXCEL:
+            {
+                return { ...state, vehicleTypeListExcel: action.vehicleTypeListExcel }
+            }                     
         default:
             return state;
     }
@@ -108,7 +115,8 @@ export const actions = {
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
-    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData })
+    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
+    setVehicleTypeListExcel: (vehicleTypeListExcel) => ({ type: SET_VEHICLE_TYPE_LIST_EXCEL, vehicleTypeListExcel }),
 }
 
 export const sortVehicleTypeList = (sortData) => {
@@ -119,6 +127,7 @@ export const sortVehicleTypeList = (sortData) => {
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
         dispatch(actions.setVehicleTypeList(null));
+        console.log(sortData)
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleTypePage.sortData));
         let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData);
@@ -163,12 +172,33 @@ export const requestVehicleTypeList = (pageNumber = 1) => {
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleTypeList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);
+        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
         let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+
+export const requestVehicleTypeListExcel = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
+        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setVehicleTypeListExcel(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData,
+                                                                getState().vehicleTypePage.max_page_size);
+        console.log(response)                                                        
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {     
+            dispatch(actions.setVehicleTypeListExcel(response.results));
         } else {
             dispatch(actions.setErrorMessage(response))
         }

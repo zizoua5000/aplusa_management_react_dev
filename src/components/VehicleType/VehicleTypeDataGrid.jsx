@@ -5,12 +5,14 @@ import {ExportExcelVehicleTypeList} from "../Common/Export/ExportExcelVehicleTyp
 import VehicleTypeItem from './VehicleTypeItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit }) => {
+let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleTypeListExcel }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
+    console.log(vehicleTypeListExcel)
     return (
         <div >
             <div>
-                <VehicleTypeListReduxForm onSubmit={onSubmit} vehicleTypeList={vehicleTypeList} deleteItem={deleteItem} itemCount={itemCount} onSorting={onSorting} sortData={sortData}/>
+                <VehicleTypeListReduxForm onSubmit={onSubmit} vehicleTypeList={vehicleTypeList} deleteItem={deleteItem} 
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleTypeListExcel={vehicleTypeListExcel}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -21,8 +23,8 @@ let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize,
     )
 }
 
-const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,deleteItem,itemCount,onSorting,sortData}) => {
-    console.log(sortData)
+const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,deleteItem,itemCount,onSorting,sortData,vehicleTypeListExcel}) => {
+    console.log(vehicleTypeListExcel)
     return (
         
         <form onSubmit={handleSubmit}>   
@@ -38,21 +40,13 @@ const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,
                              }}><i className={sortData.name? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
-                        {/* <th className="w-100">
-                            Vehicle Mark
-                            <span onClick={(e) => {
-                                 onSorting({vehicle_mark:!sortData.vehicle_mark});
-                             }}><i className={sortData.vehicle_mark? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
-                            </span>
-                        </th> */}
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleTypeList csvData={vehicleTypeList} fileName="Vehicle Type" /></th>
+                        <th><ExportExcelVehicleTypeList csvData={vehicleTypeListExcel} fileName="Vehicle Type" /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
-                        {/* <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkList,null,null,null,"")}</th> */}
                     </tr>
                 </tbody>
                 <tbody>

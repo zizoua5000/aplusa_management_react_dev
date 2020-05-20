@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {createVehicle, requestVehicleMarkList,requestVehicleTypeList,requestVehicleModelList} from "../../redux/Reducers/vehicleList_reducer";
+import {createVehicle,requestVehicleTypeList,requestVehicleModelList} from "../../redux/Reducers/vehicleList_reducer";
 import {getIsCreated,getVehicleMarkList, getIsFetching,getCurrentPage,getVehicleModelList,getVehicleTypeList,getSetErrorMessage} from '../../redux/Selectors/vehicleList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
@@ -12,7 +12,6 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleCreateContainer extends React.Component {
     componentDidMount() {
-        this.props.requestVehicleMarkList();
         this.props.requestVehicleTypeList();        
         this.props.requestVehicleModelList();
         }
@@ -39,8 +38,8 @@ class VehicleCreateContainer extends React.Component {
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleCreateReduxForm onSubmit={this.onSubmit} vehicleMarkOptions={this.props.vehicleMarkList}  
-                        vehicleModelOptions={this.props.vehicleModelList} vehicleTypeOptions={this.props.vehicleTypeList}/>
+                    <VehicleCreateReduxForm onSubmit={this.onSubmit} vehicleModelOptions={this.props.vehicleModelList} 
+                                                vehicleTypeOptions={this.props.vehicleTypeList}/>
                     </div>
                 </div>
             </>
@@ -50,9 +49,8 @@ class VehicleCreateContainer extends React.Component {
     }
 }
 
-const VehicleForm= ({handleSubmit, error, vehicleMarkOptions,vehicleModelOptions,vehicleTypeOptions, initialValues}) => {
+const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions, initialValues}) => {
 
-    initialValues.vehicle_mark=vehicleMarkOptions[0].id
     initialValues.vehicle_model=vehicleModelOptions[0].id
     initialValues.vehicle_type=vehicleTypeOptions[0].id
     return (
@@ -91,4 +89,4 @@ const mapStateToProps = (state) => ({
     setErrorMessage: getSetErrorMessage(state)
 })
 
-export default connect(mapStateToProps, {createVehicle, requestVehicleMarkList,requestVehicleTypeList,requestVehicleModelList})(VehicleCreateContainer);
+export default connect(mapStateToProps, {createVehicle,requestVehicleTypeList,requestVehicleModelList})(VehicleCreateContainer);
