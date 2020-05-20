@@ -34,7 +34,6 @@ const FormControl = ({meta: {touched, error}, children}) => {
 }
 
 export const Textarea= (props) => {
-    //const {input, meta, child, ...restProps} = props;
     const {input, meta, ...restProps} = props;
     return <FormControl {...props}><textarea {...input} {...restProps} /></FormControl>
 }
@@ -44,20 +43,27 @@ export const Input = (props) => {
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
-export const ToggleStatus = (props) => {
+export const Toggle = (props) => {
     const {input, meta, ...restProps} = props;
+    function handleToggle(e) {
+      const isChecked = e.target.checked;
+      input.onChange(isChecked)
+    }
+    
     return (
       <FormControl {...props}>
         <input
             {...input} {...restProps}
           className={styles.reactSwitchCheckbox}
-          id={`react-switchs-new`}
-          checked={input.value===''?true:input.value}
-          value={input.value===''?true:input.value}
+
+          id={input.name}
+          value={input.value}
+          name={input.name}     
+          onChange={handleToggle}     
         />
         <label
           className= {styles.reactSwitchLabel}
-          htmlFor={`react-switchs-new`}
+          htmlFor={input.name}
         >
           <span className={styles.reactSwitchButton} />
         </label>
@@ -65,48 +71,27 @@ export const ToggleStatus = (props) => {
     );
   };
 
-  export const ToggleRouming = (props) => {
-    const {input, meta, ...restProps} = props;
-    return (
-      <FormControl {...props}>
-        <input
-            {...input} {...restProps}
-          className={styles.reactSwitchCheckbox}
-          id={`react-switchr-new`}
-          checked={input.value===''?false:input.value}
-          value={input.value===''?false:input.value}
-        />
-        <label
-          className= {styles.reactSwitchLabel}
-          htmlFor={`react-switchr-new`}
-        >
-          <span className={styles.reactSwitchButton} />
-        </label>
-      </FormControl>
-    );
-  };
-  
-// export const Select = (props) => {
-//     const {input, meta, options,...restProps} = props;
-//     console.log(props)
-//     // debugger
-//     return <FormControl {...props}>
-      
-//             <select {...input} {...restProps}>
-// {options.map((item,key)=> <option value={item.id} key={key}>{item.name}</option>)}
-//             </select>
-//         </FormControl>
-// }
 export const Dropdown =(props) =>{
-  const {input, meta, options, ...restProps} =props;
+  const {input, options} =props;  
+  function handleChange(option) {
+		let value = option
+		const {valueField} = props
+
+		if (valueField) {
+			value = option[valueField]
+		}
+		input.onChange(value.id)
+	}
   return <FormControl {...props}>
-    <DropdownList filter
+    <DropdownList filter  
         data={options}
         textField='name'
-        allowCreate='onFilter'
         placeholder={props.placeholder}
+        value={input.value|| []} 
+        valueField='id'
+        onChange={handleChange}    
         />
-  </FormControl>
+</FormControl>
 }
 
 export const SelectWithCustomInitial = (props) => {
@@ -121,6 +106,7 @@ export const SelectWithCustomInitial = (props) => {
 
 export const MultiSelect2 = (props) => {
   const {input, meta, options,...restProps} = props;
+  console.log(props)
   return <FormControl {...props}>
               <Multiselect {...input} {...restProps}
                 onBlur={() => props.input.onBlur(props.input.value)}

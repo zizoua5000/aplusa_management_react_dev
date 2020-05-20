@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {createField, Input, ToggleStatus,ToggleRouming} from "../Common/FormsControls/FormsControls";
+import {createField, Input, Toggle} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {getSimcardItem,updateSimcardItem} from "../../redux/Reducers/simcardList_reducer";
 import {getIsCreated, getSimcardItemSel, getIsFetching,getSetErrorMessage,getCurrentPage} from '../../redux/Selectors/simcardList_selectors';
@@ -59,8 +59,8 @@ const SimcardForm= ({handleSubmit, error,instance, initialValues}) => {
             {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Simcard', 'number',[required],Input,'Simcard')}
             {createField('Package', 'package',[required],Input,'Package')}
-            {createField('Rouming', 'has_roumnig',[],ToggleRouming,'Rouming',null,'checkbox')}
-            {createField('Status', 'is_active',[],ToggleStatus,'Status',null,'checkbox')}            
+            {createField('Rouming', 'has_roumnig',[],Toggle,'Rouming',null,'checkbox')}
+            {createField('Status', 'is_active',[],Toggle,'Status',null,'checkbox')}            
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

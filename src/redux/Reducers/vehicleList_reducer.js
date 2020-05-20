@@ -1,9 +1,10 @@
-import { vehicleAPI, vehicleModelAPI, vehicleMarkAPI, vehicleTypeAPI } from "../../api/api";
+import { vehicleAPI } from "../../api/vehicleAPI";
+import { vehicleModelAPI } from "../../api/vehicleModelAPI";
+import { vehicleTypeAPI } from "../../api/vehicleTypeAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLES = "SET_VEHICLES"
 const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
-const SET_VEHICLE_MARKS = "SET_VEHICLE_MARKS"
 const SET_VEHICLE_TYPES = "SET_VEHICLE_TYPES"
 const SET_VEHICLE_ITEM = "SET_VEHICLE_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
@@ -13,20 +14,22 @@ const IS_FETCHING = "IS_FETCHING"
 const IS_CREATED = "IS_CREATED"
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 const SET_VEHICLE_MODEL_COUNT = "SET_VEHICLE_MODEL_COUNT"
+const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 
 let initialState = {
     vehicleList: null,
     vehicleModelList: null,
-    vehicleMarkList: null,
     vehicleTypeList: null,
     vehicleModelItem: null,
     currentPage: 1,
     pageSize: 10,
+    max_page_size:10000,
     totalItemsCount: 0,
     isFetching: false,
     isCreated: false,
     message: null,
     vehicleModelCount: 0,
+    formGetData:{},
 };
 
 const vehicleListReducer = (state = initialState, action) => {
@@ -38,10 +41,6 @@ const vehicleListReducer = (state = initialState, action) => {
         case SET_VEHICLE_MODELS:
             {
                 return { ...state, vehicleModelList: action.vehicleModelList }
-            }
-        case SET_VEHICLE_MARKS:
-            {
-                return { ...state, vehicleMarkList: action.vehicleMarkList }
             }
         case SET_VEHICLE_TYPES:
             {
@@ -79,6 +78,12 @@ const vehicleListReducer = (state = initialState, action) => {
             {
                 return { ...state, vehicleModelCount: action.vehicleModelCount }
             }
+        case ADD_PAGE_TO_FORM_GET_DATA:
+            {
+                let newFormGetData=state.formGetData
+                newFormGetData.page=action.pageNumber
+                return { ...state, formGetData:newFormGetData }
+            }            
         default:
             return state;
     }
@@ -88,7 +93,6 @@ const vehicleListReducer = (state = initialState, action) => {
 export const actions = {
     setVehicleList: (vehicleList) => ({ type: SET_VEHICLES, vehicleList }),
     setVehicleModelList: (vehicleModelList) => ({ type: SET_VEHICLE_MODELS, vehicleModelList }),
-    setVehicleMarkList: (vehicleMarkList) => ({ type: SET_VEHICLE_MARKS, vehicleMarkList }),
     setVehicleTypeList: (vehicleTypeList) => ({ type: SET_VEHICLE_TYPES, vehicleTypeList }),
     setVehicleItem: (vehicleItem) => ({ type: SET_VEHICLE_ITEM, vehicleItem }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
@@ -97,7 +101,8 @@ export const actions = {
     setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
     setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
-    setVehicleModelCount: (vehicleModelCount) => ({ type: SET_VEHICLE_MODEL_COUNT, vehicleModelCount })
+    setVehicleModelCount: (vehicleModelCount) => ({ type: SET_VEHICLE_MODEL_COUNT, vehicleModelCount }),
+    setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
 }
 
 export const requestVehicleList = (pageNumber = 1) => {
@@ -107,6 +112,7 @@ export const requestVehicleList = (pageNumber = 1) => {
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setVehicleList(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
         let response = await vehicleAPI.getVehicleList(pageNumber);
         console.log(response)
         dispatch(actions.setIsFetching(false));
@@ -119,86 +125,32 @@ export const requestVehicleList = (pageNumber = 1) => {
 
     }
 }
-
-export const requestVehicleModelList = (pageNumber = 1) => {
+export const requestVehicleModelList = () => {
     return async (dispatch, getState) => {
-        let pagesCount = 1
-        let sumModelList = []
-        console.log("PAGE COUNT ", pagesCount)
-        for (let i = 1; i <= pagesCount; i++) {
-            dispatch(actions.setIsFetching(true));
-            let response = await vehicleModelAPI.getVehicleModelList(pageNumber = i)
-            dispatch(actions.setIsFetching(false));
-            if (response !== 'error') {
-                sumModelList = sumModelList.concat(response.results)
-                console.log("TYPE LIST", response)
-                console.log(sumModelList)
-                if (i === 1) {
-                    pagesCount = Math.ceil(response.count / 10);
-                    console.log(pagesCount)
-                }
-            } else {
-                dispatch(actions.setErrorMessage(response))
-                break;
-            }
+        dispatch(actions.setIsFetching(true));
+        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehiclePage.formGetData,
+                                                                    getState().vehiclePage.max_page_size)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleModelList(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
         }
-        dispatch(actions.setVehicleModelList(sumModelList));
-
     }
 }
 
 
-export const requestVehicleMarkList = (pageNumber = 1) => {
+export const requestVehicleTypeList = () => {
     return async (dispatch, getState) => {
-        let pagesCount = 1
-        let sumMarkList = []
-        console.log("PAGE COUNT ", pagesCount)
-        for (let i = 1; i <= pagesCount; i++) {
-            dispatch(actions.setIsFetching(true));
-            let response = await vehicleMarkAPI.getVehicleMarkList(pageNumber = i)
-            dispatch(actions.setIsFetching(false));
-            if (response !== 'error') {
-                sumMarkList = sumMarkList.concat(response.results)
-                console.log("TYPE LIST", response)
-                console.log(sumMarkList)
-                if (i === 1) {
-                    pagesCount = Math.ceil(response.count / 10);
-                    console.log(pagesCount)
-                }
-            } else {
-                dispatch(actions.setErrorMessage(response))
-                break;
-            }
+        dispatch(actions.setIsFetching(true));
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehiclePage.formGetData,
+                                                                getState().vehiclePage.max_page_size)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleTypeList(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
         }
-        dispatch(actions.setVehicleMarkList(sumMarkList));
-
-    }
-}
-
-export const requestVehicleTypeList = (pageNumber = 1) => {
-    return async (dispatch, getState) => {
-        let pagesCount = 1
-        let sumTypeList = []
-        console.log("PAGE COUNT ", pagesCount)
-        for (let i = 1; i <= pagesCount; i++) {
-            dispatch(actions.setIsFetching(true));
-            let response = await vehicleTypeAPI.getvehicleTypeList(pageNumber = i)
-            dispatch(actions.setIsFetching(false));
-            if (response !== 'error') {
-                sumTypeList = sumTypeList.concat(response.results)
-                console.log("TYPE LIST", response)
-                console.log(sumTypeList)
-                if (i === 1) {
-                    pagesCount = Math.ceil(response.count / 10);
-                    console.log(pagesCount)
-                }
-            } else {
-                dispatch(actions.setErrorMessage(response))
-                break;
-            }
-        }
-        dispatch(actions.setVehicleTypeList(sumTypeList));
-
     }
 }
 

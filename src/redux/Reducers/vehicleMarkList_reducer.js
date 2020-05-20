@@ -1,4 +1,4 @@
-import { vehicleMarkAPI } from "../../api/api";
+import { vehicleMarkAPI } from "../../api/vehicleMarkAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLE_MARK_LIST = "SET_VEHICLE_MARK_LIST"

@@ -28,3 +28,9 @@ export const getIsCreated = (state) => {
 export const getVehicleTypeItemSel = (state) => {
     return state.vehicleTypePage.vehicleTypeItem;
 }
+export const getSortData = (state) => {
+    return state.vehicleTypePage.sortData;
+}
+export const getVehicleTypeListExcel = (state) => {
+    return state.vehicleTypePage.vehicleTypeListExcel;
+}

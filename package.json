@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "-": "0.0.1",
-    "ag-grid-community": "^23.1.0",
-    "ag-grid-react": "^23.1.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "metismenu": "^3.0.6",
@@ -23,7 +21,7 @@
     "reselect": "^4.0.0",
     "save-dev": "0.0.1-security",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^9.10.12"
+    "sweetalert2": "^9.10.13"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,4 +1,4 @@
-import { simcardAPI } from "../../api/api";
+import { simcardAPI } from "../../api/simcardAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_SIMCARD_LIST = "SET_SIMCARD_LIST"
