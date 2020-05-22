@@ -13,8 +13,11 @@ const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_FETCHING = "IS_FETCHING"
 const IS_CREATED = "IS_CREATED"
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
-const SET_VEHICLE_MODEL_COUNT = "SET_VEHICLE_MODEL_COUNT"
+const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
+const SET_SORT_DATA="SET_SORT_DATA"
+const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
+const SET_VEHICLE_LIST_ALL = "SET_VEHICLE_LIST_ALL"
 
 let initialState = {
     vehicleList: null,
@@ -28,7 +31,8 @@ let initialState = {
     isFetching: false,
     isCreated: false,
     message: null,
-    vehicleModelCount: 0,
+    vehicleListAll: null,
+    sortData:{},
     formGetData:{},
 };
 
@@ -74,16 +78,39 @@ const vehicleListReducer = (state = initialState, action) => {
             {
                 return { ...state, isCreated: action.isCreated }
             }
-        case SET_VEHICLE_MODEL_COUNT:
+        case SET_FORM_GET_DATA:
             {
-                return { ...state, vehicleModelCount: action.vehicleModelCount }
+                return { ...state, formGetData:action.formGetData }
             }
         case ADD_PAGE_TO_FORM_GET_DATA:
             {
                 let newFormGetData=state.formGetData
                 newFormGetData.page=action.pageNumber
                 return { ...state, formGetData:newFormGetData }
-            }            
+            }
+        case SET_SORT_DATA:
+            {
+                let newSortData=state.sortData
+                if(action.sortData!=null){
+                    for (let [key, value] of Object.entries(action.sortData)) {
+                        newSortData[key]=value
+                    }
+                }else{
+                    newSortData={}
+                }
+               
+                return { ...state, sortData:newSortData }
+            }
+        case ADD_SORT_DATA_TO_FORM_GET_DATA:
+            {
+                let newFormGetData=state.formGetData
+                newFormGetData.sortData=action.sortData
+                return { ...state, formGetData:newFormGetData }
+            }
+        case SET_VEHICLE_LIST_ALL:
+            {
+                return { ...state, vehicleListAll: action.vehicleListAll }
+            }         
         default:
             return state;
     }
@@ -101,19 +128,24 @@ export const actions = {
     setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
     setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
-    setVehicleModelCount: (vehicleModelCount) => ({ type: SET_VEHICLE_MODEL_COUNT, vehicleModelCount }),
+    setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
-}
+    setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
+    setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
+    setVehicleListAll: (vehicleListAll) => ({ type: SET_VEHICLE_LIST_ALL, vehicleListAll }),
 
-export const requestVehicleList = (pageNumber = 1) => {
+}
+export const sortVehicleList = (sortData) => {
     return async (dispatch, getState) => {
+        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
-        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setCurrentPage(1));
         dispatch(actions.setVehicleList(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await vehicleAPI.getVehicleList(pageNumber);
+        await dispatch(actions.setSortData(sortData));
+        await dispatch(actions.setAddSortDataToFormGetData(getState().vehiclePage.sortData));
+        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
         console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
@@ -125,6 +157,71 @@ export const requestVehicleList = (pageNumber = 1) => {
 
     }
 }
+
+export const filterVehicleList = (formGetData) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setErrorMessage(null));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setIsFetching(true));
+        dispatch(actions.setCurrentPage(1));
+        dispatch(actions.setVehicleList(null));
+        dispatch(actions.setSortData(null));
+        dispatch(actions.setFormGetData(formGetData));
+        let response = await vehicleAPI.getVehicleListNEW(formGetData);
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+
+    }
+}
+
+export const requestVehicleList = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setErrorMessage(null));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setIsFetching(true));
+        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setVehicleList(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await vehicleAPI.getVehicleList(pageNumber);
+        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+
+    }
+}
+
+export const requestVehicleListAll = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
+        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setVehicleListAll(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        console.log(getState().vehiclePage.formGetData)
+        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData,
+                                                                getState().vehiclePage.max_page_size);
+        console.log(response)                                                        
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {     
+            dispatch(actions.setVehicleListAll(response.results));
+        } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+
 export const requestVehicleModelList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));

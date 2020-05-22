@@ -47,7 +47,7 @@ const VehicleModelForm= ({handleSubmit, error, options, initialValues}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options)}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

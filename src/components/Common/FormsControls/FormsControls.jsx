@@ -5,7 +5,7 @@ import styles from "./FormsControls.module.css"
 import { DropdownList } from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 
-export function createField(label,name,validators,component,placeholder,options=null,type="text", props = {}, text = "",className="form-control") {
+export function createField(label,name,validators,component,placeholder,options=null,textfield ={},type="text", props = {}, text = "", className="form-control") {
 
    return <>
         {label!=null &&
@@ -18,6 +18,7 @@ export function createField(label,name,validators,component,placeholder,options=
                 component={component}
                 className={className}
                 options={options}
+                textfield={textfield}
                 {...props}
         /> {text}
     </>
@@ -44,6 +45,7 @@ export const Input = (props) => {
 }
 
 export const Toggle = (props) => {
+  console.log(props)
     const {input, meta, ...restProps} = props;
     function handleToggle(e) {
       const isChecked = e.target.checked;
@@ -85,7 +87,7 @@ export const Dropdown =(props) =>{
   return <FormControl {...props}>
     <DropdownList filter  
         data={options}
-        textField='name'
+        textField={props.textfield}
         placeholder={props.placeholder}
         value={input.value|| []} 
         valueField='id'
@@ -112,7 +114,7 @@ export const MultiSelect2 = (props) => {
                 onBlur={() => props.input.onBlur(props.input.value)}
                 data={options}
                 valueField='id'
-                textField='name'
+                textField={props.textfield}
                 value={input.value|| []} 
               />
           </FormControl>

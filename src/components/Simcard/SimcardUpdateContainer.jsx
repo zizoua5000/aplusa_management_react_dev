@@ -59,8 +59,8 @@ const SimcardForm= ({handleSubmit, error,instance, initialValues}) => {
             {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Simcard', 'number',[required],Input,'Simcard')}
             {createField('Package', 'package',[required],Input,'Package')}
-            {createField('Rouming', 'has_roumnig',[],Toggle,'Rouming',null,'checkbox')}
-            {createField('Status', 'is_active',[],Toggle,'Status',null,'checkbox')}            
+            {createField('Rouming', 'has_roumnig',[],Toggle,'Rouming',null,null,'checkbox')}
+            {createField('Active', 'is_active',[],Toggle,'Active',null,null,'checkbox')}            
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

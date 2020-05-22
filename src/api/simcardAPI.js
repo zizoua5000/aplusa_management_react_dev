@@ -1,6 +1,18 @@
 import instance from "./baseurl";
+import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
 export const simcardAPI = {
+    getSimcardListNEW(formData,page_size=null) {
+        let get_link=form_data_to_link(formData);
+        console.log(get_link)
+        return instance.get(`simcard/list_create/${get_link}page_size=${page_size}`)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return 'error';
+            });
+    },
     getSimcardList(pageNumber=1) {
         return instance.get(`simcard/list_create/?page=${pageNumber}`)
             .then(response => {

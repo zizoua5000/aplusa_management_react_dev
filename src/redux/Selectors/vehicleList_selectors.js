@@ -37,3 +37,10 @@ export const getTotalItemsCount = (state) => {
 export const getIsCreated= (state) => {
     return state.vehiclePage.isCreated;
 }
+
+export const getSortData = (state) => {
+    return state.vehiclePage.sortData;
+}
+export const getVehicleListAll = (state) => {
+    return state.vehiclePage.vehicleListAll;
+}

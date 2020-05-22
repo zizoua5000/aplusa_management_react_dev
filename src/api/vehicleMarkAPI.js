@@ -1,6 +1,19 @@
 import instance from "./baseurl";
+import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
 export const vehicleMarkAPI = {
+
+    getVehicleMarkListNEW(formData,page_size=null) {
+        let get_link=form_data_to_link(formData);
+        console.log(get_link)
+        return instance.get(`vehicle_mark/list_create/${get_link}page_size=${page_size}`)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return 'error';
+            });
+    },
 
     getVehicleMarkList(pageNumber=1,pageSize=null) {
         

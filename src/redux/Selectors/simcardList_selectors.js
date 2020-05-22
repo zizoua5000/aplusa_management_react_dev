@@ -28,3 +28,9 @@ export const getIsCreated = (state) => {
 export const getSimcardItemSel = (state) => {
     return state.simcardPage.simcardItem;
 }
+export const getSortData = (state) => {
+    return state.simcardPage.sortData;
+}
+export const getSimcardListAll = (state) => {
+    return state.simcardPage.simcardListAll;
+}

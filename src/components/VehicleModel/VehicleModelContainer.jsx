@@ -4,8 +4,8 @@ import {withRouter, NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestVehicleModelList,filterVehicleModelList, sortVehicleModelList, requestVehicleMarkList, deleteVehicleModelItem, requestVehicleModelListExcel} from '../../redux/Reducers/vehicleModelList_reducer'
-import {getVehicleModelList, getVehicleMarkList,getSortData ,getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleModelListExcel} from '../../redux/Selectors/vehicleModelList_selectors'
+import {requestVehicleModelList,filterVehicleModelList, sortVehicleModelList, requestVehicleMarkList, deleteVehicleModelItem, requestVehicleModelListAll} from '../../redux/Reducers/vehicleModelList_reducer'
+import {getVehicleModelList, getVehicleMarkList,getSortData ,getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleModelListAll} from '../../redux/Selectors/vehicleModelList_selectors'
 // import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -19,7 +19,7 @@ class VehicleModelContainer extends React.Component {
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleModelList(pageNumber);
         this.props.requestVehicleMarkList();   
-        this.props.requestVehicleModelListExcel();
+        this.props.requestVehicleModelListAll();
     }
 
     onPageChanged = (pageNumber) => {
@@ -69,9 +69,9 @@ class VehicleModelContainer extends React.Component {
                     <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle Model List</h1>
                     <NavLink to="/vehicle_model_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && this.props.vehicleModelList==null? <Preloader /> : null }
-                {this.props.setErrorMessage && <ErrorMessage />}
-                {this.props.vehicleModelList!=null && this.props.vehicleMarkList!=null &&
+                {this.props.isFetching && this.props.vehicleModelList==null&& this.props.vehicleModelListAll==null&& <Preloader />}
+                {this.props.setErrorMessage!=null && <ErrorMessage />}
+                {this.props.vehicleModelList!=null && this.props.vehicleMarkList!=null && this.props.vehicleModelListAll!=null&&
                     // <VehicleModelList 
                     //     vehicleModelList={this.props.vehicleModelList} 
                     //     deleteItem={this.deleteItem}
@@ -92,7 +92,7 @@ class VehicleModelContainer extends React.Component {
                         onSorting={this.onSorting}
                         sortData={this.props.sortData}
                         onSubmit={this.onSubmit}
-                        vehicleModelListExcel={this.props.vehicleModelListExcel}
+                        vehicleModelListAll={this.props.vehicleModelListAll}
                     /> 
                 }
             </div>
@@ -111,11 +111,11 @@ let mapStateToProps = (state) => {
         isCreated:getIsCreated(state),
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
-        vehicleModelListExcel:getVehicleModelListExcel(state)
+        vehicleModelListAll:getVehicleModelListAll(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleModelList, filterVehicleModelList,sortVehicleModelList,requestVehicleMarkList,getVehicleMarkList,deleteVehicleModelItem,requestVehicleModelListExcel}),
+    connect(mapStateToProps, {requestVehicleModelList, filterVehicleModelList,sortVehicleModelList,requestVehicleMarkList,deleteVehicleModelItem,requestVehicleModelListAll}),
     withRouter
 )(VehicleModelContainer);

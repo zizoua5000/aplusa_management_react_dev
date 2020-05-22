@@ -13,12 +13,12 @@ const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_VEHICLE_TYPE_LIST_EXCEL = "SET_VEHICLE_TYPE_LIST_EXCEL"
+const SET_VEHICLE_TYPE_LIST_ALL = "SET_VEHICLE_TYPE_LIST_ALL"
 
 let initialState = {
     vehicleTypeList: null,
     vehicleTypeItem: null,
-    vehicleTypeListExcel:null,
+    vehicleTypeListAll:null,
     isFetching: false,
     message: null,
     currentPage: 1,
@@ -93,9 +93,9 @@ const vehicleTypeListReducer = (state = initialState, action) => {
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
             }   
-        case SET_VEHICLE_TYPE_LIST_EXCEL:
+        case SET_VEHICLE_TYPE_LIST_ALL:
             {
-                return { ...state, vehicleTypeListExcel: action.vehicleTypeListExcel }
+                return { ...state, vehicleTypeListAll: action.vehicleTypeListAll }
             }                     
         default:
             return state;
@@ -116,7 +116,7 @@ export const actions = {
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setVehicleTypeListExcel: (vehicleTypeListExcel) => ({ type: SET_VEHICLE_TYPE_LIST_EXCEL, vehicleTypeListExcel }),
+    setVehicleTypeListAll: (vehicleTypeListAll) => ({ type: SET_VEHICLE_TYPE_LIST_ALL, vehicleTypeListAll }),
 }
 
 export const sortVehicleTypeList = (sortData) => {
@@ -184,13 +184,13 @@ export const requestVehicleTypeList = (pageNumber = 1) => {
     }
 }
 
-export const requestVehicleTypeListExcel = (pageNumber = 1) => {
+export const requestVehicleTypeListAll = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setVehicleTypeListExcel(null));
+        dispatch(actions.setVehicleTypeListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
         let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData,
@@ -198,7 +198,7 @@ export const requestVehicleTypeListExcel = (pageNumber = 1) => {
         console.log(response)                                                        
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setVehicleTypeListExcel(response.results));
+            dispatch(actions.setVehicleTypeListAll(response.results));
         } else {
             dispatch(actions.setErrorMessage(response))
         }

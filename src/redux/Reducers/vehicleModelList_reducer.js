@@ -15,7 +15,7 @@ const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_VEHICLE_MODEL_LIST_EXCEL = "SET_VEHICLE_MODEL_LIST_EXCEL"
+const SET_VEHICLE_MODEL_LIST_ALL = "SET_VEHICLE_MODEL_LIST_ALL"
 
 
 let initialState = {
@@ -31,7 +31,7 @@ let initialState = {
     message: null,
     formGetData:{},
     sortData:{},
-    vehicleModelListExcel: null,
+    vehicleModelListAll: null,
 };
 
 const vehicleModelListReducer = (state = initialState, action) => {
@@ -101,9 +101,9 @@ const vehicleModelListReducer = (state = initialState, action) => {
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
             }
-        case SET_VEHICLE_MODEL_LIST_EXCEL:
+        case SET_VEHICLE_MODEL_LIST_ALL:
             {
-                return { ...state, vehicleModelListExcel: action.vehicleModelListExcel }
+                return { ...state, vehicleModelListAll: action.vehicleModelListAll }
             }             
         default:
             return state;
@@ -125,7 +125,7 @@ export const actions = {
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setVehicleModelListExcel: (vehicleModelListExcel) => ({ type: SET_VEHICLE_MODEL_LIST_EXCEL, vehicleModelListExcel }),
+    setVehicleModelListAll: (vehicleModelListAll) => ({ type: SET_VEHICLE_MODEL_LIST_ALL, vehicleModelListAll }),
 
 }
 
@@ -193,20 +193,21 @@ export const requestVehicleModelList = (pageNumber = 1) => {
 
     }
 }
-export const requestVehicleModelListExcel = (pageNumber = 1) => {
+export const requestVehicleModelListAll = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setVehicleModelListExcel(null));
+        dispatch(actions.setVehicleModelListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        console.log(getState().vehicleModelPage.formGetData)
         let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData,
                                                                 getState().vehicleModelPage.max_page_size);
         console.log(response)                                                        
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setVehicleModelListExcel(response.results));
+            dispatch(actions.setVehicleModelListAll(response.results));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
@@ -216,7 +217,10 @@ export const requestVehicleModelListExcel = (pageNumber = 1) => {
 export const requestVehicleMarkList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleMarkAPI.getVehicleMarkList()
+        console.log(getState().vehicleMarkPage.formGetData)
+        let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehicleModelPage.max_page_size);
+
+        // let response = await vehicleMarkAPI.getVehicleMarkList()
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));

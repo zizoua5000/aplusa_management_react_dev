@@ -5,13 +5,13 @@ import {ExportExcelVehicleModelList} from "../Common/Export/ExportExcel";
 import VehicleModelItem from './VehicleModelItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
 
-let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleModelListExcel }) => {
+let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleModelListAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     return (
         <div >
             <div>
                 <VehicleModelListReduxForm onSubmit={onSubmit} vehicleModelList={vehicleModelList} deleteItem={deleteItem} itemCount={itemCount} 
-                vehicleMarkList={vehicleMarkList} onSorting={onSorting} sortData={sortData} vehicleModelListExcel={vehicleModelListExcel}/>
+                vehicleMarkList={vehicleMarkList} onSorting={onSorting} sortData={sortData} vehicleModelListAll={vehicleModelListAll}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,8 +22,8 @@ let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, cur
     )
 }
 
-const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValues,vehicleModelList,deleteItem,itemCount,onSorting,sortData,vehicleModelListExcel}) => {
-    console.log(vehicleModelListExcel)
+const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValues,vehicleModelList,deleteItem,itemCount,onSorting,sortData,vehicleModelListAll}) => {
+    console.log(vehicleModelListAll)
     return (
         
         <form onSubmit={handleSubmit}>   
@@ -50,10 +50,10 @@ const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValue
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleModelList csvData={vehicleModelListExcel} fileName="Vehicle Model" /></th>
+                        <th><ExportExcelVehicleModelList csvData={vehicleModelListAll} fileName="Vehicle Model" /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkList,null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkList,'name',null,null,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>

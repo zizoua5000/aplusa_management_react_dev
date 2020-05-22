@@ -27,10 +27,10 @@ class VehicleCreateContainer extends React.Component {
         }
         return (
             <div>
-            {this.props.isFetching && this.props.vehicleMarkList==null&&this.props.vehicleModelList==null&&
+            {this.props.isFetching && this.props.vehicleModelList==null&&
                     this.props.vehicleTypeList==null && <Preloader /> }
             {this.props.setErrorMessage && <ErrorMessage />}     
-            {this.props.vehicleMarkList!=null && this.props.vehicleModelList!=null &&
+            {this.props.vehicleModelList!=null &&
                     this.props.vehicleTypeList!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -57,8 +57,8 @@ const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions,
         <form onSubmit={handleSubmit}>
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[],Input,'Serie Number')}
-            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'Vehicle Model')}
-            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,)}
+            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name')}
+            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name')}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}

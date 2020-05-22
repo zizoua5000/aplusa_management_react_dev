@@ -63,8 +63,8 @@ const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleTypeOptions
             {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[required],Input,'Serie Number')}
-            {createField("Vehicle Model", 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions)}
-            {createField("Vehicle Type", 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions)}
+            {createField("Vehicle Model", 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name')}
+            {createField("Vehicle Type", 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name')}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}

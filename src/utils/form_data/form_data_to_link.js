@@ -1,4 +1,5 @@
 export const form_data_to_link= (formData) => {
+    console.log(formData)
             // This function for creating link
             // There is 3 option:
             // 1.page 

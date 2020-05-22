@@ -28,3 +28,9 @@ export const getTotalItemsCount = (state) => {
 export const getIsCreated= (state) => {
     return state.vehicleMarkPage.isCreated;
 }
+export const getSortData = (state) => {
+    return state.vehicleMarkPage.sortData;
+}
+export const getVehicleMarkListAll = (state) => {
+    return state.vehicleMarkPage.vehicleMarkListAll;
+}
