@@ -135,7 +135,7 @@ export const sortVehicleModelList = (sortData) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
-        dispatch(actions.setCurrentPage(1));
+        dispatch(actions.setCurrentPage(getState().vehicleModelPage.formGetData.page));
         dispatch(actions.setVehicleModelList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleModelPage.sortData));
