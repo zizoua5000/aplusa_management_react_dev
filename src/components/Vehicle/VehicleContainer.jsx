@@ -19,9 +19,9 @@ class VehicleContainer extends React.Component {
         console.log("DID MOUNT")
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleList(pageNumber);   
-        this.props.requestVehicleModelList();
-        this.props.requestVehicleTypeList();   
-        this.props.requestVehicleListAll();
+        // this.props.requestVehicleModelList();
+        // this.props.requestVehicleTypeList();   
+        // this.props.requestVehicleListAll();
     }
 
     onPageChanged = (pageNumber) => {
@@ -35,6 +35,10 @@ class VehicleContainer extends React.Component {
     onSubmit = (formData) => {
         console.log("------ONSUBMIT------")
         this.props.filterVehicleList(formData);
+    }
+    
+    multiselectLoading =()=>{
+        this.props.requestVehicleListAll()
     }
 
     deleteItem=(id)=>{
@@ -73,7 +77,7 @@ class VehicleContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.vehicleList==null&&this.props.vehicleListAll==null&& <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.vehicleList!=null &&this.props.vehicleListAll!=null&&this.props.vehicleModelList!=null&&this.props.vehicleTypeList!=null&&
+                {this.props.vehicleList!=null &&
                     // <VehicleList 
                     //     vehicleList={this.props.vehicleList} 
                     //     deleteItem={this.deleteItem}
@@ -84,8 +88,8 @@ class VehicleContainer extends React.Component {
                     // /> 
                     <VehicleDataGrid 
                     vehicleList={this.props.vehicleList} 
-                    vehicleModelList={this.props.vehicleModelList}
-                    vehicleTypeList={this.props.vehicleTypeList}
+                    // vehicleModelList={this.props.vehicleModelList}
+                    // vehicleTypeList={this.props.vehicleTypeList}
                     deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
@@ -96,6 +100,7 @@ class VehicleContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     vehicleListAll={this.props.vehicleListAll}
+                    multiselectLoading = {this.multiselectLoading}
                 /> 
                 }
             </div>
@@ -114,12 +119,12 @@ let mapStateToProps = (state) => {
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
         vehicleListAll:getVehicleListAll(state),
-        vehicleModelList:getVehicleModelList(state),
-        vehicleTypeList:getVehicleTypeList(state)
+        // vehicleModelList:getVehicleModelList(state),
+        // vehicleTypeList:getVehicleTypeList(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelList,requestVehicleTypeList,requestVehicleListAll}),
+    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleListAll}),
     withRouter
 )(VehicleContainer);

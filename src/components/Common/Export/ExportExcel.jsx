@@ -8,7 +8,7 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 export const ExportExcelVehicleModelList = ({csvData, fileName}) => {    
     console.log(csvData)
         return (
-            <ExcelFile element={<button className="btn btn-info"><i className="text-gray-100 fas fa-file-excel ml-2"></i></button>} filename={fileName}>
+            <ExcelFile element={<button className="btn btn-info" type="button"><i className="text-gray-100 fas fa-file-excel ml-2"></i></button>} filename={fileName}>
                 <ExcelSheet data={csvData} name="VehicleModelList">
                     <ExcelColumn label="Name" value="name"/>
                     <ExcelColumn label="Vehicle Mark" value={(col) => col.vehicle_mark_detail.name}/>

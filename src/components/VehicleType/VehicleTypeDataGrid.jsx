@@ -27,7 +27,7 @@ const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,
     console.log(vehicleTypeListAll)
     return (
         
-        <form onSubmit={handleSubmit}>   
+        <form >   
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -45,7 +45,7 @@ const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,
                 <tbody>
                     <tr>
                         <th><ExportExcelVehicleTypeList csvData={vehicleTypeListAll} fileName="Vehicle Type" /></th>
-                        <th><button className="btn btn-info">Filter</button></th>
+                        <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>
                 </tbody>

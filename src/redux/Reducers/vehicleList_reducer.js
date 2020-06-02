@@ -202,6 +202,7 @@ export const requestVehicleList = (pageNumber = 1) => {
 }
 
 export const requestVehicleListAll = (pageNumber = 1) => {
+    console.log('Bura geldim:205')
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
@@ -210,8 +211,7 @@ export const requestVehicleListAll = (pageNumber = 1) => {
         dispatch(actions.setVehicleListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         console.log(getState().vehiclePage.formGetData)
-        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData,
-                                                                getState().vehiclePage.max_page_size);
+        let response = await vehicleAPI.getVehicleListNEW(1, getState().vehiclePage.max_page_size);
         console.log(response)                                                        
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
@@ -225,8 +225,7 @@ export const requestVehicleListAll = (pageNumber = 1) => {
 export const requestVehicleModelList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehiclePage.formGetData,
-                                                                    getState().vehiclePage.max_page_size)
+        let response = await vehicleModelAPI.getVehicleModelListNEW(1,getState().vehiclePage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleModelList(response.results));
@@ -240,8 +239,7 @@ export const requestVehicleModelList = () => {
 export const requestVehicleTypeList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehiclePage.formGetData,
-                                                                getState().vehiclePage.max_page_size)
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(1,getState().vehiclePage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleTypeList(response.results));

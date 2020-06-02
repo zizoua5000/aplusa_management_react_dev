@@ -56,3 +56,19 @@
 .reactSwitchLabel:active .reactSwitchButton {
   width: 60px;
 }
+.listitem{
+  font-size: small;
+}
+.tagitem{
+  font-size: x-small;
+  margin:0px;
+  padding: 0rem;
+}
+
+/* li { 
+  display: inline; 
+}
+li:nth-child(3):after { 
+  content: "\A";
+  white-space: pre; 
+} */

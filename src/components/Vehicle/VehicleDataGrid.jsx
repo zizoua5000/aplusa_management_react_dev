@@ -5,14 +5,14 @@ import {ExportExcelVehicleList} from "../Common/Export/ExportExcelVehicle";
 import VehicleItem from './VehicleItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
 
-let VehicleDataGrid = ({ vehicleList, vehicleModelList, vehicleTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleListAll }) => {
+let VehicleDataGrid = ({ vehicleList,  deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleListAll,multiselectLoading }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(vehicleListAll)
+    console.log(multiselectLoading)
     return (
         <div >
             <div>
                 <VehicleListReduxForm onSubmit={onSubmit} vehicleList={vehicleList} deleteItem={deleteItem} itemCount={itemCount} 
-                vehicleModelList={vehicleModelList} vehicleTypeList={vehicleTypeList} onSorting={onSorting} sortData={sortData} vehicleListAll={vehicleListAll}/>
+                 onSorting={onSorting} sortData={sortData} vehicleListAll={vehicleListAll} multiselectLoading={multiselectLoading}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -23,10 +23,8 @@ let VehicleDataGrid = ({ vehicleList, vehicleModelList, vehicleTypeList, deleteI
     )
 }
 
-const VehicleListForm= ({handleSubmit, error, vehicleModelList,vehicleTypeList, initialValues,vehicleList,deleteItem,itemCount,onSorting,sortData,vehicleListAll}) => {
-    console.log(vehicleListAll)
-    return (
-        
+const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteItem,itemCount,onSorting,sortData,vehicleListAll,multiselectLoading}) => {
+    return (        
         <form onSubmit={handleSubmit}>   
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
@@ -79,15 +77,15 @@ const VehicleListForm= ({handleSubmit, error, vehicleModelList,vehicleTypeList, 
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" /></th>
+                        <th><ExportExcelVehicleList csvData={[]} fileName="Vehicle" /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         {/* <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th> */}
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelList,'name',null,null,null,"")}</th>  
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleModelList,'vehicle_mark',null,null,null,"")}</th>     
-                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,vehicleTypeList,'name',null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'comment', [], MultiSelect2,null,vehicleListAll,'comment',null,null,null,"")}</th>                    
+                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,[],'name',null,null,null,"")}</th>  
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,[],'vehicle_mark',null,null,null,"")}</th>     
+                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,[],'name',null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'comment', [], Input,'Comment')}</th>                    
                     </tr>
                 </tbody>
                 <tbody>

@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
 import {ExportExcelSimcardList} from "../Common/Export/ExportExcelSimcard";
 import SimcardItem from './SimcardItem';
-import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
+import {createField, Input,MultiSelect2, BooleanDropdown} from "../Common/FormsControls/FormsControls";
 
 let SimcardDataGrid = ({ simcardList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,simcardListAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
@@ -70,6 +70,8 @@ const SimcardListForm= ({handleSubmit, error, initialValues,simcardList,deleteIt
                         {/* <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th> */}
                         <th className="w-100">{createField(null, 'number', [], MultiSelect2,null,simcardListAll,'number',null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'package', [], MultiSelect2,null,simcardListAll,'package',null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'has_roumnig', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'is_active', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>
