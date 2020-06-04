@@ -1,0 +1,8 @@
+.rw-multiselect-tag {
+    display:list-item!important;
+   }
+
+.rw-multiselect .rw-input-reset{
+    display:list-item!important;
+}
+
