@@ -1,7 +1,7 @@
 export const form_data_to_link= (formData) => {
     console.log(formData)
             // This function for creating link
-            // There is 3 option:
+            // There is 4 option:
             // 1.page 
             // 2.filtering
             // 3.multiple filtering
@@ -28,13 +28,15 @@ export const form_data_to_link= (formData) => {
                         }else if(typeof value=="object"){
                             // SORTING(OR ORDERING)
                             if(key==="sortData"){
+                                link=link+`ordering=`
                                 for (let [sortKey, sortValue] of Object.entries(value)) {
                                     if(sortValue){
-                                        link=link+`ordering=-${sortKey}&`
+                                        link=link+`-${sortKey},`
                                     }else{
-                                        link=link+`ordering=${sortKey}&`
+                                        link=link+`${sortKey},`
                                     }
                                 }
+                                link=link+"&"
                             }
                         }
                         else{
