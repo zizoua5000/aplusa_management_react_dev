@@ -1,10 +1,12 @@
 import { vehicleAPI } from "../../api/vehicleAPI";
 import { vehicleModelAPI } from "../../api/vehicleModelAPI";
 import { vehicleTypeAPI } from "../../api/vehicleTypeAPI";
+import { vehicleMarkAPI } from "../../api/vehicleMarkAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLES = "SET_VEHICLES"
 const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
+const SET_VEHICLE_MARKS = "SET_VEHICLE_MARKS"
 const SET_VEHICLE_TYPES = "SET_VEHICLE_TYPES"
 const SET_VEHICLE_ITEM = "SET_VEHICLE_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
@@ -21,8 +23,9 @@ const SET_VEHICLE_LIST_ALL = "SET_VEHICLE_LIST_ALL"
 
 let initialState = {
     vehicleList: null,
-    vehicleModelList: null,
-    vehicleTypeList: null,
+    vehicleModelList: [],
+    vehicleMarkList: [],
+    vehicleTypeList: [],
     vehicleModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -31,7 +34,7 @@ let initialState = {
     isFetching: false,
     isCreated: false,
     message: null,
-    vehicleListAll: null,
+    vehicleListAll: [],
     sortData:{},
     formGetData:{},
 };
@@ -46,6 +49,10 @@ const vehicleListReducer = (state = initialState, action) => {
             {
                 return { ...state, vehicleModelList: action.vehicleModelList }
             }
+        case SET_VEHICLE_MARKS:
+            {
+                return { ...state, vehicleMarkList: action.vehicleMarkList }
+            }            
         case SET_VEHICLE_TYPES:
             {
                 return { ...state, vehicleTypeList: action.vehicleTypeList }
@@ -120,6 +127,7 @@ const vehicleListReducer = (state = initialState, action) => {
 export const actions = {
     setVehicleList: (vehicleList) => ({ type: SET_VEHICLES, vehicleList }),
     setVehicleModelList: (vehicleModelList) => ({ type: SET_VEHICLE_MODELS, vehicleModelList }),
+    setVehicleMarkList: (vehicleMarkList) => ({ type: SET_VEHICLE_MARKS, vehicleMarkList }),
     setVehicleTypeList: (vehicleTypeList) => ({ type: SET_VEHICLE_TYPES, vehicleTypeList }),
     setVehicleItem: (vehicleItem) => ({ type: SET_VEHICLE_ITEM, vehicleItem }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
@@ -202,7 +210,7 @@ export const requestVehicleList = (pageNumber = 1) => {
 }
 
 export const requestVehicleListAll = (pageNumber = 1) => {
-    console.log('Bura geldim:205')
+
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
@@ -212,7 +220,7 @@ export const requestVehicleListAll = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         console.log(getState().vehiclePage.formGetData)
         let response = await vehicleAPI.getVehicleListNEW(1, getState().vehiclePage.max_page_size);
-        console.log(response)                                                        
+                                                              
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleListAll(response.results));
@@ -243,6 +251,19 @@ export const requestVehicleTypeList = () => {
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleTypeList(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+
+export const requestVehicleMarkList = () => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehiclePage.max_page_size)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleMarkList(response.results));
         } else{
             dispatch(actions.setErrorMessage(response))
         }

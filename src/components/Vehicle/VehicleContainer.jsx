@@ -4,8 +4,8 @@ import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelList,requestVehicleTypeList,requestVehicleListAll} from '../../redux/Reducers/vehicleList_reducer'
-import {getVehicleList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleListAll,getSortData, getVehicleModelList, getVehicleTypeList} from '../../redux/Selectors/vehicleList_selectors'
+import {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelList,requestVehicleTypeList,requestVehicleListAll,requestVehicleMarkList} from '../../redux/Reducers/vehicleList_reducer'
+import {getVehicleList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleListAll,getSortData, getVehicleModelList, getVehicleTypeList,getVehicleMarkList} from '../../redux/Selectors/vehicleList_selectors'
 import VehicleList from './VehicleList';
 import VehicleDataGrid from './VehicleDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
@@ -19,9 +19,7 @@ class VehicleContainer extends React.Component {
         console.log("DID MOUNT")
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleList(pageNumber);   
-        // this.props.requestVehicleModelList();
-        // this.props.requestVehicleTypeList();   
-        // this.props.requestVehicleListAll();
+
     }
 
     onPageChanged = (pageNumber) => {
@@ -36,10 +34,7 @@ class VehicleContainer extends React.Component {
         console.log("------ONSUBMIT------")
         this.props.filterVehicleList(formData);
     }
-    
-    multiselectLoading =()=>{
-        this.props.requestVehicleListAll()
-    }
+
 
     deleteItem=(id)=>{
         swal(custom_sweet_delete)
@@ -100,7 +95,13 @@ class VehicleContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     vehicleListAll={this.props.vehicleListAll}
-                    multiselectLoading = {this.multiselectLoading}
+                    vehicleModelListAll={this.props.vehicleModelList}
+                    vehicleTypeListAll={this.props.vehicleTypeList}
+                    vehicleMarkListAll={this.props.vehicleMarkList}
+                    vehicleListFunction = {this.props.requestVehicleListAll}
+                    vehicleModelFunction = {this.props.requestVehicleModelList}
+                    vehicleMarkFunction = {this.props.requestVehicleMarkList}
+                    vehicleTypeFunction = {this.props.requestVehicleTypeList}
                 /> 
                 }
             </div>
@@ -119,12 +120,13 @@ let mapStateToProps = (state) => {
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
         vehicleListAll:getVehicleListAll(state),
-        // vehicleModelList:getVehicleModelList(state),
-        // vehicleTypeList:getVehicleTypeList(state)
+        vehicleModelList:getVehicleModelList(state),
+        vehicleMarkList:getVehicleMarkList(state),
+        vehicleTypeList:getVehicleTypeList(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleListAll}),
+    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleListAll,requestVehicleTypeList,requestVehicleModelList,requestVehicleMarkList}),
     withRouter
 )(VehicleContainer);

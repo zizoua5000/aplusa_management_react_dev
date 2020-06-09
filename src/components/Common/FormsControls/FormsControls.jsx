@@ -1,22 +1,23 @@
-import React,{useState} from "react"
+import React from "react"
 import {Field} from "redux-form"
 import styles from "./FormsControls.module.css"
 import { DropdownList, Multiselect} from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 
-export function createField(label,name,validators,component,placeholder,options=null,textfield ={},type="text", props = {}, text = "", className="form-control") {
+export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "", className="form-control") {
 
    return <>
         {label!=null &&
         <label>{label}</label>
         }
-        <Field placeholder={placeholder} 
+        <Field  placeholder={placeholder} 
                 name={name} 
                 type={type}
                 validate={validators}
                 component={component}
                 className={className}
                 options={options}
+                funct = {props}
                 textfield={textfield}
                 {...props}
         /> {text}
@@ -108,20 +109,20 @@ export const SelectWithCustomInitial = (props) => {
 
 export const MultiSelect2 = (props) => {
   console.log(props)
-
-  let [loadingMode,setLoadingMode] = useState(false)
-  const initialValues = [];
-  let [loadingData,setLoadingData] = useState(initialValues)
-
+  let loading=true
+  let loadingData=[]
+  if(props.options!=null){
+    loading=false
+    loadingData=props.options
+  }
   const {input, meta, options,...restProps} = props;
-  const activateLoading = (e)=>{ 
-    setLoadingMode(true)
-    console.log(props)
-    console.log(e)
-    
-    // setLoadingData(props.options)
-    // setLoadingMode(false)
-        
+
+  const activateLoading = (somefunc)=>{ 
+      console.log(somefunc)
+      let niko = somefunc()
+      console.log(niko)
+      console.log(props.options)      
+     
   };
 
   let ListItem = ({ item }) => (
@@ -139,7 +140,7 @@ export const MultiSelect2 = (props) => {
   return <FormControl {...props}>
               <Multiselect {...input} {...restProps} className={styles.multiSelectCon}
                 onBlur={() => props.input.onBlur(props.input.value)}
-                onFocus={activateLoading}
+                onFocus={()=>{activateLoading(props.funct)}}
                 data={loadingData}
                 minLength={2}
                 valueField='id'
@@ -148,13 +149,13 @@ export const MultiSelect2 = (props) => {
                 filter='contains'
                 itemComponent={ListItem}
                 tagComponent={TagItem}
-                busy={loadingMode}
+                busy={loading}
               />
           </FormControl>
 }
 
 export const BooleanDropdown =(props) =>{
-  const {input, options} =props;  
+  const {input} =props;  
   function handleChange(option) {
 		let value = option
 		const {valueField} = props

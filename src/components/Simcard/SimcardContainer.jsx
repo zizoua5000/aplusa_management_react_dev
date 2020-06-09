@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { requestSimcardList, deleteSimcardItem,filterSimcardList,sortSimcardList,requestSimcardListAll } from '../../redux/Reducers/simcardList_reducer';
-import SimcardList from './SimcardList';
+// import SimcardList from './SimcardList';
 import SimcardDataGrid from './SimcardDataGrid'
 import { NavLink, withRouter } from 'react-router-dom';
 import { custom_success_alert, custom_sweet_delete } from "../../utils/custom_sweet_alert/custom_sweet_alert";

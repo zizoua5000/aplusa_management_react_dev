@@ -16,8 +16,6 @@ export const form_data_to_link= (formData) => {
                             link=link+`${key}=`;
                             let arrayElementIds="";
                             value.map(item => {
-                                console.log(item,key)
-                                console.log(item[key])
 
                                 if(item[key]!== undefined){
                                 arrayElementIds=arrayElementIds+`${item[key]},`;
