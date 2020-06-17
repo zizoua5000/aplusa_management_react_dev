@@ -14,13 +14,10 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 class VehicleUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;        
-        this.props.requestVehicleTypeList();
-        this.props.requestVehicleModelList();
         this.props.getVehicleItem(id);
     }
 
     onSubmit = (formData) => {
-        console.log(formData)
         this.props.updateVehicleItem(formData);
     }
  
@@ -39,8 +36,8 @@ class VehicleUpdateContainer extends React.Component {
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleUpdateReduxForm onSubmit={this.onSubmit}  vehicleModelOptions={this.props.vehicleModelList} 
-                        vehicleTypeOptions={this.props.vehicleTypeList} instance={this.props.vehicleItem}/>
+                    <VehicleUpdateReduxForm onSubmit={this.onSubmit}  vehicleModelOptions={this.props.vehicleModelList} vehicleModelFunction={this.props.requestVehicleModelList} 
+                        vehicleTypeOptions={this.props.vehicleTypeList} vehicleTypeFunction={this.props.requestVehicleTypeList} instance={this.props.vehicleItem}/>
                     </div>
                 </div>
             </>
@@ -50,21 +47,20 @@ class VehicleUpdateContainer extends React.Component {
     }
 }
 
-const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleTypeOptions, instance, initialValues}) => {
+const VehicleForm= ({handleSubmit, error, vehicleModelOptions,vehicleTypeOptions,vehicleModelFunction,vehicleTypeFunction, instance, initialValues}) => {
     console.log(instance)
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number
-    initialValues.vehicle_model=instance.vehicle_model    
-    initialValues.vehicle_type=instance.vehicle_type
+    initialValues.vehicle_model=instance.vehicle_model_detail.name    
+    initialValues.vehicle_type=instance.vehicle_type_detail.name    
     initialValues.comment = instance.comment
     return (
         <form onSubmit={handleSubmit}>
-            {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[required],Input,'Serie Number')}
-            {createField("Vehicle Model", 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name')}
-            {createField("Vehicle Type", 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name')}
+            {createField("Vehicle Model", 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name',null,vehicleModelFunction,null,"")}
+            {createField("Vehicle Type", 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name',null,vehicleTypeFunction,null,"")}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}

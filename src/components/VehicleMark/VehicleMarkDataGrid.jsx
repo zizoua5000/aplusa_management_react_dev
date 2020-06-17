@@ -7,7 +7,6 @@ import {createField, Input} from "../Common/FormsControls/FormsControls";
 
 let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleMarkListAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(vehicleMarkListAll)
     return (
         <div >
             <div>
@@ -24,7 +23,6 @@ let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize,
 }
 
 const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,deleteItem,itemCount,onSorting,sortData,vehicleMarkListAll}) => {
-    console.log(vehicleMarkListAll)
     return (
         
         <form onSubmit={handleSubmit}>   

@@ -6,7 +6,6 @@ import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelList,requestVehicleTypeList,requestVehicleListAll,requestVehicleMarkList} from '../../redux/Reducers/vehicleList_reducer'
 import {getVehicleList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleListAll,getSortData, getVehicleModelList, getVehicleTypeList,getVehicleMarkList} from '../../redux/Selectors/vehicleList_selectors'
-import VehicleList from './VehicleList';
 import VehicleDataGrid from './VehicleDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -16,7 +15,7 @@ class VehicleContainer extends React.Component {
         if (this.props.isCreated) {
             custom_success_alert();
         }
-        console.log("DID MOUNT")
+
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleList(pageNumber);   
 
@@ -26,12 +25,12 @@ class VehicleContainer extends React.Component {
         this.props.requestVehicleList(pageNumber);
     }
     onSorting = (sortData) => {
-        console.log("SORTING")
+
         this.props.sortVehicleList(sortData)
     }
 
     onSubmit = (formData) => {
-        console.log("------ONSUBMIT------")
+
         this.props.filterVehicleList(formData);
     }
 
@@ -63,7 +62,6 @@ class VehicleContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (  
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -73,18 +71,8 @@ class VehicleContainer extends React.Component {
                 {this.props.isFetching && this.props.vehicleList==null&&this.props.vehicleListAll==null&& <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
                 {this.props.vehicleList!=null &&
-                    // <VehicleList 
-                    //     vehicleList={this.props.vehicleList} 
-                    //     deleteItem={this.deleteItem}
-                    //     currentPage={this.props.currentPage}
-                    //     pageSize={this.props.pageSize}
-                    //     totalItemsCount={this.props.totalItemsCount}
-                    //     onPageChanged={this.onPageChanged}
-                    // /> 
                     <VehicleDataGrid 
                     vehicleList={this.props.vehicleList} 
-                    // vehicleModelList={this.props.vehicleModelList}
-                    // vehicleTypeList={this.props.vehicleTypeList}
                     deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}

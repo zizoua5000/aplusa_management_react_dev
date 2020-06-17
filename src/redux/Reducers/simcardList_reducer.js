@@ -123,17 +123,14 @@ export const actions = {
 
 export const sortSimcardList = (sortData) => {
     return async (dispatch, getState) => {
-        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
         dispatch(actions.setSimcardList(null));
-        console.log(sortData)
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().simcardPage.sortData));
         let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setSimcardList(response.results));
@@ -174,9 +171,6 @@ export const requestSimcardList = (pageNumber = 1) => {
         dispatch(actions.setCurrentPage(pageNumber));
         // let response = await simcardAPI.getSimcardList(pageNumber);
         let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData);
-        console.log("-------------------SimcardList RESPOSE-----------");
-        console.log(response);
-        console.log("-------------------SimcardList RESPOSE-----------");
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setErrorMessage(null))
@@ -197,8 +191,7 @@ export const requestSimcardListAll = (pageNumber = 1) => {
         dispatch(actions.setSimcardListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData,
-                                                                getState().simcardPage.max_page_size);
-        console.log(response)                                                        
+                                                                getState().simcardPage.max_page_size);                                    
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setSimcardListAll(response.results));
@@ -212,14 +205,12 @@ export const createSimcard = (formData) => {
         dispatch(actions.setIsFetching(true));
         let response = await simcardAPI.createSimcard(formData);
         dispatch(actions.setIsFetching(false));
-        console.log(response)
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 201) {
             dispatch(actions.setErrorMessage(null))
             dispatch(actions.setIsCreated(true));
         } else {
-            console.log('----STOP SUBMIT-----')
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('simcardCreate', response.data))
         }
@@ -230,7 +221,6 @@ export const getSimcardItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
         let response = await simcardAPI.getSimcard(id);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
@@ -248,10 +238,8 @@ export const getSimcardItem = (id) => {
 
 export const updateSimcardItem = (formData) => {
     return async (dispatch) => {
-        console.log(formData)
         dispatch(actions.setIsFetching(true));
         let response = await simcardAPI.updateSimcard(formData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));

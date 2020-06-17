@@ -5,7 +5,7 @@ import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestVehicleMarkList,deleteVehicleMarkItem,filterVehicleMarkList, sortVehicleMarkList,requestVehicleMarkListAll} from '../../redux/Reducers/vehicleMarkList_reducer'
-import VehicleMarkList from './VehicleMarkList';
+// import VehicleMarkList from './VehicleMarkList';
 import VehicleMarkDataGrid from './VehicleMarkDataGrid';
 import { getVehicleMarkList,getCurrentPage,getPageSize,getTotalItemsCount,
     getIsCreated,getIsFetching ,getSetErrorMessage,getVehicleMarkListAll,getSortData } from "../../redux/Selectors/vehicleMarkList_selectors";
@@ -29,11 +29,9 @@ class VehicleMarkContainer extends React.Component {
         this.props.requestVehicleMarkList(pageNumber);
     }
     onSorting = (sortData) => {
-        console.log("SORTING",sortData)
         this.props.sortVehicleMarkList(sortData)
     }
     onSubmit = (formData) => {
-        console.log("------ONSUBMIT------")
         this.props.filterVehicleMarkList(formData);
     }
     
@@ -73,14 +71,6 @@ class VehicleMarkContainer extends React.Component {
             {this.props.isFetching && this.props.vehicleMarkList==null &&this.props.vehicleMarkListAll&& <Preloader /> }
             {this.props.setErrorMessage!=null && <ErrorMessage /> }
             {this.props.vehicleMarkList!=null &&
-                // <VehicleMarkList 
-                //     vehicleMarkList={this.props.vehicleMarkList} 
-                //     deleteItem={this.deleteItem}
-                //     currentPage={this.props.currentPage}
-                //     pageSize={this.props.pageSize}
-                //     totalItemsCount={this.props.totalItemsCount}
-                //     onPageChanged={this.onPageChanged}
-                // /> 
                 <VehicleMarkDataGrid 
                 vehicleMarkList={this.props.vehicleMarkList} 
                 deleteItem={this.deleteItem}

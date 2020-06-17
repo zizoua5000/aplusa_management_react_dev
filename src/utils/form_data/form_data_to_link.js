@@ -1,5 +1,4 @@
 export const form_data_to_link= (formData) => {
-    console.log(formData)
             // This function for creating link
             // There is 4 option:
             // 1.page 
@@ -16,12 +15,10 @@ export const form_data_to_link= (formData) => {
                             link=link+`${key}=`;
                             let arrayElementIds="";
                             value.map(item => {
-
-                                if(item[key]!== undefined){
-                                arrayElementIds=arrayElementIds+`${item[key]},`;
-                            }
-                            else if(item[key]== undefined){
-                                arrayElementIds=arrayElementIds+`${item.id},`;
+                            if(item[key]!== undefined){
+                                return arrayElementIds=arrayElementIds+`${item[key]},`;
+                            } else {
+                                return arrayElementIds=arrayElementIds+`${item.id},`;
                             }
                             })
                             link=link+arrayElementIds+"&";
@@ -46,6 +43,5 @@ export const form_data_to_link= (formData) => {
                     }
                 }
             }
-            console.log(link);
             return link
         }

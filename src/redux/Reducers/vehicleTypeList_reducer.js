@@ -121,17 +121,14 @@ export const actions = {
 
 export const sortVehicleTypeList = (sortData) => {
     return async (dispatch, getState) => {
-        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
         dispatch(actions.setVehicleTypeList(null));
-        console.log(sortData)
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleTypePage.sortData));
         let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleTypeList(response.results));
@@ -194,8 +191,7 @@ export const requestVehicleTypeListAll = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
         let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData,
-                                                                getState().vehicleTypePage.max_page_size);
-        console.log(response)                                                        
+                                                                getState().vehicleTypePage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeListAll(response.results));
@@ -210,7 +206,6 @@ export const createVehicleType = (formData) => {
         dispatch(actions.setIsFetching(true));
         let response = await vehicleTypeAPI.createVehicleType(formData);
         dispatch(actions.setIsFetching(false));
-        console.log(response)
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 201) {
@@ -227,7 +222,6 @@ export const getVehicleTypeItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
         let response = await vehicleTypeAPI.getVehicleType(id);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {

@@ -45,7 +45,6 @@ export const Input = (props) => {
 }
 
 export const Toggle = (props) => {
-  console.log(props)
     const {input, meta, ...restProps} = props;
     function handleToggle(e) {
       const isChecked = e.target.checked;
@@ -74,7 +73,19 @@ export const Toggle = (props) => {
   };
 
 export const Dropdown =(props) =>{
-  const {input, options} =props;  
+
+  let loading=true
+  let loadingData=[]
+  if(props.options!=null){
+    loading=false
+    loadingData=props.options
+  }
+  const {input} = props;
+
+  const activateLoading = (loadingFunction)=>{ 
+     loadingFunction()   
+  };
+
   function handleChange(option) {
 		let value = option
 		const {valueField} = props
@@ -86,13 +97,15 @@ export const Dropdown =(props) =>{
 	}
   return <FormControl {...props}>
     <DropdownList
-        data={options}
         textField={props.textfield}
         placeholder={props.placeholder}
         value={input.value|| []} 
         valueField='id'
         onChange={handleChange} 
-        filter='contains'   
+        filter='contains'  
+        onFocus={()=>{activateLoading(props.funct)}}
+        data={loadingData}
+        busy={loading} 
         />
 </FormControl>
 }
@@ -108,7 +121,7 @@ export const SelectWithCustomInitial = (props) => {
 }
 
 export const MultiSelect2 = (props) => {
-  console.log(props)
+
   let loading=true
   let loadingData=[]
   if(props.options!=null){
@@ -117,12 +130,8 @@ export const MultiSelect2 = (props) => {
   }
   const {input, meta, options,...restProps} = props;
 
-  const activateLoading = (somefunc)=>{ 
-      console.log(somefunc)
-      let niko = somefunc()
-      console.log(niko)
-      console.log(props.options)      
-     
+  const activateLoading = (loadingFunction)=>{ 
+      loadingFunction()    
   };
 
   let ListItem = ({ item }) => (
@@ -136,7 +145,6 @@ export const MultiSelect2 = (props) => {
   </span>
     
   );
-  console.log(props)
   return <FormControl {...props}>
               <Multiselect {...input} {...restProps} className={styles.multiSelectCon}
                 onBlur={() => props.input.onBlur(props.input.value)}

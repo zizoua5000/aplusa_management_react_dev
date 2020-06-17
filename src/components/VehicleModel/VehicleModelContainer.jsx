@@ -27,12 +27,10 @@ class VehicleModelContainer extends React.Component {
     }
 
     onSorting = (sortData) => {
-        console.log("SORTING")
         this.props.sortVehicleModelList(sortData)
     }
 
     onSubmit = (formData) => {
-        console.log("------ONSUBMIT------")
         this.props.filterVehicleModelList(formData);
     }
 
@@ -72,14 +70,6 @@ class VehicleModelContainer extends React.Component {
                 {this.props.isFetching && this.props.vehicleModelList==null&& this.props.vehicleModelListAll==null&& <Preloader />}
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
                 {this.props.vehicleModelList!=null && this.props.vehicleMarkList!=null && this.props.vehicleModelListAll!=null&&
-                    // <VehicleModelList 
-                    //     vehicleModelList={this.props.vehicleModelList} 
-                    //     deleteItem={this.deleteItem}
-                    //     currentPage={this.props.currentPage}
-                    //     pageSize={this.props.pageSize}
-                    //     totalItemsCount={this.props.totalItemsCount}
-                    //     onPageChanged={this.onPageChanged}
-                    // /> 
                     <VehicleModelDataGrid 
                         vehicleModelList={this.props.vehicleModelList} 
                         vehicleMarkList={this.props.vehicleMarkList}

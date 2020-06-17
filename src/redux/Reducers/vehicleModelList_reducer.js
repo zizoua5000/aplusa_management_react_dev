@@ -131,7 +131,6 @@ export const actions = {
 
 export const sortVehicleModelList = (sortData) => {
     return async (dispatch, getState) => {
-        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
@@ -140,7 +139,6 @@ export const sortVehicleModelList = (sortData) => {
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleModelPage.sortData));
         let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleModelList(response.results));
@@ -201,10 +199,8 @@ export const requestVehicleModelListAll = (pageNumber = 1) => {
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleModelListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        console.log(getState().vehicleModelPage.formGetData)
         let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData,
-                                                                getState().vehicleModelPage.max_page_size);
-        console.log(response)                                                        
+                                                                getState().vehicleModelPage.max_page_size);                                               
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleModelListAll(response.results));
@@ -217,7 +213,6 @@ export const requestVehicleModelListAll = (pageNumber = 1) => {
 export const requestVehicleMarkList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        console.log(getState().vehicleMarkPage.formGetData)
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehicleModelPage.max_page_size);
 
         // let response = await vehicleMarkAPI.getVehicleMarkList()

@@ -121,17 +121,14 @@ export const actions = {
 
 export const sortVehicleMarkList = (sortData) => {
     return async (dispatch, getState) => {
-        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
         dispatch(actions.setVehicleMarkList(null));
-        console.log(sortData)
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleMarkPage.sortData));
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(getState().vehicleMarkPage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));
@@ -173,7 +170,6 @@ export const requestVehicleMarkList = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleMarkAPI.getVehicleMarkList(pageNumber);
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(getState().vehicleMarkPage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));
@@ -194,8 +190,7 @@ export const requestVehicleMarkListAll = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(getState().vehicleMarkPage.formGetData,
-                                                                getState().vehicleMarkPage.max_page_size);
-        console.log(response)                                                        
+                                                                getState().vehicleMarkPage.max_page_size);                                                 
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleMarkListAll(response.results));
@@ -228,7 +223,6 @@ export const getVehicleMarkItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let response = await vehicleMarkAPI.getVehicleMark(id);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
@@ -263,8 +257,7 @@ export const updateVehicleMarkItem = (formData) => {
 export const deleteVehicleMarkItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let data = await vehicleMarkAPI.deleteVehicleMark(id);
-        console.log(data)
+        await vehicleMarkAPI.deleteVehicleMark(id);
         dispatch(actions.setIsFetching(false));
     }
 }

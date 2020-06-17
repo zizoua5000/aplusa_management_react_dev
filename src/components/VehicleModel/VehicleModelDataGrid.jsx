@@ -23,9 +23,7 @@ let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, cur
 }
 
 const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValues,vehicleModelList,deleteItem,itemCount,onSorting,sortData,vehicleModelListAll}) => {
-    console.log(vehicleModelListAll)
-    return (
-        
+    return (        
         <form onSubmit={handleSubmit}>   
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">

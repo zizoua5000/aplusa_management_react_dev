@@ -2,17 +2,14 @@ import React from 'react';
 import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
 import {ExportExcelVehicleList} from "../Common/Export/ExportExcelVehicle";
-import {connect} from 'react-redux';
 import VehicleItem from './VehicleItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
-import {requestVehicleListAll} from '../../redux/Reducers/vehicleList_reducer'
-import {getVehicleListAll} from '../../redux/Selectors/vehicleList_selectors'
+
 
 let VehicleDataGrid = ({ vehicleList,  deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleListAll,vehicleModelListAll,
     vehicleTypeListAll,vehicleListFunction,vehicleModelFunction,vehicleTypeFunction,vehicleMarkFunction,vehicleMarkListAll}) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(vehicleListFunction)
-    console.log(vehicleListAll)
+
     return (
         <div >
             <div>
@@ -31,7 +28,6 @@ let VehicleDataGrid = ({ vehicleList,  deleteItem, currentPage, pageSize, totalI
 
 const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteItem,itemCount,onSorting,sortData,vehicleListAll,
     vehicleTypeListAll,vehicleModelListAll,vehicleMarkListAll, vehicleListFunction,vehicleTypeFunction,vehicleModelFunction,vehicleMarkFunction}) => {
-  console.log(vehicleListAll)
     return (        
         <form onSubmit={handleSubmit}>   
             <table className="table table-default table-bordered text-nowrap">
@@ -85,9 +81,8 @@ const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteIt
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleList csvData={[]} fileName="Vehicle" /></th>
+                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" test={vehicleListFunction}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
-                        {/* <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th> */}
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,vehicleListFunction,null,"")}</th>
                         <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,vehicleListFunction,null,"")}</th>
                         <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelListAll,'name',null,vehicleModelFunction,null,"")}</th>  
@@ -108,4 +103,4 @@ const VehicleListReduxForm = reduxForm({form: 'VehicleList'})(VehicleListForm)
 
 
 
-export default connect(null,{requestVehicleListAll})( VehicleDataGrid);
+export default VehicleDataGrid;

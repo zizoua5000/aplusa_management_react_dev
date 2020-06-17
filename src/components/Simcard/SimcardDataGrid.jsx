@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
 import {ExportExcelSimcardList} from "../Common/Export/ExportExcelSimcard";
 import SimcardItem from './SimcardItem';
-import {createField, Input,MultiSelect2, BooleanDropdown} from "../Common/FormsControls/FormsControls";
+import {createField, MultiSelect2, BooleanDropdown} from "../Common/FormsControls/FormsControls";
 
 let SimcardDataGrid = ({ simcardList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,simcardListAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1

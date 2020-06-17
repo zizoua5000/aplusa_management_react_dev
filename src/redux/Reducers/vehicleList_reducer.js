@@ -22,7 +22,7 @@ const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
 const SET_VEHICLE_LIST_ALL = "SET_VEHICLE_LIST_ALL"
 
 let initialState = {
-    vehicleList: null,
+    vehicleList: [],
     vehicleModelList: [],
     vehicleMarkList: [],
     vehicleTypeList: [],
@@ -145,7 +145,6 @@ export const actions = {
 }
 export const sortVehicleList = (sortData) => {
     return async (dispatch, getState) => {
-        console.log(sortData)
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
@@ -154,7 +153,6 @@ export const sortVehicleList = (sortData) => {
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehiclePage.sortData));
         let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleList(response.results));
@@ -197,7 +195,6 @@ export const requestVehicleList = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleAPI.getVehicleList(pageNumber);
         let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
-        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleList(response.results));
@@ -210,17 +207,16 @@ export const requestVehicleList = (pageNumber = 1) => {
 }
 
 export const requestVehicleListAll = (pageNumber = 1) => {
-
     return async (dispatch, getState) => {
+        console.log("Something for log")
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        console.log(getState().vehiclePage.formGetData)
         let response = await vehicleAPI.getVehicleListNEW(1, getState().vehiclePage.max_page_size);
-                                                              
+        console.log(response)                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleListAll(response.results));
@@ -291,7 +287,6 @@ export const getVehicleItem = (id) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         let response = await vehicleAPI.getVehicle(id);
-        console.log("ITEM", response)
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {

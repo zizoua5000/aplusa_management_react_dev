@@ -11,10 +11,10 @@ import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleCreateContainer extends React.Component {
-    componentDidMount() {
-        this.props.requestVehicleTypeList();        
-        this.props.requestVehicleModelList();
-        }
+    // componentDidMount() {
+    //     this.props.requestVehicleTypeList();        
+    //     this.props.requestVehicleModelList();
+    //     }
 
     onSubmit = (formData) => {
         console.log(formData)
@@ -30,8 +30,7 @@ class VehicleCreateContainer extends React.Component {
             {this.props.isFetching && this.props.vehicleModelList==null&&
                     this.props.vehicleTypeList==null && <Preloader /> }
             {this.props.setErrorMessage && <ErrorMessage />}     
-            {this.props.vehicleModelList!=null &&
-                    this.props.vehicleTypeList!=null &&
+            {this.props.vehicleModelList!=null && this.props.vehicleTypeList!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Create Vehicle</h1>
@@ -39,7 +38,7 @@ class VehicleCreateContainer extends React.Component {
                 <div className="card shadow mb-4">
                     <div className="card-body">
                     <VehicleCreateReduxForm onSubmit={this.onSubmit} vehicleModelOptions={this.props.vehicleModelList} 
-                                                vehicleTypeOptions={this.props.vehicleTypeList}/>
+                    vehicleModelFunction = {this.props.requestVehicleModelList} vehicleTypeOptions={this.props.vehicleTypeList}  vehicleTypeFunction = {this.props.requestVehicleTypeList}/>
                     </div>
                 </div>
             </>
@@ -49,16 +48,16 @@ class VehicleCreateContainer extends React.Component {
     }
 }
 
-const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions, initialValues}) => {
+const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions, vehicleTypeFunction,vehicleModelFunction}) => {
 
-    initialValues.vehicle_model=vehicleModelOptions[0].id
-    initialValues.vehicle_type=vehicleTypeOptions[0].id
+    // initialValues.vehicle_model=vehicleModelOptions[0].id
+    // initialValues.vehicle_type=vehicleTypeOptions[0].id
     return (
         <form onSubmit={handleSubmit}>
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[],Input,'Serie Number')}
-            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name')}
-            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name')}
+            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name',null,vehicleModelFunction,null,"")}
+            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name',null,vehicleTypeFunction,null,"")}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}
