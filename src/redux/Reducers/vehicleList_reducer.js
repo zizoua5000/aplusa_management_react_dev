@@ -209,6 +209,7 @@ export const requestVehicleList = (pageNumber = 1) => {
 export const requestVehicleListAll = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         console.log("Something for log")
+        
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));

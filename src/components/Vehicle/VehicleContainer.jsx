@@ -18,9 +18,8 @@ class VehicleContainer extends React.Component {
 
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleList(pageNumber);   
-
     }
-
+    
     onPageChanged = (pageNumber) => {
         this.props.requestVehicleList(pageNumber);
     }
