@@ -1,4 +1,5 @@
 export const form_data_to_link= (formData) => {
+    console.log(formData)
             // This function for creating link
             // There is 4 option:
             // 1.page 
@@ -10,6 +11,7 @@ export const form_data_to_link= (formData) => {
                 link=link+"?";
                 for (let [key, value] of Object.entries(formData)) {
                     if (value!=null){
+                        console.log(value)
                         if (Array.isArray(value)){
                             // MULTIPLE FILTERING
                             link=link+`${key}=`;
@@ -43,5 +45,6 @@ export const form_data_to_link= (formData) => {
                     }
                 }
             }
+            console.log(link)
             return link
         }

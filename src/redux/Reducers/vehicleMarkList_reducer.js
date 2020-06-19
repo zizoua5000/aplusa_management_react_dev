@@ -189,7 +189,7 @@ export const requestVehicleMarkListAll = (pageNumber = 1) => {
         dispatch(actions.setVehicleMarkListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
-        let response = await vehicleMarkAPI.getVehicleMarkListNEW(getState().vehicleMarkPage.formGetData,
+        let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,
                                                                 getState().vehicleMarkPage.max_page_size);                                                 
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

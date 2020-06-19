@@ -6,7 +6,6 @@ import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestVehicleModelList,filterVehicleModelList, sortVehicleModelList, requestVehicleMarkList, deleteVehicleModelItem, requestVehicleModelListAll} from '../../redux/Reducers/vehicleModelList_reducer'
 import {getVehicleModelList, getVehicleMarkList,getSortData ,getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleModelListAll} from '../../redux/Selectors/vehicleModelList_selectors'
-// import VehicleModelList from './VehicleModelList';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 import VehicleModelDataGrid from './VehicleModelDataGrid';
@@ -18,8 +17,8 @@ class VehicleModelContainer extends React.Component {
         }
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleModelList(pageNumber);
-        this.props.requestVehicleMarkList();   
-        this.props.requestVehicleModelListAll();
+        // this.props.requestVehicleMarkList();   
+        // this.props.requestVehicleModelListAll();
     }
 
     onPageChanged = (pageNumber) => {
@@ -69,7 +68,7 @@ class VehicleModelContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.vehicleModelList==null&& this.props.vehicleModelListAll==null&& <Preloader />}
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.vehicleModelList!=null && this.props.vehicleMarkList!=null && this.props.vehicleModelListAll!=null&&
+                {this.props.vehicleModelList!=null &&
                     <VehicleModelDataGrid 
                         vehicleModelList={this.props.vehicleModelList} 
                         vehicleMarkList={this.props.vehicleMarkList}
@@ -83,6 +82,8 @@ class VehicleModelContainer extends React.Component {
                         sortData={this.props.sortData}
                         onSubmit={this.onSubmit}
                         vehicleModelListAll={this.props.vehicleModelListAll}
+                        vehicleModelFunction = {this.props.requestVehicleModelListAll}
+                        vehicleMarkFunction = {this.props.requestVehicleMarkList}
                     /> 
                 }
             </div>
@@ -101,7 +102,8 @@ let mapStateToProps = (state) => {
         isCreated:getIsCreated(state),
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
-        vehicleModelListAll:getVehicleModelListAll(state)
+        vehicleModelListAll:getVehicleModelListAll(state),
+
     }
 }
 

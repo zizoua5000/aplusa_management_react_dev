@@ -11,10 +11,6 @@ import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 class VehicleCreateContainer extends React.Component {
-    // componentDidMount() {
-    //     this.props.requestVehicleTypeList();        
-    //     this.props.requestVehicleModelList();
-    //     }
 
     onSubmit = (formData) => {
         console.log(formData)

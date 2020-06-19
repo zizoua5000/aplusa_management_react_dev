@@ -190,7 +190,7 @@ export const requestVehicleTypeListAll = (pageNumber = 1) => {
         dispatch(actions.setVehicleTypeListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
-        let response = await vehicleTypeAPI.getVehicleTypeListNEW(getState().vehicleTypePage.formGetData,
+        let response = await vehicleTypeAPI.getVehicleTypeListNEW(1,
                                                                 getState().vehicleTypePage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

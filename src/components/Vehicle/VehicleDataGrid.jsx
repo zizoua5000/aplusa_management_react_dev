@@ -81,7 +81,7 @@ const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteIt
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" test={vehicleListFunction}/></th>
+                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" loadDataFunction={vehicleListFunction}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,vehicleListFunction,null,"")}</th>
                         <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,vehicleListFunction,null,"")}</th>

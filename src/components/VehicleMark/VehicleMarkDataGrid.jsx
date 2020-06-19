@@ -5,13 +5,14 @@ import {ExportExcelVehicleMarkList} from "../Common/Export/ExportExcelVehicleMar
 import VehicleMarkItem from './VehicleMarkItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleMarkListAll }) => {
+let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleMarkListAll,vehicleMarkListFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
+    console.log(vehicleMarkListFunction)
     return (
         <div >
             <div>
                 <VehicleMarkListReduxForm onSubmit={onSubmit} vehicleMarkList={vehicleMarkList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleMarkListAll={vehicleMarkListAll}/>
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleMarkListAll={vehicleMarkListAll} vehicleMarkListFunction={vehicleMarkListFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,7 +23,7 @@ let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize,
     )
 }
 
-const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,deleteItem,itemCount,onSorting,sortData,vehicleMarkListAll}) => {
+const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,deleteItem,itemCount,onSorting,sortData,vehicleMarkListAll,vehicleMarkListFunction}) => {
     return (
         
         <form onSubmit={handleSubmit}>   
@@ -42,7 +43,7 @@ const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleMarkList csvData={vehicleMarkListAll} fileName="Vehicle Mark" /></th>
+                        <th><ExportExcelVehicleMarkList csvData={vehicleMarkListAll} fileName="Vehicle Mark" loadDataFunction={vehicleMarkListFunction} /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>

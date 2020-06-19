@@ -51,7 +51,6 @@ const VehicleMarkForm= ({handleSubmit, error, instance, initialValues}) => {
     initialValues.name=instance.name
     return (
         <form onSubmit={handleSubmit}>
-            {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Name', 'name',[required],Input,'Name')}
             {error && <div className={style.formSummaryError}>
                 {error}

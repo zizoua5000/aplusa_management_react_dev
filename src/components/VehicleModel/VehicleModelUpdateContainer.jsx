@@ -14,7 +14,7 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 class VehicleModelUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;
-        this.props.requestVehicleMarkList();
+        // this.props.requestVehicleMarkList();
         this.props.getVehicleModelItem(id);
     }
 
@@ -39,7 +39,7 @@ class VehicleModelUpdateContainer extends React.Component {
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleModelUpdateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList} instance={this.props.vehicleModelItem}/>
+                    <VehicleModelUpdateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList} instance={this.props.vehicleModelItem} vehicleMarkFunction={this.props.requestVehicleMarkList}/>
                     </div>
                 </div>
             </>
@@ -49,15 +49,15 @@ class VehicleModelUpdateContainer extends React.Component {
     }
 }
 
-const VehicleModelForm= ({handleSubmit, error, options, instance, initialValues}) => {
+const VehicleModelForm= ({handleSubmit, error, options, instance, initialValues,vehicleMarkFunction}) => {
     initialValues.id=instance.id
     initialValues.name=instance.name
-    initialValues.vehicle_mark=instance.vehicle_mark
+    initialValues.vehicle_mark=instance.vehicle_mark_detail.name
+    console.log(instance)
     return (
         <form onSubmit={handleSubmit}>
-            {createField(null, 'id',[required],Input,null,null,'hidden')}
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name')}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name',null,vehicleMarkFunction,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

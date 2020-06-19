@@ -19,8 +19,8 @@ const SET_VEHICLE_MODEL_LIST_ALL = "SET_VEHICLE_MODEL_LIST_ALL"
 
 
 let initialState = {
-    vehicleModelList: null,
-    vehicleMarkList: null,
+    vehicleModelList: [],
+    vehicleMarkList: [],
     vehicleModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -31,7 +31,7 @@ let initialState = {
     message: null,
     formGetData:{},
     sortData:{},
-    vehicleModelListAll: null,
+    vehicleModelListAll: [],
 };
 
 const vehicleModelListReducer = (state = initialState, action) => {
@@ -179,7 +179,6 @@ export const requestVehicleModelList = (pageNumber = 1) => {
         dispatch(actions.setVehicleModelList(null));
         dispatch(actions.setCurrentPage(pageNumber));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await vehicleModelAPI.getVehicleModelList(pageNumber);
         let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
@@ -199,7 +198,7 @@ export const requestVehicleModelListAll = (pageNumber = 1) => {
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleModelListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData,
+        let response = await vehicleModelAPI.getVehicleModelListNEW(1,
                                                                 getState().vehicleModelPage.max_page_size);                                               
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
@@ -212,10 +211,9 @@ export const requestVehicleModelListAll = (pageNumber = 1) => {
 
 export const requestVehicleMarkList = () => {
     return async (dispatch, getState) => {
+        console.log("LOG FOR LOG    ")
         dispatch(actions.setIsFetching(true));
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehicleModelPage.max_page_size);
-
-        // let response = await vehicleMarkAPI.getVehicleMarkList()
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleMarkList(response.results));

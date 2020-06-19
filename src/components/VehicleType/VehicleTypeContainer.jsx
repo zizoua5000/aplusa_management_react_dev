@@ -20,7 +20,7 @@ class VehicleTypeContainer extends React.Component {
 
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleTypeList(pageNumber);
-        this.props.requestVehicleTypeListAll();
+        // this.props.requestVehicleTypeListAll();
     }
     onPageChanged = (pageNumber) => {
         this.props.requestVehicleTypeList(pageNumber);
@@ -67,7 +67,7 @@ class VehicleTypeContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.vehicleTypeList == null && this.props.vehicleTypeListAll==null && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.vehicleTypeList != null && this.props.vehicleTypeListAll!=null&&
+                {this.props.vehicleTypeList != null && 
                     <VehicleTypeDataGrid 
                     vehicleTypeList={this.props.vehicleTypeList} 
                     deleteItem={this.deleteItem}
@@ -80,6 +80,7 @@ class VehicleTypeContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     vehicleTypeListAll={this.props.vehicleTypeListAll} 
+                    vehicleTypeFunction = {this.props.requestVehicleTypeListAll}
                 /> 
                 }
             </div>

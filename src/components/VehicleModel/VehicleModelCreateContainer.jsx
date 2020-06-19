@@ -10,9 +10,9 @@ import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 
 class VehicleModelCreateContainer extends React.Component {
-    componentDidMount() {
-        this.props.requestVehicleMarkList();
-    }
+    // componentDidMount() {
+    //     this.props.requestVehicleMarkList();
+    // }
 
     onSubmit = (formData) => {
         this.props.createVehicleModel(formData);
@@ -32,7 +32,7 @@ class VehicleModelCreateContainer extends React.Component {
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleModelCreateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList}/>
+                    <VehicleModelCreateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList}  vehicleMarkFunction = {this.props.requestVehicleMarkList}/>
                     </div>
                 </div>
             </>
@@ -42,12 +42,11 @@ class VehicleModelCreateContainer extends React.Component {
     }
 }
 
-const VehicleModelForm= ({handleSubmit, error, options, initialValues}) => {
-    initialValues.vehicle_mark=options[0].id
+const VehicleModelForm= ({handleSubmit, error, options, initialValues,vehicleMarkFunction}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name')}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name',null,vehicleMarkFunction,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

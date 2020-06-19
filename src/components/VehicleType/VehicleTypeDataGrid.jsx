@@ -5,13 +5,13 @@ import {ExportExcelVehicleTypeList} from "../Common/Export/ExportExcelVehicleTyp
 import VehicleTypeItem from './VehicleTypeItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleTypeListAll }) => {
+let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleTypeListAll,vehicleTypeFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     return (
         <div >
             <div>
                 <VehicleTypeListReduxForm onSubmit={onSubmit} vehicleTypeList={vehicleTypeList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleTypeListAll={vehicleTypeListAll}/>
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleTypeListAll={vehicleTypeListAll} vehicleTypeFunction={vehicleTypeFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,7 +22,7 @@ let VehicleTypeDataGrid = ({ vehicleTypeList, deleteItem, currentPage, pageSize,
     )
 }
 
-const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,deleteItem,itemCount,onSorting,sortData,vehicleTypeListAll}) => {
+const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,deleteItem,itemCount,onSorting,sortData,vehicleTypeListAll,vehicleTypeFunction}) => {
     return (
         
         <form >   
@@ -42,7 +42,7 @@ const VehicleTypeListForm= ({handleSubmit, error, initialValues,vehicleTypeList,
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleTypeList csvData={vehicleTypeListAll} fileName="Vehicle Type" /></th>
+                        <th><ExportExcelVehicleTypeList csvData={vehicleTypeListAll} fileName="Vehicle Type" loadDataFunction={vehicleTypeFunction} /></th>
                         <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>
