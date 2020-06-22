@@ -6,6 +6,7 @@ import vehicleModelListReducer from './Reducers/vehicleModelList_reducer'
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import simcardListReducer from "./Reducers/simcardList_reducer";
+import companyTypeListReducer from './Reducers/companyTypeList_reducer'
 
 
 
@@ -15,6 +16,7 @@ let rootReducer = combineReducers({
     vehicleTypePage: vehicleTypeListReducer,
     vehicleModelPage: vehicleModelListReducer,
     simcardPage:simcardListReducer,
+    companyTypePage: companyTypeListReducer,
     form:formReducer,
 })
 

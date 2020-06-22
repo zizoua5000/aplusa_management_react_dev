@@ -14,6 +14,9 @@ import VehicleTypeUpdateContainer from '../VehicleType/VehicleTypeUpdateContaine
 import SimcardContainer from '../Simcard/SimcardContainer'
 import SimcardCreateContainer from '../Simcard/SimcardCreateContainer'
 import SimcardUpdateContainer from '../Simcard/SimcardUpdateContainer'
+import CompanyTypeContainer from '../CompanyType/CompanyTypeContainer'
+import CompanyTypeCreateContainer from '../CompanyType/CompanyTypeCreateContainer'
+import CompanyTypeUpdateContainer from '../CompanyType/CompanyTypeUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -39,6 +42,9 @@ class Content extends React.Component {
                         <Route path='/simcard' render={() => <SimcardContainer />}></Route>
                         <Route path='/simcard_create' render={() => <SimcardCreateContainer />}></Route>
                         <Route path='/simcard_update/:id?' render={() => <SimcardUpdateContainer />}></Route>
+                        <Route path='/company_type' render={() => <CompanyTypeContainer />}></Route>  
+                        <Route path='/company_type_create' render={() => <CompanyTypeCreateContainer />}></Route>
+                        <Route path='/company_type_update/:id?' render={() => <CompanyTypeUpdateContainer />}></Route>
                     </div>
                 </div>
                 <Footer />

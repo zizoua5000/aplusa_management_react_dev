@@ -8,19 +8,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component {
     render() {
-        
-        return (
-            
+        return (  
             <BrowserRouter >
                 <Provider store={store} >
-
                     <div id="wrapper" >
                         <Navbar />
                         <Content />           
                     </div>
                 </Provider>
             </BrowserRouter >
-
         )
     }
 }
