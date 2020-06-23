@@ -6,14 +6,23 @@ import VehicleMarkContainer from '../VehicleMark/VehicleMarkContainer'
 import VehicleMarkCreateContainer from '../VehicleMark/VehicleMarkCreateContainer'
 import VehicleMarkUpdateContainer from '../VehicleMark/VehicleMarkUpdateContainer'
 import VehicleTypeContainer from '../VehicleType/VehicleTypeContainer'
+import RegionContainer from '../Region/RegionContainer'
+import ProjectContainer from '../Project/ProjectContainer'
 import VehicleModelContainer from '../VehicleModel/VehicleModelContainer'
 import VehicleModelCreateContainer from '../VehicleModel/VehicleModelCreateContainer'
 import VehicleModelUpdateContainer from '../VehicleModel/VehicleModelUpdateContainer'
 import VehicleTypeCreateContainer from '../VehicleType/VehicleTypeCreateContainer'
+import RegionCreateContainer from '../Region/RegionCreateContainer'
+import ProjectCreateContainer from '../Project/ProjectCreateContainer'
 import VehicleTypeUpdateContainer from '../VehicleType/VehicleTypeUpdateContainer'
+import RegionUpdateContainer from '../Region/RegionUpdateContainer'
+import ProjectUpdateContainer from '../Project/ProjectUpdateContainer'
 import SimcardContainer from '../Simcard/SimcardContainer'
 import SimcardCreateContainer from '../Simcard/SimcardCreateContainer'
 import SimcardUpdateContainer from '../Simcard/SimcardUpdateContainer'
+import CompanyTypeContainer from '../CompanyType/CompanyTypeContainer'
+import CompanyTypeCreateContainer from '../CompanyType/CompanyTypeCreateContainer'
+import CompanyTypeUpdateContainer from '../CompanyType/CompanyTypeUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -31,14 +40,23 @@ class Content extends React.Component {
                         <Route path='/vehicle_mark_create' render={() => <VehicleMarkCreateContainer />}></Route>
                         <Route path='/vehicle_mark_update/:id?' render={() => <VehicleMarkUpdateContainer />}></Route>                 
                         <Route path='/vehicle_type' render={() => <VehicleTypeContainer />}></Route>                      
+                        <Route path='/region' render={() => <RegionContainer />}></Route>                      
+                        <Route path='/project' render={() => <ProjectContainer />}></Route>                      
                         <Route path='/vehicle_model/:pageNumber?' render={() => <VehicleModelContainer />}></Route>
                         <Route path='/vehicle_model_create' render={() => <VehicleModelCreateContainer />}></Route>
                         <Route path='/vehicle_model_update/:id?' render={() => <VehicleModelUpdateContainer />}></Route>
                         <Route path='/vehicle_type_create' render={() => <VehicleTypeCreateContainer />}></Route>
+                        <Route path='/region_create' render={() => <RegionCreateContainer />}></Route>
+                        <Route path='/project_create' render={() => <ProjectCreateContainer />}></Route>
                         <Route path='/vehicle_type_update/:id?' render={() => <VehicleTypeUpdateContainer />}></Route>
+                        <Route path='/region_update/:id?' render={() => <RegionUpdateContainer />}></Route>
+                        <Route path='/project_update/:id?' render={() => <ProjectUpdateContainer />}></Route>
                         <Route path='/simcard' render={() => <SimcardContainer />}></Route>
                         <Route path='/simcard_create' render={() => <SimcardCreateContainer />}></Route>
                         <Route path='/simcard_update/:id?' render={() => <SimcardUpdateContainer />}></Route>
+                        <Route path='/company_type' render={() => <CompanyTypeContainer />}></Route>  
+                        <Route path='/company_type_create' render={() => <CompanyTypeCreateContainer />}></Route>
+                        <Route path='/company_type_update/:id?' render={() => <CompanyTypeUpdateContainer />}></Route>
                     </div>
                 </div>
                 <Footer />
