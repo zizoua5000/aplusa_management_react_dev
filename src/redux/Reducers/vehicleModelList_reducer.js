@@ -3,7 +3,7 @@ import { vehicleMarkAPI} from "../../api/vehicleMarkAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
-const SET_VEHICLE_MARKS = "SET_VEHICLE_MARKS"
+const SET_VEHICLE_MARK_ALL = "SET_VEHICLE_MARK_ALL"
 const SET_VEHICLE_MODEL_ITEM = "SET_VEHICLE_MODEL_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
@@ -20,7 +20,7 @@ const SET_VEHICLE_MODEL_LIST_ALL = "SET_VEHICLE_MODEL_LIST_ALL"
 
 let initialState = {
     vehicleModelList: [],
-    vehicleMarkList: [],
+    vehicleMarkListAll: [],
     vehicleModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -40,9 +40,9 @@ const vehicleModelListReducer = (state = initialState, action) => {
             {
                 return { ...state, vehicleModelList: action.vehicleModelList }
             }
-        case SET_VEHICLE_MARKS:
+        case SET_VEHICLE_MARK_ALL:
             {
-                return { ...state, vehicleMarkList: action.vehicleMarkList }
+                return { ...state, vehicleMarkListAll: action.vehicleMarkListAll }
             }
         case SET_VEHICLE_MODEL_ITEM:
             {
@@ -113,7 +113,7 @@ const vehicleModelListReducer = (state = initialState, action) => {
 
 export const actions = {
     setVehicleModelList: (vehicleModelList) => ({ type: SET_VEHICLE_MODELS, vehicleModelList }),
-    setVehicleMarkList: (vehicleMarkList) => ({ type: SET_VEHICLE_MARKS, vehicleMarkList }),
+    setVehicleMarkListAll: (vehicleMarkListAll) => ({ type: SET_VEHICLE_MARK_ALL, vehicleMarkListAll }),
     setVehicleModelItem: (vehicleModelItem) => ({ type: SET_VEHICLE_MODEL_ITEM, vehicleModelItem }),
     setCurrentPage: (currentPage=1) => ({ type: SET_CURRENT_PAGE, currentPage }),
     setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
@@ -190,16 +190,25 @@ export const requestVehicleModelList = (pageNumber = 1) => {
 
     }
 }
-export const requestVehicleModelListAll = (pageNumber = 1) => {
+export const requestVehicleModelListAll = (isExport=false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
+        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleModelListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(1,
-                                                                getState().vehicleModelPage.max_page_size);                                               
+        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        if(isExport){
+            let formGetData=getState().vehicleModelPage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await vehicleModelAPI.getVehicleModelListNEW(restformGetData, getState().vehicleModelPage.max_page_size)
+            } 
+            else {
+                response = await vehicleModelAPI.getVehicleModelListNEW(1, getState().vehicleModelPage.max_page_size)    
+            }    
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleModelListAll(response.results));
@@ -209,14 +218,14 @@ export const requestVehicleModelListAll = (pageNumber = 1) => {
     }
 }
 
-export const requestVehicleMarkList = () => {
+export const requestVehicleMarkListAll = () => {
     return async (dispatch, getState) => {
         console.log("LOG FOR LOG    ")
         dispatch(actions.setIsFetching(true));
         let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehicleModelPage.max_page_size);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setVehicleMarkList(response.results));
+            dispatch(actions.setVehicleMarkListAll(response.results));
             
         } else{
             dispatch(actions.setErrorMessage(response))

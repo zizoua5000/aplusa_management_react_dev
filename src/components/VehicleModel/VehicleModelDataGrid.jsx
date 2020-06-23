@@ -5,13 +5,15 @@ import {ExportExcelVehicleModelList} from "../Common/Export/ExportExcelVehicleMo
 import VehicleModelItem from './VehicleModelItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
 
-let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleModelListAll,vehicleModelFunction,vehicleMarkFunction }) => {
+let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkListAll, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleModelListAll,requestVehicleModelAll,requestVehicleMarkAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
+    console.log("Current PAGE ",currentPage)
+
     return (
         <div >
             <div>
                 <VehicleModelListReduxForm onSubmit={onSubmit} vehicleModelList={vehicleModelList} deleteItem={deleteItem} itemCount={itemCount} 
-                vehicleMarkList={vehicleMarkList} onSorting={onSorting} sortData={sortData} vehicleModelListAll={vehicleModelListAll} vehicleModelFunction={vehicleModelFunction} vehicleMarkFunction={vehicleMarkFunction} />
+                vehicleMarkListAll={vehicleMarkListAll} onSorting={onSorting} sortData={sortData} vehicleModelListAll={vehicleModelListAll} requestVehicleModelAll={requestVehicleModelAll} requestVehicleMarkAll={requestVehicleMarkAll} />
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,7 +24,7 @@ let VehicleModelDataGrid = ({ vehicleModelList, vehicleMarkList, deleteItem, cur
     )
 }
 
-const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValues,vehicleModelList,deleteItem,itemCount,onSorting,sortData,vehicleModelListAll,vehicleModelFunction,vehicleMarkFunction}) => {
+const VehicleModelListForm= ({handleSubmit, error, vehicleMarkListAll, initialValues,vehicleModelList,deleteItem,itemCount,onSorting,sortData,vehicleModelListAll,requestVehicleModelAll,requestVehicleMarkAll}) => {
     return (        
         <form onSubmit={handleSubmit}>   
             <table className="table table-default table-bordered text-nowrap">
@@ -48,10 +50,10 @@ const VehicleModelListForm= ({handleSubmit, error, vehicleMarkList, initialValue
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleModelList csvData={vehicleModelListAll} fileName="Vehicle Model" loadDataFunction={vehicleModelFunction}/></th>
+                        <th><ExportExcelVehicleModelList csvData={vehicleModelListAll} fileName="Vehicle Model" requestLoadData={requestVehicleModelAll}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')} </th>
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkList,'name',null,vehicleMarkFunction,null,"")}</th>
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>

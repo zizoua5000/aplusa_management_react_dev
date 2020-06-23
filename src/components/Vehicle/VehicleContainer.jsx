@@ -4,8 +4,8 @@ import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelList,requestVehicleTypeList,requestVehicleListAll,requestVehicleMarkList} from '../../redux/Reducers/vehicleList_reducer'
-import {getVehicleList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleListAll,getSortData, getVehicleModelList, getVehicleTypeList,getVehicleMarkList} from '../../redux/Selectors/vehicleList_selectors'
+import {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleModelListAll,requestVehicleTypeListAll,requestVehicleListAll,requestVehicleMarkListAll} from '../../redux/Reducers/vehicleList_reducer'
+import {getVehicleList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getVehicleListAll,getSortData, getVehicleModelListAll, getVehicleTypeListAll,getVehicleMarkListAll} from '../../redux/Selectors/vehicleList_selectors'
 import VehicleDataGrid from './VehicleDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -15,6 +15,7 @@ class VehicleContainer extends React.Component {
         if (this.props.isCreated) {
             custom_success_alert();
         }
+        console.log(this.props)
 
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleList(pageNumber);   
@@ -82,13 +83,13 @@ class VehicleContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     vehicleListAll={this.props.vehicleListAll}
-                    vehicleModelListAll={this.props.vehicleModelList}
-                    vehicleTypeListAll={this.props.vehicleTypeList}
-                    vehicleMarkListAll={this.props.vehicleMarkList}
-                    vehicleListFunction = {this.props.requestVehicleListAll}
-                    vehicleModelFunction = {this.props.requestVehicleModelList}
-                    vehicleMarkFunction = {this.props.requestVehicleMarkList}
-                    vehicleTypeFunction = {this.props.requestVehicleTypeList}
+                    vehicleModelListAll={this.props.vehicleModelListAll}
+                    vehicleTypeListAll={this.props.vehicleTypeListAll}
+                    vehicleMarkListAll={this.props.vehicleMarkListAll}
+                    requestVehicleListAll = {this.props.requestVehicleListAll}
+                    requestVehicleModelAll = {this.props.requestVehicleModelListAll}
+                    requestVehicleMarkAll = {this.props.requestVehicleMarkListAll}
+                    requestVehicleTypeAll = {this.props.requestVehicleTypeListAll}
                 /> 
                 }
             </div>
@@ -107,13 +108,13 @@ let mapStateToProps = (state) => {
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
         vehicleListAll:getVehicleListAll(state),
-        vehicleModelList:getVehicleModelList(state),
-        vehicleMarkList:getVehicleMarkList(state),
-        vehicleTypeList:getVehicleTypeList(state)
+        vehicleModelListAll:getVehicleModelListAll(state),
+        vehicleMarkListAll:getVehicleMarkListAll(state),
+        vehicleTypeListAll:getVehicleTypeListAll(state),
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleListAll,requestVehicleTypeList,requestVehicleModelList,requestVehicleMarkList}),
+    connect(mapStateToProps, {requestVehicleList, deleteVehicleItem,filterVehicleList,sortVehicleList,requestVehicleListAll,requestVehicleTypeListAll,requestVehicleModelListAll,requestVehicleMarkListAll}),
     withRouter
 )(VehicleContainer);

@@ -3,8 +3,8 @@ import {reduxForm} from "redux-form";
 import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {createVehicle,requestVehicleTypeList,requestVehicleModelList} from "../../redux/Reducers/vehicleList_reducer";
-import {getIsCreated,getVehicleMarkList, getIsFetching,getCurrentPage,getVehicleModelList,getVehicleTypeList,getSetErrorMessage} from '../../redux/Selectors/vehicleList_selectors';
+import {createVehicle,requestVehicleTypeListAll,requestVehicleModelListAll} from "../../redux/Reducers/vehicleList_reducer";
+import {getIsCreated,getVehicleMarkListAll, getIsFetching,getCurrentPage,getVehicleModelListAll,getVehicleTypeListAll,getSetErrorMessage} from '../../redux/Selectors/vehicleList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
@@ -23,18 +23,18 @@ class VehicleCreateContainer extends React.Component {
         }
         return (
             <div>
-            {this.props.isFetching && this.props.vehicleModelList==null&&
-                    this.props.vehicleTypeList==null && <Preloader /> }
+            {this.props.isFetching && this.props.vehicleModelListAll==null&&
+                    this.props.vehicleTypeListAll==null && <Preloader /> }
             {this.props.setErrorMessage && <ErrorMessage />}     
-            {this.props.vehicleModelList!=null && this.props.vehicleTypeList!=null &&
+            {this.props.vehicleModelListAll!=null && this.props.vehicleTypeListAll!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Create Vehicle</h1>
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleCreateReduxForm onSubmit={this.onSubmit} vehicleModelOptions={this.props.vehicleModelList} 
-                    vehicleModelFunction = {this.props.requestVehicleModelList} vehicleTypeOptions={this.props.vehicleTypeList}  vehicleTypeFunction = {this.props.requestVehicleTypeList}/>
+                    <VehicleCreateReduxForm onSubmit={this.onSubmit} vehicleModelListAll={this.props.vehicleModelListAll} 
+                    requestVehicleModelListAll = {this.props.requestVehicleModelListAll} vehicleTypeListAll={this.props.vehicleTypeListAll}  requestVehicleTypeListAll = {this.props.requestVehicleTypeListAll}/>
                     </div>
                 </div>
             </>
@@ -44,7 +44,7 @@ class VehicleCreateContainer extends React.Component {
     }
 }
 
-const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions, vehicleTypeFunction,vehicleModelFunction}) => {
+const VehicleForm= ({handleSubmit, error,vehicleModelListAll,vehicleTypeListAll, requestVehicleTypeListAll,requestVehicleModelListAll}) => {
 
     // initialValues.vehicle_model=vehicleModelOptions[0].id
     // initialValues.vehicle_type=vehicleTypeOptions[0].id
@@ -52,8 +52,8 @@ const VehicleForm= ({handleSubmit, error,vehicleModelOptions,vehicleTypeOptions,
         <form onSubmit={handleSubmit}>
             {createField('Plate', 'plate',[required],Input,'Plate')}
             {createField('Serie Number', 'serie_number',[],Input,'Serie Number')}
-            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelOptions,'name',null,vehicleModelFunction,null,"")}
-            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeOptions,'name',null,vehicleTypeFunction,null,"")}
+            {createField('Vehicle Model', 'vehicle_model', [required], Dropdown,'Vehicle Model',vehicleModelListAll,'name',null,requestVehicleModelListAll,null,"")}
+            {createField('Vehicle Type', 'vehicle_type', [required], Dropdown,'Vehicle Type',vehicleTypeListAll,'name',null,requestVehicleTypeListAll,null,"")}
             {createField('Comment', 'comment',[],Input,'Comment')}
             {error && <div className={style.formSummaryError}>
                 {error}
@@ -75,13 +75,13 @@ const VehicleCreateReduxForm = reduxForm({form: 'vehicleCreate', initialValues: 
 }})(VehicleForm)
 
 const mapStateToProps = (state) => ({
-    vehicleMarkList: getVehicleMarkList(state),
-    vehicleModelList: getVehicleModelList(state),
-    vehicleTypeList: getVehicleTypeList(state),
+    vehicleMarkListAll: getVehicleMarkListAll(state),
+    vehicleModelListAll: getVehicleModelListAll(state),
+    vehicleTypeListAll: getVehicleTypeListAll(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     currentPage:getCurrentPage(state),
     setErrorMessage: getSetErrorMessage(state)
 })
 
-export default connect(mapStateToProps, {createVehicle,requestVehicleTypeList,requestVehicleModelList})(VehicleCreateContainer);
+export default connect(mapStateToProps, {createVehicle,requestVehicleTypeListAll,requestVehicleModelListAll})(VehicleCreateContainer);

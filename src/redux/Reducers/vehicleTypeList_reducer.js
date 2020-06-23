@@ -181,17 +181,26 @@ export const requestVehicleTypeList = (pageNumber = 1) => {
     }
 }
 
-export const requestVehicleTypeListAll = (pageNumber = 1) => {
+export const requestVehicleTypeListAll = (isExport=false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
+        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleTypeListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
-        let response = await vehicleTypeAPI.getVehicleTypeListNEW(1,
-                                                                getState().vehicleTypePage.max_page_size);                                            
+        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);  
+        if(isExport){
+            let formGetData=getState().vehicleTypePage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await vehicleTypeAPI.getVehicleTypeListNEW(restformGetData, getState().vehicleTypePage.max_page_size)
+            } 
+            else {
+                response = await vehicleTypeAPI.getVehicleTypeListNEW(1, getState().vehicleTypePage.max_page_size)    
+            }                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleTypeListAll(response.results));

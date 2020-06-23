@@ -20,7 +20,6 @@ class VehicleMarkContainer extends React.Component {
         }
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestVehicleMarkList(pageNumber);
-        // this.props.requestVehicleMarkListAll();   
         console.log(this.props)
         
     }
@@ -83,7 +82,7 @@ class VehicleMarkContainer extends React.Component {
                 sortData={this.props.sortData}
                 onSubmit={this.onSubmit}
                 vehicleMarkListAll={this.props.vehicleMarkListAll}
-                vehicleMarkListFunction={this.props.requestVehicleMarkListAll}
+                requestVehicleMarkListAll={this.props.requestVehicleMarkListAll}
                 /> 
             }
             </div>

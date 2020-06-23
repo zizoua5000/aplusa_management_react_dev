@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { requestSimcardList, deleteSimcardItem,filterSimcardList,sortSimcardList,requestSimcardListAll } from '../../redux/Reducers/simcardList_reducer';
-// import SimcardList from './SimcardList';
 import SimcardDataGrid from './SimcardDataGrid'
 import { NavLink, withRouter } from 'react-router-dom';
 import { custom_success_alert, custom_sweet_delete } from "../../utils/custom_sweet_alert/custom_sweet_alert";
@@ -20,9 +19,9 @@ class SimcardContainer extends React.Component {
         }
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestSimcardList(pageNumber);
-        this.props.requestSimcardListAll();
     }
     onPageChanged = (pageNumber) => {
+        console.log("PAGE CHANGED")
         this.props.requestSimcardList(pageNumber);
     }
     onSorting = (sortData) => {
@@ -32,6 +31,7 @@ class SimcardContainer extends React.Component {
 
     onSubmit = (formData) => {
         console.log("------ONSUBMIT------")
+        console.log(formData)
         this.props.filterSimcardList(formData);
     }
 
@@ -76,13 +76,7 @@ class SimcardContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.simcardList == null &&this.props.simcardListAll==null && <Preloader />}
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.simcardList != null &&this.props.simcardListAll!=null &&
-                    // <SimcardList simcardList={this.props.simcardList}
-                    //     currentPage={this.props.currentPage}
-                    //     deleteItem={this.deleteItem}
-                    //     pageSize={this.props.pageSize}
-                    //     totalItemsCount={this.props.totalItemsCount}
-                    //     onPageChanged={this.onPageChanged} />
+                {this.props.simcardList != null &&
                     <SimcardDataGrid 
                     simcardList={this.props.simcardList} 
                     deleteItem={this.deleteItem}
@@ -94,9 +88,10 @@ class SimcardContainer extends React.Component {
                     onSorting={this.onSorting}
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
-                    simcardListAll={this.props.simcardListAll} 
+                    simcardListAll={this.props.simcardListAll}
+                    simcardListAllFunction={this.props.requestSimcardListAll} 
                     /> 
-                        }
+                    }
             </div>
         );
     }
