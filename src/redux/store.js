@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import vehicleListReducer from './Reducers/vehicleList_reducer'
 import vehicleMarkListReducer from './Reducers/vehicleMarkList_reducer'
 import vehicleTypeListReducer from './Reducers/vehicleTypeList_reducer'
+import regionListReducer from './Reducers/regionList_reducer'
 import vehicleModelListReducer from './Reducers/vehicleModelList_reducer'
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
@@ -14,6 +15,7 @@ let rootReducer = combineReducers({
     vehiclePage:vehicleListReducer,
     vehicleMarkPage: vehicleMarkListReducer,
     vehicleTypePage: vehicleTypeListReducer,
+    regionPage: regionListReducer,
     vehicleModelPage: vehicleModelListReducer,
     simcardPage:simcardListReducer,
     companyTypePage: companyTypeListReducer,

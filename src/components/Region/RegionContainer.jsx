@@ -4,9 +4,9 @@ import {withRouter,NavLink} from "react-router-dom";
 import swal from 'sweetalert';
 import {compose} from "redux";
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import { requestRegionList,filterRegionList, sortRegionList,requestRegionListAll,deleteRegionItem } from '../../redux/Reducers/vehicleTypeList_reducer';
+import { requestRegionList,filterRegionList, sortRegionList,requestRegionListAll,deleteRegionItem } from '../../redux/Reducers/regionList_reducer';
 import RegionDataGrid from './RegionDataGrid';
-import { getRegionList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getRegionListAll } from '../../redux/Selectors/vehicleTypeList_selectors';
+import { getRegionList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getRegionListAll } from '../../redux/Selectors/regionList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
@@ -63,13 +63,13 @@ class RegionContainer extends React.Component {
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle Type List</h1>
-                    <NavLink to="/vehicle_type_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <NavLink to="/region_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && this.props.vehicleTypeList == null && this.props.vehicleTypeListAll==null && <Preloader /> }
+                {this.props.isFetching && this.props.regionList == null && this.props.regionListAll==null && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.vehicleTypeList != null && 
+                {this.props.regionList != null && 
                     <RegionDataGrid 
-                    vehicleTypeList={this.props.vehicleTypeList} 
+                    regionList={this.props.regionList} 
                     deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
@@ -79,8 +79,8 @@ class RegionContainer extends React.Component {
                     onSorting={this.onSorting}
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
-                    vehicleTypeListAll={this.props.vehicleTypeListAll} 
-                    vehicleTypeFunction = {this.props.requestRegionListAll}
+                    regionListAll={this.props.regionListAll} 
+                    regionFunction = {this.props.requestRegionListAll}
                 /> 
                 }
             </div>
@@ -90,7 +90,7 @@ class RegionContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        vehicleTypeList: getRegionList(state),
+        regionList: getRegionList(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
         isCreated:getIsCreated(state),
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
-        vehicleTypeListAll:getRegionListAll(state)
+        regionListAll:getRegionListAll(state)
     }
 }
 

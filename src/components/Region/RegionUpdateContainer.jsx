@@ -5,40 +5,40 @@ import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {getVehicleTypeItem,updateVehicleTypeItem} from "../../redux/Reducers/vehicleTypeList_reducer";
-import {getIsCreated, getCurrentPage,getVehicleTypeItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/vehicleTypeList_selectors';
+import {getRegionItem,updateRegionItem} from "../../redux/Reducers/regionList_reducer";
+import {getIsCreated, getCurrentPage,getRegionItemSel, getIsFetching,getSetErrorMessage} from '../../redux/Selectors/regionList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
 
-class VehicleTypeUpdateContainer extends React.Component {
+class RegionUpdateContainer extends React.Component {
  
     componentDidMount() {
         let id = this.props.match.params.id;
-        this.props.getVehicleTypeItem(id);
+        this.props.getRegionItem(id);
     }
 
     onSubmit = (formData) => {
-        this.props.updateVehicleTypeItem(formData);
+        this.props.updateRegionItem(formData);
     }
  
     render() {
         if (this.props.isCreated) {
-            return <Redirect to={`/vehicle_type/${this.props.currentPage}`}/>
+            return <Redirect to={`/region/${this.props.currentPage}`}/>
         }
         return (
             <div>
-            {this.props.isFetching && this.props.vehicleTypeItem==null? <Preloader /> : null }
+            {this.props.isFetching && this.props.regionItem==null? <Preloader /> : null }
             {this.props.setErrorMessage && <ErrorMessage />}
-            {this.props.vehicleTypeItem!=null &&
+            {this.props.regionItem!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Update Vehicle Type</h1>
+                    <h1 className="h3 mb-0 text-gray-800">Update Region</h1>
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-header"></div>
                     <div className="card-body">
-                    <VehicleTypeUpdateReduxForm onSubmit={this.onSubmit} instance={this.props.vehicleTypeItem}/>
+                    <RegionUpdateReduxForm onSubmit={this.onSubmit} instance={this.props.regionItem}/>
                     </div>
                 </div>
             </>
@@ -48,7 +48,7 @@ class VehicleTypeUpdateContainer extends React.Component {
     }
 }
 
-const VehicleTypeForm= ({handleSubmit, error,instance, initialValues}) => {
+const RegionForm= ({handleSubmit, error,instance, initialValues}) => {
     initialValues.id=instance.id
     initialValues.name=instance.name
     return (
@@ -65,13 +65,13 @@ const VehicleTypeForm= ({handleSubmit, error,instance, initialValues}) => {
     )
 }
 
-const VehicleTypeUpdateReduxForm = reduxForm({form: 'vehicleTypeUpdate', initialValues: {
+const RegionUpdateReduxForm = reduxForm({form: 'regionUpdate', initialValues: {
     id:"",
     name:"",
-}})(VehicleTypeForm)
+}})(RegionForm)
 
 const mapStateToProps = (state) => ({
-    vehicleTypeItem: getVehicleTypeItemSel(state),
+    regionItem: getRegionItemSel(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     setErrorMessage: getSetErrorMessage(state),
@@ -79,6 +79,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, { getVehicleTypeItem, updateVehicleTypeItem}),
+    connect(mapStateToProps, { getRegionItem, updateRegionItem}),
     withRouter
-)(VehicleTypeUpdateContainer);
+)(RegionUpdateContainer);
