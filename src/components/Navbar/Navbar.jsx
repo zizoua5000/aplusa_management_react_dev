@@ -28,7 +28,17 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                 </li>
-
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="Region" data-toggle="collapse" data-target="#collapseRegion" aria-expanded="true" aria-controls="collapseRegion">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Region</span>
+                    </a>
+                    <div id="collapseRegion" className="collapse" aria-labelledby="headingRegion" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/region" className="collapse-item bg-dark text-light">Region</NavLink>
+                        </div>
+                    </div>
+                </li>
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="Vehicle" data-toggle="collapse" data-target="#collapseVehicle" aria-expanded="true" aria-controls="collapseTwo">
                         <i className="fas fa-fw fa-cog"></i>
