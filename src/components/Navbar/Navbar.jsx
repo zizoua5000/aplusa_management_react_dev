@@ -93,9 +93,11 @@ class Navbar extends React.Component {
                     </a>
                     <div id="collapseCompany" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/company" className="collapse-item bg-dark text-light">Company</NavLink>
                             <NavLink to="/company_type" className="collapse-item bg-dark text-light">Company type</NavLink>
                         </div>
                     </div>
+
                 </li>
             </ul>
         )

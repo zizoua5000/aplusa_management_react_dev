@@ -77,11 +77,11 @@ export const Dropdown =(props) =>{
   console.log(props)
   let loading=true
   let loadingData=[]
+
   if(props.options!=null){
     loading=false
     loadingData=props.options
   }
-  const {input} = props;
 
   const activateLoading = (loadingFunction)=>{ 
      loadingFunction()   
@@ -95,12 +95,12 @@ export const Dropdown =(props) =>{
 			value = option[valueField]
 		}
 		input.onChange(value.id)
-	}
+  }
   return <FormControl {...props}>
     <DropdownList
         textField={props.textfield}
         placeholder={props.placeholder}
-        value={input.value|| []} 
+        value={input.value || []} 
         valueField='id'
         onChange={handleChange} 
         filter='contains'  
