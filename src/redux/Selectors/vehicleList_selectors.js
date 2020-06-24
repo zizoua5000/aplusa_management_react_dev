@@ -5,14 +5,14 @@ export const getVehicleList = (state) => {
 export const getVehicleItemSel = (state) => {
     return state.vehiclePage.vehicleItem;
 }
-export const getVehicleModelList = (state) => {
-    return state.vehiclePage.vehicleModelList;
+export const getVehicleModelListAll = (state) => {
+    return state.vehiclePage.vehicleModelListAll;
 }
-export const getVehicleMarkList = (state) => {
-    return state.vehiclePage.vehicleMarkList;
+export const getVehicleMarkListAll = (state) => {
+    return state.vehiclePage.vehicleMarkListAll;
 }
-export const getVehicleTypeList = (state) => {
-    return state.vehiclePage.vehicleTypeList;
+export const getVehicleTypeListAll = (state) => {
+    return state.vehiclePage.vehicleTypeListAll;
 }
 
 export const getIsFetching = (state) => {
@@ -43,4 +43,7 @@ export const getSortData = (state) => {
 }
 export const getVehicleListAll = (state) => {
     return state.vehiclePage.vehicleListAll;
+}
+export const getIsExport= (state) => {
+    return state.vehiclePage.isExport;
 }

@@ -1,18 +1,17 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
-import {ExportExcelVehicleMarkList} from "../Common/Export/ExportExcelVehicleMark";
-import VehicleMarkItem from './VehicleMarkItem';
+import {ExportExcelProjectList} from "../Common/Export/ExportExcelProject";
+import ProjectItem from './ProjectItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleMarkListAll,requestVehicleMarkListAll }) => {
+let ProjectDataGrid = ({ projectList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,projectListAll,projectFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(requestVehicleMarkListAll)
     return (
         <div >
             <div>
-                <VehicleMarkListReduxForm onSubmit={onSubmit} vehicleMarkList={vehicleMarkList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleMarkListAll={vehicleMarkListAll} requestVehicleMarkListAll={requestVehicleMarkListAll}/>
+                <ProjectListReduxForm onSubmit={onSubmit} projectList={projectList} deleteItem={deleteItem} 
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} projectListAll={projectListAll} projectFunction={projectFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -23,10 +22,10 @@ let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize,
     )
 }
 
-const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,deleteItem,itemCount,onSorting,sortData,vehicleMarkListAll,requestVehicleMarkListAll}) => {
+const ProjectListForm= ({handleSubmit, error, initialValues,projectList,deleteItem,itemCount,onSorting,sortData,projectListAll,projectFunction}) => {
     return (
         
-        <form onSubmit={handleSubmit}>   
+        <form >   
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -43,19 +42,19 @@ const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleMarkList csvData={vehicleMarkListAll} fileName="Vehicle Mark" requestLoadData={requestVehicleMarkListAll} /></th>
-                        <th><button className="btn btn-info">Filter</button></th>
+                        <th><ExportExcelProjectList csvData={projectListAll} fileName="Project" loadDataFunction={projectFunction} /></th>
+                        <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>
                 </tbody>
                 <tbody>
-                    {vehicleMarkList.map((item, key) => <VehicleMarkItem vehicleMarkItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
+                    {projectList.map((item, key) => <ProjectItem projectItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
         </form>
     )
 }
 
-const VehicleMarkListReduxForm = reduxForm({form: 'VehicleMarkList'})(VehicleMarkListForm)
+const ProjectListReduxForm = reduxForm({form: 'ProjectList'})(ProjectListForm)
 
-export default VehicleMarkDataGrid;
+export default ProjectDataGrid;

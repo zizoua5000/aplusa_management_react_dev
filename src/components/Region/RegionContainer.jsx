@@ -4,14 +4,14 @@ import {withRouter,NavLink} from "react-router-dom";
 import swal from 'sweetalert';
 import {compose} from "redux";
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import { requestVehicleTypeList,filterVehicleTypeList, sortVehicleTypeList,requestVehicleTypeListAll,deleteVehicleTypeItem } from '../../redux/Reducers/vehicleTypeList_reducer';
-import VehicleTypeDataGrid from './VehicleTypeDataGrid';
-import { getVehicleTypeList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getVehicleTypeListAll } from '../../redux/Selectors/vehicleTypeList_selectors';
+import { requestRegionList,filterRegionList, sortRegionList,requestRegionListAll,deleteRegionItem } from '../../redux/Reducers/regionList_reducer';
+import RegionDataGrid from './RegionDataGrid';
+import { getRegionList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getRegionListAll } from '../../redux/Selectors/regionList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 
-class VehicleTypeContainer extends React.Component {
+class RegionContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.isCreated) {
@@ -19,29 +19,30 @@ class VehicleTypeContainer extends React.Component {
         }
 
         let pageNumber = this.props.match.params.pageNumber;
-        this.props.requestVehicleTypeList(pageNumber);
+        this.props.requestRegionList(pageNumber);
+        // this.props.requestRegionListAll();
     }
     onPageChanged = (pageNumber) => {
-        this.props.requestVehicleTypeList(pageNumber);
+        this.props.requestRegionList(pageNumber);
     }
     onSorting = (sortData) => {
-        this.props.sortVehicleTypeList(sortData)
+        this.props.sortRegionList(sortData)
     }
 
     onSubmit = (formData) => {
-        this.props.filterVehicleTypeList(formData);
+        this.props.filterRegionList(formData);
     }
 
     deleteItem=(id)=>{
         swal(custom_sweet_delete)
           .then((willDelete) => {
             if (willDelete) {
-                let respone=this.props.deleteVehicleTypeItem(id)
+                let respone=this.props.deleteRegionItem(id)
                 respone.then(res => {
                         swal("Deleted", {
                         icon: "success",
                     })
-                    this.props.requestVehicleTypeList(this.props.currentPage);
+                    this.props.requestRegionList(this.props.currentPage);
                 })
                 .catch(err => { 
                     if (!err.response){
@@ -61,25 +62,25 @@ class VehicleTypeContainer extends React.Component {
         return (
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle Type List</h1>
-                    <NavLink to="/vehicle_type_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Region List</h1>
+                    <NavLink to="/region_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && this.props.vehicleTypeList == null && this.props.vehicleTypeListAll==null && <Preloader /> }
+                {this.props.isFetching && this.props.regionList == null && this.props.regionListAll==null && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.vehicleTypeList != null && 
-                    <VehicleTypeDataGrid 
-                    vehicleTypeList={this.props.vehicleTypeList} 
+                {this.props.regionList != null && 
+                    <RegionDataGrid 
+                    regionList={this.props.regionList} 
                     deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalItemsCount={this.props.totalItemsCount}
                     onPageChanged={this.onPageChanged}
-                    filterVehicleTypeList={this.props.filterVehicleTypeList}
+                    filterRegionList={this.props.filterRegionList}
                     onSorting={this.onSorting}
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
-                    vehicleTypeListAll={this.props.vehicleTypeListAll} 
-                    requestVehicleTypeAll = {this.props.requestVehicleTypeListAll}
+                    regionListAll={this.props.regionListAll} 
+                    regionFunction = {this.props.requestRegionListAll}
                 /> 
                 }
             </div>
@@ -89,7 +90,7 @@ class VehicleTypeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        vehicleTypeList: getVehicleTypeList(state),
+        regionList: getRegionList(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
@@ -97,11 +98,11 @@ const mapStateToProps = (state) => {
         isCreated:getIsCreated(state),
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
-        vehicleTypeListAll:getVehicleTypeListAll(state)
+        regionListAll:getRegionListAll(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestVehicleTypeList,filterVehicleTypeList,requestVehicleTypeListAll,sortVehicleTypeList, deleteVehicleTypeItem}),
+    connect(mapStateToProps, {requestRegionList,filterRegionList,requestRegionListAll,sortRegionList, deleteRegionItem}),
     withRouter
-)(VehicleTypeContainer);
+)(RegionContainer);

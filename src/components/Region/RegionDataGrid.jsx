@@ -1,18 +1,17 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
-import {ExportExcelVehicleMarkList} from "../Common/Export/ExportExcelVehicleMark";
-import VehicleMarkItem from './VehicleMarkItem';
+import {ExportExcelRegionList} from "../Common/Export/ExportExcelRegion";
+import RegionItem from './RegionItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleMarkListAll,requestVehicleMarkListAll }) => {
+let RegionDataGrid = ({ regionList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,regionListAll,regionFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(requestVehicleMarkListAll)
     return (
         <div >
             <div>
-                <VehicleMarkListReduxForm onSubmit={onSubmit} vehicleMarkList={vehicleMarkList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} vehicleMarkListAll={vehicleMarkListAll} requestVehicleMarkListAll={requestVehicleMarkListAll}/>
+                <RegionListReduxForm onSubmit={onSubmit} regionList={regionList} deleteItem={deleteItem} 
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} regionListAll={regionListAll} regionFunction={regionFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -23,10 +22,10 @@ let VehicleMarkDataGrid = ({ vehicleMarkList, deleteItem, currentPage, pageSize,
     )
 }
 
-const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,deleteItem,itemCount,onSorting,sortData,vehicleMarkListAll,requestVehicleMarkListAll}) => {
+const RegionListForm= ({handleSubmit, error, initialValues,regionList,deleteItem,itemCount,onSorting,sortData,regionListAll,regionFunction}) => {
     return (
         
-        <form onSubmit={handleSubmit}>   
+        <form >   
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -43,19 +42,19 @@ const VehicleMarkListForm= ({handleSubmit, error, initialValues,vehicleMarkList,
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleMarkList csvData={vehicleMarkListAll} fileName="Vehicle Mark" requestLoadData={requestVehicleMarkListAll} /></th>
-                        <th><button className="btn btn-info">Filter</button></th>
+                        <th><ExportExcelRegionList csvData={regionListAll} fileName="Region" loadDataFunction={regionFunction} /></th>
+                        <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>
                 </tbody>
                 <tbody>
-                    {vehicleMarkList.map((item, key) => <VehicleMarkItem vehicleMarkItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
+                    {regionList.map((item, key) => <RegionItem regionItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
         </form>
     )
 }
 
-const VehicleMarkListReduxForm = reduxForm({form: 'VehicleMarkList'})(VehicleMarkListForm)
+const RegionListReduxForm = reduxForm({form: 'RegionList'})(RegionListForm)
 
-export default VehicleMarkDataGrid;
+export default RegionDataGrid;

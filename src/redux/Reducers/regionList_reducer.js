@@ -1,52 +1,48 @@
-import { vehicleModelAPI} from "../../api/vehicleModelAPI";
-import { vehicleMarkAPI} from "../../api/vehicleMarkAPI";
+import { regionAPI } from "../../api/regionAPI";
 import { stopSubmit } from "redux-form";
 
-const SET_VEHICLE_MODELS = "SET_VEHICLE_MODELS"
-const SET_VEHICLE_MARK_ALL = "SET_VEHICLE_MARK_ALL"
-const SET_VEHICLE_MODEL_ITEM = "SET_VEHICLE_MODEL_ITEM"
+const SET_REGIONS = "SET_REGIONS"
+const IS_FETCHING = "IS_FETCHING"
+const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
-const IS_FETCHING = "IS_FETCHING"
 const IS_CREATED = "IS_CREATED"
-const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
+const SET_REGION_ITEM = "SET_REGION_ITEM"
 const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_VEHICLE_MODEL_LIST_ALL = "SET_VEHICLE_MODEL_LIST_ALL"
-
+const SET_REGION_LIST_ALL = "SET_REGION_LIST_ALL"
 
 let initialState = {
-    vehicleModelList: [],
-    vehicleMarkListAll: [],
-    vehicleModelItem: null,
+    regionList: null,
+    regionItem: null,
+    regionListAll:null,
+    isFetching: false,
+    message: null,
     currentPage: 1,
     pageSize: 10,
     max_page_size:10000,
     totalItemsCount: 0,
-    isFetching: false,
     isCreated: false,
-    message: null,
     formGetData:{},
-    sortData:{},
-    vehicleModelListAll: [],
+    sortData:{}
 };
 
-const vehicleModelListReducer = (state = initialState, action) => {
+const regionListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_VEHICLE_MODELS:
+        case SET_REGIONS:
             {
-                return { ...state, vehicleModelList: action.vehicleModelList }
+                return { ...state, regionList: action.regionList }
             }
-        case SET_VEHICLE_MARK_ALL:
+        case IS_FETCHING:
             {
-                return { ...state, vehicleMarkListAll: action.vehicleMarkListAll }
+                return { ...state, isFetching: action.isFetching }
             }
-        case SET_VEHICLE_MODEL_ITEM:
+        case SET_ERROR_MESSAGE:
             {
-                return { ...state, vehicleModelItem: action.vehicleModelItem }
+                return { ...state, message: action.message }
             }
         case SET_CURRENT_PAGE:
             {
@@ -60,17 +56,13 @@ const vehicleModelListReducer = (state = initialState, action) => {
             {
                 return { ...state, totalItemsCount: action.totalItemsCount }
             }
-        case IS_FETCHING:
-            {
-                return { ...state, isFetching: action.isFetching }
-            }
-        case SET_ERROR_MESSAGE:
-            {
-                return { ...state, message: action.message }
-            }
         case IS_CREATED:
             {
                 return { ...state, isCreated: action.isCreated }
+            }
+        case SET_REGION_ITEM:
+            {
+                return { ...state, regionItem: action.regionItem }
             }
         case SET_FORM_GET_DATA:
             {
@@ -100,11 +92,11 @@ const vehicleModelListReducer = (state = initialState, action) => {
                 let newFormGetData=state.formGetData
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
-            }
-        case SET_VEHICLE_MODEL_LIST_ALL:
+            }   
+        case SET_REGION_LIST_ALL:
             {
-                return { ...state, vehicleModelListAll: action.vehicleModelListAll }
-            }             
+                return { ...state, regionListAll: action.regionListAll }
+            }                     
         default:
             return state;
     }
@@ -112,57 +104,34 @@ const vehicleModelListReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setVehicleModelList: (vehicleModelList) => ({ type: SET_VEHICLE_MODELS, vehicleModelList }),
-    setVehicleMarkListAll: (vehicleMarkListAll) => ({ type: SET_VEHICLE_MARK_ALL, vehicleMarkListAll }),
-    setVehicleModelItem: (vehicleModelItem) => ({ type: SET_VEHICLE_MODEL_ITEM, vehicleModelItem }),
-    setCurrentPage: (currentPage=1) => ({ type: SET_CURRENT_PAGE, currentPage }),
-    setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
-    setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
+    setRegionList: (regionList) => ({ type: SET_REGIONS, regionList }),
     setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
     setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
+    setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
+    setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
+    setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
+    setRegionItem: (regionItem) => ({ type: SET_REGION_ITEM, regionItem }),
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setVehicleModelListAll: (vehicleModelListAll) => ({ type: SET_VEHICLE_MODEL_LIST_ALL, vehicleModelListAll }),
-
+    setRegionListAll: (regionListAll) => ({ type: SET_REGION_LIST_ALL, regionListAll }),
 }
 
-export const sortVehicleModelList = (sortData) => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setErrorMessage(null));
-        dispatch(actions.setIsCreated(false));
-        dispatch(actions.setIsFetching(true));
-        dispatch(actions.setCurrentPage(getState().vehicleModelPage.formGetData.page));
-        dispatch(actions.setVehicleModelList(null));
-        await dispatch(actions.setSortData(sortData));
-        await dispatch(actions.setAddSortDataToFormGetData(getState().vehicleModelPage.sortData));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData);
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setVehicleModelList(response.results));
-            dispatch(actions.setTotalItemsCount(response.count));
-        } else {
-            dispatch(actions.setErrorMessage(response))
-        }
-
-    }
-}
-
-export const filterVehicleModelList = (formGetData) => {
+export const sortRegionList = (sortData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setVehicleModelList(null));
-        dispatch(actions.setSortData(null));
-        dispatch(actions.setFormGetData(formGetData));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(formGetData);
+        dispatch(actions.setRegionList(null));
+        await dispatch(actions.setSortData(sortData));
+        await dispatch(actions.setAddSortDataToFormGetData(getState().regionPage.sortData));
+        let response = await regionAPI.getRegionListNEW(getState().regionPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setVehicleModelList(response.results));
+            dispatch(actions.setRegionList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -171,18 +140,19 @@ export const filterVehicleModelList = (formGetData) => {
     }
 }
 
-export const requestVehicleModelList = (pageNumber = 1) => {
+export const filterRegionList = (formGetData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
-        dispatch(actions.setVehicleModelList(null));
-        dispatch(actions.setCurrentPage(pageNumber));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await vehicleModelAPI.getVehicleModelListNEW(getState().vehicleModelPage.formGetData);
+        dispatch(actions.setCurrentPage(1));
+        dispatch(actions.setRegionList(null));
+        dispatch(actions.setSortData(null));
+        dispatch(actions.setFormGetData(formGetData));
+        let response = await regionAPI.getRegionListNEW(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setVehicleModelList(response.results));
+            dispatch(actions.setRegionList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -190,53 +160,51 @@ export const requestVehicleModelList = (pageNumber = 1) => {
 
     }
 }
-export const requestVehicleModelListAll = (isExport=false) => {
-    let response;
+
+export const requestRegionList = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        // dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setVehicleModelListAll(null));
-        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        if(isExport){
-            let formGetData=getState().vehicleModelPage.formGetData
-            const {page, ...restformGetData}=formGetData
-            console.log(formGetData)
-            console.log(restformGetData)
-                response = await vehicleModelAPI.getVehicleModelListNEW(restformGetData, getState().vehicleModelPage.max_page_size)
-            } 
-            else {
-                response = await vehicleModelAPI.getVehicleModelListNEW(1, getState().vehicleModelPage.max_page_size)    
-            }    
+        dispatch(actions.setRegionList(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await regionAPI.getRegionList(pageNumber);        
+        let response = await regionAPI.getRegionListNEW(getState().regionPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setVehicleModelListAll(response.results));
+            dispatch(actions.setRegionList(response.results));
+            dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-export const requestVehicleMarkListAll = () => {
+export const requestRegionListAll = (pageNumber = 1) => {
     return async (dispatch, getState) => {
-        console.log("LOG FOR LOG    ")
-        dispatch(actions.setIsFetching(true));
-        let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,getState().vehicleModelPage.max_page_size);
+        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
+        dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setRegionListAll(null));
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await regionAPI.getRegionList(pageNumber);        
+        let response = await regionAPI.getRegionListNEW(1,
+                                                                getState().regionPage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setVehicleMarkListAll(response.results));
-            
-        } else{
+        if (response !== 'error') {     
+            dispatch(actions.setRegionListAll(response.results));
+        } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-export const createVehicleModel = (formData) => {
-    return async (dispatch, getState) => {
+export const createRegion = (formData) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleModelAPI.createVehicleModel(formData);
+        let response = await regionAPI.createRegion(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -245,34 +213,34 @@ export const createVehicleModel = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('vehicleModelCreate', response.data))
+            dispatch(stopSubmit('regionCreate', response.data))
         }
     }
 }
 
-export const getVehicleModelItem = (id) => {
-    return async (dispatch, getState) => {
+export const getRegionItem = (id) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleModelAPI.getVehicleModel(id);
+        let response = await regionAPI.getRegion(id);
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
-            dispatch(actions.setVehicleModelItem(response.data));
+            dispatch(actions.setRegionItem(response.data));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('vehicleModelUpdate', response.data))
+            dispatch(stopSubmit('regionUpdate', response.data))
         }
 
     }
 }
 
-export const updateVehicleModelItem = (formData) => {
-    return async (dispatch, getState) => {
+export const updateRegionItem = (formData) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await vehicleModelAPI.updateVehicleModel(formData);
+        let response = await regionAPI.updateRegion(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -281,17 +249,18 @@ export const updateVehicleModelItem = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('vehicleModelUpdate', response.data))
+            dispatch(stopSubmit('regionUpdate', response.data))
         }
+        
     }
 }
 
-export const deleteVehicleModelItem = (id) => {
-    return async(dispatch, getState) => {
+export const deleteRegionItem = (id) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        await vehicleModelAPI.deleteVehicleModel(id);
+        await regionAPI.deleteRegion(id);
         dispatch(actions.setIsFetching(false));
     }
 }
 
-export default vehicleModelListReducer;
+export default regionListReducer;

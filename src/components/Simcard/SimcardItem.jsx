@@ -13,7 +13,7 @@ let SimcardItem = ({ simcardItem, deleteItem, itemCount}) => {
             </td>
             <td>{simcardItem.number}</td>
             <td>{simcardItem.package}</td>
-            <td>{simcardItem.has_roumnig===true?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}</td>
+            <td>{simcardItem.has_rouming===true?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}</td>
             <td>{simcardItem.is_active===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
         </tr>
     )

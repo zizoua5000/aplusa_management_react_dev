@@ -5,14 +5,14 @@ import {ExportExcelSimcardList} from "../Common/Export/ExportExcelSimcard";
 import SimcardItem from './SimcardItem';
 import {createField, MultiSelect2, BooleanDropdown} from "../Common/FormsControls/FormsControls";
 
-let SimcardDataGrid = ({ simcardList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,simcardListAll }) => {
+let SimcardDataGrid = ({ simcardList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,simcardListAll,simcardListAllFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
-    console.log(simcardList)
+    console.log(currentPage)
     return (
         <div >
             <div>
                 <SimcardListReduxForm onSubmit={onSubmit} simcardList={simcardList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} simcardListAll={simcardListAll}/>
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} simcardListAll={simcardListAll} simcardListAllFunction={simcardListAllFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -23,7 +23,7 @@ let SimcardDataGrid = ({ simcardList, deleteItem, currentPage, pageSize, totalIt
     )
 }
 
-const SimcardListForm= ({handleSubmit, error, initialValues,simcardList,deleteItem,itemCount,onSorting,sortData,simcardListAll}) => {
+const SimcardListForm= ({handleSubmit, error, initialValues,simcardList,deleteItem,itemCount,onSorting,sortData,simcardListAll,simcardListAllFunction}) => {
     console.log(simcardListAll)
     return (
         
@@ -57,20 +57,20 @@ const SimcardListForm= ({handleSubmit, error, initialValues,simcardList,deleteIt
                         <th className="w-50" >
                             Active
                             <span onClick={(e) => {
-                                 onSorting({has_roumnig:!sortData.has_roumnig});
-                             }}><i className={sortData.has_roumnig? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({has_rouming:!sortData.has_rouming});
+                             }}><i className={sortData.has_rouming? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelSimcardList csvData={simcardListAll} fileName="Simcard" /></th>
+                        <th><ExportExcelSimcardList csvData={simcardListAll} fileName="Simcard" loadDataFunction={simcardListAllFunction} /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         {/* <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th> */}
-                        <th className="w-100">{createField(null, 'number', [], MultiSelect2,null,simcardListAll,'number',null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'package', [], MultiSelect2,null,simcardListAll,'package',null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'has_roumnig', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'number', [], MultiSelect2,null,simcardListAll,'number',null,simcardListAllFunction,null,"")}</th>
+                        <th className="w-100">{createField(null, 'package', [], MultiSelect2,null,simcardListAll,'package',null,simcardListAllFunction,null,"")}</th>
+                        <th className="w-100">{createField(null, 'has_rouming', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'is_active', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                     </tr>
                 </tbody>

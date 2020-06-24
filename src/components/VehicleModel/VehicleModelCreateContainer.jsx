@@ -3,16 +3,13 @@ import {reduxForm} from "redux-form";
 import {createField, Input, Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {createVehicleModel, requestVehicleMarkList} from "../../redux/Reducers/vehicleModelList_reducer";
-import {getIsCreated,getVehicleMarkList, getIsFetching,getCurrentPage} from '../../redux/Selectors/vehicleModelList_selectors';
+import {createVehicleModel, requestVehicleMarkListAll} from "../../redux/Reducers/vehicleModelList_reducer";
+import {getIsCreated,getVehicleMarkListAll, getIsFetching,getCurrentPage} from '../../redux/Selectors/vehicleModelList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 
 class VehicleModelCreateContainer extends React.Component {
-    // componentDidMount() {
-    //     this.props.requestVehicleMarkList();
-    // }
 
     onSubmit = (formData) => {
         this.props.createVehicleModel(formData);
@@ -25,14 +22,14 @@ class VehicleModelCreateContainer extends React.Component {
         return (
             <div>
             {this.props.isFetching && this.props.vehicleMarkList==null? <Preloader /> : null }
-            {this.props.vehicleMarkList!=null &&
+            {this.props.vehicleMarkListAll!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Create Vehicle Model</h1>
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <VehicleModelCreateReduxForm onSubmit={this.onSubmit} options={this.props.vehicleMarkList}  vehicleMarkFunction = {this.props.requestVehicleMarkList}/>
+                    <VehicleModelCreateReduxForm onSubmit={this.onSubmit} vehicleMarkListAll={this.props.vehicleMarkListAll} requestVehicleMarkAll={this.props.requestVehicleMarkListAll}/>
                     </div>
                 </div>
             </>
@@ -42,11 +39,11 @@ class VehicleModelCreateContainer extends React.Component {
     }
 }
 
-const VehicleModelForm= ({handleSubmit, error, options, initialValues,vehicleMarkFunction}) => {
+const VehicleModelForm= ({handleSubmit, error, vehicleMarkListAll, initialValues,requestVehicleMarkAll}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',options,'name',null,vehicleMarkFunction,null,"")}
+            {createField("Vehicle Mark", 'vehicle_mark', [required], Dropdown,'Vehicle Mark',vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
@@ -63,10 +60,10 @@ const VehicleModelCreateReduxForm = reduxForm({form: 'vehicleModelCreate', initi
 }})(VehicleModelForm)
 
 const mapStateToProps = (state) => ({
-    vehicleMarkList: getVehicleMarkList(state),
+    vehicleMarkListAll: getVehicleMarkListAll(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     currentPage:getCurrentPage(state)
 })
 
-export default connect(mapStateToProps, {createVehicleModel, requestVehicleMarkList})(VehicleModelCreateContainer);
+export default connect(mapStateToProps, {createVehicleModel, requestVehicleMarkListAll})(VehicleModelCreateContainer);
