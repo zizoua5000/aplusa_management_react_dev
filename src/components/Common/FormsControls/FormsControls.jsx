@@ -74,13 +74,14 @@ export const Toggle = (props) => {
   };
 
 export const Dropdown =(props) =>{
+  const {input, meta, options,...restProps} = props;
   console.log(props)
   let loading=true
   let loadingData=[]
 
-  if(props.options!=null){
+  if(options!=null){
     loading=false
-    loadingData=props.options
+    loadingData=options
   }
 
   const activateLoading = (loadingFunction)=>{ 
