@@ -97,7 +97,20 @@ class Navbar extends React.Component {
                             <NavLink to="/company_type" className="collapse-item bg-dark text-light">Company type</NavLink>
                         </div>
                     </div>
-
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="Device" data-toggle="collapse" data-target="#collapseDevice" aria-expanded="true" aria-controls="collapseTwo">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Device</span>
+                    </a>
+                    <div id="collapseDevice" className="collapse" aria-labelledby="headingDevice" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner">
+                            <NavLink to="/device" className="collapse-item bg-dark text-light">Device</NavLink>
+                            <NavLink to="/device_mark" className="collapse-item bg-dark text-light">Device mark</NavLink>
+                            <NavLink to="/device_model" className="collapse-item bg-dark text-light">Device model</NavLink>
+                            <NavLink to="/device_type" className="collapse-item bg-dark text-light">Device type</NavLink>
+                        </div>
+                    </div>
                 </li>
             </ul>
         )
