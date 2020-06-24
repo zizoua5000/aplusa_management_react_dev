@@ -54,14 +54,14 @@ const CompanyForm= ({handleSubmit, error, companyListAllOptions,companyTypeListO
     initialValues.name=instance.name
     initialValues.main_company=instance.main_company_detail.id
     initialValues.company_type=instance.company_type_detail.id
-    companyListAllOptions=(companyListAllOptions==null?[]:companyListAllOptions)
-    companyTypeListOptions=(companyTypeListOptions==null?[]:companyTypeListOptions)
+    companyListAllOptions=(companyListAllOptions==null?[]:(companyListAllOptions.length!=0?companyListAllOptions:[instance.main_company_detail]))
+    companyTypeListOptions=(companyTypeListOptions==null?[]:(companyTypeListOptions.length!=0?companyTypeListOptions:[instance.company_type_detail]))
 
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField("Main Company", 'main_company', [required], Dropdown,'Main Company',companyListAllOptions.length!=0?companyListAllOptions:[instance.main_company_detail],'name',null,requestCompanyListAll,null,"")}
-            {createField("Company Type", 'company_type', [required], Dropdown,'Company Type',companyTypeListOptions.length!=0?companyTypeListOptions:[instance.company_type_detail],'name',null,requestCompanyTypeList,null,"")}
+            {createField("Main Company", 'main_company', [required], Dropdown,'Main Company',companyListAllOptions,'name',null,requestCompanyListAll,null,"")}
+            {createField("Company Type", 'company_type', [required], Dropdown,'Company Type',companyTypeListOptions,'name',null,requestCompanyTypeList,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
