@@ -10,7 +10,6 @@ export const ExportExcelVehicleList = ({ csvData, fileName, requestLoadData }) =
     let exportExcelButton=React.createRef()
     console.log("EXPORT EXCEL", requestLoadData)
     let activateLoadingData=async ()=>{
-        // dispatch(actions.setIsExport(true));
         let elementExportExcelButton=exportExcelButton.current
         let data= await requestLoadData(true);
         if (data !== null) {     

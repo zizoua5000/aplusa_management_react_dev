@@ -186,15 +186,26 @@ export const requestSimcardList = (pageNumber = 1) => {
     }
 }
 
-export const requestSimcardListAll = (pageNumber = 1) => {
+export const requestSimcardListAll = (isExport=false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
+        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setSimcardListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await simcardAPI.getSimcardListNEW(1, getState().simcardPage.max_page_size);                                    
+        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        if(isExport){
+            let formGetData=getState().vehiclePage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await simcardAPI.getSimcardListNEW(restformGetData, getState().simcardPage.max_page_size)
+            } 
+            else {
+                response = await simcardAPI.getSimcardListNEW(1, getState().vehiclePage.max_page_size)    
+            }
+        // let response = await simcardAPI.getSimcardListNEW(1, getState().simcardPage.max_page_size);                                    
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setSimcardListAll(response.results));
