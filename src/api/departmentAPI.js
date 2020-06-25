@@ -1,10 +1,10 @@
 import instance from "./baseurl";
 import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
-export const companyAPI = {
-    getCompanyList(formData,page_size=null) {
+export const departmentAPI = {
+    getDepartmentList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
-        return instance.get(`company/list_create/${get_link}page_size=${page_size}`)
+        return instance.get(`department/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })
@@ -12,8 +12,8 @@ export const companyAPI = {
                 return 'error';
             });
     },
-    createCompany(formData) {
-        return instance.post(`company/list_create/`, formData)
+    createDepartment(formData) {
+        return instance.post(`department/list_create/`, formData)
             .then(response => {
                 return response;
             })
@@ -25,14 +25,14 @@ export const companyAPI = {
                 }
             });
     },
-    getCompany(id) {
-        return instance.get(`company/update_delete/${id}`)
+    getDepartment(id) {
+        return instance.get(`department/update_delete/${id}`)
             .then(response => {
                 return response;
             })
     },
-    updateCompany(formData) {
-        return instance.put(`company/update_delete/${formData.id}`, formData)
+    updateDepartment(formData) {
+        return instance.put(`department/update_delete/${formData.id}`, formData)
             .then(response => {
                 return response;
             })
@@ -44,7 +44,7 @@ export const companyAPI = {
                 }
             });
     },
-    deleteCompany(id) {
-        return instance.delete(`company/update_delete/${id}`)
+    deleteDepartment(id) {
+        return instance.delete(`department/update_delete/${id}`)
     },
 }

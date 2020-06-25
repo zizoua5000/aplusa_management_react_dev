@@ -8,7 +8,6 @@ const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 export const ExportExcelCompanyList = ({ csvData, fileName, loadDataFunction }) => {
 
     let exportExcelButton=React.createRef()
-    // console.log("EXPORT EXCEL", csvData)
     let activateLoadingData=async ()=>{
         let elementExportExcelButton=exportExcelButton.current
         let data= await loadDataFunction(1,true);

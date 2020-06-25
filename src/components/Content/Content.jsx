@@ -26,6 +26,9 @@ import CompanyTypeUpdateContainer from '../CompanyType/CompanyTypeUpdateContaine
 import CompanyContainer from '../Company/CompanyContainer'
 import CompanyCreateContainer from '../Company/CompanyCreateContainer'
 import CompanyUpdateContainer from '../Company/CompanyUpdateContainer'
+import DepartmentContainer from '../Department/DepartmentContainer'
+import DepartmentCreateContainer from '../Department/DepartmentCreateContainer'
+import DepartmentUpdateContainer from '../Department/DepartmentUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -63,6 +66,9 @@ class Content extends React.Component {
                         <Route path='/company' render={() => <CompanyContainer />}></Route>  
                         <Route path='/company_create' render={() => <CompanyCreateContainer />}></Route>
                         <Route path='/company_update/:id?' render={() => <CompanyUpdateContainer />}></Route>
+                        <Route path='/department' render={() => <DepartmentContainer />}></Route>  
+                        <Route path='/department_create' render={() => <DepartmentCreateContainer />}></Route>
+                        <Route path='/department_update/:id?' render={() => <DepartmentUpdateContainer />}></Route>
                     </div>
                 </div>
                 <Footer />

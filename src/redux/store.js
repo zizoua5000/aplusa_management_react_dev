@@ -10,6 +10,7 @@ import { reducer as formReducer } from 'redux-form';
 import simcardListReducer from "./Reducers/simcardList_reducer";
 import companyTypeListReducer from './Reducers/companyTypeList_reducer'
 import companyListReducer from './Reducers/companyList_reducer'
+import departmentListReducer from './Reducers/departmentList_reducer'
 
 
 
@@ -23,6 +24,7 @@ let rootReducer = combineReducers({
     simcardPage:simcardListReducer,
     companyTypePage: companyTypeListReducer,
     companyPage: companyListReducer,
+    departmentPage: departmentListReducer,
     form:formReducer,
 })
 

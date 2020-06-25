@@ -5,7 +5,7 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-export const ExportExcelCompanyTypeList = ({csvData, fileName,loadDataFunction}) => {   
+export const ExportExcelDepartmentList = ({csvData, fileName,loadDataFunction}) => {   
     let exportExcelButton=React.createRef()
     let activateLoadingData=async ()=>{
         let elementExportExcelButton=exportExcelButton.current
@@ -21,7 +21,7 @@ export const ExportExcelCompanyTypeList = ({csvData, fileName,loadDataFunction})
                 }
                 {            
             <ExcelFile element={<button ref={exportExcelButton} className="btn btn-info" type="button"style={{display:"none"}}><i className="text-gray-100 fas fa-file-excel ml-2"></i></button>} filename={fileName}>
-                <ExcelSheet data={csvData} name="CompanyTypeList">
+                <ExcelSheet data={csvData} name="DepartmentList">
                     <ExcelColumn label="Name" value="name"/>
                 </ExcelSheet>
             </ExcelFile>
