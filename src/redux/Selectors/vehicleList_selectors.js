@@ -44,6 +44,3 @@ export const getSortData = (state) => {
 export const getVehicleListAll = (state) => {
     return state.vehiclePage.vehicleListAll;
 }
-export const getIsExport= (state) => {
-    return state.vehiclePage.isExport;
-}

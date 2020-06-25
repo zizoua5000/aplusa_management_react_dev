@@ -15,6 +15,7 @@ class VehicleUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;        
         this.props.getVehicleItem(id);
+        console.log(this.props)
     }
 
     onSubmit = (formData) => {
@@ -52,9 +53,11 @@ const VehicleForm= ({handleSubmit, error, vehicleModelAll,vehicleTypeAll,request
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number
-    initialValues.vehicle_model=instance.vehicle_model    
-    initialValues.vehicle_type=instance.vehicle_type    
+    initialValues.vehicle_model=instance.vehicle_model_detail.id    
+    initialValues.vehicle_type=instance.vehicle_type_detail.id    
     initialValues.comment = instance.comment
+    vehicleModelAll=(vehicleModelAll==null?[]:(vehicleModelAll.length!=0?vehicleModelAll:[instance.vehicle_model_detail]))
+    vehicleTypeAll=(vehicleTypeAll==null?[]:(vehicleTypeAll.length!=0?vehicleTypeAll:[instance.vehicle_type_detail]))
     return (
         <form onSubmit={handleSubmit}>
             {createField('Plate', 'plate',[required],Input,'Plate')}

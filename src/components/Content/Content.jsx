@@ -35,6 +35,12 @@ import DeviceMarkUpdateContainer from '../DeviceMark/DeviceMarkUpdateContainer'
 import DepartmentContainer from '../Department/DepartmentContainer'
 import DepartmentCreateContainer from '../Department/DepartmentCreateContainer'
 import DepartmentUpdateContainer from '../Department/DepartmentUpdateContainer'
+import DeviceModelContainer from '../DeviceModel/DeviceModelContainer'
+import DeviceModelCreateContainer from '../DeviceModel/DeviceModelCreateContainer'
+import DeviceModelUpdateContainer from '../DeviceModel/DeviceModelUpdateContainer'
+import DeviceContainer from '../Device/DeviceContainer'
+import DeviceCreateContainer from '../Device/DeviceCreateContainer'
+import DeviceUpdateContainer from '../Device/DeviceUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -81,6 +87,12 @@ class Content extends React.Component {
                     	<Route path='/department' render={() => <DepartmentContainer />}></Route>  
                         <Route path='/department_create' render={() => <DepartmentCreateContainer />}></Route>
                         <Route path='/department_update/:id?' render={() => <DepartmentUpdateContainer />}></Route>
+                        <Route path='/device_model' render={() => <DeviceModelContainer />}></Route>
+                        <Route path='/device_model_create' render={() => <DeviceModelCreateContainer />}></Route>
+                        <Route path='/device_model_update/:id?' render={() => <DeviceModelUpdateContainer />}></Route>
+                        <Route path='/device' render={() => <DeviceContainer />}></Route>
+                        <Route path='/device_create' render={() => <DeviceCreateContainer />}></Route>
+                        <Route path='/device_update/:id?' render={() => <DeviceUpdateContainer />}></Route>                                                
                     </div>
                 </div>
                 <Footer />

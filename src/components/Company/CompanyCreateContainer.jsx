@@ -48,8 +48,8 @@ const CompanyForm= ({handleSubmit, error,companyTypeListOptions,companyListAllOp
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField('Main Company', 'main_company', [required], Dropdown,'Main Company',companyListAllOptions,'name',null,requestCompanyListAll,null,"")}
-            {createField('Company Type', 'company_type', [required], Dropdown,'Company Type',companyTypeListOptions,'name',null,requestCompanyTypeList,null,"")}
+            {createField('Main Company', 'main_company', [required], Dropdown,'Main Company',companyListAllOptions,'name',null,requestCompanyListAll,null,null,"")}
+            {createField('Company Type', 'company_type', [required], Dropdown,'Company Type',companyTypeListOptions,'name',null,requestCompanyTypeList,null,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>

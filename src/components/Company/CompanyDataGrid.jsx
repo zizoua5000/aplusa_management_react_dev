@@ -62,9 +62,9 @@ const CompanyListForm= ({handleSubmit, error, initialValues,companyList,deleteIt
                     <tr>
                         <th><ExportExcelCompanyList csvData={companyListAll} fileName="Company" loadDataFunction={requestCompanyListAll}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
-                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,"")}</th>
-                        <th className="w-100">{createField(null, 'main_company', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,"")}</th>
-                        <th className="w-100">{createField(null, 'company_type', [], MultiSelect2,null,companyTypeList,'name',null,requestCompanyTypeList,null,"")}</th>
+                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'main_company', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'company_type', [], MultiSelect2,null,companyTypeList,'name',null,requestCompanyTypeList,null,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>

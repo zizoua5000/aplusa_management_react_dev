@@ -13,6 +13,8 @@ import companyListReducer from './Reducers/companyList_reducer'
 import departmentListReducer from './Reducers/departmentList_reducer'
 import deviceTypeListReducer from './Reducers/deviceTypeList_reducer'
 import deviceMarkListReducer from './Reducers/deviceMarkList_reducer'
+import deviceModelListReducer from './Reducers/deviceModelList_reducer'
+import deviceListReducer from './Reducers/deviceList_reducer'
 
 
 
@@ -29,6 +31,8 @@ let rootReducer = combineReducers({
     departmentPage: departmentListReducer,
     deviceTypePage: deviceTypeListReducer,
     deviceMarkPage: deviceMarkListReducer,
+    deviceModelPage: deviceModelListReducer,
+    devicePage: deviceListReducer,
     form:formReducer,
 })
 

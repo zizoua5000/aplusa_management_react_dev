@@ -52,8 +52,8 @@ class VehicleModelUpdateContainer extends React.Component {
 const VehicleModelForm= ({handleSubmit, error, vehicleMarkListAll, instance, initialValues,requestVehicleMarkListAll}) => {
     initialValues.id=instance.id
     initialValues.name=instance.name
-    initialValues.vehicle_mark=instance.vehicle_mark_detail.name
-    console.log(instance)
+    initialValues.vehicle_mark=instance.vehicle_mark_detail.id
+    vehicleMarkListAll=(vehicleMarkListAll==null?[]:(vehicleMarkListAll.length!=0?vehicleMarkListAll:[instance.vehicle_mark_detail]))
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
