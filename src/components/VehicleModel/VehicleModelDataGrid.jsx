@@ -53,7 +53,7 @@ const VehicleModelListForm= ({handleSubmit, error, vehicleMarkListAll, initialVa
                         <th><ExportExcelVehicleModelList csvData={vehicleModelListAll} fileName="Vehicle Model" requestLoadData={requestVehicleModelAll}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')} </th>
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,"")}</th>
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>

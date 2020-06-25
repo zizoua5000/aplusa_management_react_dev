@@ -4,7 +4,7 @@ import styles from "./FormsControls.module.css"
 import { DropdownList, Multiselect} from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 
-export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "", className="form-control") {
+export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "",distinct, className="form-control") {
    return <>
         {label!=null &&
         <label>{label}</label>
@@ -18,6 +18,7 @@ export function createField(label,name,validators,component,placeholder,options=
                 options={options}
                 request = {props}
                 textfield={textfield}
+                distinct={distinct}
                 {...props}
         /> {text}
     </>
@@ -73,13 +74,14 @@ export const Toggle = (props) => {
   };
 
 export const Dropdown =(props) =>{
-  const {input} = props;
+  const {input, meta, options,...restProps} = props;
+  console.log(props)
   let loading=true
   let loadingData=[]
 
-  if(props.options!=null){
+  if(options!=null){
     loading=false
-    loadingData=props.options
+    loadingData=options
   }
 
   const activateLoading = (loadingFunction)=>{ 
@@ -121,11 +123,33 @@ export const SelectWithCustomInitial = (props) => {
 }
 
 export const MultiSelect2 = (props) => {
+  console.log(props)
   let loading=true
   let loadingData=[]
   if(props.options!=null){
-    loading=false
+    if(props.distinct!=null){
+      const newArray = [];                 
+      // Declare an empty object 
+      const uniqueObject = {};         
+      // Loop for the array elements 
+      for (let i in props.options) { 
+          // Extract the package 
+          let objPackage = props.options[i][props.distinct]; 
+
+          // Use the package as the index 
+          uniqueObject[objPackage] = props.options[i]; 
+          console.log(objPackage)
+      } 
+        
+      // Loop to push unique object into array 
+      for (let i in uniqueObject) { 
+          newArray.push(uniqueObject[i]); 
+      }
+      loadingData=newArray
+    } else{
     loadingData=props.options
+    }
+    loading=false
   }
   const {input, meta, options,...restProps} = props;
 

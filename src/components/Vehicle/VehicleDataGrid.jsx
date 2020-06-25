@@ -83,11 +83,11 @@ const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteIt
                     <tr>
                         <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" requestLoadData={requestVehicleListAll} /></th>
                         <th><button className="btn btn-info">Filter</button></th>
-                        <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,"")}</th>
-                        <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,requestVehicleListAll,null,"")}</th>
-                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelListAll,'name',null,requestVehicleModelAll,null,"")}</th>  
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,"")}</th>     
-                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,vehicleTypeListAll,'name',null,requestVehicleTypeAll,null,"")}</th>
+                        <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,requestVehicleListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelListAll,'name',null,requestVehicleModelAll,null,null,"")}</th>  
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,null,"")}</th>     
+                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,vehicleTypeListAll,'name',null,requestVehicleTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'comment', [], Input,'Comment')}</th>                    
                     </tr>
                 </tbody>

@@ -26,6 +26,12 @@ import CompanyTypeUpdateContainer from '../CompanyType/CompanyTypeUpdateContaine
 import CompanyContainer from '../Company/CompanyContainer'
 import CompanyCreateContainer from '../Company/CompanyCreateContainer'
 import CompanyUpdateContainer from '../Company/CompanyUpdateContainer'
+import DeviceTypeContainer from '../DeviceType/DeviceTypeContainer'
+import DeviceTypeCreateContainer from '../DeviceType/DeviceTypeCreateContainer'
+import DeviceTypeUpdateContainer from '../DeviceType/DeviceTypeUpdateContainer'
+import DeviceMarkContainer from '../DeviceMark/DeviceMarkContainer'
+import DeviceMarkCreateContainer from '../DeviceMark/DeviceMarkCreateContainer'
+import DeviceMarkUpdateContainer from '../DeviceMark/DeviceMarkUpdateContainer'
 import DepartmentContainer from '../Department/DepartmentContainer'
 import DepartmentCreateContainer from '../Department/DepartmentCreateContainer'
 import DepartmentUpdateContainer from '../Department/DepartmentUpdateContainer'
@@ -66,7 +72,13 @@ class Content extends React.Component {
                         <Route path='/company' render={() => <CompanyContainer />}></Route>  
                         <Route path='/company_create' render={() => <CompanyCreateContainer />}></Route>
                         <Route path='/company_update/:id?' render={() => <CompanyUpdateContainer />}></Route>
-                        <Route path='/department' render={() => <DepartmentContainer />}></Route>  
+                        <Route path='/device_type' render={() => <DeviceTypeContainer />}></Route>
+                        <Route path='/device_type_create' render={() => <DeviceTypeCreateContainer />}></Route>
+                        <Route path='/device_type_update/:id?' render={() => <DeviceTypeUpdateContainer />}></Route>
+                        <Route path='/device_mark' render={() => <DeviceMarkContainer />}></Route>
+                        <Route path='/device_mark_create' render={() => <DeviceMarkCreateContainer />}></Route>
+                        <Route path='/device_mark_update/:id?' render={() => <DeviceMarkUpdateContainer />}></Route>                        
+                    	<Route path='/department' render={() => <DepartmentContainer />}></Route>  
                         <Route path='/department_create' render={() => <DepartmentCreateContainer />}></Route>
                         <Route path='/department_update/:id?' render={() => <DepartmentUpdateContainer />}></Route>
                     </div>

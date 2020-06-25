@@ -13,7 +13,7 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage';
 class SimcardContainer extends React.Component {
 
     componentDidMount() {
-
+        console.log(this.props)
         if (this.props.isCreated) {
             custom_success_alert();
         }
@@ -89,7 +89,7 @@ class SimcardContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     simcardListAll={this.props.simcardListAll}
-                    simcardListAllFunction={this.props.requestSimcardListAll} 
+                    requestSimcardListAll={this.props.requestSimcardListAll} 
                     /> 
                     }
             </div>
