@@ -15,6 +15,7 @@ import deviceTypeListReducer from './Reducers/deviceTypeList_reducer'
 import deviceMarkListReducer from './Reducers/deviceMarkList_reducer'
 import deviceModelListReducer from './Reducers/deviceModelList_reducer'
 import deviceListReducer from './Reducers/deviceList_reducer'
+import configurationListReducer from './Reducers/configurationList_reducer'
 
 
 
@@ -33,6 +34,7 @@ let rootReducer = combineReducers({
     deviceMarkPage: deviceMarkListReducer,
     deviceModelPage: deviceModelListReducer,
     devicePage: deviceListReducer,
+    configurationPage: configurationListReducer,
     form:formReducer,
 })
 

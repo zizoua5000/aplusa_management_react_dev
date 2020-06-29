@@ -1,17 +1,17 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
-import {ExportExcelDepartmentList} from "../Common/Export/ExportExcelDepartment";
-import DepartmentItem from './DepartmentItem';
+import {ExportExcelConfigurationList} from "../Common/Export/ExportExcelConfiguration";
+import ConfigurationItem from './ConfigurationItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let DepartmentDataGrid = ({ departmentList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,departmentListAll,departmentFunction }) => {
+let ConfigurationDataGrid = ({ configurationList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,configurationListAll,configurationFunction }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     return (
         <div >
             <div>
-                <DepartmentListReduxForm onSubmit={onSubmit} departmentList={departmentList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} departmentListAll={departmentListAll} departmentFunction={departmentFunction}/>
+                <ConfigurationListReduxForm onSubmit={onSubmit} configurationList={configurationList} deleteItem={deleteItem} 
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} configurationListAll={configurationListAll} configurationFunction={configurationFunction}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,7 +22,7 @@ let DepartmentDataGrid = ({ departmentList, deleteItem, currentPage, pageSize, t
     )
 }
 
-const DepartmentListForm= ({handleSubmit, error, initialValues,departmentList,deleteItem,itemCount,onSorting,sortData,departmentListAll,departmentFunction}) => {
+const ConfigurationListForm= ({handleSubmit, error, initialValues,configurationList,deleteItem,itemCount,onSorting,sortData,configurationListAll,configurationFunction}) => {
     return (
         
         <form >   
@@ -42,19 +42,19 @@ const DepartmentListForm= ({handleSubmit, error, initialValues,departmentList,de
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelDepartmentList csvData={departmentListAll} fileName="Department" loadDataFunction={departmentFunction} /></th>
+                        <th><ExportExcelConfigurationList csvData={configurationListAll} fileName="Configuration" loadDataFunction={configurationFunction} /></th>
                         <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>
                 </tbody>
                 <tbody>
-                    {departmentList.map((item, key) => <DepartmentItem departmentItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
+                    {configurationList.map((item, key) => <ConfigurationItem configurationItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
         </form>
     )
 }
 
-const DepartmentListReduxForm = reduxForm({form: 'DepartmentList'})(DepartmentListForm)
+const ConfigurationListReduxForm = reduxForm({form: 'ConfigurationList'})(ConfigurationListForm)
 
-export default DepartmentDataGrid;
+export default ConfigurationDataGrid;

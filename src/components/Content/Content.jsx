@@ -41,6 +41,9 @@ import DeviceModelUpdateContainer from '../DeviceModel/DeviceModelUpdateContaine
 import DeviceContainer from '../Device/DeviceContainer'
 import DeviceCreateContainer from '../Device/DeviceCreateContainer'
 import DeviceUpdateContainer from '../Device/DeviceUpdateContainer'
+import ConfigurationContainer from '../Configuration/ConfigurationContainer'
+import ConfigurationCreateContainer from '../Configuration/ConfigurationCreateContainer'
+import ConfigurationUpdateContainer from '../Configuration/ConfigurationUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -92,7 +95,10 @@ class Content extends React.Component {
                         <Route path='/device_model_update/:id?' render={() => <DeviceModelUpdateContainer />}></Route>
                         <Route path='/device' render={() => <DeviceContainer />}></Route>
                         <Route path='/device_create' render={() => <DeviceCreateContainer />}></Route>
-                        <Route path='/device_update/:id?' render={() => <DeviceUpdateContainer />}></Route>                                                
+                        <Route path='/device_update/:id?' render={() => <DeviceUpdateContainer />}></Route> 
+                        <Route path='/configuration' render={() => <ConfigurationContainer />}></Route>
+                        <Route path='/configuration_create' render={() => <ConfigurationCreateContainer />}></Route>
+                        <Route path='/configuration_update/:id?' render={() => <ConfigurationUpdateContainer />}></Route>                                                 
                     </div>
                 </div>
                 <Footer />
