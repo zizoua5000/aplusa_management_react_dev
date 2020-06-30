@@ -15,8 +15,6 @@ class CompanyUpdateContainer extends React.Component {
     componentDidMount() {
         let id = this.props.match.params.id;        
         this.props.getCompanyItem(id);
-        // this.props.requestCompanyTypeList()
-        // this.props.requestCompanyListAll()
     }
 
     onSubmit = (formData) => {
@@ -50,9 +48,6 @@ class CompanyUpdateContainer extends React.Component {
 }
 
 const CompanyForm= ({handleSubmit, error, companyListAllOptions,companyTypeListOptions,requestCompanyListAll,requestCompanyTypeList, instance, initialValues}) => {
-    console.log(instance)
-    console.log(companyListAllOptions)
-    console.log(companyTypeListOptions)
     initialValues.id=instance.id
     initialValues.name=instance.name
     initialValues.main_company=instance.main_company_detail.id

@@ -25,6 +25,7 @@ class Navbar extends React.Component {
                         <div className="bg-dark py-2 collapse-inner rounded">
                             <NavLink to="/profile" className="collapse-item bg-dark text-light">Profile</NavLink>
                             <NavLink to="/logout" className="collapse-item bg-dark text-light">Logout</NavLink>
+                            <NavLink to="/user" className="collapse-item bg-dark text-light">Users</NavLink>
                         </div>
                     </div>
                 </li>

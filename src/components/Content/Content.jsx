@@ -44,6 +44,9 @@ import DeviceUpdateContainer from '../Device/DeviceUpdateContainer'
 import ConfigurationContainer from '../Configuration/ConfigurationContainer'
 import ConfigurationCreateContainer from '../Configuration/ConfigurationCreateContainer'
 import ConfigurationUpdateContainer from '../Configuration/ConfigurationUpdateContainer'
+import UserContainer from '../User/UserContainer'
+import UserCreateContainer from '../User/UserCreateContainer'
+import UserUpdateContainer from '../User/UserUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -99,6 +102,9 @@ class Content extends React.Component {
                         <Route path='/configuration' render={() => <ConfigurationContainer />}></Route>
                         <Route path='/configuration_create' render={() => <ConfigurationCreateContainer />}></Route>
                         <Route path='/configuration_update/:id?' render={() => <ConfigurationUpdateContainer />}></Route>                                                 
+                        <Route path='/user' render={() => <UserContainer />}></Route>
+                        <Route path='/user_create' render={() => <UserCreateContainer />}></Route>
+                        <Route path='/user_update/:id?' render={() => <UserUpdateContainer />}></Route> 
                     </div>
                 </div>
                 <Footer />
