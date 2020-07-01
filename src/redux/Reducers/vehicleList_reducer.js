@@ -151,7 +151,7 @@ export const sortVehicleList = (sortData) => {
         dispatch(actions.setVehicleList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().vehiclePage.sortData));
-        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
+        let response = await vehicleAPI.getVehicleList(getState().vehiclePage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleList(response.results));
@@ -172,7 +172,7 @@ export const filterVehicleList = (formGetData) => {
         dispatch(actions.setVehicleList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await vehicleAPI.getVehicleListNEW(formGetData);
+        let response = await vehicleAPI.getVehicleList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleList(response.results));
@@ -193,7 +193,7 @@ export const requestVehicleList = (pageNumber = 1) => {
         dispatch(actions.setVehicleList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await vehicleAPI.getVehicleList(pageNumber);
-        let response = await vehicleAPI.getVehicleListNEW(getState().vehiclePage.formGetData);
+        let response = await vehicleAPI.getVehicleList(getState().vehiclePage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setVehicleList(response.results));
@@ -221,10 +221,10 @@ export const requestVehicleListAll = (isExport=false) => {
         const {page, ...restformGetData}=formGetData
         console.log(formGetData)
         console.log(restformGetData)
-            response = await vehicleAPI.getVehicleListNEW(restformGetData, getState().vehiclePage.max_page_size)
+            response = await vehicleAPI.getVehicleList(restformGetData, getState().vehiclePage.max_page_size)
         } 
         else {
-            response = await vehicleAPI.getVehicleListNEW(1, getState().vehiclePage.max_page_size)    
+            response = await vehicleAPI.getVehicleList(1, getState().vehiclePage.max_page_size)    
         }
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

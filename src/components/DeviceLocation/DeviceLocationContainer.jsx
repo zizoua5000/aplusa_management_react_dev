@@ -4,14 +4,14 @@ import {withRouter,NavLink} from "react-router-dom";
 import swal from 'sweetalert';
 import {compose} from "redux";
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import { requestDeviceTypeList,filterDeviceTypeList, sortDeviceTypeList,requestDeviceTypeListAll,deleteDeviceTypeItem } from '../../redux/Reducers/deviceTypeList_reducer';
-import DeviceTypeDataGrid from './DeviceTypeDataGrid';
-import { getDeviceTypeList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getDeviceTypeListAll } from '../../redux/Selectors/deviceTypeList_selectors';
+import { requestDeviceLocationList,filterDeviceLocationList, sortDeviceLocationList,requestDeviceLocationListAll,deleteDeviceLocationItem } from '../../redux/Reducers/deviceLocationList_reducer';
+import DeviceLocationDataGrid from './DeviceLocationDataGrid';
+import { getDeviceLocationList, getCurrentPage, getPageSize, getTotalItemsCount, getSortData,getIsFetching,getIsCreated, getSetErrorMessage,getDeviceLocationListAll } from '../../redux/Selectors/deviceLocationList_selectors';
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 
 
-class DeviceTypeContainer extends React.Component {
+class DeviceLocationContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.isCreated) {
@@ -19,29 +19,29 @@ class DeviceTypeContainer extends React.Component {
         }
 
         let pageNumber = this.props.match.params.pageNumber;
-        this.props.requestDeviceTypeList(pageNumber);
+        this.props.requestDeviceLocationList(pageNumber);
     }
     onPageChanged = (pageNumber) => {
-        this.props.requestDeviceTypeList(pageNumber);
+        this.props.requestDeviceLocationList(pageNumber);
     }
     onSorting = (sortData) => {
-        this.props.sortDeviceTypeList(sortData)
+        this.props.sortDeviceLocationList(sortData)
     }
 
     onSubmit = (formData) => {
-        this.props.filterDeviceTypeList(formData);
+        this.props.filterDeviceLocationList(formData);
     }
 
     deleteItem=(id)=>{
         swal(custom_sweet_delete)
           .then((willDelete) => {
             if (willDelete) {
-                let respone=this.props.deleteDeviceTypeItem(id)
+                let respone=this.props.deleteDeviceLocationItem(id)
                 respone.then(res => {
                         swal("Deleted", {
                         icon: "success",
                     })
-                    this.props.requestDeviceTypeList(this.props.currentPage);
+                    this.props.requestDeviceLocationList(this.props.currentPage);
                 })
                 .catch(err => { 
                     if (!err.response){
@@ -61,25 +61,25 @@ class DeviceTypeContainer extends React.Component {
         return (
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800 text-info">Device Type List</h1>
-                    <NavLink to="/device_type_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
+                    <h1 className="h3 mb-0 text-gray-800 text-info">Device Location List</h1>
+                    <NavLink to="/device_location_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
                 {this.props.isFetching&& <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.deviceTypeList != null && 
-                    <DeviceTypeDataGrid 
-                    deviceTypeList={this.props.deviceTypeList} 
+                {this.props.deviceLocationList != null && 
+                    <DeviceLocationDataGrid 
+                    deviceLocationList={this.props.deviceLocationList} 
                     deleteItem={this.deleteItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalItemsCount={this.props.totalItemsCount}
                     onPageChanged={this.onPageChanged}
-                    filterDeviceTypeList={this.props.filterDeviceTypeList}
+                    filterDeviceLocationList={this.props.filterDeviceLocationList}
                     onSorting={this.onSorting}
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
-                    deviceTypeListAll={this.props.deviceTypeListAll} 
-                    requestDeviceTypeAll = {this.props.requestDeviceTypeListAll}
+                    deviceLocationListAll={this.props.deviceLocationListAll} 
+                    requestDeviceLocationAll = {this.props.requestDeviceLocationListAll}
                 /> 
                 }
             </div>
@@ -89,7 +89,7 @@ class DeviceTypeContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        deviceTypeList: getDeviceTypeList(state),
+        deviceLocationList: getDeviceLocationList(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state),
         totalItemsCount: getTotalItemsCount(state),
@@ -97,11 +97,11 @@ const mapStateToProps = (state) => {
         isCreated:getIsCreated(state),
         setErrorMessage: getSetErrorMessage(state),
         sortData: getSortData(state),
-        deviceTypeListAll:getDeviceTypeListAll(state)
+        deviceLocationListAll:getDeviceLocationListAll(state)
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestDeviceTypeList,filterDeviceTypeList,requestDeviceTypeListAll,sortDeviceTypeList, deleteDeviceTypeItem}),
+    connect(mapStateToProps, {requestDeviceLocationList,filterDeviceLocationList,requestDeviceLocationListAll,sortDeviceLocationList, deleteDeviceLocationItem}),
     withRouter
-)(DeviceTypeContainer);
+)(DeviceLocationContainer);

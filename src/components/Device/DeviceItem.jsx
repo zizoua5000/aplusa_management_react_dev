@@ -17,7 +17,12 @@ const DeviceItem= ({deviceItem,deleteItem,itemCount}) => {
             <td>{deviceItem.device_model_detail.name}</td>
             <td>{deviceItem.device_model_detail.device_mark_detail.name}</td>
             <td>{deviceItem.device_type_detail.name}</td>
-
+            <td>{deviceItem.device_detail_detail.device_location_detail.name}</td>            
+            <td>{deviceItem.device_detail_detail.vehicle_detail.plate}</td>
+            <td>{deviceItem.device_detail_detail.company_detail.name}</td>
+            <td>{deviceItem.device_detail_detail.project_detail.name}</td>
+            <td>{deviceItem.device_detail_detail.region_detail.name}</td>
+            <td>{deviceItem.device_detail_detail.simcard_detail.number}</td>
         </tr>
     )
 }

@@ -3,6 +3,12 @@ import { deviceModelAPI } from "../../api/deviceModelAPI";
 import { deviceTypeAPI } from "../../api/deviceTypeAPI";
 import { deviceMarkAPI } from "../../api/deviceMarkAPI";
 import { companyAPI } from "../../api/companyAPI";
+import { deviceDetailAPI } from "../../api/deviceDetailAPI";
+import { simcardAPI } from "../../api/simcardAPI";
+import { vehicleAPI } from "../../api/vehicleAPI";
+import { projectAPI } from "../../api/projectAPI";
+import { regionAPI } from "../../api/regionAPI";
+import { deviceLocationAPI } from "../../api/deviceLocationAPI";
 import { stopSubmit } from "redux-form";
 
 const SET_DEVICES = "SET_DEVICES"
@@ -10,6 +16,8 @@ const SET_DEVICE_MODEL_ALL = "SET_DEVICE_MODEL_ALL"
 const SET_DEVICE_MARK_ALL = "SET_DEVICE_MARK_ALL"
 const SET_DEVICE_TYPE_ALL = "SET_DEVICE_TYPE_ALL"
 const SET_COMPANY_ALL = "SET_COMPANY_ALL"
+const SET_SIMCARD_ALL = "SET_SIMCARD_ALL"
+const SET_DEVICE_DETAIL_ALL = "SET_DEVICE_DETAIL_ALL"
 const SET_DEVICE_ITEM = "SET_DEVICE_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
@@ -22,13 +30,23 @@ const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
 const SET_DEVICE_LIST_ALL = "SET_DEVICE_LIST_ALL"
+const SET_VEHICLE_ALL="SET_VEHICLE_ALL"
+const SET_PROJECT_ALL="SET_PROJECT_ALL"
+const SET_REGION_ALL="SET_REGION_ALL"
+const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
 
 let initialState = {
     deviceList: [],
     deviceModelListAll: [],
     deviceMarkListAll: [],
     deviceTypeListAll: [],
+    deviceLocationListAll: [],
     companyListAll: [],
+    projectListAll: [],
+    vehicleListAll: [],
+    regionListAll: [],
+    simcardListAll: [],
+    deviceDetailListAll: [],
     deviceModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -60,10 +78,34 @@ const deviceListReducer = (state = initialState, action) => {
             {
                 return { ...state, companyListAll: action.companyListAll }
             }
+        case SET_SIMCARD_ALL:
+            {
+                return { ...state, simcardListAll: action.simcardListAll }
+            }         
+        case SET_VEHICLE_ALL:
+            {
+                return { ...state, vehicleListAll: action.vehicleListAll }
+            }
+        case SET_PROJECT_ALL:
+            {
+                return { ...state, projectListAll: action.projectListAll }
+            } 
+        case SET_REGION_ALL:
+            {
+                return { ...state, regionListAll: action.regionListAll }
+            }                                            
         case SET_DEVICE_TYPE_ALL:
             {
                 return { ...state, deviceTypeListAll: action.deviceTypeListAll }
-            }            
+            }
+        case SET_DEVICE_LOCATION_ALL:
+            {
+                return { ...state, deviceLocationListAll: action.deviceLocationListAll }
+            }  
+        case SET_DEVICE_DETAIL_ALL:
+            {
+                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
+            }                        
         case SET_DEVICE_ITEM:
             {
                 return { ...state, deviceItem: action.deviceItem }
@@ -149,6 +191,12 @@ export const actions = {
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
     setDeviceListAll: (deviceListAll) => ({ type: SET_DEVICE_LIST_ALL, deviceListAll }),
     setCompanyListAll: (companyListAll) => ({ type: SET_COMPANY_ALL, companyListAll }),
+    setSimcardListAll: (simcardListAll) => ({ type: SET_SIMCARD_ALL, simcardListAll }),
+    setDeviceDetailListAll: (deviceDetailListAll) => ({ type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll }),
+    setVehicleListAll:(vehicleListAll)=>({type: SET_VEHICLE_ALL, vehicleListAll}),
+    setProjectListAll:(projectListAll)=>({type: SET_PROJECT_ALL, projectListAll}),
+    setRegionListAll:(regionListAll)=>({type: SET_REGION_ALL, regionListAll}),
+    setDeviceLocationListAll:(deviceLocationListAll)=>({type: SET_DEVICE_LOCATION_ALL, deviceLocationListAll}),
 }
 export const sortDeviceList = (sortData) => {
     return async (dispatch, getState) => {
@@ -202,6 +250,7 @@ export const requestDeviceList = (pageNumber = 1) => {
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await deviceAPI.getDeviceList(pageNumber);
         let response = await deviceAPI.getDeviceListNEW(getState().devicePage.formGetData);
+        console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceList(response.results));
@@ -296,6 +345,88 @@ export const requestCompanyListAll = () => {
     }
 }
 
+export const requestDeviceDetailListAll = () => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await deviceDetailAPI.getDeviceDetailList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setDeviceDetailListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestSimcardListAll = () => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await simcardAPI.getSimcardList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setSimcardListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestVehicleListAll = () => {
+    console.log("requestVehicleLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await vehicleAPI.getVehicleList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setVehicleListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestProjectListAll = () => {
+    console.log("requestPROJECTLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await projectAPI.getProjectList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setProjectListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestRegionListAll = () => {
+    console.log("requestRegionLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await regionAPI.getRegionList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setRegionListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestDeviceLocationListAll = () => {
+    console.log("requestLocationLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await deviceLocationAPI.getDeviceLocationList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setDeviceLocationListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
 export const createDevice = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));

@@ -47,3 +47,21 @@ export const getDeviceListAll = (state) => {
 export const getCompanyListAll = (state) => {
     return state.devicePage.companyListAll;
 }
+export const getSimcardListAll = (state) => {
+    return state.devicePage.simcardListAll;
+}
+export const getVehicleListAll = (state) => {
+    return state.devicePage.vehicleListAll;
+}
+export const getProjectListAll = (state) => {
+    return state.devicePage.projectListAll;
+}
+export const getRegionListAll = (state) => {
+    return state.devicePage.regionListAll;
+}
+export const getDeviceDetailListAll = (state) => {
+    return state.devicePage.deviceDetailListAll;
+}
+export const getDeviceLocationListAll = (state) => {
+    return state.devicePage.deviceLocationListAll;
+}

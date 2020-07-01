@@ -1,26 +1,24 @@
-import { simcardAPI } from "../../api/simcardAPI";
+import { deviceLocationAPI } from "../../api/deviceLocationAPI";
 import { stopSubmit } from "redux-form";
 
-const SET_SIMCARD_LIST = "SET_SIMCARD_LIST"
+const SET_DEVICE_LOCATIONS = "SET_DEVICE_LOCATIONS"
 const IS_FETCHING = "IS_FETCHING"
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_CREATED = "IS_CREATED"
-const SET_SIMCARD_ITEM = "SET_SIMCARD_ITEM"
+const SET_DEVICE_LOCATION_ITEM = "SET_DEVICE_LOCATION_ITEM"
 const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_SIMCARD_LIST_ALL = "SET_SIMCARD_LIST_ALL"
-
-
+const SET_DEVICE_LOCATION_LIST_ALL = "SET_DEVICE_LOCATION_LIST_ALL"
 
 let initialState = {
-    simcardList: null,
-    simcardItem: null,
-    simcardListAll:[],
+    deviceLocationList: null,
+    deviceLocationItem: null,
+    deviceLocationListAll:null,
     isFetching: false,
     message: null,
     currentPage: 1,
@@ -32,11 +30,11 @@ let initialState = {
     sortData:{}
 };
 
-const simcardListReducer = (state = initialState, action) => {
+const deviceLocationListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_SIMCARD_LIST:
+        case SET_DEVICE_LOCATIONS:
             {
-                return { ...state, simcardList: action.simcardList }
+                return { ...state, deviceLocationList: action.deviceLocationList }
             }
         case IS_FETCHING:
             {
@@ -62,11 +60,11 @@ const simcardListReducer = (state = initialState, action) => {
             {
                 return { ...state, isCreated: action.isCreated }
             }
-        case SET_SIMCARD_ITEM:
+        case SET_DEVICE_LOCATION_ITEM:
             {
-                return { ...state, simcardItem: action.simcardItem }
+                return { ...state, deviceLocationItem: action.deviceLocationItem }
             }
-                case SET_FORM_GET_DATA:
+        case SET_FORM_GET_DATA:
             {
                 return { ...state, formGetData:action.formGetData }
             }
@@ -95,10 +93,10 @@ const simcardListReducer = (state = initialState, action) => {
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
             }   
-        case SET_SIMCARD_LIST_ALL:
+        case SET_DEVICE_LOCATION_LIST_ALL:
             {
-                return { ...state, simcardListAll: action.simcardListAll }
-            }      
+                return { ...state, deviceLocationListAll: action.deviceLocationListAll }
+            }                     
         default:
             return state;
     }
@@ -106,34 +104,34 @@ const simcardListReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setSimcardList: (simcardList) => ({ type: SET_SIMCARD_LIST, simcardList }),
+    setDeviceLocationList: (deviceLocationList) => ({ type: SET_DEVICE_LOCATIONS, deviceLocationList }),
     setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
     setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
     setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
     setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
-    setSimcardItem: (simcardItem) => ({ type: SET_SIMCARD_ITEM, simcardItem }),
+    setDeviceLocationItem: (deviceLocationItem) => ({ type: SET_DEVICE_LOCATION_ITEM, deviceLocationItem }),
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setSimcardListAll: (simcardListAll) => ({ type: SET_SIMCARD_LIST_ALL, simcardListAll }),
+    setDeviceLocationListAll: (deviceLocationListAll) => ({ type: SET_DEVICE_LOCATION_LIST_ALL, deviceLocationListAll }),
 }
 
-export const sortSimcardList = (sortData) => {
+export const sortDeviceLocationList = (sortData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setSimcardList(null));
+        dispatch(actions.setDeviceLocationList(null));
         await dispatch(actions.setSortData(sortData));
-        await dispatch(actions.setAddSortDataToFormGetData(getState().simcardPage.sortData));
-        let response = await simcardAPI.getSimcardList(getState().simcardPage.formGetData);
+        await dispatch(actions.setAddSortDataToFormGetData(getState().deviceLocationPage.sortData));
+        let response = await deviceLocationAPI.getDeviceLocationList(getState().deviceLocationPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setSimcardList(response.results));
+            dispatch(actions.setDeviceLocationList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -142,19 +140,19 @@ export const sortSimcardList = (sortData) => {
     }
 }
 
-export const filterSimcardList = (formGetData) => {
+export const filterDeviceLocationList = (formGetData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setSimcardList(null));
+        dispatch(actions.setDeviceLocationList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await simcardAPI.getSimcardList(formGetData);
+        let response = await deviceLocationAPI.getDeviceLocationList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setSimcardList(response.results));
+            dispatch(actions.setDeviceLocationList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -163,22 +161,18 @@ export const filterSimcardList = (formGetData) => {
     }
 }
 
-
-export const requestSimcardList = (pageNumber = 1) => {
-    return async (dispatch,getState) => {
+export const requestDeviceLocationList = (pageNumber = 1) => {
+    return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
-        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
-        dispatch(actions.setSimcardList(null));
-        console.log(getState().simcardPage.formGetData)
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setDeviceLocationList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await simcardAPI.getSimcardList(pageNumber);
-        let response = await simcardAPI.getSimcardList(getState().simcardPage.formGetData);
-        console.log("API RESPONSE ",response)
+        let response = await deviceLocationAPI.getDeviceLocationList(getState().deviceLocationPage.formGetData);
         dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setErrorMessage(null))
-            dispatch(actions.setSimcardList(response.results));
+        if (response !== 'error') {     
+            dispatch(actions.setDeviceLocationList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -186,37 +180,39 @@ export const requestSimcardList = (pageNumber = 1) => {
     }
 }
 
-export const requestSimcardListAll = (isExport=false) => {
+export const requestDeviceLocationListAll = (isExport=false) => {
     let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setSimcardListAll(null));
+        dispatch(actions.setDeviceLocationListAll(null));
         // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await deviceLocationAPI.getDeviceLocationList(pageNumber);  
         if(isExport){
-            let formGetData=getState().simcardPage.formGetData
+            let formGetData=getState().deviceLocationPage.formGetData
             const {page, ...restformGetData}=formGetData
             console.log(formGetData)
             console.log(restformGetData)
-                response = await simcardAPI.getSimcardList(restformGetData, getState().simcardPage.max_page_size)
+                response = await deviceLocationAPI.getDeviceLocationList(restformGetData, getState().deviceLocationPage.max_page_size)
             } 
             else {
-                response = await simcardAPI.getSimcardList(1, getState().simcardPage.max_page_size)    
-            }
+                response = await deviceLocationAPI.getDeviceLocationList(1, getState().deviceLocationPage.max_page_size)    
+            }                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setSimcardListAll(response.results));
+            dispatch(actions.setDeviceLocationListAll(response.results));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
-export const createSimcard = (formData) => {
+
+export const createDeviceLocation = (formData) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await simcardAPI.createSimcard(formData);
+        let response = await deviceLocationAPI.createDeviceLocation(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -225,34 +221,34 @@ export const createSimcard = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('simcardCreate', response.data))
+            dispatch(stopSubmit('deviceLocationCreate', response.data))
         }
     }
 }
 
-export const getSimcardItem = (id) => {
+export const getDeviceLocationItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await simcardAPI.getSimcard(id);
+        let response = await deviceLocationAPI.getDeviceLocation(id);
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
-            dispatch(actions.setSimcardItem(response.data));
+            dispatch(actions.setDeviceLocationItem(response.data));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('simcardUpdate', response.data))
+            dispatch(stopSubmit('deviceLocationUpdate', response.data))
         }
 
     }
 }
 
-export const updateSimcardItem = (formData) => {
+export const updateDeviceLocationItem = (formData) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await simcardAPI.updateSimcard(formData);
+        let response = await deviceLocationAPI.updateDeviceLocation(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -261,17 +257,18 @@ export const updateSimcardItem = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('simcardUpdate', response.data))
+            dispatch(stopSubmit('deviceLocationUpdate', response.data))
         }
         
     }
 }
 
-export const deleteSimcardItem = (id) => {
-    return async(dispatch, getState) => {
-        await simcardAPI.deleteSimcard(id);
+export const deleteDeviceLocationItem = (id) => {
+    return async (dispatch) => {
+        dispatch(actions.setIsFetching(true));
+        await deviceLocationAPI.deleteDeviceLocation(id);
+        dispatch(actions.setIsFetching(false));
     }
 }
 
-
-export default simcardListReducer;
+export default deviceLocationListReducer;

@@ -146,7 +146,7 @@ export const MultiSelect2 = (props) => {
           newArray.push(uniqueObject[i]); 
       }
       loadingData=newArray
-    } else{
+    } else {
     loadingData=props.options
     }
     loading=false
@@ -202,13 +202,7 @@ export const BooleanDropdown =(props) =>{
     {item==='true'?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}
     </div>
   );
-  // let TagItem = ({ item }) => (
-  //   <div>
-  //   {/* {item==='true'?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>} */}
-  //   {/* {item} */}
-  //   "MKsklk"
-  //   </div>
-  // );
+
   return <FormControl {...props}>
     <DropdownList
         data={[

@@ -3,8 +3,8 @@ import {reduxForm} from "redux-form";
 import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll} from "../../redux/Reducers/deviceList_reducer";
-import {getIsCreated,getDeviceMarkListAll,getCompanyListAll, getIsFetching,getCurrentPage,getDeviceModelListAll,getDeviceTypeListAll,getSetErrorMessage} from '../../redux/Selectors/deviceList_selectors';
+import {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll,requestDeviceDetailListAll} from "../../redux/Reducers/deviceList_reducer";
+import {getIsCreated,getDeviceMarkListAll,getCompanyListAll, getIsFetching,getCurrentPage,getDeviceModelListAll,getDeviceTypeListAll,getSetErrorMessage,getDeviceDetailListAll} from '../../redux/Selectors/deviceList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
@@ -54,6 +54,7 @@ const DeviceForm= ({handleSubmit, error,deviceModelListAll,deviceTypeListAll,com
             {createField('Company', 'company', [required], Dropdown,'Company',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Device Model', 'device_model', [required], Dropdown,'Device Model',deviceModelListAll,'name',null,requestDeviceModelListAll,null,null,"")}
             {createField('Device Type', 'device_type', [required], Dropdown,'Device Type',deviceTypeListAll,'name',null,requestDeviceTypeListAll,null,null,"")}
+            {createField('Simcard', 'simcard', [], Dropdown,'Device Location',deviceTypeListAll,'name',null,requestDeviceTypeListAll,null,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
@@ -70,6 +71,7 @@ const DeviceCreateReduxForm = reduxForm({form: 'deviceCreate', initialValues: {
     device_model: "",
     device_type: "",
     company:"",
+    device_detail:"",
     serie:"",
 }})(DeviceForm)
 
@@ -81,7 +83,8 @@ const mapStateToProps = (state) => ({
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
     currentPage:getCurrentPage(state),
-    setErrorMessage: getSetErrorMessage(state)
+    setErrorMessage: getSetErrorMessage(state),
+    deviceDetailListAll:getDeviceDetailListAll(state),
 })
 
-export default connect(mapStateToProps, {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll})(DeviceCreateContainer);
+export default connect(mapStateToProps, {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll,requestDeviceDetailListAll})(DeviceCreateContainer);

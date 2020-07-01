@@ -128,7 +128,7 @@ export const sortProjectList = (sortData) => {
         dispatch(actions.setProjectList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().projectPage.sortData));
-        let response = await projectAPI.getProjectListNEW(getState().projectPage.formGetData);
+        let response = await projectAPI.getProjectList(getState().projectPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setProjectList(response.results));
@@ -149,7 +149,7 @@ export const filterProjectList = (formGetData) => {
         dispatch(actions.setProjectList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await projectAPI.getProjectListNEW(formGetData);
+        let response = await projectAPI.getProjectList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setProjectList(response.results));
@@ -170,7 +170,7 @@ export const requestProjectList = (pageNumber = 1) => {
         dispatch(actions.setProjectList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await projectAPI.getProjectList(pageNumber);        
-        let response = await projectAPI.getProjectListNEW(getState().projectPage.formGetData);
+        let response = await projectAPI.getProjectList(getState().projectPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setProjectList(response.results));
@@ -190,7 +190,7 @@ export const requestProjectListAll = (pageNumber = 1) => {
         dispatch(actions.setProjectListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await projectAPI.getProjectList(pageNumber);        
-        let response = await projectAPI.getProjectListNEW(1,
+        let response = await projectAPI.getProjectList(1,
                                                                 getState().projectPage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

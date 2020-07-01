@@ -1,11 +1,11 @@
 import instance from "./baseurl";
 import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
-export const projectAPI = {
-    getProjectList(formData,page_size=null) {
+export const deviceLocationAPI = {
+    getDeviceLocationList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
         console.log(get_link)
-        return instance.get(`project/list_create/${get_link}page_size=${page_size}`)
+        return instance.get(`device_location/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })
@@ -13,8 +13,8 @@ export const projectAPI = {
                 return 'error';
             });
     },
-    createProject(formData) {
-        return instance.post(`project/list_create/`, formData)
+    createDeviceLocation(formData) {
+        return instance.post(`device_location/list_create/`, formData)
             .then(response => {
                 return response;
             })
@@ -26,14 +26,14 @@ export const projectAPI = {
                 }
             });
     },
-    getProject(id) {
-        return instance.get(`project/update_delete/${id}`)
+    getDeviceLocation(id) {
+        return instance.get(`device_location/update_delete/${id}`)
             .then(response => {
                 return response;
             })
     },
-    updateProject(formData) {
-        return instance.put(`project/update_delete/${formData.id}`, formData)
+    updateDeviceLocation(formData) {
+        return instance.put(`device_location/update_delete/${formData.id}`, formData)
             .then(response => {
                 return response;
             })
@@ -45,7 +45,7 @@ export const projectAPI = {
                 }
             });
     },
-    deleteProject(id) {
-        return instance.delete(`project/update_delete/${id}`)
+    deleteDeviceLocation(id) {
+        return instance.delete(`device_location/update_delete/${id}`)
     },
 }
