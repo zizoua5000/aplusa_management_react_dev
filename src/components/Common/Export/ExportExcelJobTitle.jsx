@@ -18,7 +18,7 @@ export const ExportExcelJobTitleList = ({csvData, fileName,loadDataFunction}) =>
         return (
             <div>
                 {
-                <button className="btn btn-info" type="button" onClick={() => activateLoadingData()}><i className="text-gray-100 fa fa-download ml-2"></i></button>    
+                <button className="btn btn-info" type="button" onClick={() => activateLoadingData()}><i className="text-gray-100 fa fa-file-excel ml-2"></i></button>    
                 }
                 {            
             <ExcelFile element={<button ref={exportExcelButton} className="btn btn-info" type="button"style={{display:"none"}}><i className="text-gray-100 fas fa-file-excel ml-2"></i></button>} filename={fileName}>

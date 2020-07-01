@@ -64,13 +64,14 @@ class DeviceContainer extends React.Component {
     }
 
     render() {
+        
         return (  
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Device List</h1>
                     <NavLink to="/device_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && <Preloader /> }
+                {this.props.isFetching && this.props.deviceList==null && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
                 {this.props.deviceList!=null &&
                     <DeviceDataGrid 

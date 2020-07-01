@@ -65,18 +65,6 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                 </li>
-
-                <li className="nav-item">
-                    <a className="nav-link collapsed" href="JobTitle" data-toggle="collapse" data-target="#collapseJobTitle" aria-expanded="true" aria-controls="collapseJobTitle">
-                        <i className="fas fa-fw fa-cog"></i>
-                        <span>JobTitle</span>
-                    </a>
-                    <div id="collapseJobTitle" className="collapse" aria-labelledby="headingJobTitle" data-parent="#accordionSidebar">
-                        <div className="bg-dark py-2 collapse-inner rounded">
-                            <NavLink to="/job_title" className="collapse-item bg-dark text-light">JobTitle</NavLink>
-                        </div>
-                    </div>
-                </li>
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="Project" data-toggle="collapse" data-target="#collapseProject" aria-expanded="true" aria-controls="collapseProject">
                         <i className="fas fa-fw fa-cog"></i>

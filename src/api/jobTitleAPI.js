@@ -5,7 +5,7 @@ export const jobTitleAPI = {
     getJobTitleListNEW(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
         console.log(get_link)
-        return instance.get(`jobTitle/list_create/${get_link}page_size=${page_size}`)
+        return instance.get(`job_title/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })
