@@ -25,7 +25,6 @@ class Navbar extends React.Component {
                         <div className="bg-dark py-2 collapse-inner rounded">
                             <NavLink to="/profile" className="collapse-item bg-dark text-light">Profile</NavLink>
                             <NavLink to="/logout" className="collapse-item bg-dark text-light">Logout</NavLink>
-                            <NavLink to="/user" className="collapse-item bg-dark text-light">Users</NavLink>
                         </div>
                     </div>
                 </li>
@@ -97,6 +96,7 @@ class Navbar extends React.Component {
                             <NavLink to="/company" className="collapse-item bg-dark text-light">Company</NavLink>
                             <NavLink to="/company_type" className="collapse-item bg-dark text-light">Company type</NavLink>
                             <NavLink to="/department" className="collapse-item bg-dark text-light">Department</NavLink>
+                            <NavLink to="/user" className="collapse-item bg-dark text-light">User</NavLink>
                         </div>
                     </div>
                 </li>
