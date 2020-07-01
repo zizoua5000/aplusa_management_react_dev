@@ -28,6 +28,7 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                 </li>
+                
                 <li className="nav-item">
                     <a className="nav-link collapsed" href="Region" data-toggle="collapse" data-target="#collapseRegion" aria-expanded="true" aria-controls="collapseRegion">
                         <i className="fas fa-fw fa-cog"></i>
@@ -36,6 +37,43 @@ class Navbar extends React.Component {
                     <div id="collapseRegion" className="collapse" aria-labelledby="headingRegion" data-parent="#accordionSidebar">
                         <div className="bg-dark py-2 collapse-inner rounded">
                             <NavLink to="/region" className="collapse-item bg-dark text-light">Region</NavLink>
+                        </div>
+                    </div>
+                </li>
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="Status" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="true" aria-controls="collapseStatus">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Status</span>
+                    </a>
+                    <div id="collapseStatus" className="collapse" aria-labelledby="headingStatus" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/status" className="collapse-item bg-dark text-light">Status</NavLink>
+                        </div>
+                    </div>
+                </li>
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="Price" data-toggle="collapse" data-target="#collapsePrice" aria-expanded="true" aria-controls="collapsePrice">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Price</span>
+                    </a>
+                    <div id="collapsePrice" className="collapse" aria-labelledby="headingPrice" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner rounded">
+                        
+                            <NavLink to="/price_type" className="collapse-item bg-dark text-light">Price type</NavLink>
+                        </div>
+                    </div>
+                </li>
+
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="JobTitle" data-toggle="collapse" data-target="#collapseJobTitle" aria-expanded="true" aria-controls="collapseJobTitle">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>JobTitle</span>
+                    </a>
+                    <div id="collapseJobTitle" className="collapse" aria-labelledby="headingJobTitle" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/job_title" className="collapse-item bg-dark text-light">JobTitle</NavLink>
                         </div>
                     </div>
                 </li>
