@@ -13,11 +13,13 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 class SimcardCreateContainer extends React.Component {
 
     onSubmit = (formData) => {
+        console.log(formData)
+
         if(formData.is_active==null){
             formData.is_active=true;
         }
-        if(formData.has_roumnig==null){
-            formData.has_roumnig=false;
+        if(formData.has_rouming==null){
+            formData.has_rouming=false;
         }
         this.props.createSimcard(formData);        
     }
@@ -28,7 +30,7 @@ class SimcardCreateContainer extends React.Component {
         }
         return (
             <div>
-            {this.props.isFetching && this.props.simcardList==null? <Preloader /> : null }
+            {this.props.isFetching && this.props.simcardList==null&& <Preloader />}
             {this.props.setErrorMessage && <ErrorMessage />}
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">Create Simcard</h1>
@@ -45,13 +47,13 @@ class SimcardCreateContainer extends React.Component {
 }
 
 const SimcardForm= ({handleSubmit, error,initialValues}) => {
-    initialValues.has_roumnig=false;
+    initialValues.has_rouming=false;
     initialValues.is_active=true;
     return (
         <form onSubmit={handleSubmit}>
             {createField('Simcard', 'number',[required],Input,'Simcard')}
             {createField('Package', 'package',[required],Input,'Package')}
-            {createField('Rouming', 'has_roumnig',[],Toggle,'Rouming',null,null,'checkbox')}
+            {createField('Rouming', 'has_rouming',[],Toggle,'Rouming',null,null,'checkbox')}
             {createField('Acive', 'is_active',[],Toggle,'Active',null,null,'checkbox')}    
             {error && <div className={style.formSummaryError}>
                 {error}
@@ -64,7 +66,7 @@ const SimcardForm= ({handleSubmit, error,initialValues}) => {
 }
 
 const SimcardCreateReduxForm = reduxForm({form: 'simcardCreate',initialValues: {
-    has_roumnig: "",
+    has_rouming: "",
     is_active:""
 }})(SimcardForm)
 

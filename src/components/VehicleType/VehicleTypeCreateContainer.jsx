@@ -27,7 +27,7 @@ class VehicleTypeCreateContainer extends React.Component {
         }
         return (
             <div>
-            {this.props.isFetching && this.props.vehicleTypeList==null? <Preloader /> : null }
+            {this.props.isFetching && this.props.vehicleTypeList==null&& <Preloader /> }
             {this.props.setErrorMessage ? <ErrorMessage /> : null}
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800">Create Vehicle Type</h1>

@@ -131,7 +131,26 @@ class Navbar extends React.Component {
                     </a>
                     <div id="collapseCompany" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/company" className="collapse-item bg-dark text-light">Company</NavLink>
                             <NavLink to="/company_type" className="collapse-item bg-dark text-light">Company type</NavLink>
+                            <NavLink to="/department" className="collapse-item bg-dark text-light">Department</NavLink>
+                            <NavLink to="/user" className="collapse-item bg-dark text-light">User</NavLink>
+                        </div>
+                    </div>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link collapsed" href="Device" data-toggle="collapse" data-target="#collapseDevice" aria-expanded="true" aria-controls="collapseTwo">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Device</span>
+                    </a>
+                    <div id="collapseDevice" className="collapse" aria-labelledby="headingDevice" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner">
+                            <NavLink to="/device" className="collapse-item bg-dark text-light">Device</NavLink>
+                            <NavLink to="/device_mark" className="collapse-item bg-dark text-light">Device mark</NavLink>
+                            <NavLink to="/device_model" className="collapse-item bg-dark text-light">Device model</NavLink>
+                            <NavLink to="/device_type" className="collapse-item bg-dark text-light">Device type</NavLink>
+                            <NavLink to="/device_location" className="collapse-item bg-dark text-light">Device location</NavLink>
+                            <NavLink to="/configuration" className="collapse-item bg-dark text-light">Cofiguration</NavLink>
                         </div>
                     </div>
                 </li>

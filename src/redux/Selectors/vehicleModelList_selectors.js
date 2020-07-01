@@ -4,10 +4,6 @@ export const getVehicleModelList = (state) => {
     return state.vehicleModelPage.vehicleModelList;
 }
 
-export const getVehicleMarkList = (state) => {
-    return state.vehicleModelPage.vehicleMarkList;
-}
-
 export const getVehicleModelItemSel = (state) => {
     return state.vehicleModelPage.vehicleModelItem;
 }
@@ -41,4 +37,7 @@ export const getSortData = (state) => {
 }
 export const getVehicleModelListAll = (state) => {
     return state.vehicleModelPage.vehicleModelListAll;
+}
+export const getVehicleMarkListAll = (state) => {
+    return state.vehicleModelPage.vehicleMarkListAll;
 }

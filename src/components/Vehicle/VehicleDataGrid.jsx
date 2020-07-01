@@ -6,16 +6,16 @@ import VehicleItem from './VehicleItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
 
 
-let VehicleDataGrid = ({ vehicleList,  deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleListAll,vehicleModelListAll,
-    vehicleTypeListAll,vehicleListFunction,vehicleModelFunction,vehicleTypeFunction,vehicleMarkFunction,vehicleMarkListAll}) => {
+let VehicleDataGrid = ({ vehicleList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,vehicleListAll,vehicleModelListAll,
+    vehicleTypeListAll,requestVehicleListAll,requestVehicleModelAll,requestVehicleTypeAll,requestVehicleMarkAll,vehicleMarkListAll}) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
 
     return (
         <div >
             <div>
-                <VehicleListReduxForm onSubmit={onSubmit} vehicleList={vehicleList} deleteItem={deleteItem} itemCount={itemCount} vehicleMarkFunction={vehicleMarkFunction}
+                <VehicleListReduxForm onSubmit={onSubmit} vehicleList={vehicleList} deleteItem={deleteItem} itemCount={itemCount} requestVehicleMarkAll={requestVehicleMarkAll}
                  onSorting={onSorting} sortData={sortData} vehicleListAll={vehicleListAll} vehicleTypeListAll={vehicleTypeListAll} vehicleModelListAll={vehicleModelListAll} 
-                 vehicleModelFunction={vehicleModelFunction} vehicleListFunction={vehicleListFunction} vehicleTypeFunction={vehicleTypeFunction} vehicleMarkListAll={vehicleMarkListAll}/>
+                 requestVehicleModelAll={requestVehicleModelAll} requestVehicleListAll={requestVehicleListAll} requestVehicleTypeAll={requestVehicleTypeAll} vehicleMarkListAll={vehicleMarkListAll}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -27,7 +27,7 @@ let VehicleDataGrid = ({ vehicleList,  deleteItem, currentPage, pageSize, totalI
 }
 
 const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteItem,itemCount,onSorting,sortData,vehicleListAll,
-    vehicleTypeListAll,vehicleModelListAll,vehicleMarkListAll, vehicleListFunction,vehicleTypeFunction,vehicleModelFunction,vehicleMarkFunction}) => {
+     vehicleTypeListAll,vehicleModelListAll,vehicleMarkListAll, requestVehicleListAll,requestVehicleTypeAll,requestVehicleModelAll,requestVehicleMarkAll}) => {
     return (        
         <form onSubmit={handleSubmit}>   
             <table className="table table-default table-bordered text-nowrap">
@@ -81,13 +81,13 @@ const VehicleListForm= ({handleSubmit, error, initialValues,vehicleList,deleteIt
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" loadDataFunction={vehicleListFunction}/></th>
+                        <th><ExportExcelVehicleList csvData={vehicleListAll} fileName="Vehicle" requestLoadData={requestVehicleListAll} /></th>
                         <th><button className="btn btn-info">Filter</button></th>
-                        <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,vehicleListFunction,null,"")}</th>
-                        <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,vehicleListFunction,null,"")}</th>
-                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelListAll,'name',null,vehicleModelFunction,null,"")}</th>  
-                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,vehicleMarkFunction,null,"")}</th>     
-                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,vehicleTypeListAll,'name',null,vehicleTypeFunction,null,"")}</th>
+                        <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'serie_number', [], MultiSelect2,null,vehicleListAll,'serie_number',null,requestVehicleListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'vehicle_model', [], MultiSelect2,null,vehicleModelListAll,'name',null,requestVehicleModelAll,null,null,"")}</th>  
+                        <th className="w-100">{createField(null, 'vehicle_mark', [], MultiSelect2,null,vehicleMarkListAll,'name',null,requestVehicleMarkAll,null,null,"")}</th>     
+                        <th className="w-100">{createField(null, 'vehicle_type', [], MultiSelect2,null,vehicleTypeListAll,'name',null,requestVehicleTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'comment', [], Input,'Comment')}</th>                    
                     </tr>
                 </tbody>

@@ -8,7 +8,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_CREATED = "IS_CREATED"
-const SET_SIMCARD_ITEM = "SET_VEHICLE_TYPE_ITEM"
+const SET_SIMCARD_ITEM = "SET_SIMCARD_ITEM"
 const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
@@ -20,7 +20,7 @@ const SET_SIMCARD_LIST_ALL = "SET_SIMCARD_LIST_ALL"
 let initialState = {
     simcardList: null,
     simcardItem: null,
-    simcardListAll:null,
+    simcardListAll:[],
     isFetching: false,
     message: null,
     currentPage: 1,
@@ -130,7 +130,7 @@ export const sortSimcardList = (sortData) => {
         dispatch(actions.setSimcardList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().simcardPage.sortData));
-        let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData);
+        let response = await simcardAPI.getSimcardList(getState().simcardPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setSimcardList(response.results));
@@ -151,7 +151,7 @@ export const filterSimcardList = (formGetData) => {
         dispatch(actions.setSimcardList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await simcardAPI.getSimcardListNEW(formGetData);
+        let response = await simcardAPI.getSimcardList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setSimcardList(response.results));
@@ -169,8 +169,12 @@ export const requestSimcardList = (pageNumber = 1) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setSimcardList(null));
+        console.log(getState().simcardPage.formGetData)
+        await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await simcardAPI.getSimcardList(pageNumber);
-        let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData);
+        let response = await simcardAPI.getSimcardList(getState().simcardPage.formGetData);
+        console.log("API RESPONSE ",response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setErrorMessage(null))
@@ -182,16 +186,25 @@ export const requestSimcardList = (pageNumber = 1) => {
     }
 }
 
-export const requestSimcardListAll = (pageNumber = 1) => {
+export const requestSimcardListAll = (isExport=false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
+        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setSimcardListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await simcardAPI.getSimcardListNEW(getState().simcardPage.formGetData,
-                                                                getState().simcardPage.max_page_size);                                    
+        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        if(isExport){
+            let formGetData=getState().simcardPage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await simcardAPI.getSimcardList(restformGetData, getState().simcardPage.max_page_size)
+            } 
+            else {
+                response = await simcardAPI.getSimcardList(1, getState().simcardPage.max_page_size)    
+            }
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setSimcardListAll(response.results));

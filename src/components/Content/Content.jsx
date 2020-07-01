@@ -39,11 +39,33 @@ import SimcardUpdateContainer from '../Simcard/SimcardUpdateContainer'
 import CompanyTypeContainer from '../CompanyType/CompanyTypeContainer'
 import CompanyTypeCreateContainer from '../CompanyType/CompanyTypeCreateContainer'
 import CompanyTypeUpdateContainer from '../CompanyType/CompanyTypeUpdateContainer'
-
-import PriceTypeContainer from '../PriceType/PriceTypeContainer'
-import PriceTypeCreateContainer from '../PriceType/PriceTypeCreateContainer'
-import PriceTypeUpdateContainer from '../PriceType/PriceTypeUpdateContainer'
-
+import CompanyContainer from '../Company/CompanyContainer'
+import CompanyCreateContainer from '../Company/CompanyCreateContainer'
+import CompanyUpdateContainer from '../Company/CompanyUpdateContainer'
+import DeviceTypeContainer from '../DeviceType/DeviceTypeContainer'
+import DeviceTypeCreateContainer from '../DeviceType/DeviceTypeCreateContainer'
+import DeviceTypeUpdateContainer from '../DeviceType/DeviceTypeUpdateContainer'
+import DeviceMarkContainer from '../DeviceMark/DeviceMarkContainer'
+import DeviceMarkCreateContainer from '../DeviceMark/DeviceMarkCreateContainer'
+import DeviceMarkUpdateContainer from '../DeviceMark/DeviceMarkUpdateContainer'
+import DepartmentContainer from '../Department/DepartmentContainer'
+import DepartmentCreateContainer from '../Department/DepartmentCreateContainer'
+import DepartmentUpdateContainer from '../Department/DepartmentUpdateContainer'
+import DeviceModelContainer from '../DeviceModel/DeviceModelContainer'
+import DeviceModelCreateContainer from '../DeviceModel/DeviceModelCreateContainer'
+import DeviceModelUpdateContainer from '../DeviceModel/DeviceModelUpdateContainer'
+import DeviceContainer from '../Device/DeviceContainer'
+import DeviceCreateContainer from '../Device/DeviceCreateContainer'
+import DeviceUpdateContainer from '../Device/DeviceUpdateContainer'
+import DeviceLocationContainer from '../DeviceLocation/DeviceLocationContainer'
+import DeviceLocationCreateContainer from '../DeviceLocation/DeviceLocationCreateContainer'
+import DeviceLocationUpdateContainer from '../DeviceLocation/DeviceLocationUpdateContainer'
+import ConfigurationContainer from '../Configuration/ConfigurationContainer'
+import ConfigurationCreateContainer from '../Configuration/ConfigurationCreateContainer'
+import ConfigurationUpdateContainer from '../Configuration/ConfigurationUpdateContainer'
+import UserContainer from '../User/UserContainer'
+import UserCreateContainer from '../User/UserCreateContainer'
+import UserUpdateContainer from '../User/UserUpdateContainer'
 import { Route } from 'react-router-dom';
 import Footer from '../Footer/Footer'
 
@@ -94,10 +116,33 @@ class Content extends React.Component {
                         <Route path='/company_type' render={() => <CompanyTypeContainer />}></Route>  
                         <Route path='/company_type_create' render={() => <CompanyTypeCreateContainer />}></Route>
                         <Route path='/company_type_update/:id?' render={() => <CompanyTypeUpdateContainer />}></Route>
-
-                        <Route path='/price_type' render={() => <PriceTypeContainer />}></Route>  
-                        <Route path='/price_type_create' render={() => <PriceTypeCreateContainer />}></Route>
-                        <Route path='/price_type_update/:id?' render={() => <PriceTypeUpdateContainer />}></Route>
+                        <Route path='/company' render={() => <CompanyContainer />}></Route>  
+                        <Route path='/company_create' render={() => <CompanyCreateContainer />}></Route>
+                        <Route path='/company_update/:id?' render={() => <CompanyUpdateContainer />}></Route>
+                        <Route path='/device_type' render={() => <DeviceTypeContainer />}></Route>
+                        <Route path='/device_type_create' render={() => <DeviceTypeCreateContainer />}></Route>
+                        <Route path='/device_type_update/:id?' render={() => <DeviceTypeUpdateContainer />}></Route>
+                        <Route path='/device_mark' render={() => <DeviceMarkContainer />}></Route>
+                        <Route path='/device_mark_create' render={() => <DeviceMarkCreateContainer />}></Route>
+                        <Route path='/device_mark_update/:id?' render={() => <DeviceMarkUpdateContainer />}></Route>                        
+                    	<Route path='/department' render={() => <DepartmentContainer />}></Route>  
+                        <Route path='/department_create' render={() => <DepartmentCreateContainer />}></Route>
+                        <Route path='/department_update/:id?' render={() => <DepartmentUpdateContainer />}></Route>
+                        <Route path='/device_model' render={() => <DeviceModelContainer />}></Route>
+                        <Route path='/device_model_create' render={() => <DeviceModelCreateContainer />}></Route>
+                        <Route path='/device_model_update/:id?' render={() => <DeviceModelUpdateContainer />}></Route>
+                        <Route path='/device' render={() => <DeviceContainer />}></Route>
+                        <Route path='/device_create' render={() => <DeviceCreateContainer />}></Route>
+                        <Route path='/device_update/:id?' render={() => <DeviceUpdateContainer />}></Route> 
+                        <Route path='/device_location' render={() => <DeviceLocationContainer />}></Route>
+                        <Route path='/device_location_create' render={() => <DeviceLocationCreateContainer />}></Route>
+                        <Route path='/device_location_update/:id?' render={() => <DeviceLocationUpdateContainer />}></Route>                                               
+                        <Route path='/configuration' render={() => <ConfigurationContainer />}></Route>
+                        <Route path='/configuration_create' render={() => <ConfigurationCreateContainer />}></Route>
+                        <Route path='/configuration_update/:id?' render={() => <ConfigurationUpdateContainer />}></Route>                                                 
+                        <Route path='/user' render={() => <UserContainer />}></Route>
+                        <Route path='/user_create' render={() => <UserCreateContainer />}></Route>
+                        <Route path='/user_update/:id?' render={() => <UserUpdateContainer />}></Route> 
                     </div>
                 </div>
                 <Footer />

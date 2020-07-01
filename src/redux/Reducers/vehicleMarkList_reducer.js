@@ -180,17 +180,26 @@ export const requestVehicleMarkList = (pageNumber = 1) => {
     }
 }
 
-export const requestVehicleMarkListAll = (pageNumber = 1) => {
+export const requestVehicleMarkListAll = (isExport=false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
+        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleMarkListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await vehicleTypeAPI.getVehicleTypeList(pageNumber);        
-        let response = await vehicleMarkAPI.getVehicleMarkListNEW(1,
-                                                                getState().vehicleMarkPage.max_page_size);                                                 
+        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        if(isExport){
+            let formGetData=getState().vehicleMarkPage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await vehicleMarkAPI.getVehicleMarkListNEW(restformGetData, getState().vehicleMarkPage.max_page_size)
+            } 
+            else {
+                response = await vehicleMarkAPI.getVehicleMarkListNEW(1, getState().vehicleMarkPage.max_page_size)    
+            }      
+                                                         
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setVehicleMarkListAll(response.results));

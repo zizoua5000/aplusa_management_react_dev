@@ -12,6 +12,15 @@ import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import simcardListReducer from "./Reducers/simcardList_reducer";
 import companyTypeListReducer from './Reducers/companyTypeList_reducer'
+import companyListReducer from './Reducers/companyList_reducer'
+import departmentListReducer from './Reducers/departmentList_reducer'
+import deviceTypeListReducer from './Reducers/deviceTypeList_reducer'
+import deviceMarkListReducer from './Reducers/deviceMarkList_reducer'
+import deviceModelListReducer from './Reducers/deviceModelList_reducer'
+import deviceLocationListReducer from './Reducers/deviceLocationList_reducer'
+import deviceListReducer from './Reducers/deviceList_reducer'
+import configurationListReducer from './Reducers/configurationList_reducer'
+import userListReducer from './Reducers/userList_reducer'
 
 
 
@@ -27,6 +36,15 @@ let rootReducer = combineReducers({
     vehicleModelPage: vehicleModelListReducer,
     simcardPage:simcardListReducer,
     companyTypePage: companyTypeListReducer,
+    companyPage: companyListReducer,
+    departmentPage: departmentListReducer,
+    deviceTypePage: deviceTypeListReducer,
+    deviceMarkPage: deviceMarkListReducer,
+    deviceModelPage: deviceModelListReducer,
+    deviceLocationPage: deviceLocationListReducer,
+    devicePage: deviceListReducer,
+    configurationPage: configurationListReducer,
+    userPage: userListReducer,
     form:formReducer,
 })
 

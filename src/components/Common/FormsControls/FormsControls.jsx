@@ -4,8 +4,7 @@ import styles from "./FormsControls.module.css"
 import { DropdownList, Multiselect} from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 
-export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "", className="form-control") {
-
+export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "",distinct, className="form-control") {
    return <>
         {label!=null &&
         <label>{label}</label>
@@ -17,8 +16,9 @@ export function createField(label,name,validators,component,placeholder,options=
                 component={component}
                 className={className}
                 options={options}
-                funct = {props}
+                request = {props}
                 textfield={textfield}
+                distinct={distinct}
                 {...props}
         /> {text}
     </>
@@ -46,6 +46,7 @@ export const Input = (props) => {
 
 export const Toggle = (props) => {
     const {input, meta, ...restProps} = props;
+    console.log(props)
     function handleToggle(e) {
       const isChecked = e.target.checked;
       input.onChange(isChecked)
@@ -73,14 +74,15 @@ export const Toggle = (props) => {
   };
 
 export const Dropdown =(props) =>{
-
+  const {input, meta, options,...restProps} = props;
+  console.log(props)
   let loading=true
   let loadingData=[]
-  if(props.options!=null){
+
+  if(options!=null){
     loading=false
-    loadingData=props.options
+    loadingData=options
   }
-  const {input} = props;
 
   const activateLoading = (loadingFunction)=>{ 
      loadingFunction()   
@@ -94,16 +96,16 @@ export const Dropdown =(props) =>{
 			value = option[valueField]
 		}
 		input.onChange(value.id)
-	}
+  }
   return <FormControl {...props}>
     <DropdownList
         textField={props.textfield}
         placeholder={props.placeholder}
-        value={input.value|| []} 
+        value={input.value || []} 
         valueField='id'
         onChange={handleChange} 
         filter='contains'  
-        onFocus={()=>{activateLoading(props.funct)}}
+        onFocus={()=>{activateLoading(props.request)}}
         data={loadingData}
         busy={loading} 
         />
@@ -121,12 +123,33 @@ export const SelectWithCustomInitial = (props) => {
 }
 
 export const MultiSelect2 = (props) => {
-
+  console.log(props)
   let loading=true
   let loadingData=[]
   if(props.options!=null){
-    loading=false
+    if(props.distinct!=null){
+      const newArray = [];                 
+      // Declare an empty object 
+      const uniqueObject = {};         
+      // Loop for the array elements 
+      for (let i in props.options) { 
+          // Extract the package 
+          let objPackage = props.options[i][props.distinct]; 
+
+          // Use the package as the index 
+          uniqueObject[objPackage] = props.options[i]; 
+          console.log(objPackage)
+      } 
+        
+      // Loop to push unique object into array 
+      for (let i in uniqueObject) { 
+          newArray.push(uniqueObject[i]); 
+      }
+      loadingData=newArray
+    } else {
     loadingData=props.options
+    }
+    loading=false
   }
   const {input, meta, options,...restProps} = props;
 
@@ -148,7 +171,7 @@ export const MultiSelect2 = (props) => {
   return <FormControl {...props}>
               <Multiselect {...input} {...restProps} className={styles.multiSelectCon}
                 onBlur={() => props.input.onBlur(props.input.value)}
-                onFocus={()=>{activateLoading(props.funct)}}
+                onFocus={()=>{activateLoading(props.request)}}
                 data={loadingData}
                 minLength={2}
                 valueField='id'
@@ -163,15 +186,23 @@ export const MultiSelect2 = (props) => {
 }
 
 export const BooleanDropdown =(props) =>{
+  console.log(props)
   const {input} =props;  
   function handleChange(option) {
+    console.log(option)
 		let value = option
 		const {valueField} = props
 		if (valueField) {
 			value = option[valueField]
 		}
-		input.onChange(value.id)
-	}
+		input.onChange(value)
+  }
+  let ListItem = ({ item }) => (
+    <div>
+    {item==='true'?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}
+    </div>
+  );
+
   return <FormControl {...props}>
     <DropdownList
         data={[
@@ -180,9 +211,11 @@ export const BooleanDropdown =(props) =>{
         ]}
         textField={props.textfield}
         placeholder={props.placeholder}
-        value={input.value|| []} 
+        value={input.value} 
         valueField='id'
         onChange={handleChange}    
+        itemComponent={ListItem}
+        // tagComponent={TagItem}
         />
 </FormControl>
 }
