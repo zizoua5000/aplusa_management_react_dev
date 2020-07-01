@@ -24,7 +24,6 @@ class UserCreateContainer extends React.Component {
             <div>
             {this.props.isFetching && <Preloader /> }
             {this.props.setErrorMessage && <ErrorMessage />}     
-            {!this.props.isFetching &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Create User</h1>
@@ -35,7 +34,6 @@ class UserCreateContainer extends React.Component {
                     </div>
                 </div>
             </>
-            }  
             </div>
         );
     }
