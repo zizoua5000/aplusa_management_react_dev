@@ -128,7 +128,7 @@ export const sortRegionList = (sortData) => {
         dispatch(actions.setRegionList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().regionPage.sortData));
-        let response = await regionAPI.getRegionListNEW(getState().regionPage.formGetData);
+        let response = await regionAPI.getRegionList(getState().regionPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setRegionList(response.results));
@@ -149,7 +149,7 @@ export const filterRegionList = (formGetData) => {
         dispatch(actions.setRegionList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await regionAPI.getRegionListNEW(formGetData);
+        let response = await regionAPI.getRegionList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setRegionList(response.results));
@@ -170,7 +170,7 @@ export const requestRegionList = (pageNumber = 1) => {
         dispatch(actions.setRegionList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await regionAPI.getRegionList(pageNumber);        
-        let response = await regionAPI.getRegionListNEW(getState().regionPage.formGetData);
+        let response = await regionAPI.getRegionList(getState().regionPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setRegionList(response.results));
@@ -190,7 +190,7 @@ export const requestRegionListAll = (pageNumber = 1) => {
         dispatch(actions.setRegionListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await regionAPI.getRegionList(pageNumber);        
-        let response = await regionAPI.getRegionListNEW(1,
+        let response = await regionAPI.getRegionList(1,
                                                                 getState().regionPage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

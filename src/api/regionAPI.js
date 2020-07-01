@@ -2,7 +2,7 @@ import instance from "./baseurl";
 import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
 export const regionAPI = {
-    getRegionListNEW(formData,page_size=null) {
+    getRegionList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
         console.log(get_link)
         return instance.get(`region/list_create/${get_link}page_size=${page_size}`)
@@ -12,15 +12,6 @@ export const regionAPI = {
             .catch(error => {
                 return 'error';
             });
-    },
-    getRegionList(pageNumber = 1,page_size=null) {
-        return instance.get(`region/list_create/?page=${pageNumber}&page_size=${page_size}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(() => {
-                return 'error';
-            })
     },
     createRegion(formData) {
         return instance.post(`region/list_create/`, formData)

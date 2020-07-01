@@ -4,8 +4,10 @@ import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceMarkListAll,requestCompanyListAll} from '../../redux/Reducers/deviceList_reducer'
-import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll} from '../../redux/Selectors/deviceList_selectors'
+import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,
+    requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll} from '../../redux/Reducers/deviceList_reducer'
+import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,
+    getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getDeviceDetailListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll} from '../../redux/Selectors/deviceList_selectors'
 import DeviceDataGrid from './DeviceDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -68,7 +70,7 @@ class DeviceContainer extends React.Component {
                     <h1 className="h3 mb-0 text-gray-800 text-info">Device List</h1>
                     <NavLink to="/device_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && this.props.deviceList==null&&this.props.deviceListAll==null&& <Preloader /> }
+                {this.props.isFetching && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
                 {this.props.deviceList!=null &&
                     <DeviceDataGrid 
@@ -86,12 +88,24 @@ class DeviceContainer extends React.Component {
                     deviceModelListAll={this.props.deviceModelListAll}
                     deviceTypeListAll={this.props.deviceTypeListAll}
                     deviceMarkListAll={this.props.deviceMarkListAll}
+                    deviceLocationListAll={this.props.deviceLocationListAll}
                     companyListAll={this.props.companyListAll}
+                    simcardListAll={this.props.simcardListAll}
+                    vehicleListAll={this.props.vehicleListAll}
+                    projectListAll={this.props.projectListAll}
+                    regionListAll={this.props.regionListAll}
+                    deviceDetailListAll={this.props.deviceDetailListAll}
                     requestDeviceListAll = {this.props.requestDeviceListAll}
                     requestDeviceModelAll = {this.props.requestDeviceModelListAll}
                     requestDeviceMarkAll = {this.props.requestDeviceMarkListAll}
                     requestDeviceTypeAll = {this.props.requestDeviceTypeListAll}
+                    requestDeviceLocationListAll = {this.props.requestDeviceLocationListAll}
                     requestCompanyListAll = {this.props.requestCompanyListAll}
+                    requestSimcardListAll={this.props.requestSimcardListAll}
+                    requestVehicleListAll={this.props.requestVehicleListAll}
+                    requestProjectListAll={this.props.requestProjectListAll}
+                    requestRegionListAll={this.props.requestRegionListAll}
+                    requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
                 /> 
                 }
             </div>
@@ -114,10 +128,17 @@ let mapStateToProps = (state) => {
         deviceMarkListAll:getDeviceMarkListAll(state),
         deviceTypeListAll:getDeviceTypeListAll(state),
         companyListAll:getCompanyListAll(state),
+        simcardListAll:getSimcardListAll(state),
+        vehicleListAll:getVehicleListAll(state),
+        projectListAll:getProjectListAll(state),
+        regionListAll:getRegionListAll(state),
+        deviceLocationListAll:getDeviceLocationListAll(state),
+        deviceDetailListAll:getDeviceDetailListAll(state),
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,requestDeviceTypeListAll,requestDeviceModelListAll,requestDeviceMarkListAll,requestCompanyListAll}),
+    connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll,
+        requestDeviceModelListAll,requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestRegionListAll}),
     withRouter
 )(DeviceContainer);

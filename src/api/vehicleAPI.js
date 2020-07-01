@@ -2,19 +2,9 @@ import instance from "./baseurl";
 import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
 export const vehicleAPI = {
-    getVehicleListNEW(formData,page_size=null) {
+    getVehicleList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
         return instance.get(`vehicle/list_create/${get_link}page_size=${page_size}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => {
-                return 'error';
-            });
-    },
-
-    getVehicleList(pageNumber=1) {
-        return instance.get(`vehicle/list_create/?page=${pageNumber}`)
             .then(response => {
                 return response.data;
             })

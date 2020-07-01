@@ -68,7 +68,7 @@ class VehicleContainer extends React.Component {
                     <h1 className="h3 mb-0 text-gray-800 text-info">Vehicle List</h1>
                     <NavLink to="/vehicle_create" className="btn btn-info aa_create_trip"><i className="text-light fas fa-plus"></i> New</NavLink>
                 </div>
-                {this.props.isFetching && this.props.vehicleList==null&&this.props.vehicleListAll==null&& <Preloader /> }
+                {this.props.isFetching && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
                 {this.props.vehicleList!=null &&
                     <VehicleDataGrid 
