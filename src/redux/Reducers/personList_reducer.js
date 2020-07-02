@@ -1,17 +1,15 @@
 import { personAPI } from "../../api/personAPI";
-import { departmentAPI } from "../../api/departmentAPI";
 import { companyAPI } from "../../api/companyAPI";
+import { departmentAPI } from "../../api/departmentAPI";
 import { jobTitleAPI } from "../../api/jobTitleAPI";
 import { userAPI } from "../../api/userAPI";
 import { stopSubmit } from "redux-form";
 
-//NATAMAMMMMMMMMMMMMMMMMM
-
-
 const SET_PERSONS = "SET_PERSONS"
-const SET_PERSON_MODEL_ALL = "SET_PERSON_MODEL_ALL"
-const SET_PERSON_MARK_ALL = "SET_PERSON_MARK_ALL"
-const SET_PERSON_TYPE_ALL = "SET_PERSON_TYPE_ALL"
+const SET_COMPANIES = "SET_COMPANIES"
+const SET_DEPARTMENTS = "SET_DEPARTMENTS"
+const SET_JOB_TITLES = "SET_JOB_TITLES"
+const SET_USERS = "SET_USERS"
 const SET_PERSON_ITEM = "SET_PERSON_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
@@ -27,10 +25,11 @@ const SET_PERSON_LIST_ALL = "SET_PERSON_LIST_ALL"
 
 let initialState = {
     personList: [],
-    personModelListAll: [],
-    personMarkListAll: [],
-    personTypeListAll: [],
-    personModelItem: null,
+    companyList: [],
+    departmentList: [],
+    jobTitleList: [],
+    userList: [],
+    personItem: null,
     currentPage: 1,
     pageSize: 10,
     max_page_size:10000,
@@ -48,18 +47,22 @@ const personListReducer = (state = initialState, action) => {
         case SET_PERSONS:
             {
                 return { ...state, personList: action.personList }
+            }          
+        case SET_COMPANIES:
+            {
+                return { ...state, companyList: action.companyList }
             }
-        case SET_PERSON_MODEL_ALL:
+        case SET_DEPARTMENTS:
             {
-                return { ...state, personModelListAll: action.personModelListAll }
+                return { ...state, departmentList: action.departmentList }
             }
-        case SET_PERSON_MARK_ALL:
+        case SET_JOB_TITLES:
             {
-                return { ...state, personMarkListAll: action.personMarkListAll }
-            }            
-        case SET_PERSON_TYPE_ALL:
+                return { ...state, jobTitleList: action.jobTitleList }
+            }
+        case SET_USERS:
             {
-                return { ...state, personTypeListAll: action.personTypeListAll }
+                return { ...state, userList: action.userList }
             }
         case SET_PERSON_ITEM:
             {
@@ -121,7 +124,7 @@ const personListReducer = (state = initialState, action) => {
         case SET_PERSON_LIST_ALL:
             {
                 return { ...state, personListAll: action.personListAll }
-            }           
+            }         
         default:
             return state;
     }
@@ -130,9 +133,10 @@ const personListReducer = (state = initialState, action) => {
 
 export const actions = {
     setPersonList: (personList) => ({ type: SET_PERSONS, personList }),
-    setPersonModelListAll: (personModelListAll) => ({ type: SET_PERSON_MODEL_ALL, personModelListAll }),
-    setPersonMarkListAll: (personMarkListAll) => ({ type: SET_PERSON_MARK_ALL, personMarkListAll }),
-    setPersonTypeListAll: (personTypeListAll) => ({ type: SET_PERSON_TYPE_ALL, personTypeListAll }),
+    setCompanyList: (companyList) => ({ type: SET_COMPANIES, companyList }),
+    setDepartmentList: (departmentList) => ({ type: SET_DEPARTMENTS, departmentList }),
+    setJobTitleList: (jobTitleList) => ({ type: SET_JOB_TITLES, jobTitleList }),
+    setUserList: (userList) => ({ type: SET_USERS, userList }),
     setPersonItem: (personItem) => ({ type: SET_PERSON_ITEM, personItem }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
     setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
@@ -145,6 +149,7 @@ export const actions = {
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
     setPersonListAll: (personListAll) => ({ type: SET_PERSON_LIST_ALL, personListAll }),
+
 }
 export const sortPersonList = (sortData) => {
     return async (dispatch, getState) => {
@@ -155,7 +160,7 @@ export const sortPersonList = (sortData) => {
         dispatch(actions.setPersonList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().personPage.sortData));
-        let response = await personAPI.getPersonListNEW(getState().personPage.formGetData);
+        let response = await personAPI.getPersonList(getState().personPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setPersonList(response.results));
@@ -176,7 +181,7 @@ export const filterPersonList = (formGetData) => {
         dispatch(actions.setPersonList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await personAPI.getPersonListNEW(formGetData);
+        let response = await personAPI.getPersonList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setPersonList(response.results));
@@ -196,8 +201,8 @@ export const requestPersonList = (pageNumber = 1) => {
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setPersonList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await personAPI.getPersonList(pageNumber);
-        let response = await personAPI.getPersonListNEW(getState().personPage.formGetData);
+
+        let response = await personAPI.getPersonList(getState().personPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setPersonList(response.results));
@@ -209,70 +214,80 @@ export const requestPersonList = (pageNumber = 1) => {
     }
 }
 
-export const requestPersonListAll = (isExport=false) => {
-    let response;
-    console.log(isExport)
+export const requestPersonListAll = (pageNumber = 1,forExport=false) => {
     return async (dispatch, getState) => {
-        console.log("Something for log")        
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        // dispatch(actions.setCurrentPage(pageNumber));
+        dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setPersonListAll(null));
-        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        if(isExport){
-        let formGetData=getState().personPage.formGetData
-        const {page, ...restformGetData}=formGetData
-        console.log(formGetData)
-        console.log(restformGetData)
-            response = await personAPI.getPersonListNEW(restformGetData, getState().personPage.max_page_size)
-        } 
-        else {
-            response = await personAPI.getPersonListNEW(1, getState().personPage.max_page_size)    
-        }
+        var response;
+        if (forExport){
+            let formGetData=getState().personPage.formGetData
+            const {page, ...restformGetData}=formGetData
+            await dispatch(actions.setAddPageToFormGetData(pageNumber));
+            response = await personAPI.getPersonList(restformGetData, getState().personPage.max_page_size); 
+        }else{
+            await dispatch(actions.setAddPageToFormGetData(pageNumber));
+            response = await personAPI.getPersonList(1, getState().personPage.max_page_size); 
+        }                                                     
         dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {     
-            dispatch(actions.setPersonListAll(response.results));
+        if (response !== 'error') {  
+            let responseResult=response.results
+            responseResult.forEach(function(item){ delete item.main_person })
+            dispatch(actions.setPersonListAll(responseResult));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-export const requestPersonModelListAll = () => {
+export const requestCompanyList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await personModelAPI.getPersonModelListNEW(1,getState().personPage.max_page_size)
+        let response = await companyAPI.getCompanyList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setPersonModelListAll(response.results));
+            dispatch(actions.setCompanyList(response.results));
         } else{
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-
-export const requestPersonTypeListAll = () => {
+export const requestDepartmentList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await personTypeAPI.getPersonTypeListNEW(1,getState().personPage.max_page_size)
+        let response = await departmentAPI.getCompanyList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setPersonTypeListAll(response.results));
+            dispatch(actions.setDepartmenList(response.results));
         } else{
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-export const requestPersonMarkListAll = () => {
+export const requestJobTitleList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await personMarkAPI.getPersonMarkListNEW(1,getState().personPage.max_page_size)
+        let response = await jobTitleAPI.getCompanyList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setPersonMarkListAll(response.results));
+            dispatch(actions.setJobTitleList(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+
+export const requestUserList = () => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await userAPI.getCompanyList(1,getState().personPage.max_page_size)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setUserList(response.results));
         } else{
             dispatch(actions.setErrorMessage(response))
         }

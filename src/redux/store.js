@@ -21,6 +21,7 @@ import deviceLocationListReducer from './Reducers/deviceLocationList_reducer'
 import deviceListReducer from './Reducers/deviceList_reducer'
 import configurationListReducer from './Reducers/configurationList_reducer'
 import userListReducer from './Reducers/userList_reducer'
+import personListReducer from './Reducers/personList_reducer'
 
 
 
@@ -45,6 +46,7 @@ let rootReducer = combineReducers({
     devicePage: deviceListReducer,
     configurationPage: configurationListReducer,
     userPage: userListReducer,
+    personPage: personListReducer,
     form:formReducer,
 })
 
