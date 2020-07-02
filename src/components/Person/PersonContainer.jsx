@@ -117,6 +117,6 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {requestPersonList, deletePersonItem,filterPersonList,sortPersonList,requestPersonListAll,requestComapanyList,requestDepartmentList,requestJobTitleList,requestUserList}),
+    connect(mapStateToProps, {requestPersonList, deletePersonItem,filterPersonList,sortPersonList,requestPersonListAll,requestCompanyList,requestDepartmentList,requestJobTitleList,requestUserList}),
     withRouter
 )(PersonContainer);

@@ -82,6 +82,10 @@ import UserContainer from '../User/UserContainer'
 import UserCreateContainer from '../User/UserCreateContainer'
 import UserUpdateContainer from '../User/UserUpdateContainer'
 
+import PersonContainer from '../Person/PersonContainer'
+import PersonCreateContainer from '../Person/PersonCreateContainer'
+import PersonUpdateContainer from '../Person/PersonUpdateContainer'
+
 
 
 
@@ -167,6 +171,10 @@ class Content extends React.Component {
                         <Route path='/user' render={() => <UserContainer />}></Route>
                         <Route path='/user_create' render={() => <UserCreateContainer />}></Route>
                         <Route path='/user_update/:id?' render={() => <UserUpdateContainer />}></Route> 
+
+                        <Route path='/person' render={() => <PersonContainer />}></Route>
+                        <Route path='/person_create' render={() => <PersonCreateContainer />}></Route>
+                        <Route path='/person_update/:id?' render={() => <PersonUpdateContainer />}></Route> 
                     </div>
                 </div>
                 <Footer />

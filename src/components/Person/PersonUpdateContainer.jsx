@@ -5,8 +5,8 @@ import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {compose} from "redux";
 import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
-import {getPersonItem,updatePersonItem,requestPersonListAll,requestCompanyList,requestDepartmentList,requestJobTitleList,requestUserList} from "../../redux/Reducers/personList_reducer";
-import {getIsCreated, getPersonItemSel,getPersonListAll,getCompanyList,getDepartmentList,getJobTitleList,getUserList, getIsFetching,getSetErrorMessage, getCurrentPage} from '../../redux/Selectors/personList_selectors';
+import {getPersonItem,updatePersonItem,requestCompanyList,requestDepartmentList,requestJobTitleList,requestUserList} from "../../redux/Reducers/personList_reducer";
+import {getIsCreated, getPersonItemSel,getCompanyList,getDepartmentList,getJobTitleList,getUserList, getIsFetching,getSetErrorMessage, getCurrentPage} from '../../redux/Selectors/personList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -38,7 +38,7 @@ class PersonUpdateContainer extends React.Component {
                     <div className="card-body">
                     <PersonUpdateReduxForm onSubmit={this.onSubmit}  personListAllOptions={this.props.personListAll} requestPersonListAll={this.props.requestPersonListAll} 
                         companyListOptions={this.props.companyList}  requestCompanyList = {this.props.requestCompanyList}
-                        departmentListOptions={this.props.departmenList}  requestDepartmentList = {this.props.requestDepartmentList}
+                        departmentListOptions={this.props.departmentList}  requestDepartmentList = {this.props.requestDepartmentList}
                         jobTitleListOptions={this.props.jobTitleList}  requestJobTitleList = {this.props.requestJobTitleList} 
                         userListOptions={this.props.userList}  requestUserList = {this.props.requestUserList}
                         instance={this.props.personItem}/>

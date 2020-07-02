@@ -13,14 +13,16 @@ export const jobTitleAPI = {
                 return 'error';
             });
     },
-    getJobTitleList(pageNumber = 1,page_size=null) {
-        return instance.get(`jobTitle/list_create/?page=${pageNumber}&page_size=${page_size}`)
+    getJobTitleList(formData,page_size=null) {
+        let get_link=form_data_to_link(formData);
+        console.log(get_link)
+        return instance.get(`job_title/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })
-            .catch(() => {
+            .catch(error => {
                 return 'error';
-            })
+            });
     },
     createJobTitle(formData) {
         return instance.post(`jobTitle/list_create/`, formData)

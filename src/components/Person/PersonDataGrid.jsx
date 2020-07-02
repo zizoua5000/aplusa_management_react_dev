@@ -34,7 +34,8 @@ const PersonListForm= ({handleSubmit, error, initialValues,personList,deleteItem
     sortData,personListAll,companyList, departmentList, jobTitleList, userList, 
     requestPersonListAll,requestCompanyList,requestDepartmentList,requestJobTitleList,requestUserList}) => {
     return (        
-        <form onSubmit={handleSubmit}>   
+        <form onSubmit={handleSubmit}>  
+        <div className="table-responsive">
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -102,10 +103,10 @@ const PersonListForm= ({handleSubmit, error, initialValues,personList,deleteItem
                     <tr>
                         <th><ExportExcelPersonList csvData={personListAll} fileName="Person" loadDataFunction={requestPersonListAll}/></th>
                         <th><button className="btn btn-info">Filter</button></th>
-                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,personListAll,'first_name',null,requestPersonListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,personListAll,'last_name',null,requestPersonListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,personListAll,'phone',null,requestPersonListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'id', [], MultiSelect2,null,personListAll,'email',null,requestPersonListAll,null,null,"")}</th>    
+                        <th className="w-100">{createField(null, 'first_name', [], MultiSelect2,null,personListAll,'first_name',null,requestPersonListAll,null,'first_name',"")}</th>
+                        <th className="w-100">{createField(null, 'last_name', [], MultiSelect2,null,personListAll,'last_name',null,requestPersonListAll,null,'last_name',"")}</th>
+                        <th className="w-100">{createField(null, 'phone', [], MultiSelect2,null,personListAll,'phone',null,requestPersonListAll,null,'phone',"")}</th>
+                        <th className="w-100">{createField(null, 'email', [], MultiSelect2,null,personListAll,'email',null,requestPersonListAll,null,'email',"")}</th>    
                         <th className="w-100">{createField(null, 'company', [], MultiSelect2,null,companyList,'name',null,requestCompanyList,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'department', [], MultiSelect2,null,departmentList,'name',null,requestDepartmentList,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'job_title', [], MultiSelect2,null,jobTitleList,'name',null,requestJobTitleList,null,null,"")}</th>
@@ -116,6 +117,7 @@ const PersonListForm= ({handleSubmit, error, initialValues,personList,deleteItem
                     {personList.map((item, key) => <PersonItem personItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
+        </div>
         </form>
     )
 }

@@ -258,10 +258,10 @@ export const requestCompanyList = () => {
 export const requestDepartmentList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await departmentAPI.getCompanyList(1,getState().personPage.max_page_size)
+        let response = await departmentAPI.getDepartmentList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setDepartmenList(response.results));
+            dispatch(actions.setDepartmentList(response.results));
         } else{
             dispatch(actions.setErrorMessage(response))
         }
@@ -271,7 +271,7 @@ export const requestDepartmentList = () => {
 export const requestJobTitleList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await jobTitleAPI.getCompanyList(1,getState().personPage.max_page_size)
+        let response = await jobTitleAPI.getJobTitleList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setJobTitleList(response.results));
@@ -284,7 +284,7 @@ export const requestJobTitleList = () => {
 export const requestUserList = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await userAPI.getCompanyList(1,getState().personPage.max_page_size)
+        let response = await userAPI.getUserList(1,getState().personPage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setUserList(response.results));

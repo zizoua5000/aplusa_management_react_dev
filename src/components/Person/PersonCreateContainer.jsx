@@ -34,7 +34,7 @@ class PersonCreateContainer extends React.Component {
                     <div className="card-body">
                     <PersonCreateReduxForm onSubmit={this.onSubmit}
                     companyListOptions={this.props.companyList}  requestCompanyList = {this.props.requestCompanyList}
-                    departmentListOptions={this.props.departmenList}  requestDepartmentList = {this.props.requestDepartmentList}
+                    departmentListOptions={this.props.departmentList}  requestDepartmentList = {this.props.requestDepartmentList}
                     jobTitleListOptions={this.props.jobTitleList}  requestJobTitleList = {this.props.requestJobTitleList}
                     userListOptions={this.props.userList}  requestUserList = {this.props.requestUserList}
                    />
