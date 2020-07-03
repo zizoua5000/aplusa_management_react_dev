@@ -86,6 +86,10 @@ import PersonContainer from '../Person/PersonContainer'
 import PersonCreateContainer from '../Person/PersonCreateContainer'
 import PersonUpdateContainer from '../Person/PersonUpdateContainer'
 
+import ContentTypeContainer from '../ContentType/ContentTypeContainer'
+import ContentTypeCreateContainer from '../ContentType/ContentTypeCreateContainer'
+import ContentTypeUpdateContainer from '../ContentType/ContentTypeUpdateContainer'
+
 
 
 
@@ -175,6 +179,10 @@ class Content extends React.Component {
                         <Route path='/person' render={() => <PersonContainer />}></Route>
                         <Route path='/person_create' render={() => <PersonCreateContainer />}></Route>
                         <Route path='/person_update/:id?' render={() => <PersonUpdateContainer />}></Route> 
+
+                        <Route path='/content_type' render={() => <ContentTypeContainer />}></Route>
+                        <Route path='/content_type_create' render={() => <ContentTypeCreateContainer />}></Route>
+                        <Route path='/content_type_update/:id?' render={() => <ContentTypeUpdateContainer />}></Route>
                     </div>
                 </div>
                 <Footer />
