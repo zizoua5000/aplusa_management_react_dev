@@ -4,9 +4,9 @@ import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,
-    requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll} from '../../redux/Reducers/deviceList_reducer'
-import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,
+import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,requestConfigurationListAll,
+    requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll} from '../../redux/Reducers/deviceList_reducer'
+import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,getStatusListAll,getConfigurationListAll,
     getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getDeviceDetailListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll} from '../../redux/Selectors/deviceList_selectors'
 import DeviceDataGrid from './DeviceDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
@@ -95,17 +95,21 @@ class DeviceContainer extends React.Component {
                     vehicleListAll={this.props.vehicleListAll}
                     projectListAll={this.props.projectListAll}
                     regionListAll={this.props.regionListAll}
+                    statusListAll={this.props.statusListAll}
                     deviceDetailListAll={this.props.deviceDetailListAll}
                     requestDeviceListAll = {this.props.requestDeviceListAll}
                     requestDeviceModelAll = {this.props.requestDeviceModelListAll}
                     requestDeviceMarkAll = {this.props.requestDeviceMarkListAll}
                     requestDeviceTypeAll = {this.props.requestDeviceTypeListAll}
+                    configurationListAll = {this.props.configurationListAll}
                     requestDeviceLocationListAll = {this.props.requestDeviceLocationListAll}
                     requestCompanyListAll = {this.props.requestCompanyListAll}
                     requestSimcardListAll={this.props.requestSimcardListAll}
                     requestVehicleListAll={this.props.requestVehicleListAll}
                     requestProjectListAll={this.props.requestProjectListAll}
                     requestRegionListAll={this.props.requestRegionListAll}
+                    requestStatusListAll={this.props.requestStatusListAll}
+                    requestConfigurationListAll={this.props.requestConfigurationListAll}
                     requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
                 /> 
                 }
@@ -134,12 +138,16 @@ let mapStateToProps = (state) => {
         projectListAll:getProjectListAll(state),
         regionListAll:getRegionListAll(state),
         deviceLocationListAll:getDeviceLocationListAll(state),
+        statusListAll:getStatusListAll(state),
+        configurationListAll:getConfigurationListAll(state),
         deviceDetailListAll:getDeviceDetailListAll(state),
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll,
-        requestDeviceModelListAll,requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestRegionListAll}),
+    connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,
+        requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll, requestDeviceModelListAll,
+        requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,
+        requestVehicleListAll,requestRegionListAll, requestStatusListAll,requestConfigurationListAll}),
     withRouter
 )(DeviceContainer);

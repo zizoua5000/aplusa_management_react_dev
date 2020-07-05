@@ -128,7 +128,7 @@ export const sortStatusList = (sortData) => {
         dispatch(actions.setStatusList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().statusPage.sortData));
-        let response = await statusAPI.getStatusListNEW(getState().statusPage.formGetData);
+        let response = await statusAPI.getStatusList(getState().statusPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setStatusList(response.results));
@@ -149,7 +149,7 @@ export const filterStatusList = (formGetData) => {
         dispatch(actions.setStatusList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await statusAPI.getStatusListNEW(formGetData);
+        let response = await statusAPI.getStatusList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setStatusList(response.results));
@@ -170,7 +170,7 @@ export const requestStatusList = (pageNumber = 1) => {
         dispatch(actions.setStatusList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await statusAPI.getStatusList(pageNumber);        
-        let response = await statusAPI.getStatusListNEW(getState().statusPage.formGetData);
+        let response = await statusAPI.getStatusList(getState().statusPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setStatusList(response.results));
@@ -190,7 +190,7 @@ export const requestStatusListAll = (pageNumber = 1) => {
         dispatch(actions.setStatusListAll(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         // let response = await statusAPI.getStatusList(pageNumber);        
-        let response = await statusAPI.getStatusListNEW(1,
+        let response = await statusAPI.getStatusList(1,
                                                                 getState().statusPage.max_page_size);                                            
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

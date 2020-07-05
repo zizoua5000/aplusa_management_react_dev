@@ -6,16 +6,20 @@ import DeviceItem from './DeviceItem';
 import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
 
 
-let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,deviceListAll,deviceModelListAll,deviceDetailListAll,simcardListAll,vehicleListAll,projectListAll,requestVehicleListAll,regionListAll,deviceLocationListAll,
-    deviceTypeListAll,requestDeviceListAll,requestDeviceModelAll,requestDeviceTypeAll,requestDeviceMarkAll,deviceMarkListAll,companyListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll}) => {
+let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,deviceListAll,deviceModelListAll,deviceDetailListAll,simcardListAll,vehicleListAll,
+    projectListAll,requestVehicleListAll,regionListAll,deviceLocationListAll, deviceTypeListAll,requestDeviceListAll,requestDeviceModelAll,requestDeviceTypeAll,requestDeviceMarkAll,deviceMarkListAll,companyListAll,
+    requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll, statusListAll, requestStatusListAll,configurationListAll,requestConfigurationListAll}) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     console.log(requestDeviceLocationListAll)
     return (
         <div >
             <div>
-                <DeviceListReduxForm onSubmit={onSubmit} deviceList={deviceList} deleteItem={deleteItem} itemCount={itemCount} requestDeviceMarkAll={requestDeviceMarkAll} requestCompanyListAll={requestCompanyListAll} simcardListAll={simcardListAll} vehicleListAll={vehicleListAll} requestVehicleListAll={requestVehicleListAll} deviceLocationListAll={deviceLocationListAll}
-                 onSorting={onSorting} sortData={sortData} deviceListAll={deviceListAll} deviceTypeListAll={deviceTypeListAll} deviceModelListAll={deviceModelListAll} companyListAll={companyListAll} deviceDetailListAll={deviceDetailListAll} requestSimcardListAll={requestSimcardListAll} projectListAll={projectListAll} regionListAll={regionListAll} requestDeviceLocationListAll={requestDeviceLocationListAll}
-                 requestDeviceModelAll={requestDeviceModelAll} requestDeviceListAll={requestDeviceListAll} requestDeviceTypeAll={requestDeviceTypeAll} deviceMarkListAll={deviceMarkListAll} requestDeviceDetailListAll={requestDeviceDetailListAll} vehicleListAll={vehicleListAll} requestProjectListAll={requestProjectListAll} requestRegionListAll={requestRegionListAll}/>
+                <DeviceListReduxForm onSubmit={onSubmit} deviceList={deviceList} deleteItem={deleteItem} itemCount={itemCount} requestDeviceMarkAll={requestDeviceMarkAll} requestCompanyListAll={requestCompanyListAll} 
+                    simcardListAll={simcardListAll} vehicleListAll={vehicleListAll} requestVehicleListAll={requestVehicleListAll} deviceLocationListAll={deviceLocationListAll} onSorting={onSorting} sortData={sortData}
+                    deviceListAll={deviceListAll} deviceTypeListAll={deviceTypeListAll} deviceModelListAll={deviceModelListAll} companyListAll={companyListAll} deviceDetailListAll={deviceDetailListAll} requestConfigurationListAll={requestConfigurationListAll}
+                    requestSimcardListAll={requestSimcardListAll} projectListAll={projectListAll} regionListAll={regionListAll} requestDeviceLocationListAll={requestDeviceLocationListAll} statusListAll={statusListAll}
+                    requestDeviceModelAll={requestDeviceModelAll} requestDeviceListAll={requestDeviceListAll} requestDeviceTypeAll={requestDeviceTypeAll} deviceMarkListAll={deviceMarkListAll} configurationListAll={configurationListAll}
+                    requestDeviceDetailListAll={requestDeviceDetailListAll} vehicleListAll={vehicleListAll} requestProjectListAll={requestProjectListAll} requestRegionListAll={requestRegionListAll} requestStatusListAll={requestStatusListAll}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -26,8 +30,11 @@ let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItem
     )
 }
 
-const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem,itemCount,onSorting,sortData,deviceListAll,requestCompanyListAll,companyListAll,deviceDetailListAll,simcardListAll,vehicleListAll,projectListAll,requestProjectListAll,deviceLocationListAll,requestDeviceLocationListAll,
-     deviceTypeListAll,deviceModelListAll,deviceMarkListAll, requestDeviceListAll,requestDeviceTypeAll,requestDeviceModelAll,requestDeviceMarkAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,regionListAll,requestRegionListAll}) => {
+const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem,itemCount,onSorting,sortData,deviceListAll,
+    requestCompanyListAll,companyListAll,deviceDetailListAll,simcardListAll,vehicleListAll,projectListAll,configurationListAll,requestProjectListAll,
+    deviceLocationListAll,requestDeviceLocationListAll,deviceTypeListAll,deviceModelListAll,deviceMarkListAll, requestDeviceListAll,
+    requestDeviceTypeAll,requestDeviceModelAll,requestDeviceMarkAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,
+    regionListAll,requestRegionListAll,statusListAll,requestStatusListAll,requestConfigurationListAll}) => {
         console.log(vehicleListAll)
         return (        
         <form onSubmit={handleSubmit}>   
@@ -72,11 +79,11 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                              }}><i className={sortData.device_type? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
-                        <th className="w-100">
-                            Device Location
+                        <th className="w-50" >
+                            Status
                             <span onClick={(e) => {
-                                 onSorting({device_location:!sortData.device_location});
-                             }}><i className={sortData.device_location? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({status:!sortData.status});
+                             }}><i className={sortData.status? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                         <th className="w-50" >
@@ -94,6 +101,27 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                             </span>
                         </th>
                         <th className="w-100">
+                            Device Location
+                            <span onClick={(e) => {
+                                 onSorting({device_location:!sortData.device_location});
+                             }}><i className={sortData.device_location? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-100">
+                            Configuration
+                            <span onClick={(e) => {
+                                 onSorting({configuration:!sortData.configuration});
+                             }}><i className={sortData.configuration? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Simcard
+                            <span onClick={(e) => {
+                                 onSorting({device_type:!sortData.simcard});
+                             }}><i className={sortData.simcard? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-100">
                             Project
                             <span onClick={(e) => {
                                  onSorting({project:!sortData.project});
@@ -107,14 +135,34 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                              }}><i className={sortData.region? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
-                        <th className="w-50" >
-                            Simcard
+                        <th className="w-100">
+                            Comment
                             <span onClick={(e) => {
-                                 onSorting({device_type:!sortData.simcard});
-                             }}><i className={sortData.simcard? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({comment:!sortData.comment});
+                             }}><i className={sortData.comment? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
-                        
+                        <th className="w-100">
+                            Price Datetime
+                            <span onClick={(e) => {
+                                 onSorting({price_datetime:!sortData.price_datetime});
+                             }}><i className={sortData.price_datetime? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-100">
+                            Status Datetime
+                            <span onClick={(e) => {
+                                 onSorting({status_datetime:!sortData.status_datetime});
+                             }}><i className={sortData.status_datetime? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-100">
+                            Sell Count
+                            <span onClick={(e) => {
+                                 onSorting({sell_count:!sortData.sell_count});
+                             }}><i className={sortData.sell_count? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,12 +174,19 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                         <th className="w-100">{createField(null, 'device_model', [], MultiSelect2,null,deviceModelListAll,'name',null,requestDeviceModelAll,null,null,"")}</th>  
                         <th className="w-100">{createField(null, 'device_mark', [], MultiSelect2,null,deviceMarkListAll,'name',null,requestDeviceMarkAll,null,null,"")}</th>     
                         <th className="w-100">{createField(null, 'device_type', [], MultiSelect2,null,deviceTypeListAll,'name',null,requestDeviceTypeAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'device_location', [], MultiSelect2,null,deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'status', [], MultiSelect2,null,statusListAll,'name',null,requestStatusListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'company', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'device_location', [], MultiSelect2,null,deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'configuration', [], MultiSelect2,null,configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'simcard', [], MultiSelect2,null,simcardListAll,'number',null,requestSimcardListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'project', [], MultiSelect2,null,projectListAll,'name',null,requestProjectListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'region', [], MultiSelect2,null,regionListAll,'name',null,requestRegionListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'simcard', [], MultiSelect2,null,simcardListAll,'number',null,requestSimcardListAll,null,null,"")}</th>                       
+                        <th className="w-50">{createField(null, 'comment',[],Input,'Comment')} </th>
+                        <th className="w-50">{createField(null, 'price_datetime',[],Input,'Price Datetime')} </th>
+                        <th className="w-50">{createField(null, 'status_datetime',[],Input,'Status Datetime')} </th>
+                        <th className="w-50">{createField(null, 'sell_count',[],Input,'Sell Count')} </th>
+                                               
                     </tr>
                 </tbody>
                 <tbody>

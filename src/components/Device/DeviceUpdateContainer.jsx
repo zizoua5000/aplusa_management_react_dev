@@ -5,8 +5,8 @@ import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {compose} from "redux";
 import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
-import {getDeviceItem,updateDeviceItem,requestDeviceModelListAll,requestDeviceTypeListAll,requestCompanyListAll} from "../../redux/Reducers/deviceList_reducer";
-import {getIsCreated, getDeviceItemSel,getDeviceModelListAll,getCompanyListAll,getDeviceTypeListAll, getIsFetching,getSetErrorMessage, getCurrentPage} from '../../redux/Selectors/deviceList_selectors';
+import {getDeviceItem,updateDeviceItem,requestDeviceModelListAll,requestDeviceTypeListAll,requestCompanyListAll,requestDeviceDetailListAll} from "../../redux/Reducers/deviceList_reducer";
+import {getIsCreated, getDeviceItemSel,getDeviceModelListAll,getCompanyListAll,getDeviceTypeListAll, getIsFetching,getSetErrorMessage, getCurrentPage,getDeviceDetailListAll} from '../../redux/Selectors/deviceList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -37,8 +37,8 @@ class DeviceUpdateContainer extends React.Component {
                 </div>
                 <div className="card shadow mb-4">
                     <div className="card-body">
-                    <DeviceUpdateReduxForm onSubmit={this.onSubmit}  deviceModelAll={this.props.deviceModelListAll} requestDeviceModelAll={this.props.requestDeviceModelListAll} requestCompanyAll={this.props.requestCompanyListAll}
-                        deviceTypeAll={this.props.deviceTypeListAll} requestDeviceTypeAll={this.props.requestDeviceTypeListAll} instance={this.props.deviceItem} companyAll={this.props.companyListAll}/>
+                    <DeviceUpdateReduxForm onSubmit={this.onSubmit}  deviceModelAll={this.props.deviceModelListAll} requestDeviceModelAll={this.props.requestDeviceModelListAll} requestCompanyAll={this.props.requestCompanyListAll} requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
+                        deviceTypeAll={this.props.deviceTypeListAll} requestDeviceTypeAll={this.props.requestDeviceTypeListAll} instance={this.props.deviceItem} companyAll={this.props.companyListAll} deviceDetailListAll={this.props.deviceDetailListAll}/>
                     </div>
                 </div>
             </>
@@ -48,13 +48,14 @@ class DeviceUpdateContainer extends React.Component {
     }
 }
 
-const DeviceForm= ({handleSubmit, error, companyAll,deviceModelAll,deviceTypeAll,requestCompanyAll,requestDeviceModelAll,requestDeviceTypeAll, instance, initialValues}) => {
-    console.log(initialValues)
+const DeviceForm= ({handleSubmit, error, companyAll,deviceModelAll,deviceTypeAll,deviceDetailListAll,requestCompanyAll,requestDeviceModelAll,requestDeviceTypeAll,requestDeviceDetailListAll, instance, initialValues}) => {
+    console.log(requestDeviceDetailListAll)
     initialValues.id=instance.id
     initialValues.serie=instance.serie
     initialValues.company = instance.company_detail.id
     initialValues.device_model=instance.device_model_detail.id    
-    initialValues.device_type=instance.device_type_detail.id    
+    initialValues.device_type=instance.device_type_detail.id 
+    initialValues.device_detail=instance.device_detail_detail.id    
     companyAll=(companyAll==null?[]:(companyAll.length!==0?companyAll:[instance.company_detail]))
     deviceModelAll=(deviceModelAll==null?[]:(deviceModelAll.length!==0?deviceModelAll:[instance.device_model_detail]))
     deviceTypeAll=(deviceTypeAll==null?[]:(deviceTypeAll.length!==0?deviceTypeAll:[instance.device_type_detail]))
@@ -64,6 +65,7 @@ const DeviceForm= ({handleSubmit, error, companyAll,deviceModelAll,deviceTypeAll
             {createField("Company", 'company', [required], Dropdown,'Company',companyAll,'name',null,requestCompanyAll,null,null,"")}
             {createField("Device Model", 'device_model', [required], Dropdown,'Device Model',deviceModelAll,'name',null,requestDeviceModelAll,null,null,"")}
             {createField("Device Type", 'device_type', [required], Dropdown,'Device Type',deviceTypeAll,'name',null,requestDeviceTypeAll,null,null,"")}
+            {createField('Device Detail', 'device_detail', [], Dropdown,'Device Detail',deviceDetailListAll,'id',null,requestDeviceDetailListAll,null,null,"")}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
@@ -88,6 +90,7 @@ const mapStateToProps = (state) => ({
     deviceModelListAll: getDeviceModelListAll(state),
     deviceTypeListAll: getDeviceTypeListAll(state),
     companyListAll: getCompanyListAll(state),
+    deviceDetailListAll: getDeviceDetailListAll(state),
     deviceItem: getDeviceItemSel(state),
     isCreated: getIsCreated(state),
     isFetching: getIsFetching(state),
@@ -97,6 +100,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, { getDeviceItem, updateDeviceItem,requestDeviceModelListAll,requestDeviceTypeListAll,requestCompanyListAll}),
+    connect(mapStateToProps, { getDeviceItem, updateDeviceItem,requestDeviceModelListAll,requestDeviceTypeListAll,requestCompanyListAll,requestDeviceDetailListAll}),
     withRouter
 )(DeviceUpdateContainer);

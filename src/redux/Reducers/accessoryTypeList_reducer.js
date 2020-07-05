@@ -1,24 +1,24 @@
-import { deviceMarkAPI } from "../../api/deviceMarkAPI";
+import { accessoryTypeAPI } from "../../api/accessoryTypeAPI";
 import { stopSubmit } from "redux-form";
 
-const SET_DEVICE_MARKS = "SET_DEVICE_MARKS"
+const SET_ACCESSORY_TYPES = "SET_ACCESSORY_TYPES"
 const IS_FETCHING = "IS_FETCHING"
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
 const IS_CREATED = "IS_CREATED"
-const SET_DEVICE_MARK_ITEM = "SET_DEVICE_MARK_ITEM"
+const SET_ACCESSORY_TYPE_ITEM = "SET_ACCESSORY_TYPE_ITEM"
 const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_DEVICE_MARK_LIST_ALL = "SET_DEVICE_MARK_LIST_ALL"
+const SET_ACCESSORY_TYPE_LIST_ALL = "SET_ACCESSORY_TYPE_LIST_ALL"
 
 let initialState = {
-    deviceMarkList: null,
-    deviceMarkItem: null,
-    deviceMarkListAll:null,
+    accessoryTypeList: [],
+    accessoryTypeItem: [],
+    accessoryTypeListAll:[],
     isFetching: false,
     message: null,
     currentPage: 1,
@@ -30,11 +30,11 @@ let initialState = {
     sortData:{}
 };
 
-const deviceMarkListReducer = (state = initialState, action) => {
+const accessoryTypeListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_DEVICE_MARKS:
+        case SET_ACCESSORY_TYPES:
             {
-                return { ...state, deviceMarkList: action.deviceMarkList }
+                return { ...state, accessoryTypeList: action.accessoryTypeList }
             }
         case IS_FETCHING:
             {
@@ -60,9 +60,9 @@ const deviceMarkListReducer = (state = initialState, action) => {
             {
                 return { ...state, isCreated: action.isCreated }
             }
-        case SET_DEVICE_MARK_ITEM:
+        case SET_ACCESSORY_TYPE_ITEM:
             {
-                return { ...state, deviceMarkItem: action.deviceMarkItem }
+                return { ...state, accessoryTypeItem: action.accessoryTypeItem }
             }
         case SET_FORM_GET_DATA:
             {
@@ -93,9 +93,9 @@ const deviceMarkListReducer = (state = initialState, action) => {
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
             }   
-        case SET_DEVICE_MARK_LIST_ALL:
+        case SET_ACCESSORY_TYPE_LIST_ALL:
             {
-                return { ...state, deviceMarkListAll: action.deviceMarkListAll }
+                return { ...state, accessoryTypeListAll: action.accessoryTypeListAll }
             }                     
         default:
             return state;
@@ -104,34 +104,34 @@ const deviceMarkListReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setDeviceMarkList: (deviceMarkList) => ({ type: SET_DEVICE_MARKS, deviceMarkList }),
+    setAccessoryTypeList: (accessoryTypeList) => ({ type: SET_ACCESSORY_TYPES, accessoryTypeList }),
     setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
     setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
     setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
     setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
-    setDeviceMarkItem: (deviceMarkItem) => ({ type: SET_DEVICE_MARK_ITEM, deviceMarkItem }),
+    setAccessoryTypeItem: (accessoryTypeItem) => ({ type: SET_ACCESSORY_TYPE_ITEM, accessoryTypeItem }),
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setDeviceMarkListAll: (deviceMarkListAll) => ({ type: SET_DEVICE_MARK_LIST_ALL, deviceMarkListAll }),
+    setAccessoryTypeListAll: (accessoryTypeListAll) => ({ type: SET_ACCESSORY_TYPE_LIST_ALL, accessoryTypeListAll }),
 }
 
-export const sortDeviceMarkList = (sortData) => {
+export const sortAccessoryTypeList = (sortData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setDeviceMarkList(null));
+        dispatch(actions.setAccessoryTypeList(null));
         await dispatch(actions.setSortData(sortData));
-        await dispatch(actions.setAddSortDataToFormGetData(getState().deviceMarkPage.sortData));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(getState().deviceMarkPage.formGetData);
+        await dispatch(actions.setAddSortDataToFormGetData(getState().accessoryTypePage.sortData));
+        let response = await accessoryTypeAPI.getAccessoryTypeList(getState().accessoryTypePage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setDeviceMarkList(response.results));
+            dispatch(actions.setAccessoryTypeList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -140,19 +140,19 @@ export const sortDeviceMarkList = (sortData) => {
     }
 }
 
-export const filterDeviceMarkList = (formGetData) => {
+export const filterAccessoryTypeList = (formGetData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setDeviceMarkList(null));
+        dispatch(actions.setAccessoryTypeList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(formGetData);
+        let response = await accessoryTypeAPI.getAccessoryTypeList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setDeviceMarkList(response.results));
+            dispatch(actions.setAccessoryTypeList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -161,18 +161,19 @@ export const filterDeviceMarkList = (formGetData) => {
     }
 }
 
-export const requestDeviceMarkList = (pageNumber = 1) => {
+export const requestAccessoryTypeList = (pageNumber = 1) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setDeviceMarkList(null));
+        dispatch(actions.setAccessoryTypeList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(getState().deviceMarkPage.formGetData);
+        let response = await accessoryTypeAPI.getAccessoryTypeList(getState().accessoryTypePage.formGetData);
+        console.log("Accessory Type:", response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setDeviceMarkList(response.results));
+            dispatch(actions.setAccessoryTypeList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -180,39 +181,39 @@ export const requestDeviceMarkList = (pageNumber = 1) => {
     }
 }
 
-export const requestDeviceMarkListAll = (isExport=false) => {
+export const requestAccessoryTypeListAll = (isExport=false) => {
     let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setDeviceMarkListAll(null));
+        dispatch(actions.setAccessoryTypeListAll(null));
         // await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await deviceMarkAPI.getDeviceMarkList(pageNumber);  
+        // let response = await accessoryTypeAPI.getAccessoryTypeList(pageNumber);  
         if(isExport){
-            let formGetData=getState().deviceMarkPage.formGetData
+            let formGetData=getState().accessoryTypePage.formGetData
             const {page, ...restformGetData}=formGetData
             console.log(formGetData)
             console.log(restformGetData)
-                response = await deviceMarkAPI.getDeviceMarkListNEW(restformGetData, getState().deviceMarkPage.max_page_size)
+                response = await accessoryTypeAPI.getAccessoryTypeList(restformGetData, getState().accessoryTypePage.max_page_size)
             } 
             else {
-                response = await deviceMarkAPI.getDeviceMarkListNEW(1, getState().deviceMarkPage.max_page_size)    
+                response = await accessoryTypeAPI.getAccessoryTypeList(1, getState().accessoryTypePage.max_page_size)    
             }                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setDeviceMarkListAll(response.results));
+            dispatch(actions.setAccessoryTypeListAll(response.results));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
 }
 
-export const createDeviceMark = (formData) => {
+export const createAccessoryType = (formData) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.createDeviceMark(formData);
+        let response = await accessoryTypeAPI.createAccessoryType(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -221,34 +222,34 @@ export const createDeviceMark = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceMarkCreate', response.data))
+            dispatch(stopSubmit('accessoryTypeCreate', response.data))
         }
     }
 }
 
-export const getDeviceMarkItem = (id) => {
+export const getAccessoryTypeItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.getDeviceMark(id);
+        let response = await accessoryTypeAPI.getAccessoryType(id);
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
-            dispatch(actions.setDeviceMarkItem(response.data));
+            dispatch(actions.setAccessoryTypeItem(response.data));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceMarkUpdate', response.data))
+            dispatch(stopSubmit('accessoryTypeUpdate', response.data))
         }
 
     }
 }
 
-export const updateDeviceMarkItem = (formData) => {
+export const updateAccessoryTypeItem = (formData) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.updateDeviceMark(formData);
+        let response = await accessoryTypeAPI.updateAccessoryType(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -257,18 +258,18 @@ export const updateDeviceMarkItem = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceMarkUpdate', response.data))
+            dispatch(stopSubmit('accessoryTypeUpdate', response.data))
         }
         
     }
 }
 
-export const deleteDeviceMarkItem = (id) => {
+export const deleteAccessoryTypeItem = (id) => {
     return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        await deviceMarkAPI.deleteDeviceMark(id);
+        await accessoryTypeAPI.deleteAccessoryType(id);
         dispatch(actions.setIsFetching(false));
     }
 }
 
-export default deviceMarkListReducer;
+export default accessoryTypeListReducer;

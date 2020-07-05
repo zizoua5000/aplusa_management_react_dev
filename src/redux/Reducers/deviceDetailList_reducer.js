@@ -1,7 +1,3 @@
-import { deviceAPI } from "../../api/deviceAPI";
-import { deviceModelAPI } from "../../api/deviceModelAPI";
-import { deviceTypeAPI } from "../../api/deviceTypeAPI";
-import { deviceMarkAPI } from "../../api/deviceMarkAPI";
 import { companyAPI } from "../../api/companyAPI";
 import { deviceDetailAPI } from "../../api/deviceDetailAPI";
 import { simcardAPI } from "../../api/simcardAPI";
@@ -9,121 +5,68 @@ import { vehicleAPI } from "../../api/vehicleAPI";
 import { projectAPI } from "../../api/projectAPI";
 import { regionAPI } from "../../api/regionAPI";
 import { statusAPI } from "../../api/statusAPI";
-import {configurationAPI} from "../../api/configurationAPI";
 import { deviceLocationAPI } from "../../api/deviceLocationAPI";
+import { configurationAPI } from "../../api/configurationAPI";
 import { stopSubmit } from "redux-form";
-import {deviceDetailViewAPI} from "../../api/deviceDetailViewAPI";
 
-const SET_DEVICES = "SET_DEVICES"
-const SET_DEVICE_MODEL_ALL = "SET_DEVICE_MODEL_ALL"
-const SET_DEVICE_MARK_ALL = "SET_DEVICE_MARK_ALL"
-const SET_DEVICE_TYPE_ALL = "SET_DEVICE_TYPE_ALL"
-const SET_COMPANY_ALL = "SET_COMPANY_ALL"
-const SET_SIMCARD_ALL = "SET_SIMCARD_ALL"
-const SET_DEVICE_DETAIL_ALL = "SET_DEVICE_DETAIL_ALL"
-const SET_DEVICE_ITEM = "SET_DEVICE_ITEM"
+const SET_DEVICE_DETAILS = "SET_DEVICE_DETAILS"
+const IS_FETCHING = "IS_FETCHING"
+const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
 const SET_TOTAL_ITEMS_COUNT = "SET_TOTAL_ITEMS_COUNT"
-const IS_FETCHING = "IS_FETCHING"
 const IS_CREATED = "IS_CREATED"
-const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
+const SET_DEVICE_DETAIL_ITEM = "SET_DEVICE_DETAIL_ITEM"
 const SET_FORM_GET_DATA="SET_FORM_GET_DATA"
 const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
-const SET_DEVICE_LIST_ALL = "SET_DEVICE_LIST_ALL"
+const SET_DEVICE_DETAIL_LIST_ALL = "SET_DEVICE_DETAIL_LIST_ALL"
+const SET_STATUS_ALL="SET_STATUS_ALL"
+const SET_SIMCARD_ALL="SET_SIMCARD_ALL"
 const SET_VEHICLE_ALL="SET_VEHICLE_ALL"
+const SET_COMPANY_ALL="SET_COMPANY_ALL"
+const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
+const SET_CONFIGURATION_ALL="SET_CONFIGURATION_ALL"
 const SET_PROJECT_ALL="SET_PROJECT_ALL"
 const SET_REGION_ALL="SET_REGION_ALL"
-const SET_STATUS_ALL="SET_STATUS_ALL"
-const SET_CONFIGURATION_ALL="SET_CONFIGURATION_ALL"
-const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
 
 let initialState = {
-    deviceList: [],
-    deviceModelListAll: [],
-    deviceMarkListAll: [],
-    deviceTypeListAll: [],
-    deviceLocationListAll: [],
-    companyListAll: [],
-    projectListAll: [],
-    vehicleListAll: [],
-    regionListAll: [],
-    statusListAll: [],
-    simcardListAll: [],
-    deviceDetailListAll: [],
+    deviceDetailList: [],
+    deviceDetailItem: [],
+    deviceDetailListAll:[],
+    statusListAll:[],
+    simcardListAll:[],
+    vehicleListAll:[],
+    companyListAll:[],
+    deviceLocationListAll:[],
     configurationListAll:[],
-    deviceModelItem: null,
+    projectListAll:[],
+    regionListAll:[],
+    isFetching: false,
+    message: null,
     currentPage: 1,
     pageSize: 10,
     max_page_size:10000,
     totalItemsCount: 0,
-    isFetching: false,
     isCreated: false,
-    message: null,
-    deviceListAll: [],
-    sortData:{},
     formGetData:{},
+    sortData:{}
 };
 
-const deviceListReducer = (state = initialState, action) => {
+const deviceDetailListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_DEVICES:
+        case SET_DEVICE_DETAILS:
             {
-                return { ...state, deviceList: action.deviceList }
+                return { ...state, deviceDetailList: action.deviceDetailList }
             }
-        case SET_DEVICE_MODEL_ALL:
+        case IS_FETCHING:
             {
-                return { ...state, deviceModelListAll: action.deviceModelListAll }
+                return { ...state, isFetching: action.isFetching }
             }
-        case SET_DEVICE_MARK_ALL:
+        case SET_ERROR_MESSAGE:
             {
-                return { ...state, deviceMarkListAll: action.deviceMarkListAll }
-            }            
-        case SET_COMPANY_ALL:
-            {
-                return { ...state, companyListAll: action.companyListAll }
-            }
-        case SET_SIMCARD_ALL:
-            {
-                return { ...state, simcardListAll: action.simcardListAll }
-            }         
-        case SET_VEHICLE_ALL:
-            {
-                return { ...state, vehicleListAll: action.vehicleListAll }
-            }
-        case SET_PROJECT_ALL:
-            {
-                return { ...state, projectListAll: action.projectListAll }
-            } 
-        case SET_REGION_ALL:
-            {
-                return { ...state, regionListAll: action.regionListAll }
-            }  
-        case SET_STATUS_ALL:
-            {
-                return { ...state, statusListAll: action.statusListAll }
-            }                                                        
-        case SET_DEVICE_TYPE_ALL:
-            {
-                return { ...state, deviceTypeListAll: action.deviceTypeListAll }
-            }
-        case SET_DEVICE_LOCATION_ALL:
-            {
-                return { ...state, deviceLocationListAll: action.deviceLocationListAll }
-            }  
-        case SET_CONFIGURATION_ALL:
-            {
-                return { ...state, configurationListAll: action.configurationListAll }
-            }                 
-        case SET_DEVICE_DETAIL_ALL:
-            {
-                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
-            }                        
-        case SET_DEVICE_ITEM:
-            {
-                return { ...state, deviceItem: action.deviceItem }
+                return { ...state, message: action.message }
             }
         case SET_CURRENT_PAGE:
             {
@@ -137,17 +80,13 @@ const deviceListReducer = (state = initialState, action) => {
             {
                 return { ...state, totalItemsCount: action.totalItemsCount }
             }
-        case IS_FETCHING:
-            {
-                return { ...state, isFetching: action.isFetching }
-            }
-        case SET_ERROR_MESSAGE:
-            {
-                return { ...state, message: action.message }
-            }
         case IS_CREATED:
             {
                 return { ...state, isCreated: action.isCreated }
+            }
+        case SET_DEVICE_DETAIL_ITEM:
+            {
+                return { ...state, deviceDetailItem: action.deviceDetailItem }
             }
         case SET_FORM_GET_DATA:
             {
@@ -177,11 +116,43 @@ const deviceListReducer = (state = initialState, action) => {
                 let newFormGetData=state.formGetData
                 newFormGetData.sortData=action.sortData
                 return { ...state, formGetData:newFormGetData }
-            }
-        case SET_DEVICE_LIST_ALL:
+            }   
+        case SET_DEVICE_DETAIL_LIST_ALL:
             {
-                return { ...state, deviceListAll: action.deviceListAll }
-            }           
+                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
+            }      
+        case SET_COMPANY_ALL:
+            {
+                return { ...state, companyListAll: action.companyListAll }
+            }
+        case SET_SIMCARD_ALL:
+            {
+                return { ...state, simcardListAll: action.simcardListAll }
+            }         
+        case SET_VEHICLE_ALL:
+            {
+                return { ...state, vehicleListAll: action.vehicleListAll }
+            }
+        case SET_PROJECT_ALL:
+            {
+                return { ...state, projectListAll: action.projectListAll }
+            } 
+        case SET_REGION_ALL:
+            {
+                return { ...state, regionListAll: action.regionListAll }
+            }  
+        case SET_STATUS_ALL:
+            {
+                return { ...state, statusListAll: action.statusListAll }
+            }
+        case SET_DEVICE_LOCATION_ALL:
+            {
+                return { ...state, deviceLocationListAll: action.deviceLocationListAll }
+            }  
+        case SET_CONFIGURATION_ALL:
+            {
+                return { ...state, configurationListAll: action.configurationListAll }
+            }                                   
         default:
             return state;
     }
@@ -189,45 +160,43 @@ const deviceListReducer = (state = initialState, action) => {
 
 
 export const actions = {
-    setDeviceList: (deviceList) => ({ type: SET_DEVICES, deviceList }),
-    setDeviceModelListAll: (deviceModelListAll) => ({ type: SET_DEVICE_MODEL_ALL, deviceModelListAll }),
-    setDeviceMarkListAll: (deviceMarkListAll) => ({ type: SET_DEVICE_MARK_ALL, deviceMarkListAll }),
-    setDeviceTypeListAll: (deviceTypeListAll) => ({ type: SET_DEVICE_TYPE_ALL, deviceTypeListAll }),
-    setDeviceItem: (deviceItem) => ({ type: SET_DEVICE_ITEM, deviceItem }),
+    setDeviceDetailList: (deviceDetailList) => ({ type: SET_DEVICE_DETAILS, deviceDetailList }),
+    setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
+    setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setCurrentPage: (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage }),
     setPageSize: (pageSize) => ({ type: SET_PAGE_SIZE, pageSize }),
     setTotalItemsCount: (totalItemsCount) => ({ type: SET_TOTAL_ITEMS_COUNT, totalItemsCount }),
-    setIsFetching: (isFetching) => ({ type: IS_FETCHING, isFetching }),
-    setErrorMessage: (message) => ({ type: SET_ERROR_MESSAGE, message }),
     setIsCreated: (isCreated) => ({ type: IS_CREATED, isCreated }),
+    setDeviceDetailItem: (deviceDetailItem) => ({ type: SET_DEVICE_DETAIL_ITEM, deviceDetailItem }),
     setFormGetData: (formGetData) => ({ type: SET_FORM_GET_DATA, formGetData }),
     setAddPageToFormGetData: (pageNumber) => ({ type: ADD_PAGE_TO_FORM_GET_DATA, pageNumber }),
     setSortData: (sortData) => ({ type: SET_SORT_DATA, sortData }),
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
-    setDeviceListAll: (deviceListAll) => ({ type: SET_DEVICE_LIST_ALL, deviceListAll }),
-    setCompanyListAll: (companyListAll) => ({ type: SET_COMPANY_ALL, companyListAll }),
-    setSimcardListAll: (simcardListAll) => ({ type: SET_SIMCARD_ALL, simcardListAll }),
-    setDeviceDetailListAll: (deviceDetailListAll) => ({ type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll }),
+    setDeviceDetailListAll: (deviceDetailListAll) => ({ type: SET_DEVICE_DETAIL_LIST_ALL, deviceDetailListAll }),
     setVehicleListAll:(vehicleListAll)=>({type: SET_VEHICLE_ALL, vehicleListAll}),
     setProjectListAll:(projectListAll)=>({type: SET_PROJECT_ALL, projectListAll}),
     setRegionListAll:(regionListAll)=>({type: SET_REGION_ALL, regionListAll}),
     setStatusListAll:(statusListAll)=>({type: SET_STATUS_ALL, statusListAll}),
-    setConfigurationListAll: (configurationListAll) => ({ type: SET_CONFIGURATION_ALL, configurationListAll }),
     setDeviceLocationListAll:(deviceLocationListAll)=>({type: SET_DEVICE_LOCATION_ALL, deviceLocationListAll}),
+    setCompanyListAll: (companyListAll) => ({ type: SET_COMPANY_ALL, companyListAll }),
+    setSimcardListAll: (simcardListAll) => ({ type: SET_SIMCARD_ALL, simcardListAll }),
+    setConfigurationListAll: (configurationListAll) => ({ type: SET_CONFIGURATION_ALL, configurationListAll }),
+
 }
-export const sortDeviceList = (sortData) => {
+
+export const sortDeviceDetailList = (sortData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setDeviceList(null));
+        dispatch(actions.setDeviceDetailList(null));
         await dispatch(actions.setSortData(sortData));
-        await dispatch(actions.setAddSortDataToFormGetData(getState().devicePage.sortData));
-        let response = await deviceAPI.getDeviceListNEW(getState().devicePage.formGetData);
+        await dispatch(actions.setAddSortDataToFormGetData(getState().deviceDetailPage.sortData));
+        let response = await deviceDetailAPI.getDeviceDetailList(getState().deviceDetailPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setDeviceList(response.results));
+            dispatch(actions.setDeviceDetailList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -236,19 +205,19 @@ export const sortDeviceList = (sortData) => {
     }
 }
 
-export const filterDeviceList = (formGetData) => {
+export const filterDeviceDetailList = (formGetData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setErrorMessage(null));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(1));
-        dispatch(actions.setDeviceList(null));
+        dispatch(actions.setDeviceDetailList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await deviceAPI.getDeviceListNEW(formGetData);
+        let response = await deviceDetailAPI.getDeviceDetailList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
-            dispatch(actions.setDeviceList(response.results));
+            dispatch(actions.setDeviceDetailList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
@@ -257,120 +226,49 @@ export const filterDeviceList = (formGetData) => {
     }
 }
 
-export const requestDeviceList = (pageNumber = 1) => {
+export const requestDeviceDetailList = (pageNumber = 1) => {
     return async (dispatch, getState) => {
-        dispatch(actions.setErrorMessage(null));
-        dispatch(actions.setIsCreated(false));
-        dispatch(actions.setIsFetching(true));
+        dispatch(actions.setIsFetching(true))
+        dispatch(actions.setErrorMessage(null))
         dispatch(actions.setCurrentPage(pageNumber));
-        dispatch(actions.setDeviceList(null));
+        dispatch(actions.setIsCreated(false));
+        dispatch(actions.setDeviceDetailList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await deviceAPI.getDeviceList(pageNumber);
-        let response = await deviceAPI.getDeviceListNEW(getState().devicePage.formGetData);
-        console.log(response)
+        let response = await deviceDetailAPI.getDeviceDetailList(getState().deviceDetailPage.formGetData);
         dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setDeviceList(response.results));
+        if (response !== 'error') {     
+            dispatch(actions.setDeviceDetailList(response.results));
             dispatch(actions.setTotalItemsCount(response.count));
         } else {
             dispatch(actions.setErrorMessage(response))
         }
-
     }
 }
 
-export const requestDeviceListAll = (isExport=false) => {
+export const requestDeviceDetailListAll = (isExport=false) => {
     let response;
-    console.log(isExport)
     return async (dispatch, getState) => {
-        console.log("Something for log")        
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
         // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
-        dispatch(actions.setDeviceListAll(null));
+        dispatch(actions.setDeviceDetailListAll(null));
         // await dispatch(actions.setAddPageToFormGetData(pageNumber));
+        // let response = await deviceDetailAPI.getDeviceDetailList(pageNumber);  
         if(isExport){
-        let formGetData=getState().devicePage.formGetData
-        const {page, ...restformGetData}=formGetData
-        console.log(formGetData)
-        console.log(restformGetData)
-            response = await deviceAPI.getDeviceListNEW(restformGetData, getState().devicePage.max_page_size)
-        } 
-        else {
-            response = await deviceAPI.getDeviceListNEW(1, getState().devicePage.max_page_size)    
-        }
+            let formGetData=getState().deviceDetailPage.formGetData
+            const {page, ...restformGetData}=formGetData
+            console.log(formGetData)
+            console.log(restformGetData)
+                response = await deviceDetailAPI.getDeviceDetailList(restformGetData, getState().deviceDetailPage.max_page_size)
+            } 
+            else {
+                response = await deviceDetailAPI.getDeviceDetailList(1, getState().deviceDetailPage.max_page_size)    
+            }                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
-            dispatch(actions.setDeviceListAll(response.results));
-        } else {
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
-
-export const requestDeviceModelListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await deviceModelAPI.getDeviceModelListNEW(1,getState().devicePage.max_page_size)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setDeviceModelListAll(response.results));
-        } else{
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
-
-
-export const requestDeviceTypeListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await deviceTypeAPI.getDeviceTypeListNEW(1,getState().devicePage.max_page_size)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setDeviceTypeListAll(response.results));
-        } else{
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
-
-export const requestDeviceMarkListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(1,getState().devicePage.max_page_size)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setDeviceMarkListAll(response.results));
-        } else{
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
-
-export const requestCompanyListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await companyAPI.getCompanyList(1,getState().devicePage.max_page_size)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setCompanyListAll(response.results));
-        } else{
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
-
-export const requestDeviceDetailListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await deviceDetailAPI.getDeviceDetailList(1,getState().devicePage.max_page_size)
-        console.log(response)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
             dispatch(actions.setDeviceDetailListAll(response.results));
-        } else{
+        } else {
             dispatch(actions.setErrorMessage(response))
         }
     }
@@ -472,50 +370,59 @@ export const requestConfigurationListAll = () => {
         }
     }
 }
-export const createDevice = (formData) => {
+export const requestCompanyListAll = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        console.log("CREATE DEVICE", formData)
-        let response = await deviceDetailViewAPI.createDeviceDetailView(formData);
-        console.log(response)
+        let response = await companyAPI.getCompanyList(1,getState().devicePage.max_page_size)
         dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setCompanyListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const createDeviceDetail = (formData) => {
+    return async (dispatch) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await deviceDetailAPI.createDeviceDetail(formData);
+        dispatch(actions.setIsFetching(false));
+        console.log("CREATE DEVICE", formData)
         if (response === 'error') {
-            console.log('ERROR')
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 201) {
             dispatch(actions.setErrorMessage(null))
             dispatch(actions.setIsCreated(true));
         } else {
-            console.log('STOP SUBMIT')
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceCreate', response.data))
+            dispatch(stopSubmit('deviceDetailCreate', response.data))
         }
     }
 }
 
-export const getDeviceItem = (id) => {
-    return async (dispatch, getState) => {
+export const getDeviceDetailItem = (id) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceAPI.getDevice(id);
+        let response = await deviceDetailAPI.getDeviceDetail(id);
         dispatch(actions.setIsFetching(false));
         dispatch(actions.setIsCreated(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 200) {
             dispatch(actions.setErrorMessage(null));
-            dispatch(actions.setDeviceItem(response.data));
+            dispatch(actions.setDeviceDetailItem(response.data));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceUpdate', response.data))
+            dispatch(stopSubmit('deviceDetailUpdate', response.data))
         }
 
     }
 }
 
-export const updateDeviceItem = (formData) => {
-    return async (dispatch, getState) => {
+export const updateDeviceDetailItem = (formData) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceAPI.updateDevice(formData);
+        let response = await deviceDetailAPI.updateDeviceDetail(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
             dispatch(actions.setErrorMessage(response));
@@ -524,17 +431,18 @@ export const updateDeviceItem = (formData) => {
             dispatch(actions.setIsCreated(true));
         } else {
             dispatch(actions.setErrorMessage(null))
-            dispatch(stopSubmit('deviceUpdate', response.data))
+            dispatch(stopSubmit('deviceDetailUpdate', response.data))
         }
+        
     }
 }
 
-export const deleteDeviceItem = (id) => {
-    return async (dispatch, getState) => {
+export const deleteDeviceDetailItem = (id) => {
+    return async (dispatch) => {
         dispatch(actions.setIsFetching(true));
-        await deviceAPI.deleteDevice(id);
+        await deviceDetailAPI.deleteDeviceDetail(id);
         dispatch(actions.setIsFetching(false));
     }
 }
 
-export default deviceListReducer;
+export default deviceDetailListReducer;

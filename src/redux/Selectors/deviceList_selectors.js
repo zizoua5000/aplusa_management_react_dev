@@ -65,3 +65,9 @@ export const getDeviceDetailListAll = (state) => {
 export const getDeviceLocationListAll = (state) => {
     return state.devicePage.deviceLocationListAll;
 }
+export const getStatusListAll = (state) => {
+    return state.devicePage.statusListAll;
+}
+export const getConfigurationListAll = (state) => {
+    return state.devicePage.configurationListAll;
+}

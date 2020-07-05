@@ -148,6 +148,7 @@ export const MultiSelect2 = (props) => {
       loadingData=newArray
     } else {
     loadingData=props.options
+    console.log(loadingData)
     }
     loading=false
   }

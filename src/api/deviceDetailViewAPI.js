@@ -1,11 +1,10 @@
 import instance from "./baseurl";
 import {form_data_to_link} from "../utils/form_data/form_data_to_link" 
 
-export const statusAPI = {
-    getStatusList(formData,page_size=null) {
+export const deviceDetailViewAPI = {
+    getDeviceDetailViewList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
-        console.log(get_link)
-        return instance.get(`status/list_create/${get_link}page_size=${page_size}`)
+        return instance.get(`device_detail_view/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
             })
@@ -13,8 +12,8 @@ export const statusAPI = {
                 return 'error';
             });
     },
-    createStatus(formData) {
-        return instance.post(`status/list_create/`, formData)
+    getDeviceDetailView(id) {
+        return instance.get(`device_detail_view/update_delete/${id}`)
             .then(response => {
                 return response;
             })
@@ -26,14 +25,8 @@ export const statusAPI = {
                 }
             });
     },
-    getStatus(id) {
-        return instance.get(`status/update_delete/${id}`)
-            .then(response => {
-                return response;
-            })
-    },
-    updateStatus(formData) {
-        return instance.put(`status/update_delete/${formData.id}`, formData)
+    createDeviceDetailView(formData) {
+        return instance.post(`device_detail_view/list_create/`,formData)
             .then(response => {
                 return response;
             })
@@ -45,7 +38,20 @@ export const statusAPI = {
                 }
             });
     },
-    deleteStatus(id) {
-        return instance.delete(`status/update_delete/${id}`)
+    updateDeviceDetailView(formData) {
+        return instance.put(`device_detail_view/update_delete/${formData.id}`,formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response;
+                } else {
+                    return 'error'
+                }
+            });
+    },
+    deleteDeviceDetailView(id) {
+        return instance.delete(`device_detail_view/update_delete/${id}`)
     },
 }

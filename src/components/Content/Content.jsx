@@ -82,8 +82,21 @@ import UserContainer from '../User/UserContainer'
 import UserCreateContainer from '../User/UserCreateContainer'
 import UserUpdateContainer from '../User/UserUpdateContainer'
 
+import DeviceDetailContainer from '../DeviceDetail/DeviceDetailContainer'
+import DeviceDetailCreateContainer from '../DeviceDetail/DeviceDetailCreateContainer'
+import DeviceDetailUpdateContainer from '../DeviceDetail/DeviceDetailUpdateContainer'
 
+import AccessoryContainer from '../Accessory/AccessoryContainer'
+import AccessoryCreateContainer from '../Accessory/AccessoryCreateContainer'
+import AccessoryUpdateContainer from '../Accessory/AccessoryUpdateContainer'
 
+import AccessoryTypeContainer from '../AccessoryType/AccessoryTypeContainer'
+import AccessoryTypeCreateContainer from '../AccessoryType/AccessoryTypeCreateContainer'
+import AccessoryTypeUpdateContainer from '../AccessoryType/AccessoryTypeUpdateContainer'
+
+import AccessoryModelContainer from '../AccessoryModel/AccessoryModelContainer'
+import AccessoryModelCreateContainer from '../AccessoryModel/AccessoryModelCreateContainer'
+import AccessoryModelUpdateContainer from '../AccessoryModel/AccessoryModelUpdateContainer'
 
 class Content extends React.Component {
     render() {
@@ -167,6 +180,23 @@ class Content extends React.Component {
                         <Route path='/user' render={() => <UserContainer />}></Route>
                         <Route path='/user_create' render={() => <UserCreateContainer />}></Route>
                         <Route path='/user_update/:id?' render={() => <UserUpdateContainer />}></Route> 
+
+                        <Route path='/device_detail' render={() => <DeviceDetailContainer />}></Route>
+                        <Route path='/device_detail_create' render={() => <DeviceDetailCreateContainer />}></Route>
+                        <Route path='/device_detail_update/:id?' render={() => <DeviceDetailUpdateContainer />}></Route>
+
+                        <Route path='/accessory' render={() => <AccessoryContainer />}></Route>
+                        <Route path='/accessory_create' render={() => <AccessoryCreateContainer />}></Route>
+                        <Route path='/accessory_update/:id?' render={() => <AccessoryUpdateContainer />}></Route>
+
+                        <Route path='/accessory_type' render={() => <AccessoryTypeContainer />}></Route>
+                        <Route path='/accessory_type_create' render={() => <AccessoryTypeCreateContainer />}></Route>
+                        <Route path='/accessory_type_update/:id?' render={() => <AccessoryTypeUpdateContainer />}></Route>
+
+                        <Route path='/accessory_model' render={() => <AccessoryModelContainer />}></Route>
+                        <Route path='/accessory_model_create' render={() => <AccessoryModelCreateContainer />}></Route>
+                        <Route path='/accessory_model_update/:id?' render={() => <AccessoryModelUpdateContainer />}></Route>
+
                     </div>
                 </div>
                 <Footer />
