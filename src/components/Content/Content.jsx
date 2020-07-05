@@ -82,6 +82,14 @@ import UserContainer from '../User/UserContainer'
 import UserCreateContainer from '../User/UserCreateContainer'
 import UserUpdateContainer from '../User/UserUpdateContainer'
 
+import PersonContainer from '../Person/PersonContainer'
+import PersonCreateContainer from '../Person/PersonCreateContainer'
+import PersonUpdateContainer from '../Person/PersonUpdateContainer'
+
+import ContentTypeContainer from '../ContentType/ContentTypeContainer'
+import ContentTypeCreateContainer from '../ContentType/ContentTypeCreateContainer'
+import ContentTypeUpdateContainer from '../ContentType/ContentTypeUpdateContainer'
+
 import DeviceDetailContainer from '../DeviceDetail/DeviceDetailContainer'
 import DeviceDetailCreateContainer from '../DeviceDetail/DeviceDetailCreateContainer'
 import DeviceDetailUpdateContainer from '../DeviceDetail/DeviceDetailUpdateContainer'
@@ -181,6 +189,13 @@ class Content extends React.Component {
                         <Route path='/user_create' render={() => <UserCreateContainer />}></Route>
                         <Route path='/user_update/:id?' render={() => <UserUpdateContainer />}></Route> 
 
+                        <Route path='/person' render={() => <PersonContainer />}></Route>
+                        <Route path='/person_create' render={() => <PersonCreateContainer />}></Route>
+                        <Route path='/person_update/:id?' render={() => <PersonUpdateContainer />}></Route> 
+
+                        <Route path='/content_type' render={() => <ContentTypeContainer />}></Route>
+                        <Route path='/content_type_create' render={() => <ContentTypeCreateContainer />}></Route>
+                        <Route path='/content_type_update/:id?' render={() => <ContentTypeUpdateContainer />}></Route>
                         <Route path='/device_detail' render={() => <DeviceDetailContainer />}></Route>
                         <Route path='/device_detail_create' render={() => <DeviceDetailCreateContainer />}></Route>
                         <Route path='/device_detail_update/:id?' render={() => <DeviceDetailUpdateContainer />}></Route>

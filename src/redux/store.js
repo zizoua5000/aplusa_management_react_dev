@@ -21,6 +21,8 @@ import deviceLocationListReducer from './Reducers/deviceLocationList_reducer'
 import deviceListReducer from './Reducers/deviceList_reducer'
 import configurationListReducer from './Reducers/configurationList_reducer'
 import userListReducer from './Reducers/userList_reducer'
+import personListReducer from './Reducers/personList_reducer'
+import contentTypeListReducer from './Reducers/contentTypeList_reducer'
 import deviceDetailListReducer from './Reducers/deviceDetailList_reducer'
 import accessoryListReducer from './Reducers/accessoryList_reducer'
 import accessoryTypeListReducer from './Reducers/accessoryTypeList_reducer'
@@ -49,6 +51,8 @@ let rootReducer = combineReducers({
     devicePage: deviceListReducer,
     configurationPage: configurationListReducer,
     userPage: userListReducer,
+    personPage: personListReducer,
+    contentTypePage: contentTypeListReducer,
     deviceDetailPage: deviceDetailListReducer,
     accessoryPage: accessoryListReducer,
     accessoryTypePage: accessoryTypeListReducer,

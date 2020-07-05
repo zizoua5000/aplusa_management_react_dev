@@ -4,7 +4,6 @@ import {form_data_to_link} from "../utils/form_data/form_data_to_link"
 export const companyTypeAPI = {
     getCompanyTypeList(formData,page_size=null) {
         let get_link=form_data_to_link(formData);
-        console.log(get_link)
         return instance.get(`company_type/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
                 return response.data;
