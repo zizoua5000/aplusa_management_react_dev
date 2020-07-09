@@ -135,6 +135,8 @@ class Navbar extends React.Component {
                             <NavLink to="/user" className="collapse-item bg-dark text-light">User</NavLink>
                             <NavLink to="/person" className="collapse-item bg-dark text-light">Person</NavLink>
                             <NavLink to="/content_type" className="collapse-item bg-dark text-light">Content type</NavLink>
+                            <NavLink to="/permission" className="collapse-item bg-dark text-light">Permission</NavLink>
+                            <NavLink to="/user_permission" className="collapse-item bg-dark text-light">User permission</NavLink>
                         </div>
                     </div>
                 </li>

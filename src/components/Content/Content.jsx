@@ -106,6 +106,13 @@ import AccessoryModelContainer from '../AccessoryModel/AccessoryModelContainer'
 import AccessoryModelCreateContainer from '../AccessoryModel/AccessoryModelCreateContainer'
 import AccessoryModelUpdateContainer from '../AccessoryModel/AccessoryModelUpdateContainer'
 
+import PermissionContainer from '../Permission/PermissionContainer'
+import PermissionCreateContainer from '../Permission/PermissionCreateContainer'
+import PermissionUpdateContainer from '../Permission/PermissionUpdateContainer'
+
+import UserPermissionContainer from '../UserPermission/UserPermissionContainer'
+import UserPermissionUpdateContainer from '../UserPermission/UserPermissionUpdateContainer'
+
 class Content extends React.Component {
     render() {
         return (
@@ -211,6 +218,13 @@ class Content extends React.Component {
                         <Route path='/accessory_model' render={() => <AccessoryModelContainer />}></Route>
                         <Route path='/accessory_model_create' render={() => <AccessoryModelCreateContainer />}></Route>
                         <Route path='/accessory_model_update/:id?' render={() => <AccessoryModelUpdateContainer />}></Route>
+
+                        <Route path='/permission' render={() => <PermissionContainer />}></Route>
+                        <Route path='/permission_create' render={() => <PermissionCreateContainer />}></Route>
+                        <Route path='/permission_update/:id?' render={() => <PermissionUpdateContainer />}></Route>
+
+                        <Route path='/user_permission' render={() => <UserPermissionContainer />}></Route>
+                        <Route path='/user_permission_update/:id?' render={() => <UserPermissionUpdateContainer />}></Route>
 
                     </div>
                 </div>
