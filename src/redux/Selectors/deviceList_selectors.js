@@ -59,9 +59,6 @@ export const getProjectListAll = (state) => {
 export const getRegionListAll = (state) => {
     return state.devicePage.regionListAll;
 }
-export const getDeviceDetailListAll = (state) => {
-    return state.devicePage.deviceDetailListAll;
-}
 export const getDeviceLocationListAll = (state) => {
     return state.devicePage.deviceLocationListAll;
 }
@@ -70,4 +67,7 @@ export const getStatusListAll = (state) => {
 }
 export const getConfigurationListAll = (state) => {
     return state.devicePage.configurationListAll;
+}
+export const getPersonListAll = (state) => {
+    return state.devicePage.personListAll;
 }

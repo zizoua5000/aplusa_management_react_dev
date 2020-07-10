@@ -50,15 +50,15 @@ const SimcardListForm= ({handleSubmit, error, initialValues,simcardList,deleteIt
                         <th className="w-50" >
                             Rouming
                             <span onClick={(e) => {
-                                 onSorting({is_active:!sortData.is_active});
-                             }}><i className={sortData.is_active? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({has_rouming:!sortData.has_rouming});
+                             }}><i className={sortData.has_rouming? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                         <th className="w-50" >
                             Active
                             <span onClick={(e) => {
-                                 onSorting({has_rouming:!sortData.has_rouming});
-                             }}><i className={sortData.has_rouming? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({is_active:!sortData.is_active});
+                             }}><i className={sortData.is_active? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                     </tr>

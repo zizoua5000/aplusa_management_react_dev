@@ -1,8 +1,13 @@
-import React from "react"
+import React, { useState } from 'react';
 import {Field} from "redux-form"
 import styles from "./FormsControls.module.css"
-import { DropdownList, Multiselect} from 'react-widgets'
+import { DropdownList, Multiselect } from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// import { registerLocale } from "react-datepicker";
+// import az from "date-fns/locale/az";
+
 
 export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "",distinct, className="form-control") {
    return <>
@@ -129,19 +134,13 @@ export const MultiSelect2 = (props) => {
   if(props.options!=null){
     if(props.distinct!=null){
       const newArray = [];                 
-      // Declare an empty object 
       const uniqueObject = {};         
-      // Loop for the array elements 
-      for (let i in props.options) { 
-          // Extract the package 
-          let objPackage = props.options[i][props.distinct]; 
 
-          // Use the package as the index 
+      for (let i in props.options) { 
+          let objPackage = props.options[i][props.distinct]; 
           uniqueObject[objPackage] = props.options[i]; 
           console.log(objPackage)
       } 
-        
-      // Loop to push unique object into array 
       for (let i in uniqueObject) { 
           newArray.push(uniqueObject[i]); 
       }
@@ -219,4 +218,25 @@ export const BooleanDropdown =(props) =>{
         // tagComponent={TagItem}
         />
 </FormControl>
+}
+
+// registerLocale("az",az);
+export const DatePickerReact=(props)=> {
+  const [date, setDate] = useState(new Date());
+  const handleChange=(date)=> {
+    console.log(date)
+    setDate(date)
+		props.input.onChange(date)
+  }
+  return <FormControl {...props}>
+            <DatePicker 
+              selected={date}
+              onChange={handleChange} 
+              value={props.input.value}
+              showTimeSelect
+              placeholderText="Click to select a date"
+              dateFormat="yyyy-MM-dd h:mm aa"
+              // locale="az"
+              />
+        </FormControl>
 }

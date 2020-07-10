@@ -17,21 +17,23 @@ const DeviceItem= ({deviceItem,deleteItem,itemCount}) => {
             <td>{deviceItem.device_model_detail.name}</td>
             <td>{deviceItem.device_model_detail.device_mark_detail.name}</td>
             <td>{deviceItem.device_type_detail.name}</td>
-            <td>{deviceItem.device_detail_detail.status_detail.name}</td>
-            <td>{deviceItem.device_detail_detail.vehicle_detail.plate}</td>
-            <td>{deviceItem.device_detail_detail.company_detail.name}</td>
-            <td>{deviceItem.device_detail_detail.device_location_detail.name}</td> 
-            <td>{deviceItem.device_detail_detail.configuration_detail.name}</td>  
-            <td>{deviceItem.device_detail_detail.simcard_detail.number}</td>         
-            <td>{deviceItem.device_detail_detail.project_detail.name}</td>
-            <td>{deviceItem.device_detail_detail.region_detail.name}</td>
-            <td>{deviceItem.device_detail_detail.comment}</td>
-            <td>{deviceItem.device_detail_detail.price_datetime}</td>
-            <td>{deviceItem.device_detail_detail.status_datetime}</td>
-            <td>{deviceItem.device_detail_detail.sell_count}</td> 
-            
+            <td>{deviceItem.device_details.status_detail.name}</td>
+            <td>{deviceItem.device_details.status_datetime}</td>
+            <td>{deviceItem.device_details.vehicle_detail.plate}</td>
+            <td>{deviceItem.device_details.company_detail.name}</td>
+            <td>{deviceItem.device_details.device_location_detail.name}</td> 
+            <td>{deviceItem.device_details.project_detail.name}</td>
+            <td>{deviceItem.device_details.recipient_detail.first_name+" "+deviceItem.device_details.recipient_detail.last_name}</td> 
+            <td>{deviceItem.device_details.region_detail.name}</td>
+            <td>{deviceItem.device_details.simcard_detail.number}</td>
+            <td>{deviceItem.device_details.simcard_detail.package}</td>
+            <td>{deviceItem.device_details.simcard_detail.has_rouming===true?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}</td>
+            <td>{deviceItem.device_details.simcard_detail.is_active===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
+            <td>{deviceItem.device_details.configuration_detail.name}</td>  
+            <td>{deviceItem.device_details.sell_count}</td>     
+            <td>{deviceItem.device_details.price_datetime}</td>
+            <td>{deviceItem.device_details.comment}</td>            
         </tr>
     )
 }
-
 export default DeviceItem;

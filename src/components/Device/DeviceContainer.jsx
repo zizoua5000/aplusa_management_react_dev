@@ -5,9 +5,9 @@ import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,requestConfigurationListAll,
-    requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll} from '../../redux/Reducers/deviceList_reducer'
+    requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll,requestPersonListAll} from '../../redux/Reducers/deviceList_reducer'
 import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,getStatusListAll,getConfigurationListAll,
-    getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getDeviceDetailListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll} from '../../redux/Selectors/deviceList_selectors'
+    getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll,getPersonListAll} from '../../redux/Selectors/deviceList_selectors'
 import DeviceDataGrid from './DeviceDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -64,7 +64,7 @@ class DeviceContainer extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props.personListAll)
         return (  
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -96,7 +96,8 @@ class DeviceContainer extends React.Component {
                     projectListAll={this.props.projectListAll}
                     regionListAll={this.props.regionListAll}
                     statusListAll={this.props.statusListAll}
-                    deviceDetailListAll={this.props.deviceDetailListAll}
+                    personListAll={this.props.personListAll} 
+                    requestPersonListAll={this.props.requestPersonListAll}
                     requestDeviceListAll = {this.props.requestDeviceListAll}
                     requestDeviceModelAll = {this.props.requestDeviceModelListAll}
                     requestDeviceMarkAll = {this.props.requestDeviceMarkListAll}
@@ -110,7 +111,6 @@ class DeviceContainer extends React.Component {
                     requestRegionListAll={this.props.requestRegionListAll}
                     requestStatusListAll={this.props.requestStatusListAll}
                     requestConfigurationListAll={this.props.requestConfigurationListAll}
-                    requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
                 /> 
                 }
             </div>
@@ -140,14 +140,14 @@ let mapStateToProps = (state) => {
         deviceLocationListAll:getDeviceLocationListAll(state),
         statusListAll:getStatusListAll(state),
         configurationListAll:getConfigurationListAll(state),
-        deviceDetailListAll:getDeviceDetailListAll(state),
+        personListAll:getPersonListAll(state),
     }
 }
 
 export default compose(
     connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,
         requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll, requestDeviceModelListAll,
-        requestDeviceMarkListAll,requestCompanyListAll,requestDeviceDetailListAll,requestSimcardListAll,
-        requestVehicleListAll,requestRegionListAll, requestStatusListAll,requestConfigurationListAll}),
+        requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestRegionListAll,
+        requestStatusListAll,requestConfigurationListAll,requestPersonListAll}),
     withRouter
 )(DeviceContainer);

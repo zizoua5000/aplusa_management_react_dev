@@ -3,7 +3,6 @@ import { deviceModelAPI } from "../../api/deviceModelAPI";
 import { deviceTypeAPI } from "../../api/deviceTypeAPI";
 import { deviceMarkAPI } from "../../api/deviceMarkAPI";
 import { companyAPI } from "../../api/companyAPI";
-import { deviceDetailAPI } from "../../api/deviceDetailAPI";
 import { simcardAPI } from "../../api/simcardAPI";
 import { vehicleAPI } from "../../api/vehicleAPI";
 import { projectAPI } from "../../api/projectAPI";
@@ -11,8 +10,8 @@ import { regionAPI } from "../../api/regionAPI";
 import { statusAPI } from "../../api/statusAPI";
 import {configurationAPI} from "../../api/configurationAPI";
 import { deviceLocationAPI } from "../../api/deviceLocationAPI";
+import { personAPI } from "../../api/personAPI";
 import { stopSubmit } from "redux-form";
-import {deviceDetailViewAPI} from "../../api/deviceDetailViewAPI";
 
 const SET_DEVICES = "SET_DEVICES"
 const SET_DEVICE_MODEL_ALL = "SET_DEVICE_MODEL_ALL"
@@ -20,7 +19,6 @@ const SET_DEVICE_MARK_ALL = "SET_DEVICE_MARK_ALL"
 const SET_DEVICE_TYPE_ALL = "SET_DEVICE_TYPE_ALL"
 const SET_COMPANY_ALL = "SET_COMPANY_ALL"
 const SET_SIMCARD_ALL = "SET_SIMCARD_ALL"
-const SET_DEVICE_DETAIL_ALL = "SET_DEVICE_DETAIL_ALL"
 const SET_DEVICE_ITEM = "SET_DEVICE_ITEM"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_PAGE_SIZE = "SET_PAGE_SIZE"
@@ -39,6 +37,7 @@ const SET_REGION_ALL="SET_REGION_ALL"
 const SET_STATUS_ALL="SET_STATUS_ALL"
 const SET_CONFIGURATION_ALL="SET_CONFIGURATION_ALL"
 const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
+const SET_PERSON_ALL = "SET_PERSON_ALL"
 
 let initialState = {
     deviceList: [],
@@ -52,8 +51,8 @@ let initialState = {
     regionListAll: [],
     statusListAll: [],
     simcardListAll: [],
-    deviceDetailListAll: [],
     configurationListAll:[],
+    personListAll: [],
     deviceModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -112,15 +111,15 @@ const deviceListReducer = (state = initialState, action) => {
         case SET_DEVICE_LOCATION_ALL:
             {
                 return { ...state, deviceLocationListAll: action.deviceLocationListAll }
-            }  
+            } 
+        case SET_PERSON_ALL:
+            {
+                return { ...state, personListAll: action.personListAll }
+            }              
         case SET_CONFIGURATION_ALL:
             {
                 return { ...state, configurationListAll: action.configurationListAll }
-            }                 
-        case SET_DEVICE_DETAIL_ALL:
-            {
-                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
-            }                        
+            }                                        
         case SET_DEVICE_ITEM:
             {
                 return { ...state, deviceItem: action.deviceItem }
@@ -207,13 +206,13 @@ export const actions = {
     setDeviceListAll: (deviceListAll) => ({ type: SET_DEVICE_LIST_ALL, deviceListAll }),
     setCompanyListAll: (companyListAll) => ({ type: SET_COMPANY_ALL, companyListAll }),
     setSimcardListAll: (simcardListAll) => ({ type: SET_SIMCARD_ALL, simcardListAll }),
-    setDeviceDetailListAll: (deviceDetailListAll) => ({ type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll }),
     setVehicleListAll:(vehicleListAll)=>({type: SET_VEHICLE_ALL, vehicleListAll}),
     setProjectListAll:(projectListAll)=>({type: SET_PROJECT_ALL, projectListAll}),
     setRegionListAll:(regionListAll)=>({type: SET_REGION_ALL, regionListAll}),
     setStatusListAll:(statusListAll)=>({type: SET_STATUS_ALL, statusListAll}),
     setConfigurationListAll: (configurationListAll) => ({ type: SET_CONFIGURATION_ALL, configurationListAll }),
     setDeviceLocationListAll:(deviceLocationListAll)=>({type: SET_DEVICE_LOCATION_ALL, deviceLocationListAll}),
+    setPersonListAll:(personListAll)=>({type: SET_PERSON_ALL, personListAll})
 }
 export const sortDeviceList = (sortData) => {
     return async (dispatch, getState) => {
@@ -362,19 +361,6 @@ export const requestCompanyListAll = () => {
     }
 }
 
-export const requestDeviceDetailListAll = () => {
-    return async (dispatch, getState) => {
-        dispatch(actions.setIsFetching(true));
-        let response = await deviceDetailAPI.getDeviceDetailList(1,getState().devicePage.max_page_size)
-        console.log(response)
-        dispatch(actions.setIsFetching(false));
-        if (response !== 'error') {
-            dispatch(actions.setDeviceDetailListAll(response.results));
-        } else{
-            dispatch(actions.setErrorMessage(response))
-        }
-    }
-}
 export const requestSimcardListAll = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
@@ -472,11 +458,25 @@ export const requestConfigurationListAll = () => {
         }
     }
 }
+export const requestPersonListAll = () => {
+    console.log("requestPersonLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await personAPI.getPersonList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setPersonListAll(response.results));
+        } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
 export const createDevice = (formData) => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
         console.log("CREATE DEVICE", formData)
-        let response = await deviceDetailViewAPI.createDeviceDetailView(formData);
+        let response = await deviceAPI.createDevice(formData);
         console.log(response)
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
