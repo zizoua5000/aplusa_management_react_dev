@@ -11,11 +11,30 @@ import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
+import moment from 'moment';
 
 class DeviceCreateContainer extends React.Component {
 
     onSubmit = (formData) => {
         console.log(formData)
+        console.log(formData.device_details.status_datetime)
+        console.log(formData.device_details.price_datetime)
+        //GMT minute
+        let utcOffset = moment().utcOffset()
+        if(formData.device_details.status_datetime!==undefined){
+        //convertTimeZone to UTC
+        let convertStatusDateUTC = moment.parseZone(formData.device_details.status_datetime).utc().format()
+        //Add GMT hours to utc date
+        let addUTCStatusDateGMTHours = moment(convertStatusDateUTC).add(utcOffset,'minutes')
+        // console.log(addUTCStartDateGMTHours)
+        formData.device_details.status_datetime = addUTCStatusDateGMTHours
+        }
+        if(formData.device_details.price_datetime!==undefined){
+            console.log("END DATE")
+            let convertPriceDateUTC = moment.parseZone(formData.device_details.price_datetime).utc().format()
+            let addUTCPriceDateGMTMinutes = moment(convertPriceDateUTC).add(utcOffset,'minutes')
+            formData.device_details.price_datetime = addUTCPriceDateGMTMinutes
+        }
         this.props.createDevice(formData);
     }
 
@@ -62,13 +81,13 @@ const DeviceForm= ({handleSubmit, error,deviceModelListAll,deviceTypeListAll,com
             {createField('Device Company', 'company', [required], Dropdown,'Company',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Device Model', 'device_model', [required], Dropdown,'Device Model',deviceModelListAll,'name',null,requestDeviceModelListAll,null,null,"")}
             {createField('Device Type', 'device_type', [required], Dropdown,'Device Type',deviceTypeListAll,'name',null,requestDeviceTypeListAll,null,null,"")}
-            {createField('Status', 'device_details.status', [], Dropdown,'Status',statusListAll,'name',null,requestStatusListAll,null,null,"")}
+            {createField('Status', 'device_details.status', [required], Dropdown,'Status',statusListAll,'name',null,requestStatusListAll,null,null,"")}
             {createField('Status Datetime', 'device_details.status_datetime',[],DatePickerReact,'Status Datetime')}
             {createField('Vehicle', 'device_details.vehicle', [], Dropdown,'Vehicle',vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}
             {createField('Vehicle Company', 'device_details.company', [], Dropdown,'Company',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Device Location', 'device_details.device_location', [required], Dropdown,'Device Location',deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}
             {createField('Project', 'device_details.project', [], Dropdown,'Project',projectListAll,'name',null,requestProjectListAll,null,null,"")}
-            {createField('Recipient', 'device_details.recipient', [], Dropdown,'Recipient',personListAll,'first_name',null,requestPersonListAll,null,null,"")}
+            {createField('Recipient', 'device_details.recipient', [], Dropdown,'Recipient',personListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Region', 'device_details.region', [], Dropdown,'Region',regionListAll,'name',null,requestRegionListAll,null,null,"")}
             {createField('Simcard', 'device_details.simcard', [], Dropdown,'Simcard',simcardListAll,'number',null,requestSimcardListAll,null,null,"")}
             {createField('Configuration', 'device_details.configuration', [], Dropdown,'Configuration',configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}

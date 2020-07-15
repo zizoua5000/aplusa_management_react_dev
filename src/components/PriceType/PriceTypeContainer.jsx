@@ -20,7 +20,6 @@ class PriceTypeContainer extends React.Component {
 
         let pageNumber = this.props.match.params.pageNumber;
         this.props.requestPriceTypeList(pageNumber);
-        // this.props.requestPriceTypeListAll();
     }
     onPageChanged = (pageNumber) => {
         this.props.requestPriceTypeList(pageNumber);
@@ -80,7 +79,7 @@ class PriceTypeContainer extends React.Component {
                     sortData={this.props.sortData}
                     onSubmit={this.onSubmit}
                     priceTypeListAll={this.props.priceTypeListAll} 
-                    priceTypeFunction = {this.props.requestPriceTypeListAll}
+                    requestPriceTypeListAll = {this.props.requestPriceTypeListAll}
                 /> 
                 }
             </div>

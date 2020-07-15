@@ -138,7 +138,7 @@ export const sortDeviceModelList = (sortData) => {
         dispatch(actions.setDeviceModelList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().deviceModelPage.sortData));
-        let response = await deviceModelAPI.getDeviceModelListNEW(getState().deviceModelPage.formGetData);
+        let response = await deviceModelAPI.getDeviceModelList(getState().deviceModelPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceModelList(response.results));
@@ -159,7 +159,7 @@ export const filterDeviceModelList = (formGetData) => {
         dispatch(actions.setDeviceModelList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await deviceModelAPI.getDeviceModelListNEW(formGetData);
+        let response = await deviceModelAPI.getDeviceModelList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceModelList(response.results));
@@ -179,7 +179,7 @@ export const requestDeviceModelList = (pageNumber = 1) => {
         dispatch(actions.setDeviceModelList(null));
         dispatch(actions.setCurrentPage(pageNumber));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await deviceModelAPI.getDeviceModelListNEW(getState().deviceModelPage.formGetData);
+        let response = await deviceModelAPI.getDeviceModelList(getState().deviceModelPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceModelList(response.results));
@@ -204,10 +204,10 @@ export const requestDeviceModelListAll = (isExport=false) => {
             const {page, ...restformGetData}=formGetData
             console.log(formGetData)
             console.log(restformGetData)
-                response = await deviceModelAPI.getDeviceModelListNEW(restformGetData, getState().deviceModelPage.max_page_size)
+                response = await deviceModelAPI.getDeviceModelList(restformGetData, getState().deviceModelPage.max_page_size)
             } 
             else {
-                response = await deviceModelAPI.getDeviceModelListNEW(1, getState().deviceModelPage.max_page_size)    
+                response = await deviceModelAPI.getDeviceModelList(1, getState().deviceModelPage.max_page_size)    
             }    
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
@@ -222,7 +222,7 @@ export const requestDeviceMarkListAll = () => {
     return async (dispatch, getState) => {
         console.log("LOG FOR LOG    ")
         dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(1,getState().deviceModelPage.max_page_size);
+        let response = await deviceMarkAPI.getDeviceMarkList(1,getState().deviceModelPage.max_page_size);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceMarkListAll(response.results));

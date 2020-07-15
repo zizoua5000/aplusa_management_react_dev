@@ -128,7 +128,7 @@ export const sortDeviceMarkList = (sortData) => {
         dispatch(actions.setDeviceMarkList(null));
         await dispatch(actions.setSortData(sortData));
         await dispatch(actions.setAddSortDataToFormGetData(getState().deviceMarkPage.sortData));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(getState().deviceMarkPage.formGetData);
+        let response = await deviceMarkAPI.getDeviceMarkList(getState().deviceMarkPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceMarkList(response.results));
@@ -149,7 +149,7 @@ export const filterDeviceMarkList = (formGetData) => {
         dispatch(actions.setDeviceMarkList(null));
         dispatch(actions.setSortData(null));
         dispatch(actions.setFormGetData(formGetData));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(formGetData);
+        let response = await deviceMarkAPI.getDeviceMarkList(formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceMarkList(response.results));
@@ -169,7 +169,7 @@ export const requestDeviceMarkList = (pageNumber = 1) => {
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setDeviceMarkList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(getState().deviceMarkPage.formGetData);
+        let response = await deviceMarkAPI.getDeviceMarkList(getState().deviceMarkPage.formGetData);
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setDeviceMarkList(response.results));
@@ -195,10 +195,10 @@ export const requestDeviceMarkListAll = (isExport=false) => {
             const {page, ...restformGetData}=formGetData
             console.log(formGetData)
             console.log(restformGetData)
-                response = await deviceMarkAPI.getDeviceMarkListNEW(restformGetData, getState().deviceMarkPage.max_page_size)
+                response = await deviceMarkAPI.getDeviceMarkList(restformGetData, getState().deviceMarkPage.max_page_size)
             } 
             else {
-                response = await deviceMarkAPI.getDeviceMarkListNEW(1, getState().deviceMarkPage.max_page_size)    
+                response = await deviceMarkAPI.getDeviceMarkList(1, getState().deviceMarkPage.max_page_size)    
             }                                                      
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     

@@ -5,12 +5,12 @@ const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
-export const ExportExcelPriceTypeList = ({csvData, fileName,loadDataFunction}) => {   
+export const ExportExcelPriceTypeList = ({csvData, fileName,requestLoadData}) => {   
     let exportExcelButton=React.createRef()
     console.log("EXPORT EXCEL", csvData)
     let activateLoadingData=async ()=>{
         let elementExportExcelButton=exportExcelButton.current
-        let data= await loadDataFunction();
+        let data= await requestLoadData(true);
         if (data !== null) {     
             elementExportExcelButton.click()
         }    

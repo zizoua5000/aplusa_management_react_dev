@@ -12,6 +12,7 @@ import {getIsCreated, getDeviceItemSel,getIsFetching,getSetErrorMessage, getCurr
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
+import moment from 'moment';
 
 class DeviceUpdateContainer extends React.Component {
     componentDidMount() {
@@ -21,6 +22,7 @@ class DeviceUpdateContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
+        console.log(formData)
         this.props.updateDeviceItem(formData);
     }
  
@@ -56,8 +58,8 @@ class DeviceUpdateContainer extends React.Component {
 
 const DeviceForm= ({handleSubmit, error, instance, initialValues,deviceModelListAll,deviceTypeListAll,companyListAll,requestCompanyListAll, requestDeviceTypeListAll,requestDeviceModelListAll,
     simcardListAll,statusListAll,vehicleListAll,configurationListAll,projectListAll,regionListAll,requestStatusListAll,deviceLocationListAll,requestSimcardListAll,requestVehicleListAll,vehicleCompanyListAll,
-    requestConfigurationListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll,personListAll,requestPersonListAll,requestVehicleCompanyListAll}) => {
-    console.log(initialValues)
+    requestConfigurationListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll,personListAll,requestPersonListAll}) => {
+    console.log(instance)
     initialValues.id=instance.id
     initialValues.serie=instance.serie
     initialValues.company = instance.company_detail.id
@@ -101,7 +103,7 @@ const DeviceForm= ({handleSubmit, error, instance, initialValues,deviceModelList
             {createField('Vehicle Company', 'device_details.company', [], Dropdown,'Company',vehicleCompanyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Device Location', 'device_details.device_location', [required], Dropdown,'Device Location',deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}
             {createField('Project', 'device_details.project', [], Dropdown,'Project',projectListAll,'name',null,requestProjectListAll,null,null,"")}
-            {createField('Recipient', 'device_details.recipient', [], Dropdown,'Recipient',personListAll,'first_name',null,requestPersonListAll,null,null,"")}
+            {createField('Recipient', 'device_details.recipient', [], Dropdown,'Recipient',personListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Region', 'device_details.region', [], Dropdown,'Region',regionListAll,'name',null,requestRegionListAll,null,null,"")}
             {createField('Simcard', 'device_details.simcard', [], Dropdown,'Simcard',simcardListAll,'number',null,requestSimcardListAll,null,null,"")}
             {createField('Configuration', 'device_details.configuration', [], Dropdown,'Configuration',configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}

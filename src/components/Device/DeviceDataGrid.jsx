@@ -7,8 +7,8 @@ import {createField, Input,MultiSelect2,BooleanDropdown} from "../Common/FormsCo
 
 
 let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,deviceListAll,deviceModelListAll,simcardListAll,vehicleListAll,personListAll,
-    projectListAll,requestVehicleListAll,regionListAll,deviceLocationListAll, deviceTypeListAll,requestDeviceListAll,requestDeviceModelAll,requestDeviceTypeAll,requestDeviceMarkAll,deviceMarkListAll,companyListAll,
-    requestCompanyListAll,requestSimcardListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll, statusListAll, requestStatusListAll,configurationListAll,requestConfigurationListAll,requestPersonListAll,}) => {
+    projectListAll,requestVehicleListAll,regionListAll,deviceLocationListAll, deviceTypeListAll,requestDeviceListAll,requestDeviceModelAll,requestDeviceTypeAll,requestDeviceMarkAll,deviceMarkListAll,companyListAll,deviceDetailListAll,
+    requestDeviceDetailListAll,requestCompanyListAll,requestSimcardListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll, statusListAll, requestStatusListAll,configurationListAll,requestConfigurationListAll,requestPersonListAll,}) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     console.log(requestDeviceLocationListAll)
     return (
@@ -16,9 +16,9 @@ let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItem
             <div>
                 <DeviceListReduxForm onSubmit={onSubmit} deviceList={deviceList} deleteItem={deleteItem} itemCount={itemCount} requestDeviceMarkAll={requestDeviceMarkAll} requestCompanyListAll={requestCompanyListAll} 
                     simcardListAll={simcardListAll} vehicleListAll={vehicleListAll} requestVehicleListAll={requestVehicleListAll} deviceLocationListAll={deviceLocationListAll} onSorting={onSorting} sortData={sortData}
-                    deviceListAll={deviceListAll} deviceTypeListAll={deviceTypeListAll} deviceModelListAll={deviceModelListAll} companyListAll={companyListAll} requestConfigurationListAll={requestConfigurationListAll}
-                    requestSimcardListAll={requestSimcardListAll} projectListAll={projectListAll} regionListAll={regionListAll} requestDeviceLocationListAll={requestDeviceLocationListAll} statusListAll={statusListAll}
-                    requestDeviceModelAll={requestDeviceModelAll} requestDeviceListAll={requestDeviceListAll} requestDeviceTypeAll={requestDeviceTypeAll} deviceMarkListAll={deviceMarkListAll} configurationListAll={configurationListAll}
+                    deviceListAll={deviceListAll} deviceTypeListAll={deviceTypeListAll} deviceModelListAll={deviceModelListAll} companyListAll={companyListAll} requestConfigurationListAll={requestConfigurationListAll} deviceDetailListAll={deviceDetailListAll}
+                    requestDeviceDetailListAll={requestDeviceDetailListAll} requestSimcardListAll={requestSimcardListAll} projectListAll={projectListAll} regionListAll={regionListAll} requestDeviceLocationListAll={requestDeviceLocationListAll} 
+                    statusListAll={statusListAll} requestDeviceModelAll={requestDeviceModelAll} requestDeviceListAll={requestDeviceListAll} requestDeviceTypeAll={requestDeviceTypeAll} deviceMarkListAll={deviceMarkListAll} configurationListAll={configurationListAll}
                     requestProjectListAll={requestProjectListAll} requestRegionListAll={requestRegionListAll} requestStatusListAll={requestStatusListAll} personListAll={personListAll} requestPersonListAll={requestPersonListAll}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
@@ -33,7 +33,7 @@ let DeviceDataGrid = ({ deviceList, deleteItem, currentPage, pageSize, totalItem
 const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem,itemCount,onSorting,sortData,deviceListAll,
     requestCompanyListAll,companyListAll,simcardListAll,vehicleListAll,projectListAll,configurationListAll,requestProjectListAll,
     deviceLocationListAll,requestDeviceLocationListAll,deviceTypeListAll,deviceModelListAll,deviceMarkListAll, requestDeviceListAll,
-    requestDeviceTypeAll,requestDeviceModelAll,requestDeviceMarkAll,requestSimcardListAll,requestVehicleListAll,
+    requestDeviceTypeAll,requestDeviceModelAll,requestDeviceMarkAll,requestSimcardListAll,requestVehicleListAll,deviceDetailListAll,requestDeviceDetailListAll,
     regionListAll,requestRegionListAll,statusListAll,requestStatusListAll,requestConfigurationListAll,personListAll,requestPersonListAll}) => {
         console.log(personListAll)
         return (        
@@ -203,12 +203,12 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                         <th className="w-100">{createField(null, 'device_mark', [], MultiSelect2,null,deviceMarkListAll,'name',null,requestDeviceMarkAll,null,null,"")}</th>     
                         <th className="w-100">{createField(null, 'device_type', [], MultiSelect2,null,deviceTypeListAll,'name',null,requestDeviceTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'status', [], MultiSelect2,null,statusListAll,'name',null,requestStatusListAll,null,null,"")}</th>
-                        <th className="w-50">{createField(null, 'status_datetime',[],Input,'Status Datetime')} </th>
+                        <th className="w-50">{createField(null, 'status_datetime',[], MultiSelect2,null,deviceDetailListAll,'status_datetime',null,requestDeviceDetailListAll,null,'status_datetime',true,"")}</th>
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'company_vehicle', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'device_location', [], MultiSelect2,null,deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'project', [], MultiSelect2,null,projectListAll,'name',null,requestProjectListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'recipient', [], MultiSelect2,null,personListAll,'first_name',null,requestPersonListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'recipient', [], MultiSelect2,null,personListAll,'full_name',null,requestPersonListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'region', [], MultiSelect2,null,regionListAll,'name',null,requestRegionListAll,null,null,"")}</th>                     
                         <th className="w-100">{createField(null, 'simcard', [], MultiSelect2,null,simcardListAll,'number',null,requestSimcardListAll,null,null,"")}</th>                    
                         <th className="w-100">{createField(null, 'package', [], MultiSelect2,null,simcardListAll,'package',null,requestSimcardListAll,null,'package',"")}</th>
@@ -216,7 +216,7 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                         <th className="w-100">{createField(null, 'is_active', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'configuration', [], MultiSelect2,null,configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}</th>
                         <th className="w-50">{createField(null, 'sell_count',[],Input,'Sell Count')} </th>
-                        <th className="w-50">{createField(null, 'price_datetime',[],Input,'Price Datetime')} </th>
+                        <th className="w-50">{createField(null, 'price_datetime',[], MultiSelect2,null,deviceDetailListAll,'price_datetime',null,requestDeviceDetailListAll,null,'price_datetime',true,"")}</th>
                         <th className="w-50">{createField(null, 'comment',[],Input,'Comment')} </th>                       
                     </tr>
                 </tbody>

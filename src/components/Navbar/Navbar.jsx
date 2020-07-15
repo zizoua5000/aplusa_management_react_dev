@@ -60,7 +60,7 @@ class Navbar extends React.Component {
                     </a>
                     <div id="collapsePrice" className="collapse" aria-labelledby="headingPrice" data-parent="#accordionSidebar">
                         <div className="bg-dark py-2 collapse-inner rounded">
-                        
+                            <NavLink to="/price" className="collapse-item bg-dark text-light">Price</NavLink>
                             <NavLink to="/price_type" className="collapse-item bg-dark text-light">Price type</NavLink>
                         </div>
                     </div>

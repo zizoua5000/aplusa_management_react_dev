@@ -5,9 +5,9 @@ import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,requestConfigurationListAll,
-    requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll,requestPersonListAll} from '../../redux/Reducers/deviceList_reducer'
+    requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll,requestPersonListAll,requestDeviceDetailListAll} from '../../redux/Reducers/deviceList_reducer'
 import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,getStatusListAll,getConfigurationListAll,
-    getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll,getPersonListAll} from '../../redux/Selectors/deviceList_selectors'
+    getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll,getPersonListAll,getDeviceDetailListAll} from '../../redux/Selectors/deviceList_selectors'
 import DeviceDataGrid from './DeviceDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
@@ -111,6 +111,8 @@ class DeviceContainer extends React.Component {
                     requestRegionListAll={this.props.requestRegionListAll}
                     requestStatusListAll={this.props.requestStatusListAll}
                     requestConfigurationListAll={this.props.requestConfigurationListAll}
+                    deviceDetailListAll={this.props.deviceDetailListAll}
+                    requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
                 /> 
                 }
             </div>
@@ -141,6 +143,7 @@ let mapStateToProps = (state) => {
         statusListAll:getStatusListAll(state),
         configurationListAll:getConfigurationListAll(state),
         personListAll:getPersonListAll(state),
+        deviceDetailListAll:getDeviceDetailListAll(state),
     }
 }
 
@@ -148,6 +151,6 @@ export default compose(
     connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,
         requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll, requestDeviceModelListAll,
         requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestRegionListAll,
-        requestStatusListAll,requestConfigurationListAll,requestPersonListAll}),
+        requestStatusListAll,requestConfigurationListAll,requestPersonListAll,requestDeviceDetailListAll}),
     withRouter
 )(DeviceContainer);

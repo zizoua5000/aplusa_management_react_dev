@@ -181,17 +181,21 @@ export const requestPriceTypeList = (pageNumber = 1) => {
     }
 }
 
-export const requestPriceTypeListAll = (pageNumber = 1) => {
+export const requestPriceTypeListAll = (isExport = false) => {
+    let response;
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setPriceTypeListAll(null));
-        await dispatch(actions.setAddPageToFormGetData(pageNumber));
-        // let response = await priceTypeAPI.getPriceTypeList(pageNumber);        
-        let response = await priceTypeAPI.getPriceTypeListNEW(1,
-                                                                getState().priceTypePage.max_page_size);                                            
+        if(isExport){
+            let formGetData=getState().priceTypePage.formGetData
+            const {page, ...restformGetData}=formGetData
+                response = await priceTypeAPI.getPriceTypeList(restformGetData, getState().priceTypePage.max_page_size)
+            } 
+            else {
+                response = await priceTypeAPI.getPriceTypeList(1, getState().priceTypePage.max_page_size)    
+            }  
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {     
             dispatch(actions.setPriceTypeListAll(response.results));

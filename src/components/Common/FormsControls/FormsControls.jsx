@@ -5,11 +5,10 @@ import { DropdownList, Multiselect } from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { registerLocale } from "react-datepicker";
-// import az from "date-fns/locale/az";
 
 
-export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "",distinct, className="form-control") {
+
+export function createField(label,name,validators,component,placeholder,options=[],textfield ={},type="text", props = {}, text = "",distinct,listdate, className="form-control") {
    return <>
         {label!=null &&
         <label>{label}</label>
@@ -24,6 +23,7 @@ export function createField(label,name,validators,component,placeholder,options=
                 request = {props}
                 textfield={textfield}
                 distinct={distinct}
+                listdate={listdate}
                 {...props}
         /> {text}
     </>
@@ -131,23 +131,37 @@ export const MultiSelect2 = (props) => {
   console.log(props)
   let loading=true
   let loadingData=[]
+  let strArray =[]
   if(props.options!=null){
+    if(props.listdate){
+      console.log("Distict DATE")
+      for (let i in props.options) { 
+        let objDate = props.options[i][props.distinct];
+        console.log(objDate)
+        if(objDate!=null){
+        let dateStr = objDate.toString();
+        strArray = dateStr.split("T")
+        console.log(strArray)
+        props.options[i][props.distinct]=strArray[0]
+        }
+      } 
+    }
     if(props.distinct!=null){
       const newArray = [];                 
       const uniqueObject = {};         
-
       for (let i in props.options) { 
-          let objPackage = props.options[i][props.distinct]; 
-          uniqueObject[objPackage] = props.options[i]; 
-          console.log(objPackage)
-      } 
+          let obj = props.options[i][props.distinct]; 
+          console.log("DISTINCT ",obj)
+          if(obj!=null){
+          uniqueObject[obj] = props.options[i]; 
+          }  
+        }
       for (let i in uniqueObject) { 
           newArray.push(uniqueObject[i]); 
       }
       loadingData=newArray
     } else {
     loadingData=props.options
-    console.log(loadingData)
     }
     loading=false
   }
@@ -219,13 +233,15 @@ export const BooleanDropdown =(props) =>{
         />
 </FormControl>
 }
-
+// moment.utc().utcOffset() 
 // registerLocale("az",az);
 export const DatePickerReact=(props)=> {
+  console.log(props)
   const [date, setDate] = useState(new Date());
   const handleChange=(date)=> {
     console.log(date)
     setDate(date)
+
 		props.input.onChange(date)
   }
   return <FormControl {...props}>
@@ -236,7 +252,9 @@ export const DatePickerReact=(props)=> {
               showTimeSelect
               placeholderText="Click to select a date"
               dateFormat="yyyy-MM-dd h:mm aa"
+              popperPlacement="bottom-start"        
               // locale="az"
               />
         </FormControl>
 }
+

@@ -26,7 +26,7 @@ let initialState = {
     vehicleModelListAll: [],
     vehicleMarkListAll: [],
     vehicleTypeListAll: [],
-    vehicleModelItem: null,
+    vehicleItem: null,
     currentPage: 1,
     pageSize: 10,
     max_page_size:10000,
@@ -212,15 +212,11 @@ export const requestVehicleListAll = (isExport=false) => {
         console.log("Something for log")        
         dispatch(actions.setIsFetching(true))
         dispatch(actions.setErrorMessage(null))
-        // dispatch(actions.setCurrentPage(pageNumber));
         dispatch(actions.setIsCreated(false));
         dispatch(actions.setVehicleListAll(null));
-        // await dispatch(actions.setAddPageToFormGetData(pageNumber));
         if(isExport){
         let formGetData=getState().vehiclePage.formGetData
         const {page, ...restformGetData}=formGetData
-        console.log(formGetData)
-        console.log(restformGetData)
             response = await vehicleAPI.getVehicleList(restformGetData, getState().vehiclePage.max_page_size)
         } 
         else {

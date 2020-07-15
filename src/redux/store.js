@@ -3,6 +3,7 @@ import vehicleListReducer from './Reducers/vehicleList_reducer'
 import vehicleMarkListReducer from './Reducers/vehicleMarkList_reducer'
 import vehicleTypeListReducer from './Reducers/vehicleTypeList_reducer'
 import priceTypeListReducer from './Reducers/priceTypeList_reducer'
+import priceListReducer from './Reducers/priceList_reducer'
 import regionListReducer from './Reducers/regionList_reducer'
 import statusListReducer from './Reducers/statusList_reducer'
 import jobTitleListReducer from './Reducers/jobTitleList_reducer'
@@ -36,6 +37,7 @@ let rootReducer = combineReducers({
     vehiclePage:vehicleListReducer,
     vehicleMarkPage: vehicleMarkListReducer,
     vehicleTypePage: vehicleTypeListReducer,
+    pricePage: priceListReducer,
     priceTypePage: priceTypeListReducer,
     regionPage: regionListReducer,
     statusPage: statusListReducer,

@@ -30,7 +30,7 @@ class VehicleUpdateContainer extends React.Component {
             <div>
             {this.props.isFetching && this.props.vehicleTypeListAll==null&&this.props.vehicleModelListAll==null && this.props.vehicleItem==null&& <Preloader />  }
             {this.props.setErrorMessage && <ErrorMessage />}
-            {this.props.vehicleTypeListAll!=null&&this.props.vehicleModelListAll!=null&&this.props.vehicleItem!=null &&
+            {this.props.vehicleItem!=null &&
             <>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Update Vehicle</h1>
@@ -49,7 +49,7 @@ class VehicleUpdateContainer extends React.Component {
 }
 
 const VehicleForm= ({handleSubmit, error, vehicleModelAll,vehicleTypeAll,requestVehicleModelAll,requestVehicleTypeAll, instance, initialValues}) => {
-    console.log(initialValues)
+    console.log(instance)
     initialValues.id=instance.id
     initialValues.plate=instance.plate
     initialValues.serie_number = instance.serie_number

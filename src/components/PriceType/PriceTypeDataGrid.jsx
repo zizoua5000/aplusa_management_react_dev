@@ -5,13 +5,13 @@ import {ExportExcelPriceTypeList} from "../Common/Export/ExportExcelPriceType";
 import PriceTypeItem from './PriceTypeItem';
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 
-let PriceTypeDataGrid = ({ priceTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,priceTypeListAll,priceTypeFunction }) => {
+let PriceTypeDataGrid = ({ priceTypeList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,priceTypeListAll,requestPriceTypeListAll }) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
     return (
         <div >
             <div>
                 <PriceTypeListReduxForm onSubmit={onSubmit} priceTypeList={priceTypeList} deleteItem={deleteItem} 
-                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} priceTypeListAll={priceTypeListAll} priceTypeFunction={priceTypeFunction}/>
+                    itemCount={itemCount} onSorting={onSorting} sortData={sortData} priceTypeListAll={priceTypeListAll} requestPriceTypeListAll={requestPriceTypeListAll}/>
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -22,7 +22,7 @@ let PriceTypeDataGrid = ({ priceTypeList, deleteItem, currentPage, pageSize, tot
     )
 }
 
-const PriceTypeListForm= ({handleSubmit, error, initialValues,priceTypeList,deleteItem,itemCount,onSorting,sortData,priceTypeListAll,priceTypeFunction}) => {
+const PriceTypeListForm= ({handleSubmit, error, initialValues,priceTypeList,deleteItem,itemCount,onSorting,sortData,priceTypeListAll,requestPriceTypeListAll}) => {
     return (
         
         <form >   
@@ -42,7 +42,7 @@ const PriceTypeListForm= ({handleSubmit, error, initialValues,priceTypeList,dele
                 </thead>
                 <tbody>
                     <tr>
-                        <th><ExportExcelPriceTypeList csvData={priceTypeListAll} fileName="Price Type" loadDataFunction={priceTypeFunction} /></th>
+                        <th><ExportExcelPriceTypeList csvData={priceTypeListAll} fileName="Price Type" requestLoadData={requestPriceTypeListAll} /></th>
                         <th><button className="btn btn-info" onClick={handleSubmit}>Filter</button></th>
                         <th className="w-50">{createField(null, 'name',[],Input,'Name')}    </th>
                     </tr>

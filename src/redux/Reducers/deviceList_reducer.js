@@ -1,4 +1,5 @@
 import { deviceAPI } from "../../api/deviceAPI";
+import { deviceDetailAPI } from "../../api/deviceDetailAPI";
 import { deviceModelAPI } from "../../api/deviceModelAPI";
 import { deviceTypeAPI } from "../../api/deviceTypeAPI";
 import { deviceMarkAPI } from "../../api/deviceMarkAPI";
@@ -12,6 +13,8 @@ import {configurationAPI} from "../../api/configurationAPI";
 import { deviceLocationAPI } from "../../api/deviceLocationAPI";
 import { personAPI } from "../../api/personAPI";
 import { stopSubmit } from "redux-form";
+import moment from 'moment';
+
 
 const SET_DEVICES = "SET_DEVICES"
 const SET_DEVICE_MODEL_ALL = "SET_DEVICE_MODEL_ALL"
@@ -38,6 +41,7 @@ const SET_STATUS_ALL="SET_STATUS_ALL"
 const SET_CONFIGURATION_ALL="SET_CONFIGURATION_ALL"
 const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
 const SET_PERSON_ALL = "SET_PERSON_ALL"
+const SET_DEVICE_DETAIL_ALL = "SET_DEVICE_DETAIL_ALL"
 
 let initialState = {
     deviceList: [],
@@ -53,6 +57,7 @@ let initialState = {
     simcardListAll: [],
     configurationListAll:[],
     personListAll: [],
+    deviceDetailListAll: [],
     deviceModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -70,7 +75,24 @@ const deviceListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_DEVICES:
             {
-                return { ...state, deviceList: action.deviceList }
+                let newDeviceList=action.deviceList
+                let utcOffset = moment().utcOffset()
+                for (let i in newDeviceList) {
+                    if(newDeviceList[i]['status_datetime']!==null){
+                    let objStatusDate = newDeviceList[i]['status_datetime'] 
+                    let addUTCStatusDateGMTHours = moment(objStatusDate).add(utcOffset,'minutes')
+                    let convertStatusDateUTC = moment.parseZone(addUTCStatusDateGMTHours).utc().format()
+                    newDeviceList[i]['status_datetime']=convertStatusDateUTC
+                    }
+
+                    if(newDeviceList[i]['price_datetime']!==null){
+                    let objPriceDate = newDeviceList[i]['price_datetime'] 
+                    let addUTCPriceDateGMTHours = moment(objPriceDate).add(utcOffset,'minutes')
+                    let convertPriceDateUTC = moment.parseZone(addUTCPriceDateGMTHours).utc().format()                    
+                    newDeviceList[i]['price_datetime']=convertPriceDateUTC
+                    }
+                }
+                return { ...state, deviceList: newDeviceList }
             }
         case SET_DEVICE_MODEL_ALL:
             {
@@ -115,7 +137,11 @@ const deviceListReducer = (state = initialState, action) => {
         case SET_PERSON_ALL:
             {
                 return { ...state, personListAll: action.personListAll }
-            }              
+            }
+        case SET_DEVICE_DETAIL_ALL:
+            {
+                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
+            }                          
         case SET_CONFIGURATION_ALL:
             {
                 return { ...state, configurationListAll: action.configurationListAll }
@@ -212,7 +238,8 @@ export const actions = {
     setStatusListAll:(statusListAll)=>({type: SET_STATUS_ALL, statusListAll}),
     setConfigurationListAll: (configurationListAll) => ({ type: SET_CONFIGURATION_ALL, configurationListAll }),
     setDeviceLocationListAll:(deviceLocationListAll)=>({type: SET_DEVICE_LOCATION_ALL, deviceLocationListAll}),
-    setPersonListAll:(personListAll)=>({type: SET_PERSON_ALL, personListAll})
+    setPersonListAll:(personListAll)=>({type: SET_PERSON_ALL, personListAll}),
+    setDeviceDetailListAll:(deviceDetailListAll)=>({type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll})
 }
 export const sortDeviceList = (sortData) => {
     return async (dispatch, getState) => {
@@ -311,7 +338,7 @@ export const requestDeviceListAll = (isExport=false) => {
 export const requestDeviceModelListAll = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceModelAPI.getDeviceModelListNEW(1,getState().devicePage.max_page_size)
+        let response = await deviceModelAPI.getDeviceModelList(1,getState().devicePage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceModelListAll(response.results));
@@ -338,7 +365,7 @@ export const requestDeviceTypeListAll = () => {
 export const requestDeviceMarkListAll = () => {
     return async (dispatch, getState) => {
         dispatch(actions.setIsFetching(true));
-        let response = await deviceMarkAPI.getDeviceMarkListNEW(1,getState().devicePage.max_page_size)
+        let response = await deviceMarkAPI.getDeviceMarkList(1,getState().devicePage.max_page_size)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setDeviceMarkListAll(response.results));
@@ -468,6 +495,20 @@ export const requestPersonListAll = () => {
         if (response !== 'error') {
             dispatch(actions.setPersonListAll(response.results));
         } else{
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestDeviceDetailListAll = () => {
+    console.log("requestDEviceDetailLISTALL")
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await deviceDetailAPI.getDeviceDetailList(1,getState().devicePage.max_page_size)
+        console.log(response)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setDeviceDetailListAll(response.results));
+        } else {
             dispatch(actions.setErrorMessage(response))
         }
     }

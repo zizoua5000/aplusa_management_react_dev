@@ -106,6 +106,14 @@ import AccessoryModelContainer from '../AccessoryModel/AccessoryModelContainer'
 import AccessoryModelCreateContainer from '../AccessoryModel/AccessoryModelCreateContainer'
 import AccessoryModelUpdateContainer from '../AccessoryModel/AccessoryModelUpdateContainer'
 
+import PriceContainer from '../Price/PriceContainer'
+import PriceCreateContainer from '../Price/PriceCreateContainer'
+import PriceUpdateContainer from '../Price/PriceUpdateContainer'
+
+import PriceTypeContainer from '../PriceType/PriceTypeContainer'
+import PriceTypeCreateContainer from '../PriceType/PriceTypeCreateContainer'
+import PriceTypeUpdateContainer from '../PriceType/PriceTypeUpdateContainer'
+
 import PermissionContainer from '../Permission/PermissionContainer'
 import PermissionCreateContainer from '../Permission/PermissionCreateContainer'
 import PermissionUpdateContainer from '../Permission/PermissionUpdateContainer'
@@ -203,6 +211,7 @@ class Content extends React.Component {
                         <Route path='/content_type' render={() => <ContentTypeContainer />}></Route>
                         <Route path='/content_type_create' render={() => <ContentTypeCreateContainer />}></Route>
                         <Route path='/content_type_update/:id?' render={() => <ContentTypeUpdateContainer />}></Route>
+                       
                         <Route path='/device_detail' render={() => <DeviceDetailContainer />}></Route>
                         <Route path='/device_detail_create' render={() => <DeviceDetailCreateContainer />}></Route>
                         <Route path='/device_detail_update/:id?' render={() => <DeviceDetailUpdateContainer />}></Route>
@@ -226,6 +235,13 @@ class Content extends React.Component {
                         <Route path='/user_permission' render={() => <UserPermissionContainer />}></Route>
                         <Route path='/user_permission_update/:id?' render={() => <UserPermissionUpdateContainer />}></Route>
 
+                        <Route path='/price' render={() => <PriceContainer />}></Route>
+                        <Route path='/price_create' render={() => <PriceCreateContainer />}></Route>
+                        <Route path='/price_update/:id?' render={() => <PriceUpdateContainer />}></Route> 
+
+                        <Route path='/price_type' render={() => <PriceTypeContainer />}></Route>
+                        <Route path='/price_type_create' render={() => <PriceTypeCreateContainer />}></Route>
+                        <Route path='/price_type_update/:id?' render={() => <PriceTypeUpdateContainer />}></Route> 
                     </div>
                 </div>
                 <Footer />

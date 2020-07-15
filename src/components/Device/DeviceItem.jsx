@@ -23,7 +23,7 @@ const DeviceItem= ({deviceItem,deleteItem,itemCount}) => {
             <td>{deviceItem.device_details.company_detail.name}</td>
             <td>{deviceItem.device_details.device_location_detail.name}</td> 
             <td>{deviceItem.device_details.project_detail.name}</td>
-            <td>{deviceItem.device_details.recipient_detail.first_name+" "+deviceItem.device_details.recipient_detail.last_name}</td> 
+            <td>{deviceItem.device_details.recipient_detail.full_name}</td> 
             <td>{deviceItem.device_details.region_detail.name}</td>
             <td>{deviceItem.device_details.simcard_detail.number}</td>
             <td>{deviceItem.device_details.simcard_detail.package}</td>
