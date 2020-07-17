@@ -121,6 +121,11 @@ import PermissionUpdateContainer from '../Permission/PermissionUpdateContainer'
 import UserPermissionContainer from '../UserPermission/UserPermissionContainer'
 import UserPermissionUpdateContainer from '../UserPermission/UserPermissionUpdateContainer'
 
+import ResponsiblePersonContainer from '../ResponsiblePerson/ResponsiblePersonContainer'
+import ResponsiblePersonCreateContainer from '../ResponsiblePerson/ResponsiblePersonCreateContainer'
+import ResponsiblePersonUpdateContainer from '../ResponsiblePerson/ResponsiblePersonUpdateContainer'
+
+
 class Content extends React.Component {
     render() {
         return (
@@ -242,6 +247,11 @@ class Content extends React.Component {
                         <Route path='/price_type' render={() => <PriceTypeContainer />}></Route>
                         <Route path='/price_type_create' render={() => <PriceTypeCreateContainer />}></Route>
                         <Route path='/price_type_update/:id?' render={() => <PriceTypeUpdateContainer />}></Route> 
+
+                        <Route path='/responsible_person' render={() => <ResponsiblePersonContainer />}></Route>
+                        <Route path='/responsible_person_create' render={() => <ResponsiblePersonCreateContainer />}></Route>
+                        <Route path='/responsible_person_update/:id?' render={() => <ResponsiblePersonUpdateContainer />}></Route> 
+
                     </div>
                 </div>
                 <Footer />
