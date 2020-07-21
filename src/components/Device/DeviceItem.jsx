@@ -29,7 +29,8 @@ const DeviceItem= ({deviceItem,deleteItem,itemCount}) => {
             <td>{deviceItem.device_details.simcard_detail.package}</td>
             <td>{deviceItem.device_details.simcard_detail.has_rouming===true?<i className="text-success fas fa-check-circle ml-4"></i>:<i className="text-warning fas fa-times-circle ml-4"></i>}</td>
             <td>{deviceItem.device_details.simcard_detail.is_active===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
-            <td>{deviceItem.device_details.configuration_detail.name}</td>  
+            <td>{deviceItem.device_details.configuration_detail.name}</td> 
+            <td>{deviceItem.device_details.fw_version_detail.name}</td>  
             <td>{deviceItem.device_details.sell_count}</td>     
             <td>{deviceItem.device_details.price_datetime}</td>
             <td>{deviceItem.device_details.comment}</td>            

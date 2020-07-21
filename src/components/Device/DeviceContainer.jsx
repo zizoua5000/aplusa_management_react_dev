@@ -4,9 +4,9 @@ import {withRouter,NavLink} from "react-router-dom";
 import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
-import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,requestConfigurationListAll,
+import {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceModelListAll,requestDeviceTypeListAll,requestDeviceListAll,requestDeviceLocationListAll,requestConfigurationListAll,requestFWVersionListAll,
     requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestProjectListAll,requestRegionListAll,requestStatusListAll,requestPersonListAll,requestDeviceDetailListAll} from '../../redux/Reducers/deviceList_reducer'
-import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,getStatusListAll,getConfigurationListAll,
+import {getDeviceList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getDeviceListAll,getDeviceLocationListAll,getStatusListAll,getConfigurationListAll,getFWVersionListAll,
     getSortData, getDeviceModelListAll, getDeviceTypeListAll,getDeviceMarkListAll,getCompanyListAll,getSimcardListAll,getVehicleListAll,getProjectListAll,getRegionListAll,getPersonListAll,getDeviceDetailListAll} from '../../redux/Selectors/deviceList_selectors'
 import DeviceDataGrid from './DeviceDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
@@ -103,6 +103,7 @@ class DeviceContainer extends React.Component {
                     requestDeviceMarkAll = {this.props.requestDeviceMarkListAll}
                     requestDeviceTypeAll = {this.props.requestDeviceTypeListAll}
                     configurationListAll = {this.props.configurationListAll}
+                    fwVersionListAll = {this.props.fwVersionListAll}
                     requestDeviceLocationListAll = {this.props.requestDeviceLocationListAll}
                     requestCompanyListAll = {this.props.requestCompanyListAll}
                     requestSimcardListAll={this.props.requestSimcardListAll}
@@ -111,6 +112,7 @@ class DeviceContainer extends React.Component {
                     requestRegionListAll={this.props.requestRegionListAll}
                     requestStatusListAll={this.props.requestStatusListAll}
                     requestConfigurationListAll={this.props.requestConfigurationListAll}
+                    requestFWVersionListAll={this.props.requestFWVersionListAll}
                     deviceDetailListAll={this.props.deviceDetailListAll}
                     requestDeviceDetailListAll={this.props.requestDeviceDetailListAll}
                 /> 
@@ -142,6 +144,7 @@ let mapStateToProps = (state) => {
         deviceLocationListAll:getDeviceLocationListAll(state),
         statusListAll:getStatusListAll(state),
         configurationListAll:getConfigurationListAll(state),
+        fwVersionListAll:getFWVersionListAll(state),
         personListAll:getPersonListAll(state),
         deviceDetailListAll:getDeviceDetailListAll(state),
     }
@@ -151,6 +154,6 @@ export default compose(
     connect(mapStateToProps, {requestDeviceList, deleteDeviceItem,filterDeviceList,sortDeviceList,requestDeviceListAll,
         requestDeviceTypeListAll,requestProjectListAll,requestDeviceLocationListAll, requestDeviceModelListAll,
         requestDeviceMarkListAll,requestCompanyListAll,requestSimcardListAll,requestVehicleListAll,requestRegionListAll,
-        requestStatusListAll,requestConfigurationListAll,requestPersonListAll,requestDeviceDetailListAll}),
+        requestStatusListAll,requestConfigurationListAll,requestFWVersionListAll,requestPersonListAll,requestDeviceDetailListAll}),
     withRouter
 )(DeviceContainer);
