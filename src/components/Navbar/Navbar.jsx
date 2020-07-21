@@ -154,6 +154,7 @@ class Navbar extends React.Component {
                             <NavLink to="/device_location" className="collapse-item bg-dark text-light">Device location</NavLink>
                             <NavLink to="/device_detail" className="collapse-item bg-dark text-light">Device detail</NavLink>
                             <NavLink to="/configuration" className="collapse-item bg-dark text-light">Cofiguration</NavLink>
+                            <NavLink to="/fw_version" className="collapse-item bg-dark text-light">FW version</NavLink>
                         </div>
                     </div>
                 </li>

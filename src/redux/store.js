@@ -31,6 +31,7 @@ import accessoryModelListReducer from './Reducers/accessoryModelList_reducer'
 import permissionListReducer from './Reducers/permissionList_reducer'
 import responsiblePersonListReducer from './Reducers/responsiblePersonList_reducer'
 import userPermissionListReducer from './Reducers/userPermissionList_reducer'
+import fwVersionListReducer from './Reducers/fwVersionList_reducer'
 
 
 
@@ -65,6 +66,7 @@ let rootReducer = combineReducers({
     permissionPage: permissionListReducer,
     userPermissionPage: userPermissionListReducer,
     responsiblePersonPage: responsiblePersonListReducer,
+    fwVersionPage: fwVersionListReducer,
     form:formReducer,
 })
 
