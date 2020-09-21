@@ -74,3 +74,6 @@ export const getPersonListAll = (state) => {
 export const getDeviceDetailListAll = (state) => {
     return state.devicePage.deviceDetailListAll;
 }
+export const getFWVersionListAll = (state) => {
+    return state.devicePage.fwVersionListAll;
+}

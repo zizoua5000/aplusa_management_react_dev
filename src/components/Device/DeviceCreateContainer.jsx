@@ -4,9 +4,9 @@ import {createField, Input,Dropdown,DatePickerReact} from "../Common/FormsContro
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll,requestStatusListAll,requestRegionListAll,
-    requestSimcardListAll,requestVehicleListAll,requestDeviceLocationListAll,requestConfigurationListAll,requestProjectListAll,requestPersonListAll} from "../../redux/Reducers/deviceList_reducer";
+    requestSimcardListAll,requestVehicleListAll,requestDeviceLocationListAll,requestConfigurationListAll,requestFWVersionListAll,requestProjectListAll,requestPersonListAll} from "../../redux/Reducers/deviceList_reducer";
 import {getIsCreated, getIsFetching,getCurrentPage,getSetErrorMessage,getCompanyListAll,getDeviceModelListAll,getDeviceTypeListAll,getPersonListAll,
-    getStatusListAll,getSimcardListAll,getVehicleListAll,getDeviceLocationListAll,getConfigurationListAll,getProjectListAll,getRegionListAll} from '../../redux/Selectors/deviceList_selectors';
+    getStatusListAll,getSimcardListAll,getVehicleListAll,getDeviceLocationListAll,getConfigurationListAll,getFWVersionListAll,getProjectListAll,getRegionListAll} from '../../redux/Selectors/deviceList_selectors';
 import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
@@ -39,9 +39,9 @@ class DeviceCreateContainer extends React.Component {
                     <DeviceCreateReduxForm onSubmit={this.onSubmit} deviceModelListAll={this.props.deviceModelListAll} requestDeviceModelListAll={this.props.requestDeviceModelListAll} simcardListAll={this.props.simcardListAll}
                     personListAll={this.props.personListAll} deviceTypeListAll={this.props.deviceTypeListAll} requestDeviceTypeListAll={this.props.requestDeviceTypeListAll} statusListAll={this.props.statusListAll}
                     vehicleListAll={this.props.vehicleListAll} requestVehicleListAll={this.props.requestVehicleListAll} requestRegionListAll={this.props.requestRegionListAll} companyListAll={this.props.companyListAll}
-                    configurationListAll={this.props.configurationListAll} projectListAll={this.props.projectListAll} regionListAll={this.props.regionListAll} requestStatusListAll={this.props.requestStatusListAll} 
+                    configurationListAll={this.props.configurationListAll} fwVersionListAll={this.props.fwVersionListAll} projectListAll={this.props.projectListAll} regionListAll={this.props.regionListAll} requestStatusListAll={this.props.requestStatusListAll} 
                     requestSimcardListAll={this.props.requestSimcardListAll} deviceLocationListAll={this.props.deviceLocationListAll} requestCompanyListAll={this.props.requestCompanyListAll} requestDeviceLocationListAll={this.props.requestDeviceLocationListAll}
-                    requestConfigurationListAll={this.props.requestConfigurationListAll} requestProjectListAll={this.props.requestProjectListAll} requestPersonListAll={this.props.requestPersonListAll}/>
+                    requestConfigurationListAll={this.props.requestConfigurationListAll} requestFWVersionListAll={this.props.requestFWVersionListAll} requestProjectListAll={this.props.requestProjectListAll} requestPersonListAll={this.props.requestPersonListAll}/>
                     </div>
                 </div>
             </>
@@ -52,8 +52,8 @@ class DeviceCreateContainer extends React.Component {
 }
 
 const DeviceForm= ({handleSubmit, error,deviceModelListAll,deviceTypeListAll,companyListAll,requestCompanyListAll, requestDeviceTypeListAll,requestDeviceModelListAll,personListAll,
-    simcardListAll,statusListAll,vehicleListAll,configurationListAll,projectListAll,regionListAll,requestStatusListAll,deviceLocationListAll,requestSimcardListAll,requestVehicleListAll,
-    requestConfigurationListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll,requestPersonListAll}) => {
+    simcardListAll,statusListAll,vehicleListAll,configurationListAll,fwVersionListAll,projectListAll,regionListAll,requestStatusListAll,deviceLocationListAll,requestSimcardListAll,requestVehicleListAll,
+    requestConfigurationListAll,requestFWVersionListAll,requestProjectListAll,requestRegionListAll,requestDeviceLocationListAll,requestPersonListAll}) => {
 
     // initialValues.device_model=deviceModelOptions[0].id
     // initialValues.device_type=deviceTypeOptions[0].id
@@ -73,6 +73,7 @@ const DeviceForm= ({handleSubmit, error,deviceModelListAll,deviceTypeListAll,com
             {createField('Region', 'device_details.region', [], Dropdown,'Region',regionListAll,'name',null,requestRegionListAll,null,null,"")}
             {createField('Simcard', 'device_details.simcard', [], Dropdown,'Simcard',simcardListAll,'number',null,requestSimcardListAll,null,null,"")}
             {createField('Configuration', 'device_details.configuration', [], Dropdown,'Configuration',configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}
+            {createField('FWVersion', 'device_details.fw_version', [], Dropdown,'FWVersion',fwVersionListAll,'name',null,requestFWVersionListAll,null,null,"")}
             {createField('Sell Count', 'device_details.sell_count',[],Input,'Sell Count')}
             {createField('Price Datetime', 'device_details.price_datetime',[],DatePickerReact,'Price Datetime')}
             {createField('Comment', 'device_details.comment',[],Input,'Comment')}        
@@ -100,6 +101,7 @@ const DeviceCreateReduxForm = reduxForm({form: 'deviceCreate', initialValues: {
         device_location:'',
         recipient:'',
         configuration:'',
+        fw_version:'',
         simcard:'',
         project:'',
         region:'',
@@ -123,10 +125,11 @@ const mapStateToProps = (state) => ({
     vehicleListAll:getVehicleListAll(state),
     deviceLocationListAll:getDeviceLocationListAll(state),
     configurationListAll:getConfigurationListAll(state),
+    fwVersionListAll:getFWVersionListAll(state),
     projectListAll:getProjectListAll(state),
     regionListAll:getRegionListAll(state),
     personListAll:getPersonListAll(state),
 })
 
 export default connect(mapStateToProps, {createDevice,requestDeviceTypeListAll,requestDeviceModelListAll,requestCompanyListAll,requestRegionListAll,
-    requestStatusListAll,requestSimcardListAll,requestVehicleListAll,requestDeviceLocationListAll,requestConfigurationListAll,requestProjectListAll,requestPersonListAll})(DeviceCreateContainer);
+    requestStatusListAll,requestSimcardListAll,requestVehicleListAll,requestDeviceLocationListAll,requestConfigurationListAll,requestFWVersionListAll,requestProjectListAll,requestPersonListAll})(DeviceCreateContainer);

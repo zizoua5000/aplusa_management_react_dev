@@ -125,6 +125,10 @@ import ResponsiblePersonContainer from '../ResponsiblePerson/ResponsiblePersonCo
 import ResponsiblePersonCreateContainer from '../ResponsiblePerson/ResponsiblePersonCreateContainer'
 import ResponsiblePersonUpdateContainer from '../ResponsiblePerson/ResponsiblePersonUpdateContainer'
 
+import FWVersionContainer from '../FWVersion/FWVersionContainer'
+import FWVersionCreateContainer from '../FWVersion/FWVersionCreateContainer'
+import FWVersionUpdateContainer from '../FWVersion/FWVersionUpdateContainer'
+
 
 class Content extends React.Component {
     render() {
@@ -252,6 +256,9 @@ class Content extends React.Component {
                         <Route path='/responsible_person_create' render={() => <ResponsiblePersonCreateContainer />}></Route>
                         <Route path='/responsible_person_update/:id?' render={() => <ResponsiblePersonUpdateContainer />}></Route> 
 
+                        <Route path='/fw_version' render={() => <FWVersionContainer />}></Route>
+                        <Route path='/fw_version_create' render={() => <FWVersionCreateContainer />}></Route>
+                        <Route path='/fw_version_update/:id?' render={() => <FWVersionUpdateContainer />}></Route> 
                     </div>
                 </div>
                 <Footer />

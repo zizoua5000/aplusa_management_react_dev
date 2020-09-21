@@ -12,6 +12,7 @@ import { statusAPI } from "../../api/statusAPI";
 import {configurationAPI} from "../../api/configurationAPI";
 import { deviceLocationAPI } from "../../api/deviceLocationAPI";
 import { personAPI } from "../../api/personAPI";
+import {fwVersionAPI} from "../../api/fwVersionAPI";
 import { stopSubmit } from "redux-form";
 import moment from 'moment';
 
@@ -42,6 +43,7 @@ const SET_CONFIGURATION_ALL="SET_CONFIGURATION_ALL"
 const SET_DEVICE_LOCATION_ALL="SET_DEVICE_LOCATION_ALL"
 const SET_PERSON_ALL = "SET_PERSON_ALL"
 const SET_DEVICE_DETAIL_ALL = "SET_DEVICE_DETAIL_ALL"
+const SET_FW_VERSION_ALL="SET_FW_VERSION_ALL"
 
 let initialState = {
     deviceList: [],
@@ -58,6 +60,7 @@ let initialState = {
     configurationListAll:[],
     personListAll: [],
     deviceDetailListAll: [],
+    fwVersionListAll:[],
     deviceModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -226,6 +229,10 @@ const deviceListReducer = (state = initialState, action) => {
             {
                 
                 return { ...state, deviceListAll: action.deviceListAll }
+            }
+        case SET_FW_VERSION_ALL:
+            {
+                return { ...state, fwVersionListAll: action.fwVersionListAll }
             }           
         default:
             return state;
@@ -262,7 +269,8 @@ export const actions = {
     setConfigurationListAll: (configurationListAll) => ({ type: SET_CONFIGURATION_ALL, configurationListAll }),
     setDeviceLocationListAll:(deviceLocationListAll)=>({type: SET_DEVICE_LOCATION_ALL, deviceLocationListAll}),
     setPersonListAll:(personListAll)=>({type: SET_PERSON_ALL, personListAll}),
-    setDeviceDetailListAll:(deviceDetailListAll)=>({type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll})
+    setDeviceDetailListAll:(deviceDetailListAll)=>({type: SET_DEVICE_DETAIL_ALL, deviceDetailListAll}),
+    setFWVersionListAll: (fwVersionListAll) => ({ type: SET_FW_VERSION_ALL, fwVersionListAll }),
 }
 export const sortDeviceList = (sortData) => {
     return async (dispatch, getState) => {
@@ -532,6 +540,18 @@ export const requestDeviceDetailListAll = () => {
         if (response !== 'error') {
             dispatch(actions.setDeviceDetailListAll(response.results));
         } else {
+            dispatch(actions.setErrorMessage(response))
+        }
+    }
+}
+export const requestFWVersionListAll = () => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await fwVersionAPI.getFWVersionList(1,getState().devicePage.max_page_size)
+        dispatch(actions.setIsFetching(false));
+        if (response !== 'error') {
+            dispatch(actions.setFWVersionListAll(response.results));
+        } else{
             dispatch(actions.setErrorMessage(response))
         }
     }

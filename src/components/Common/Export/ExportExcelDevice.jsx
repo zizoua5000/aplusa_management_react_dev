@@ -42,6 +42,7 @@ export const ExportExcelDeviceList = ({ csvData, fileName, requestLoadData }) =>
                 <ExcelColumn label="Rouming" value={(col) => col.device_details.simcard_detail.has_rouming}/>
                 <ExcelColumn label="Status" value={(col) => col.device_details.simcard_detail.is_active}/>
                 <ExcelColumn label="Configuration" value={(col) => col.device_details.configuration_detail.name} />
+                <ExcelColumn label="FW Version" value={(col) => col.device_details.fw_version_detail.name} />
                 <ExcelColumn label="Sell Count" value={(col) => col.device_details.sell_count} />
                 <ExcelColumn label="Price Datetime" value={(col) => col.device_details.price_datetime} />
                 <ExcelColumn label="Comment" value={(col) => col.device_details.comment} />           

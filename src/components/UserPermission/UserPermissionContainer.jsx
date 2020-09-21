@@ -2,7 +2,6 @@ import React from 'react';
 import { connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
-import swal from 'sweetalert';
 import {custom_success_alert} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestUserPermissionList,filterUserPermissionList,sortUserPermissionList,requestUserPermissionListAll,requestUserList,requestPermissionList} from '../../redux/Reducers/userPermissionList_reducer'
 import {getUserPermissionList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,getUserPermissionListAll,getSortData, getUserList,getPermissionList} from '../../redux/Selectors/userPermissionList_selectors'
