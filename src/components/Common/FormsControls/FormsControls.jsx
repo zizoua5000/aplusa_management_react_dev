@@ -49,6 +49,57 @@ export const Input = (props) => {
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
 
+
+
+export const InputWithAdd = (props) => {
+  const {input, meta, ...restProps} = props;
+  const [fields, setFields] = useState([{ value: null }]);
+
+  function handleChange(i, event) {
+    const values = [...fields];
+    values[i].value = event.target.value;
+    setFields(values);
+  }
+
+  function handleAdd() {
+    
+    const values = [...fields];
+    values.push({ value: null });
+    setFields(values);
+  }
+
+  function handleRemove(i) {
+    const values = [...fields];
+    values.splice(i, 1);
+    setFields(values);
+  }
+
+  return (
+    <div>
+      {fields.map((field, idx) => {
+        return (
+          <div key={`${field}-${idx}`}>
+            <input
+              type="text"
+              placeholder="Enter text"
+              disabled
+              // onChange={e => handleChange(idx, e)}
+            />
+          </div>
+        );
+      })}
+      <div>
+      <button type="button" className="btn btn-info aa_create_trip" onClick={() => handleAdd()}><i className="text-light fas fa-plus"></i>
+      </button>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
 export const Toggle = (props) => {
     const {input, meta, ...restProps} = props;
     console.log(props)

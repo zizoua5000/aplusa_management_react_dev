@@ -3,7 +3,7 @@ import {reduxForm} from "redux-form";
 import Paginator from "../Common/Paginator/Paginator";
 import {ExportExcelAccessoryList} from "../Common/Export/ExportExcelAccessory";
 import AccessoryItem from './AccessoryItem';
-import {createField, Input,MultiSelect2} from "../Common/FormsControls/FormsControls";
+import {createField, BooleanDropdown,MultiSelect2, Input} from "../Common/FormsControls/FormsControls";
 
 
 let AccessoryDataGrid = ({ accessoryList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,accessoryListAll,accessoryModelListAll,
@@ -28,9 +28,10 @@ let AccessoryDataGrid = ({ accessoryList, deleteItem, currentPage, pageSize, tot
 
 const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,deleteItem,itemCount,onSorting,sortData,accessoryListAll,companyListAll,requestCompanyListAll,
      accessoryTypeListAll,accessoryModelListAll, requestAccessoryListAll,requestAccessoryTypeAll,requestAccessoryModelAll,requestAccessoryMarkAll}) => {
-        console.log(companyListAll)
+        console.log(accessoryList)
         return (        
-        <form onSubmit={handleSubmit}>   
+        <form onSubmit={handleSubmit}>
+            <div className="table-responsive"> 
             <table className="table table-default table-bordered text-nowrap">
                 <thead className="bg-secondary text-light">
                     <tr>
@@ -44,24 +45,59 @@ const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,dele
                             </span>
                         </th>
                         <th className="w-50" >
-                            Company
+                            Manufacturer
                             <span onClick={(e) => {
-                                 onSorting({company:!sortData.company});
-                             }}><i className={sortData.company? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                                 onSorting({manufacturer:!sortData.manufacturer});
+                             }}><i className={sortData.manufacturer? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                         <th className="w-50" >
-                            Accessory Model
+                            Model
                             <span onClick={(e) => {
                                  onSorting({accessory_model:!sortData.accessory_model});
                              }}><i className={sortData.accessory_model? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                         <th className="w-50" >
-                            Accessory Type
+                            Type
                             <span onClick={(e) => {
                                  onSorting({accessory_type:!sortData.accessory_type});
                              }}><i className={sortData.accessory_type? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Count
+                            <span onClick={(e) => {
+                                 onSorting({count:!sortData.count});
+                             }}><i className={sortData.count? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Rated_Price
+                            <span onClick={(e) => {
+                                 onSorting({rated_price:!sortData.rated_price});
+                             }}><i className={sortData.rated_price? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Entry Warehouse
+                            <span onClick={(e) => {
+                                 onSorting({entry_warethouse_date:!sortData.entry_warethouse_date});
+                             }}><i className={sortData.entry_warethouse_date? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Is_New
+                            <span onClick={(e) => {
+                                 onSorting({is_new:!sortData.is_new});
+                             }}><i className={sortData.is_new? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
+                            </span>
+                        </th>
+                        <th className="w-50" >
+                            Is_Our
+                            <span onClick={(e) => {
+                                 onSorting({is_our:!sortData.is_our});
+                             }}><i className={sortData.is_our? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
                         </th>
                     </tr>
@@ -71,15 +107,22 @@ const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,dele
                         <th><ExportExcelAccessoryList csvData={accessoryListAll} fileName="Accessory" requestLoadData={requestAccessoryListAll} /></th>
                         <th><button className="btn btn-info">Filter</button></th>
                         <th className="w-100">{createField(null, 'name', [], MultiSelect2,null,accessoryListAll,'name',null,requestAccessoryListAll,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'company', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'manufacturer', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'accessory_model', [], MultiSelect2,null,accessoryModelListAll,'name',null,requestAccessoryModelAll,null,null,"")}</th>       
                         <th className="w-100">{createField(null, 'accessory_type', [], MultiSelect2,null,accessoryTypeListAll,'name',null,requestAccessoryTypeAll,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'count', [], Input,null,null,null,null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'rated_price', [], MultiSelect2,null,accessoryListAll,'rated_price',null,requestAccessoryListAll,null,'rated_price',"")}</th>
+                        <th className="w-100">{createField(null, 'entry_warehouse_date',[], MultiSelect2,null,accessoryList,'entry_warehouse_date',null,requestAccessoryListAll,null,'entry_warehouse_date',true,"")}</th>
+                        <th className="w-100">{createField(null, 'is_new', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
+                        <th className="w-100">{createField(null, 'is_our', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
+                        
                     </tr>
                 </tbody>
                 <tbody>
                     {accessoryList.map((item, key) => <AccessoryItem accessoryItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
+            </div>
         </form>
     )
 }

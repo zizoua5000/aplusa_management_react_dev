@@ -1,6 +1,6 @@
 import React from 'react';
 import {reduxForm} from "redux-form";
-import {createField, Input,Dropdown} from "../Common/FormsControls/FormsControls";
+import {createField, Input,Dropdown,Toggle,DatePickerReact, InputWithAdd} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {createAccessory,requestAccessoryTypeListAll,requestAccessoryModelListAll,requestCompanyListAll} from "../../redux/Reducers/accessoryList_reducer";
@@ -44,16 +44,22 @@ class AccessoryCreateContainer extends React.Component {
     }
 }
 
-const AccessoryForm= ({handleSubmit, error,accessoryModelListAll,accessoryTypeListAll,companyListAll,requestAccessoryTypeListAll,requestAccessoryModelListAll,requestCompanyListAll}) => {
+const AccessoryForm= ({handleSubmit, error,initialValues,accessoryModelListAll,accessoryTypeListAll,companyListAll,requestAccessoryTypeListAll,requestAccessoryModelListAll,requestCompanyListAll}) => {
 
-    // initialValues.accessory_model=accessoryModelOptions[0].id
-    // initialValues.accessory_type=accessoryTypeOptions[0].id
+    initialValues.is_new=true;
+    initialValues.is_our=true;
+    initialValues.count=0;
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField('Company', 'company', [required], Dropdown,'Company',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
+            {createField('Manufaturer', 'manufacturer', [], Dropdown,'Manufacturer',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Accessory Model', 'accessory_model', [required], Dropdown,'Accessory Model',accessoryModelListAll,'name',null,requestAccessoryModelListAll,null,null,"")}
             {createField('Accessory Type', 'accessory_type', [required], Dropdown,'Accessory Type',accessoryTypeListAll,'name',null,requestAccessoryTypeListAll,null,null,"")}
+            {createField('Count', 'count',[],Input,'Count')}
+            {createField('Rated Price', 'rated_price', [required], Input,'Rated Price')}
+            {createField('Entry Warehouse Date', 'entry_warehouse_date',[],DatePickerReact,'Entry Warehouse Date')}
+            {createField('Is_New', 'is_new',[],Toggle,'Is_New',null,null,'checkbox')}
+            {createField('Is_Our', 'is_our',[],Toggle,'Is_Our',null,null,'checkbox')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>
@@ -68,7 +74,13 @@ const AccessoryForm= ({handleSubmit, error,accessoryModelListAll,accessoryTypeLi
 const AccessoryCreateReduxForm = reduxForm({form: 'accessoryCreate', initialValues: {
     accessory_model: "",
     accessory_type: "",
-    company:"",
+    manufacturer:"",
+    count:"",
+    rated_price:"",
+    entry_warehouse_date:"",
+    is_new:"",
+    is_our:"",
+    
 }})(AccessoryForm)
 
 const mapStateToProps = (state) => ({

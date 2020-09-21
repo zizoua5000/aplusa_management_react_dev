@@ -193,6 +193,7 @@ export const requestAccessoryList = (pageNumber = 1) => {
         dispatch(actions.setAccessoryList(null));
         await dispatch(actions.setAddPageToFormGetData(pageNumber));
         let response = await accessoryAPI.getAccessoryList(getState().accessoryPage.formGetData);
+        console.log("RESPONSE ", response)
         dispatch(actions.setIsFetching(false));
         if (response !== 'error') {
             dispatch(actions.setAccessoryList(response.results));

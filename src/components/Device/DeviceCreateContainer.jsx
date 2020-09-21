@@ -17,24 +17,6 @@ class DeviceCreateContainer extends React.Component {
 
     onSubmit = (formData) => {
         console.log(formData)
-        console.log(formData.device_details.status_datetime)
-        console.log(formData.device_details.price_datetime)
-        //GMT minute
-        let utcOffset = moment().utcOffset()
-        if(formData.device_details.status_datetime!==undefined){
-        //convertTimeZone to UTC
-        let convertStatusDateUTC = moment.parseZone(formData.device_details.status_datetime).utc().format()
-        //Add GMT hours to utc date
-        let addUTCStatusDateGMTHours = moment(convertStatusDateUTC).add(utcOffset,'minutes')
-        // console.log(addUTCStartDateGMTHours)
-        formData.device_details.status_datetime = addUTCStatusDateGMTHours
-        }
-        if(formData.device_details.price_datetime!==undefined){
-            console.log("END DATE")
-            let convertPriceDateUTC = moment.parseZone(formData.device_details.price_datetime).utc().format()
-            let addUTCPriceDateGMTMinutes = moment(convertPriceDateUTC).add(utcOffset,'minutes')
-            formData.device_details.price_datetime = addUTCPriceDateGMTMinutes
-        }
         this.props.createDevice(formData);
     }
 

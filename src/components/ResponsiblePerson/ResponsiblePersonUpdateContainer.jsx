@@ -5,7 +5,7 @@ import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {createField, Dropdown,Toggle} from "../Common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {getResponsiblePersonItem,updateResponsiblePersonItem,requestPersonListAll,requestDepartmentListAll} from "../../redux/Reducers/responsiblePersonList_reducer";
+import {getResponsiblePersonItem,updateResponsiblePersonItem,requestPersonListAll,requestDepartmentListAll,createResponsiblePerson} from "../../redux/Reducers/responsiblePersonList_reducer";
 import {getIsCreated, getCurrentPage,getResponsiblePersonItemSel, getIsFetching,getSetErrorMessage,getDepartmentListAll,getPersonListAll} from '../../redux/Selectors/responsiblePersonList_selectors';
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
@@ -20,8 +20,40 @@ class ResponsiblePersonUpdateContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
-        this.props.updateResponsiblePersonItem(formData);
-    }
+        // console.log("FORMDATA " ,formData)
+        // console.log("INSTANCE ", this.props.responsiblePersonItem)
+        // let rPIns =this.props.responsiblePersonItem;
+        // let id = rPIns.id
+        // let departmentId = rPIns.department;
+        // let department_chiefId = rPIns.department_chief;
+        // let chief_substituteId = rPIns.chief_substitute;
+        // let accounterId = rPIns.accounter;
+        // let providerId = rPIns.provider;
+        // let recipientId = rPIns.recipient;
+        
+        // let newFormData={}
+        // newFormData['id']=id
+        // newFormData['department']=departmentId
+        // newFormData['department_chief']=department_chiefId
+        // newFormData['chief_substitute']=chief_substituteId
+        // newFormData['accounter']=accounterId
+        // newFormData['provider']=providerId
+        // newFormData['recipient']=recipientId
+        // newFormData['active']=id
+
+        // if(formData.department===departmentId&&formData.department_chief===department_chiefId&&
+        //     formData.chief_substitute===chief_substituteId&&formData.accounter===accounterId&&
+        //     formData.provider===providerId&&formData.recipient===recipientId){
+        //         this.props.updateResponsiblePersonItem(formData);
+        //     } else {                
+        //         console.log("NEW FORM DATA ",newFormData)
+        //         this.props.updateResponsiblePersonItem(newFormData);
+        //         this.props.createResponsiblePerson(formData)
+        //     }
+        this.props.updateResponsiblePersonItem(formData)
+
+        }
+
  
     render() {
         if (this.props.isCreated) {
@@ -53,7 +85,7 @@ class ResponsiblePersonUpdateContainer extends React.Component {
 
 const ResponsiblePersonForm= ({handleSubmit, error,instance, initialValues,departmentListAll,requestDepartmentListAll,requestPersonListAll,deparmentChiefListAll,chiefSubstituteListAll,
     accounterListAll,recipientListAll,providerListAll}) => {
-    console.log("instance ", instance)
+    // console.log("instance ", instance)
     initialValues.id=instance.id
     initialValues.department=instance.department
     initialValues.department_chief = instance.department_chief
@@ -79,7 +111,6 @@ const ResponsiblePersonForm= ({handleSubmit, error,instance, initialValues,depar
             {createField('Accounter', 'accounter', [], Dropdown,'Accounter',accounterListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Recipient', 'recipient', [], Dropdown,'Recipient',recipientListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Provider', 'provider', [], Dropdown,'Provider',providerListAll,'full_name',null,requestPersonListAll,null,null,"")}
-            {createField('Acive', 'active',[],Toggle,'Active',null,null,'checkbox')}
 
             {error && <div className={style.formSummaryError}>
                 {error}
@@ -118,6 +149,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, { getResponsiblePersonItem, updateResponsiblePersonItem,requestDepartmentListAll,requestPersonListAll}),
+    connect(mapStateToProps, { getResponsiblePersonItem, updateResponsiblePersonItem,requestDepartmentListAll,requestPersonListAll,
+        createResponsiblePerson}),
     withRouter
 )(ResponsiblePersonUpdateContainer);

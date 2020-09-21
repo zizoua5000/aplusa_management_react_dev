@@ -17,7 +17,6 @@ let ResponsiblePersonItem = ({ responsiblePersonItem, deleteItem, itemCount}) =>
             <td>{responsiblePersonItem.accounter_detail.full_name}</td>
             <td>{responsiblePersonItem.recipient_detail.full_name}</td>
             <td>{responsiblePersonItem.provider_detail.full_name}</td>
-            <td>{responsiblePersonItem.active===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
         </tr>
     )
 }

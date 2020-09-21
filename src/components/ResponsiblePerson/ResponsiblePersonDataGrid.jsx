@@ -76,13 +76,6 @@ const ResponsiblePersonListForm= ({handleSubmit, error, initialValues,responsibl
                                  onSorting({provider:!sortData.provider});
                              }}><i className={sortData.provider? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
                             </span>
-                        </th> 
-                        <th className="w-50" >
-                            Active
-                            <span onClick={(e) => {
-                                 onSorting({active:!sortData.active});
-                             }}><i className={sortData.active? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
-                            </span>
                         </th>                                                
                     </tr>
                 </thead>
@@ -96,7 +89,6 @@ const ResponsiblePersonListForm= ({handleSubmit, error, initialValues,responsibl
                         <th className="w-50">{createField(null, 'accounter',[], MultiSelect2,null,personListAll,'full_name',null,requestPersonListAll,null,null,null,"")}</th>
                         <th className="w-50">{createField(null, 'recipient',[], MultiSelect2,null,personListAll,'full_name',null,requestPersonListAll,null,null,null,"")}</th>
                         <th className="w-50">{createField(null, 'provider',[], MultiSelect2,null,personListAll,'full_name',null,requestPersonListAll,null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'active', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                     </tr>
                 </tbody>
                 <tbody>

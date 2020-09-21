@@ -203,7 +203,7 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                         <th className="w-100">{createField(null, 'device_mark', [], MultiSelect2,null,deviceMarkListAll,'name',null,requestDeviceMarkAll,null,null,"")}</th>     
                         <th className="w-100">{createField(null, 'device_type', [], MultiSelect2,null,deviceTypeListAll,'name',null,requestDeviceTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'status', [], MultiSelect2,null,statusListAll,'name',null,requestStatusListAll,null,null,"")}</th>
-                        <th className="w-50">{createField(null, 'status_datetime',[], MultiSelect2,null,deviceDetailListAll,'status_datetime',null,requestDeviceDetailListAll,null,'status_datetime',true,"")}</th>
+                        <th className="w-100">{createField(null, 'status_datetime',[], MultiSelect2,null,deviceDetailListAll,'status_datetime',null,requestDeviceDetailListAll,null,'status_datetime',true,"")}</th>
                         <th className="w-100">{createField(null, 'plate', [], MultiSelect2,null,vehicleListAll,'plate',null,requestVehicleListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'company_vehicle', [], MultiSelect2,null,companyListAll,'name',null,requestCompanyListAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'device_location', [], MultiSelect2,null,deviceLocationListAll,'name',null,requestDeviceLocationListAll,null,null,"")}</th>
@@ -215,9 +215,9 @@ const DeviceListForm= ({handleSubmit, error, initialValues,deviceList,deleteItem
                         <th className="w-100">{createField(null, 'has_rouming', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'is_active', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'configuration', [], MultiSelect2,null,configurationListAll,'name',null,requestConfigurationListAll,null,null,"")}</th>
-                        <th className="w-50">{createField(null, 'sell_count',[],Input,'Sell Count')} </th>
-                        <th className="w-50">{createField(null, 'price_datetime',[], MultiSelect2,null,deviceDetailListAll,'price_datetime',null,requestDeviceDetailListAll,null,'price_datetime',true,"")}</th>
-                        <th className="w-50">{createField(null, 'comment',[],Input,'Comment')} </th>                       
+                        <th className="w-100">{createField(null, 'sell_count',[],Input,'Sell Count')} </th>
+                        <th className="w-100">{createField(null, 'price_datetime',[], MultiSelect2,null,deviceDetailListAll,'price_datetime',null,requestDeviceDetailListAll,null,'price_datetime',true,"")}</th>
+                        <th className="w-100">{createField(null, 'comment',[],Input,'Comment')} </th>                       
                     </tr>
                 </tbody>
                 <tbody>

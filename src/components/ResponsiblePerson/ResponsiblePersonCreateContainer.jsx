@@ -18,11 +18,11 @@ class ResponsiblePersonCreateContainer extends React.Component {
     }
 
     onSubmit = (formData) => {
+        console.log("FormData ",formData)
         this.props.createResponsiblePerson(formData);
     }
 
     render() {
-        console.log(this.props.setErrorMessage)
         if (this.props.isCreated) {
             return <Redirect to={`/responsible_person/${this.props.currentPage}`}/>
         }
@@ -46,7 +46,7 @@ class ResponsiblePersonCreateContainer extends React.Component {
 }
 
 const ResponsiblePersonForm= ({handleSubmit, error,initialValues, personListAll,departmentListAll,requestDepartmentListAll,requestPersonListAll}) => {
-    initialValues.active=true;
+    initialValues.active=0;
     return (
         <form onSubmit={handleSubmit}>
             {createField('Deparment', 'department', [required], Dropdown,'Deparment',departmentListAll,'name',null,requestDepartmentListAll,null,null,"")}
@@ -55,7 +55,6 @@ const ResponsiblePersonForm= ({handleSubmit, error,initialValues, personListAll,
             {createField('Accounter', 'accounter', [required], Dropdown,'Accounter',personListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Recipient', 'recipient', [required], Dropdown,'Recipient',personListAll,'full_name',null,requestPersonListAll,null,null,"")}
             {createField('Provider', 'provider', [required], Dropdown,'Provider',personListAll,'full_name',null,requestPersonListAll,null,null,"")}
-            {createField('Acive', 'active',[],Toggle,'Active',null,null,'checkbox')}
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>}   

@@ -51,21 +51,7 @@ const priceListReducer = (state = initialState, action) => {
         case SET_PRICES:
             {
                 console.log("-----------MMMMMMMMMMMMMMMMMMMM----------")
-                let newPriceList=action.priceList
-                let utcOffset = moment().utcOffset()
-                for (let i in newPriceList) {
-                    let objStartDate = newPriceList[i]['start_datetime'] 
-                    let addUTCStartDateGMTHours = moment(objStartDate).add(utcOffset,'minutes')
-                    let convertStartDateUTC = moment.parseZone(addUTCStartDateGMTHours).utc().format()
-                    newPriceList[i]['start_datetime']=convertStartDateUTC
-
-                    if(newPriceList[i]['end_datetime']!==null){
-                    let objEndDate = newPriceList[i]['end_datetime'] 
-                    let addUTCEndDateGMTHours = moment(objEndDate).add(utcOffset,'minutes')
-                    let convertEndDateUTC = moment.parseZone(addUTCEndDateGMTHours).utc().format()                    
-                    newPriceList[i]['end_datetime']=convertEndDateUTC
-                    }
-                }
+                let newPriceList = addTimezone(action.priceList)                
                 return { ...state, priceList: newPriceList }
             }
         case IS_FETCHING:
@@ -127,21 +113,8 @@ const priceListReducer = (state = initialState, action) => {
             }   
         case SET_PRICE_ALL:
             {
-                let newPriceListAll=action.priceListAll
-                let utcOffset = moment().utcOffset()
-                for (let i in newPriceListAll) {
-                    let objStartDate = newPriceListAll[i]['start_datetime'] 
-                    let addUTCStartDateGMTHours = moment(objStartDate).add(utcOffset,'minutes')
-                    let convertStartDateUTC = moment.parseZone(addUTCStartDateGMTHours).utc().format()
-                    newPriceListAll[i]['start_datetime']=convertStartDateUTC
+                let newPriceListAll= addTimezone(action.priceListAll)
 
-                    if(newPriceListAll[i]['end_datetime']!==null){
-                    let objEndDate = newPriceListAll[i]['end_datetime'] 
-                    let addUTCEndDateGMTHours = moment(objEndDate).add(utcOffset,'minutes')
-                    let convertEndDateUTC = moment.parseZone(addUTCEndDateGMTHours).utc().format()                    
-                    newPriceListAll[i]['end_datetime']=convertEndDateUTC
-                    }
-                }
                 return { ...state, priceListAll: newPriceListAll }
             }
         case SET_PRICE_TYPE_ALL:
@@ -169,6 +142,24 @@ const priceListReducer = (state = initialState, action) => {
     }
 }
 
+const addTimezone = (list) => {
+    let utcOffset = moment().utcOffset()
+    for (let i in list) {
+        let objStartDate = list[i]['start_datetime'] 
+        let addUTCStartDateGMTHours = moment(objStartDate).add(utcOffset,'minutes')
+        let convertStartDateUTC = moment.parseZone(addUTCStartDateGMTHours).utc().format()
+        list[i]['start_datetime']=convertStartDateUTC
+
+        if(list[i]['end_datetime']!==null){
+        let objEndDate = list[i]['end_datetime'] 
+        let addUTCEndDateGMTHours = moment(objEndDate).add(utcOffset,'minutes')
+        let convertEndDateUTC = moment.parseZone(addUTCEndDateGMTHours).utc().format()                    
+        list[i]['end_datetime']=convertEndDateUTC
+        }
+    }
+    return list
+    
+}
 
 export const actions = {
     setPriceList: (priceList) => ({ type: SET_PRICES, priceList }),

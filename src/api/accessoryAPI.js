@@ -6,6 +6,7 @@ export const accessoryAPI = {
         let get_link=form_data_to_link(formData);
         return instance.get(`accessory/list_create/${get_link}page_size=${page_size}`)
             .then(response => {
+                console.log("API ", response.data)
                 return response.data;
             })
             .catch(error => {
@@ -41,6 +42,7 @@ export const accessoryAPI = {
     updateAccessory(formData) {
         return instance.put(`accessory/update_delete/${formData.id}`,formData)
             .then(response => {
+                console.log("RESPONSE UPDATE ",response)
                 return response;
             })
             .catch(function (error) {

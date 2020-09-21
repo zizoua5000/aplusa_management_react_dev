@@ -64,6 +64,7 @@ class AccessoryContainer extends React.Component {
     }
 
     render() {
+        console.log("ACCESSORY LISY ", this.props.accessoryList)
         return (  
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">

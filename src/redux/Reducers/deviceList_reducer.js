@@ -78,20 +78,22 @@ const deviceListReducer = (state = initialState, action) => {
                 let newDeviceList=action.deviceList
                 let utcOffset = moment().utcOffset()
                 for (let i in newDeviceList) {
-                    if(newDeviceList[i]['status_datetime']!==null){
-                    let objStatusDate = newDeviceList[i]['status_datetime'] 
-                    let addUTCStatusDateGMTHours = moment(objStatusDate).add(utcOffset,'minutes')
-                    let convertStatusDateUTC = moment.parseZone(addUTCStatusDateGMTHours).utc().format()
-                    newDeviceList[i]['status_datetime']=convertStatusDateUTC
-                    }
-
-                    if(newDeviceList[i]['price_datetime']!==null){
-                    let objPriceDate = newDeviceList[i]['price_datetime'] 
-                    let addUTCPriceDateGMTHours = moment(objPriceDate).add(utcOffset,'minutes')
-                    let convertPriceDateUTC = moment.parseZone(addUTCPriceDateGMTHours).utc().format()                    
-                    newDeviceList[i]['price_datetime']=convertPriceDateUTC
-                    }
-                }
+                    if(newDeviceList[i].device_details['status_datetime']!==null){
+                        let objStatusDate = newDeviceList[i].device_details['status_datetime']
+                        console.log("DATETIEM ",objStatusDate)
+                        let addUTCStatusDateGMTHours = moment(objStatusDate).add(utcOffset,'minutes')
+                        let convertStatusDateUTC = moment.parseZone(addUTCStatusDateGMTHours).utc().format()
+                        console.log("CHANGE", convertStatusDateUTC)
+                        newDeviceList[i].device_details['status_datetime']=convertStatusDateUTC
+                        }
+        
+                    if(newDeviceList[i].device_details['price_datetime']!==null){
+                        let objPriceDate = newDeviceList[i].device_details['price_datetime'] 
+                        let addUTCPriceDateGMTHours = moment(objPriceDate).add(utcOffset,'minutes')
+                        let convertPriceDateUTC = moment.parseZone(addUTCPriceDateGMTHours).utc().format()                    
+                        newDeviceList[i].device_details['price_datetime']=convertPriceDateUTC
+                        }
+                    }              
                 return { ...state, deviceList: newDeviceList }
             }
         case SET_DEVICE_MODEL_ALL:
@@ -140,7 +142,24 @@ const deviceListReducer = (state = initialState, action) => {
             }
         case SET_DEVICE_DETAIL_ALL:
             {
-                return { ...state, deviceDetailListAll: action.deviceDetailListAll }
+                let newDeviceDetailListAll=action.deviceDetailListAll
+                let utcOffset = moment().utcOffset()
+                for (let i in newDeviceDetailListAll) {
+                    if(newDeviceDetailListAll[i]['status_datetime']!==null){
+                        let objStatusDate = newDeviceDetailListAll[i]['status_datetime']
+                        let addUTCStatusDateGMTHours = moment(objStatusDate).add(utcOffset,'minutes')
+                        let convertStatusDateUTC = moment.parseZone(addUTCStatusDateGMTHours).utc().format()
+                        newDeviceDetailListAll[i]['status_datetime']=convertStatusDateUTC
+                        }
+        
+                    if(newDeviceDetailListAll[i]['price_datetime']!==null){
+                        let objPriceDate = newDeviceDetailListAll[i]['price_datetime'] 
+                        let addUTCPriceDateGMTHours = moment(objPriceDate).add(utcOffset,'minutes')
+                        let convertPriceDateUTC = moment.parseZone(addUTCPriceDateGMTHours).utc().format()                    
+                        newDeviceDetailListAll[i]['price_datetime']=convertPriceDateUTC
+                        }
+                    }              
+                return { ...state, deviceDetailListAll: newDeviceDetailListAll }
             }                          
         case SET_CONFIGURATION_ALL:
             {
@@ -205,13 +224,17 @@ const deviceListReducer = (state = initialState, action) => {
             }
         case SET_DEVICE_LIST_ALL:
             {
+                
                 return { ...state, deviceListAll: action.deviceListAll }
             }           
         default:
             return state;
     }
 }
-
+const addTimezone = (list) => {
+       
+        return list
+}
 
 export const actions = {
     setDeviceList: (deviceList) => ({ type: SET_DEVICES, deviceList }),
