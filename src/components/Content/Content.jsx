@@ -129,6 +129,8 @@ import FWVersionContainer from '../FWVersion/FWVersionContainer'
 import FWVersionCreateContainer from '../FWVersion/FWVersionCreateContainer'
 import FWVersionUpdateContainer from '../FWVersion/FWVersionUpdateContainer'
 
+import MProjectCompanyContainer from '../MProjectCompany/MProjectCompanyContainer'
+import MProjectCompanyCreateContainer from '../MProjectCompany/MProjectCompanyCreateContainer'
 
 class Content extends React.Component {
     render() {
@@ -259,6 +261,10 @@ class Content extends React.Component {
                         <Route path='/fw_version' render={() => <FWVersionContainer />}></Route>
                         <Route path='/fw_version_create' render={() => <FWVersionCreateContainer />}></Route>
                         <Route path='/fw_version_update/:id?' render={() => <FWVersionUpdateContainer />}></Route> 
+                        
+                        <Route path='/m_project_company' render={() => <MProjectCompanyContainer />}></Route>
+                        <Route path='/m_project_company_create' render={() => <MProjectCompanyCreateContainer />}></Route>
+                    
                     </div>
                 </div>
                 <Footer />
