@@ -5,6 +5,7 @@ import { DropdownList, Multiselect } from 'react-widgets'
 import 'react-widgets/dist/css/react-widgets.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { required } from '../../../utils/validators/validators';
 
 
 
@@ -45,60 +46,45 @@ export const Textarea= (props) => {
 }
 
 export const Input = (props) => {
-    const {input, meta, ...restProps} = props;
-    return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
+
+  const {input, meta, ...restProps} = props;
+  function handleChangeValue(e){
+    console.log(e.target.value)
+    input.onChange(e.target.value)
+  }
+    return <FormControl {...props}><input {...input} onChange={ handleChangeValue} {...restProps} /></FormControl>
 }
-
-
 
 export const InputWithAdd = (props) => {
   const {input, meta, ...restProps} = props;
-  const [fields, setFields] = useState([{ value: null }]);
-
-  function handleChange(i, event) {
-    const values = [...fields];
-    values[i].value = event.target.value;
-    setFields(values);
-  }
-
-  function handleAdd() {
+  const [hidden, setHidden] = useState(false);
+  
+  const setCancelButton = (hidden)=>{ 
+    console.log("PROPSSSSSS ", props)
+    // console.log(accessory_histories[0].add_count)
     
-    const values = [...fields];
-    values.push({ value: null });
-    setFields(values);
-  }
-
-  function handleRemove(i) {
-    const values = [...fields];
-    values.splice(i, 1);
-    setFields(values);
-  }
-
+    setHidden(hidden)   
+ };
   return (
-    <div>
-      {fields.map((field, idx) => {
-        return (
-          <div key={`${field}-${idx}`}>
+    <FormControl {...props}>
+       <div>
             <input
               type="text"
-              placeholder="Enter text"
+              value = {props.input.value}
               disabled
-              // onChange={e => handleChange(idx, e)}
             />
-          </div>
-        );
-      })}
-      <div>
-      <button type="button" className="btn btn-info aa_create_trip" onClick={() => handleAdd()}><i className="text-light fas fa-plus"></i>
-      </button>
+      
+      {hidden?<button type="button" className="btn btn-info aa_create_trip ml-3" onClick={() => setHidden(false)}> <i className="text-light fas fa-times"></i> Cancel</button>:
+      <button type="button" className="btn btn-info aa_create_trip ml-3" onClick={() => setCancelButton(true)}><i className="text-light fas fa-plus"></i>Add</button>}
+      <div> 
+      {hidden?createField('Add Count', 'accessory_histories[0].add_count',[required],Input,'Enter Add Count'):null}
+      {hidden?createField('Rated Price', 'accessory_histories[0].rated_price',[required],Input,'Enter Rated Price'):null}
+      {hidden?createField('Entry Warehouse Date', 'accessory_histories[0].entry_warehouse_date',[required],DatePickerReact,'Entry Warehouse Date'):null}
+      </div>     
       </div>
-    </div>
+      </FormControl>
   );
 }
-
-
-
-
 
 export const Toggle = (props) => {
     const {input, meta, ...restProps} = props;
@@ -179,7 +165,6 @@ export const SelectWithCustomInitial = (props) => {
 }
 
 export const MultiSelect2 = (props) => {
-  console.log(props)
   let loading=true
   let loadingData=[]
   let strArray =[]
@@ -188,11 +173,9 @@ export const MultiSelect2 = (props) => {
       console.log("Distict DATE")
       for (let i in props.options) { 
         let objDate = props.options[i][props.distinct];
-        console.log(objDate)
         if(objDate!=null){
         let dateStr = objDate.toString();
         strArray = dateStr.split("T")
-        console.log(strArray)
         props.options[i][props.distinct]=strArray[0]
         }
       } 
@@ -202,7 +185,6 @@ export const MultiSelect2 = (props) => {
       const uniqueObject = {};         
       for (let i in props.options) { 
           let obj = props.options[i][props.distinct]; 
-          console.log("DISTINCT ",obj)
           if(obj!=null){
           uniqueObject[obj] = props.options[i]; 
           }  
@@ -303,7 +285,7 @@ export const DatePickerReact=(props)=> {
               showTimeSelect
               placeholderText="Click to select a date"
               dateFormat="yyyy-MM-dd h:mm aa"
-              popperPlacement="bottom-start"        
+              popperPlacement="bottom-start"      
               // locale="az"
               />
         </FormControl>

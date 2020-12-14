@@ -49,6 +49,10 @@ const AccessoryForm= ({handleSubmit, error,initialValues,accessoryModelListAll,a
     initialValues.is_new=true;
     initialValues.is_our=true;
     initialValues.count=0;
+    initialValues.accessory_histories[0].add_count=null;
+    initialValues.accessory_histories[0].rated_price=null
+    initialValues.accessory_histories[0].entry_warehouse_date=null;
+    
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
@@ -56,8 +60,8 @@ const AccessoryForm= ({handleSubmit, error,initialValues,accessoryModelListAll,a
             {createField('Accessory Model', 'accessory_model', [required], Dropdown,'Accessory Model',accessoryModelListAll,'name',null,requestAccessoryModelListAll,null,null,"")}
             {createField('Accessory Type', 'accessory_type', [required], Dropdown,'Accessory Type',accessoryTypeListAll,'name',null,requestAccessoryTypeListAll,null,null,"")}
             {createField('Count', 'count',[],Input,'Count')}
-            {createField('Rated Price', 'rated_price', [required], Input,'Rated Price')}
-            {createField('Entry Warehouse Date', 'entry_warehouse_date',[],DatePickerReact,'Entry Warehouse Date')}
+            {createField('Rated Price', 'accessory_histories[0].rated_price', [required], Input,'Rated Price')}
+            {createField('Entry Warehouse Date', 'accessory_histories[0].entry_warehouse_date',[required],DatePickerReact,'Entry Warehouse Date')}
             {createField('Is_New', 'is_new',[],Toggle,'Is_New',null,null,'checkbox')}
             {createField('Is_Our', 'is_our',[],Toggle,'Is_Our',null,null,'checkbox')}
             {error && <div className={style.formSummaryError}>
@@ -72,14 +76,19 @@ const AccessoryForm= ({handleSubmit, error,initialValues,accessoryModelListAll,a
 }
 
 const AccessoryCreateReduxForm = reduxForm({form: 'accessoryCreate', initialValues: {
+    name:"",
     accessory_model: "",
     accessory_type: "",
     manufacturer:"",
     count:"",
-    rated_price:"",
-    entry_warehouse_date:"",
     is_new:"",
     is_our:"",
+    accessory_histories:[{
+        rated_price:"", 
+        add_count:"",
+        entry_warehouse_date:""
+    }
+    ],
     
 }})(AccessoryForm)
 

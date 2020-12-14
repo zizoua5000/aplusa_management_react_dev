@@ -73,20 +73,6 @@ const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,dele
                             </span>
                         </th>
                         <th className="w-50" >
-                            Rated_Price
-                            <span onClick={(e) => {
-                                 onSorting({rated_price:!sortData.rated_price});
-                             }}><i className={sortData.rated_price? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
-                            </span>
-                        </th>
-                        <th className="w-50" >
-                            Entry Warehouse
-                            <span onClick={(e) => {
-                                 onSorting({entry_warethouse_date:!sortData.entry_warethouse_date});
-                             }}><i className={sortData.entry_warethouse_date? 'text-gray-400 fas fa-arrow-up ml-2':'text-gray-400 fas fa-arrow-down ml-2'}></i>
-                            </span>
-                        </th>
-                        <th className="w-50" >
                             Is_New
                             <span onClick={(e) => {
                                  onSorting({is_new:!sortData.is_new});
@@ -111,8 +97,6 @@ const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,dele
                         <th className="w-100">{createField(null, 'accessory_model', [], MultiSelect2,null,accessoryModelListAll,'name',null,requestAccessoryModelAll,null,null,"")}</th>       
                         <th className="w-100">{createField(null, 'accessory_type', [], MultiSelect2,null,accessoryTypeListAll,'name',null,requestAccessoryTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'count', [], Input,null,null,null,null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'rated_price', [], MultiSelect2,null,accessoryListAll,'rated_price',null,requestAccessoryListAll,null,'rated_price',"")}</th>
-                        <th className="w-100">{createField(null, 'entry_warehouse_date',[], MultiSelect2,null,accessoryList,'entry_warehouse_date',null,requestAccessoryListAll,null,'entry_warehouse_date',true,"")}</th>
                         <th className="w-100">{createField(null, 'is_new', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'is_our', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
                         

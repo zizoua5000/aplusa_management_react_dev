@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const AccessoryItem= ({accessoryItem,deleteItem,itemCount}) => {
-    console.log("ACCessory ITEM ", accessoryItem)
     return (
         <tr>
             <td>{itemCount}</td>
@@ -17,8 +16,6 @@ const AccessoryItem= ({accessoryItem,deleteItem,itemCount}) => {
             <td>{accessoryItem.accessory_model_detail.name}</td>
             <td>{accessoryItem.accessory_type_detail.name}</td>
             <td>{accessoryItem.count}</td>
-            <td>{accessoryItem.rated_price}</td>
-            <td>{accessoryItem.entry_warehouse_date}</td>
             <td>{accessoryItem.is_new===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
             <td>{accessoryItem.is_our===true?<i className="text-success fas fa-check-circle ml-3"></i>:<i className="text-warning fas fa-times-circle ml-3"></i>}</td>
         </tr>
