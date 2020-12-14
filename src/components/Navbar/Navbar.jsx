@@ -122,6 +122,7 @@ class Navbar extends React.Component {
                             <NavLink to="/company" className="collapse-item bg-dark text-light">Company</NavLink>
                             <NavLink to="/company_type" className="collapse-item bg-dark text-light">Company type</NavLink>
                             <NavLink to="/department" className="collapse-item bg-dark text-light">Department</NavLink>
+                            <NavLink to="/m_project_company" className="collapse-item bg-dark text-light">Project-Company</NavLink>
                         </div>
                     </div>
                 </li>
