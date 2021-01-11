@@ -132,6 +132,12 @@ import FWVersionUpdateContainer from '../FWVersion/FWVersionUpdateContainer'
 import MProjectCompanyContainer from '../MProjectCompany/MProjectCompanyContainer'
 import MProjectCompanyCreateContainer from '../MProjectCompany/MProjectCompanyCreateContainer'
 
+import QaimeContainer from '../Qaime/QaimeContainer'
+import QaimeCreateContainer from '../Qaime/QaimeCreateContainer'
+import QaimeReturnCreateContainer from '../Qaime/QaimeReturnCreateContainer'
+import QaimeDetailContainer from '../Qaime/QaimeDetailContainer'
+import QaimePrintContainer from '../Qaime/QaimePrintContainer'
+
 class Content extends React.Component {
     render() {
         return (
@@ -264,6 +270,12 @@ class Content extends React.Component {
                         
                         <Route path='/m_project_company' render={() => <MProjectCompanyContainer />}></Route>
                         <Route path='/m_project_company_create' render={() => <MProjectCompanyCreateContainer />}></Route>
+
+                        <Route path='/qaime' render={() => <QaimeContainer />}></Route>
+                        <Route path='/qaime_create' render={() => <QaimeCreateContainer />}></Route>
+                        <Route path='/qaime_return_create' render={() => <QaimeReturnCreateContainer />}></Route>
+                        <Route path='/qaime_detail/:id?' render={() => <QaimeDetailContainer />}></Route> 
+                        <Route path='/qaime_print/:id?' render={() => <QaimePrintContainer />}></Route>
                     
                     </div>
                 </div>

@@ -33,6 +33,7 @@ import responsiblePersonListReducer from './Reducers/responsiblePersonList_reduc
 import userPermissionListReducer from './Reducers/userPermissionList_reducer'
 import fwVersionListReducer from './Reducers/fwVersionList_reducer'
 import mProjectCompanyListReducer from './Reducers/mProjectCompanyList_reducer'
+import qaimeListReducer from './Reducers/qaimeList_reducer'
 
 
 
@@ -69,6 +70,7 @@ let rootReducer = combineReducers({
     responsiblePersonPage: responsiblePersonListReducer,
     fwVersionPage: fwVersionListReducer,
     mProjectCompanyPage: mProjectCompanyListReducer,
+    qaimePage: qaimeListReducer,
     form:formReducer,
 })
 

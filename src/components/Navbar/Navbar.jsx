@@ -142,6 +142,17 @@ class Navbar extends React.Component {
                     </div>
                 </li>
                 <li className="nav-item">
+                    <a className="nav-link collapsed" href="Qaime" data-toggle="collapse" data-target="#collapseQaime" aria-expanded="true" aria-controls="collapseTwo">
+                        <i className="fas fa-fw fa-cog"></i>
+                        <span>Qaime</span>
+                    </a>
+                    <div id="collapseQaime" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div className="bg-dark py-2 collapse-inner rounded">
+                            <NavLink to="/qaime" className="collapse-item bg-dark text-light">Qaime</NavLink>
+                        </div>
+                    </div>
+                </li>
+                <li className="nav-item">
                     <a className="nav-link collapsed" href="Device" data-toggle="collapse" data-target="#collapseDevice" aria-expanded="true" aria-controls="collapseTwo">
                         <i className="fas fa-fw fa-cog"></i>
                         <span>Device</span>
