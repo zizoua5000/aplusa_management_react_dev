@@ -20,3 +20,11 @@ export const custom_sweet_delete={
             buttons: true,
             dangerMode: true,
           }
+
+export const custom_sweet_status_changed={
+            title: "Are you sure?",
+            text: "Once completed, you will not be able to recover this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }
