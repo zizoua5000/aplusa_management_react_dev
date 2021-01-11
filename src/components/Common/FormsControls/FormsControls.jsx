@@ -46,7 +46,7 @@ export const Textarea= (props) => {
 }
 
 export const Input = (props) => {
-
+  console.log("INPUTTTTT")
   const {input, meta, ...restProps} = props;
   function handleChangeValue(e){
     console.log(e.target.value)

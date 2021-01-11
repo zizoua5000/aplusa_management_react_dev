@@ -44,3 +44,6 @@ export const getAccessoryListAll = (state) => {
 export const getCompanyListAll = (state) => {
     return state.accessoryPage.companyListAll;
 }
+export const getAccessoryHistoryListById = (state) => {
+    return state.accessoryPage.accessoryHistoryListById;
+}

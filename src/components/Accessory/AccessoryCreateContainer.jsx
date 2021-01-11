@@ -52,11 +52,12 @@ const AccessoryForm= ({handleSubmit, error,initialValues,accessoryModelListAll,a
     initialValues.accessory_histories[0].add_count=null;
     initialValues.accessory_histories[0].rated_price=null
     initialValues.accessory_histories[0].entry_warehouse_date=null;
+    initialValues.accessory_histories[0].status=12;
     
     return (
         <form onSubmit={handleSubmit}>
             {createField('Name', 'name',[required],Input,'Name')}
-            {createField('Manufaturer', 'manufacturer', [], Dropdown,'Manufacturer',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
+            {createField('Manufaturer', 'manufacturer', [required], Dropdown,'Manufacturer',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField('Accessory Model', 'accessory_model', [required], Dropdown,'Accessory Model',accessoryModelListAll,'name',null,requestAccessoryModelListAll,null,null,"")}
             {createField('Accessory Type', 'accessory_type', [required], Dropdown,'Accessory Type',accessoryTypeListAll,'name',null,requestAccessoryTypeListAll,null,null,"")}
             {createField('Count', 'count',[],Input,'Count')}
@@ -86,7 +87,8 @@ const AccessoryCreateReduxForm = reduxForm({form: 'accessoryCreate', initialValu
     accessory_histories:[{
         rated_price:"", 
         add_count:"",
-        entry_warehouse_date:""
+        entry_warehouse_date:"",
+        status:"",
     }
     ],
     

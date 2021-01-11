@@ -20,12 +20,13 @@ const ADD_PAGE_TO_FORM_GET_DATA="ADD_PAGE_TO_FORM_GET_DATA"
 const SET_SORT_DATA="SET_SORT_DATA"
 const ADD_SORT_DATA_TO_FORM_GET_DATA="ADD_SORT_DATA_TO_FORM_GET_DATA"
 const SET_ACCESSORY_LIST_ALL = "SET_ACCESSORY_LIST_ALL"
-
+const SET_ACCESSORY_HISTORY_LIST_BY_ID = "SET_ACCESSORY_HISTORY_LIST_BY_ID"
 let initialState = {
     accessoryList: [],
     accessoryModelListAll: [],
     accessoryTypeListAll: [],
     companyListAll:[],
+    accessoryHistoryListById:[],
     accessoryModelItem: null,
     currentPage: 1,
     pageSize: 10,
@@ -56,7 +57,11 @@ const accessoryListReducer = (state = initialState, action) => {
         case SET_COMPANY_ALL:
             {
                 return { ...state, companyListAll: action.companyListAll }
-            }            
+            }     
+        case SET_ACCESSORY_HISTORY_LIST_BY_ID:
+            {
+                return { ...state, accessoryHistoryListById: action.accessoryHistoryListById }
+            }         
         case SET_ACCESSORY_ITEM:
             {
                 return { ...state, accessoryItem: action.accessoryItem }
@@ -141,6 +146,7 @@ export const actions = {
     setAddSortDataToFormGetData: (sortData) => ({ type: ADD_SORT_DATA_TO_FORM_GET_DATA, sortData }),
     setAccessoryListAll: (accessoryListAll) => ({ type: SET_ACCESSORY_LIST_ALL, accessoryListAll }),
     setCompanyListAll: (companyListAll) => ({ type: SET_COMPANY_ALL, companyListAll }),
+    setAccessoryHistoryListById: (accessoryHistoryListById) => ({ type: SET_ACCESSORY_HISTORY_LIST_BY_ID, accessoryHistoryListById }),
 }
 export const sortAccessoryList = (sortData) => {
     return async (dispatch, getState) => {
@@ -281,6 +287,7 @@ export const createAccessory = (formData) => {
         let response = await accessoryAPI.createAccessory(formData);
         dispatch(actions.setIsFetching(false));
         if (response === 'error') {
+            console.log("Response ", response)
             dispatch(actions.setErrorMessage(response));
         } else if (response.status === 201) {
             dispatch(actions.setErrorMessage(null))
@@ -288,6 +295,7 @@ export const createAccessory = (formData) => {
         } else {
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('accessoryCreate', response.data))
+            console.log("Response ", response)
         }
     }
 }
@@ -306,6 +314,27 @@ export const getAccessoryItem = (id) => {
         } else {
             dispatch(actions.setErrorMessage(null))
             dispatch(stopSubmit('accessoryUpdate', response.data))
+        }
+
+    }
+}
+
+export const requestAccessoryHistoryListById = (id) => {
+    return async (dispatch, getState) => {
+        dispatch(actions.setIsFetching(true));
+        let response = await accessoryAPI.getAccessory(id);
+        dispatch(actions.setIsFetching(false));
+        dispatch(actions.setIsCreated(false));
+        if (response === 'error') {
+            dispatch(actions.setErrorMessage(response));
+        } else if (response.status === 200) {
+            dispatch(actions.setErrorMessage(null));
+
+            dispatch(actions.setAccessoryHistoryListById(response.data.accessory_histories));
+            console.log("ACCESSORY HISTORY ",response.data.accessory_histories)
+        } else {
+            dispatch(actions.setErrorMessage(null))
+            dispatch(stopSubmit('accessoryHistory', response.data))
         }
 
     }

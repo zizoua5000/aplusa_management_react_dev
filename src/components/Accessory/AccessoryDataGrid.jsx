@@ -6,16 +6,16 @@ import AccessoryItem from './AccessoryItem';
 import {createField, BooleanDropdown,MultiSelect2, Input} from "../Common/FormsControls/FormsControls";
 
 
-let AccessoryDataGrid = ({ accessoryList, deleteItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,accessoryListAll,accessoryModelListAll,
-    accessoryTypeListAll,requestAccessoryListAll,requestAccessoryModelAll,requestAccessoryTypeAll,accessoryMarkListAll,companyListAll,requestCompanyListAll}) => {
+let AccessoryDataGrid = ({ accessoryList, deleteItem, historyItem, currentPage, pageSize, totalItemsCount, onPageChanged,onSorting,sortData,onSubmit,accessoryListAll,accessoryModelListAll,
+    accessoryTypeListAll,requestAccessoryListAll,requestAccessoryModelAll,requestAccessoryTypeAll,companyListAll,requestCompanyListAll}) => {
     let itemCount = ((currentPage - 1) * pageSize) + 1
 
     return (
         <div >
             <div>
-                <AccessoryListReduxForm onSubmit={onSubmit} accessoryList={accessoryList} deleteItem={deleteItem} itemCount={itemCount} companyListAll={companyListAll}
-                 onSorting={onSorting} sortData={sortData} accessoryListAll={accessoryListAll} accessoryTypeListAll={accessoryTypeListAll} accessoryModelListAll={accessoryModelListAll} requestCompanyListAll={requestCompanyListAll}
-                 requestAccessoryModelAll={requestAccessoryModelAll} requestAccessoryListAll={requestAccessoryListAll} requestAccessoryTypeAll={requestAccessoryTypeAll} />
+                <AccessoryListReduxForm onSubmit={onSubmit} accessoryList={accessoryList} deleteItem={deleteItem} historyItem={historyItem} itemCount={itemCount} companyListAll={companyListAll}
+                 onSorting={onSorting} sortData={sortData} accessoryListAll={accessoryListAll} accessoryTypeListAll={accessoryTypeListAll} accessoryModelListAll={accessoryModelListAll} 
+                 requestCompanyListAll={requestCompanyListAll} requestAccessoryModelAll={requestAccessoryModelAll} requestAccessoryListAll={requestAccessoryListAll} requestAccessoryTypeAll={requestAccessoryTypeAll} />
                 <div className="text-center">
                     <Paginator currentPage={currentPage} pageSize={pageSize}
                         totalItemsCount={totalItemsCount} onPageChanged={onPageChanged} />
@@ -27,7 +27,7 @@ let AccessoryDataGrid = ({ accessoryList, deleteItem, currentPage, pageSize, tot
 }
 
 const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,deleteItem,itemCount,onSorting,sortData,accessoryListAll,companyListAll,requestCompanyListAll,
-     accessoryTypeListAll,accessoryModelListAll, requestAccessoryListAll,requestAccessoryTypeAll,requestAccessoryModelAll,requestAccessoryMarkAll}) => {
+     accessoryTypeListAll,accessoryModelListAll, requestAccessoryListAll,requestAccessoryTypeAll,requestAccessoryModelAll,historyItem}) => {
         console.log(accessoryList)
         return (        
         <form onSubmit={handleSubmit}>
@@ -98,12 +98,11 @@ const AccessoryListForm= ({handleSubmit, error, initialValues,accessoryList,dele
                         <th className="w-100">{createField(null, 'accessory_type', [], MultiSelect2,null,accessoryTypeListAll,'name',null,requestAccessoryTypeAll,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'count', [], Input,null,null,null,null,null,null,"")}</th>
                         <th className="w-100">{createField(null, 'is_new', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
-                        <th className="w-100">{createField(null, 'is_our', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>
-                        
+                        <th className="w-100">{createField(null, 'is_our', [], BooleanDropdown,null,null,null,null,null,null,"")}</th>                       
                     </tr>
                 </tbody>
                 <tbody>
-                    {accessoryList.map((item, key) => <AccessoryItem accessoryItem={item} deleteItem={deleteItem} itemCount={itemCount++} key={key}/>)}
+                    {accessoryList.map((item, key) => <AccessoryItem accessoryItem={item} deleteItem={deleteItem} historyItem={historyItem} itemCount={itemCount++} key={key}/>)}
                 </tbody>
             </table>  
             </div>
