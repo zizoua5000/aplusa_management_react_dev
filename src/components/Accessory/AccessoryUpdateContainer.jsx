@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {required} from "../../utils/validators/validators";
 import {compose} from "redux";
-import {createField, Input,Dropdown,Toggle, InputWithAdd, DatePickerReact} from "../Common/FormsControls/FormsControls";
+import {createField, Input,Dropdown,Toggle, InputWithAdd} from "../Common/FormsControls/FormsControls";
 import {getAccessoryItem,updateAccessoryItem,requestAccessoryModelListAll,requestAccessoryTypeListAll, requestCompanyListAll} from "../../redux/Reducers/accessoryList_reducer";
 import {getIsCreated, getAccessoryItemSel,getAccessoryModelListAll,getAccessoryTypeListAll,
      getIsFetching,getSetErrorMessage, getCurrentPage,getCompanyListAll} from '../../redux/Selectors/accessoryList_selectors';
@@ -55,13 +55,14 @@ const AccessoryForm= ({handleSubmit, error, accessoryModelAll,accessoryTypeAll,c
     initialValues.id=instance.id
     initialValues.name=instance.name
     initialValues.count=instance.count
-    initialValues.rated_price=instance.rated_price
     initialValues.is_new=instance.is_new
     initialValues.is_our=instance.is_our
     initialValues.manufacturer=instance.manufacturer_detail.id
-    initialValues.entry_warehouse_date=instance.entry_warehouse_date
     initialValues.accessory_model=instance.accessory_model_detail.id    
     initialValues.accessory_type=instance.accessory_type_detail.id
+    initialValues.accessory_histories[0].rated_price=null
+    initialValues.accessory_histories[0].add_count=null
+    initialValues.accessory_histories[0].entry_warehouse_date=null
     companyListAll=(companyListAll==null?[]:(companyListAll.length!=0?companyListAll:[instance.manufacturer_detail]))
     accessoryModelAll=(accessoryModelAll==null?[]:(accessoryModelAll.length!=0?accessoryModelAll:[instance.accessory_model_detail]))
     accessoryTypeAll=(accessoryTypeAll==null?[]:(accessoryTypeAll.length!=0?accessoryTypeAll:[instance.accessory_type_detail]))
@@ -72,9 +73,7 @@ const AccessoryForm= ({handleSubmit, error, accessoryModelAll,accessoryTypeAll,c
             {createField("Manufacturer", 'manufacturer', [], Dropdown,'Manufacturer',companyListAll,'name',null,requestCompanyListAll,null,null,"")}
             {createField("Accessory Model", 'accessory_model', [required], Dropdown,'Accessory Model',accessoryModelAll,'name',null,requestAccessoryModelAll,null,null,"")}
             {createField("Accessory Type", 'accessory_type', [required], Dropdown,'Accessory Type',accessoryTypeAll,'name',null,requestAccessoryTypeAll,null,null,"")}
-            {createField('Count', 'count',[required],Input,'Count')}
-            {createField('Rated Price', 'rated_price',[required],Input,'Rated Price')}
-            {createField('Entry Warehouse Date', 'entry_warehouse_date',[],DatePickerReact,'Entry Warehouse Date')}
+            {createField('Count', 'count',[],InputWithAdd,'Count')}
             {createField('Is_New', 'is_new',[],Toggle,'Is_New',null,null,'checkbox')}
             {createField('Is_Our', 'is_our',[],Toggle,'Is_Our',null,null,'checkbox')}
             {error && <div className={style.formSummaryError}>
@@ -95,9 +94,14 @@ const AccessoryUpdateReduxForm = reduxForm({form: 'accessoryUpdate', initialValu
     is_new:"",
     is_our:"",
     manufacturer:"",
-    entry_warehouse_date:"",
     accessory_model: "",
     accessory_type: "",
+    accessory_histories:[{
+        rated_price:"", 
+        add_count:"",
+        entry_warehouse_date:"",
+    }
+    ],
 
 }})(AccessoryForm)
 
@@ -110,7 +114,6 @@ const mapStateToProps = (state) => ({
     currentPage:getCurrentPage(state),
     setErrorMessage: getSetErrorMessage(state),
     companyListAll: getCompanyListAll(state),
-
 })
 
 export default compose(

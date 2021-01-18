@@ -5,14 +5,29 @@ import {compose} from "redux";
 import swal from 'sweetalert';
 import {custom_success_alert, custom_sweet_delete} from "../../utils/custom_sweet_alert/custom_sweet_alert";
 import {requestAccessoryList, deleteAccessoryItem,filterAccessoryList,sortAccessoryList,requestAccessoryModelListAll,
-    requestAccessoryTypeListAll,requestAccessoryListAll,requestCompanyListAll} from '../../redux/Reducers/accessoryList_reducer'
+    requestAccessoryTypeListAll,requestAccessoryListAll,requestCompanyListAll,requestAccessoryHistoryListById} from '../../redux/Reducers/accessoryList_reducer'
 import {getAccessoryList, getCurrentPage, getPageSize, getTotalItemsCount, getIsFetching, getIsCreated,getSetErrorMessage,
-    getAccessoryListAll,getSortData, getAccessoryModelListAll, getAccessoryTypeListAll,getCompanyListAll} from '../../redux/Selectors/accessoryList_selectors'
+    getAccessoryListAll,getSortData, getAccessoryModelListAll, getAccessoryTypeListAll,getCompanyListAll,getAccessoryHistoryListById} from '../../redux/Selectors/accessoryList_selectors'
 import AccessoryDataGrid from './AccessoryDataGrid'
 import Preloader from '../Common/Preloader/Preloader'
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
+import AccessoryHistoryModal from './AccessoryHistoryModal'
 
 class AccessoryContainer extends React.Component {
+    constructor(){
+        super();
+        this.state = { isModalOpen: false };
+    }
+    
+    openModal= () =>{
+        console.log("HANDLE ADD MODAL");
+        this.setState({ isModalOpen: true });
+    }
+    closeModal= () =>{
+        console.log("HANDLE ADD MODAL");
+        this.setState({ isModalOpen: false });
+    }
+
     componentDidMount() {
         if (this.props.isCreated) {
             custom_success_alert();
@@ -41,8 +56,8 @@ class AccessoryContainer extends React.Component {
         swal(custom_sweet_delete)
           .then((willDelete) => {
             if (willDelete) {
-                let respone=this.props.deleteAccessoryItem(id)
-                respone.then(res => {
+                let response=this.props.deleteAccessoryItem(id)
+                response.then(res => {
                         swal("Deleted", {
                         icon: "success",
                     })
@@ -63,9 +78,17 @@ class AccessoryContainer extends React.Component {
           });
     }
 
+    historyItem=(id)=>{
+        console.log("This history "+id);
+        this.props.requestAccessoryHistoryListById(id);
+        this.openModal();
+              
+    }
+
     render() {
-        console.log("ACCESSORY LISY ", this.props.accessoryList)
+        console.log("PROPS ACC CONTAİNER", this.props)
         return (  
+            
             <div>
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 className="h3 mb-0 text-gray-800 text-info">Accessory List</h1>
@@ -73,10 +96,18 @@ class AccessoryContainer extends React.Component {
                 </div>
                 {this.props.isFetching && this.props.accessoryList==null && <Preloader /> }
                 {this.props.setErrorMessage!=null && <ErrorMessage />}
-                {this.props.accessoryList!=null &&
+                {this.state.isModalOpen &&
+                    <AccessoryHistoryModal 
+                    show={this.state.isModalOpen} 
+                    closeModal={this.closeModal} 
+                    accessoryHistoryListById={this.props.accessoryHistoryListById}
+                    currentPage={this.props.currentPage}
+                    pageSize={this.props.pageSize} />}
+                {this.props.accessoryList!=null &&                
                     <AccessoryDataGrid 
                     accessoryList={this.props.accessoryList} 
                     deleteItem={this.deleteItem}
+                    historyItem={this.historyItem}
                     currentPage={this.props.currentPage}
                     pageSize={this.props.pageSize}
                     totalItemsCount={this.props.totalItemsCount}
@@ -115,11 +146,12 @@ let mapStateToProps = (state) => {
         companyListAll:getCompanyListAll(state),
         accessoryModelListAll:getAccessoryModelListAll(state),
         accessoryTypeListAll:getAccessoryTypeListAll(state),
+        accessoryHistoryListById:getAccessoryHistoryListById(state),
     }
 }
 
 export default compose(
     connect(mapStateToProps, {requestAccessoryList, deleteAccessoryItem,filterAccessoryList,sortAccessoryList,
-        requestAccessoryListAll,requestAccessoryTypeListAll,requestAccessoryModelListAll,requestCompanyListAll}),
+        requestAccessoryListAll,requestAccessoryTypeListAll,requestAccessoryModelListAll,requestCompanyListAll,requestAccessoryHistoryListById}),
     withRouter
 )(AccessoryContainer);

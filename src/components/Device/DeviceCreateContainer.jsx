@@ -11,7 +11,6 @@ import {Redirect} from "react-router-dom";
 import style from "./../Common/FormsControls/FormsControls.module.css";
 import Preloader from '../Common/Preloader/Preloader';
 import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
-import moment from 'moment';
 
 class DeviceCreateContainer extends React.Component {
 
