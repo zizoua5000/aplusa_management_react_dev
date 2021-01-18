@@ -12,6 +12,7 @@ import ErrorMessage from '../Common/ErrorMessage/ErrorMessage'
 import classes from '../../custom/qaime_print.module.css'
 import QaimePrintContainer from './QaimePrintContainer';
 import QaimeRecipientPrintContainer from './QaimeRecipientPrintContainer';
+import QaimeInstallationActPrintContainer from './QaimeInstallationActPrintContainer';
 
 
 class QaimeDetailContainer extends React.Component {
@@ -35,6 +36,7 @@ class QaimeDetailContainer extends React.Component {
                         <QaimeDetailItem qaimeItem={this.props.qaimeItem}/>   
                         <QaimePrintContainer data={this.props.qaimeItem}/>
                         <QaimeRecipientPrintContainer data={this.props.qaimeItem}/>
+                        <QaimeInstallationActPrintContainer data={this.props.qaimeItem}/>
                     </>
                     }
                 </div>

@@ -27,10 +27,10 @@
 		right: 0;
 		overflow: auto
 	}
-	.loading-indicator {
+	.loading_indicator {
 		display: none
 	}
-	.loading-indicator.active {
+	.loading_indicator.active {
 		display: block;
 		position: absolute;
 		width: 64px;
@@ -40,7 +40,7 @@
 		margin-top: -32px;
 		margin-left: -32px
 	}
-	.loading-indicator img {
+	.loading_indicator img {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -311,7 +311,7 @@
 		-webkit-animation: fadein 100ms;
 		animation: fadein 100ms
 	}
-	.loading-indicator.active {
+	.loading_indicator.active {
 		-webkit-animation: swing 1.5s ease-in-out .01s infinite alternate none;
 		animation: swing 1.5s ease-in-out .01s infinite alternate none
 	}
@@ -438,7 +438,7 @@
 }
 
 .fs2 {
-	font-size: 48.000000px;
+	font-size: 43.000000px;
 }
 
 .fs1 {
@@ -790,15 +790,15 @@
 }
 
 .h4 {
-	height: 46.618125px;
+	height: 55.618125px;
 }
 
 .h3 {
-	height: 48.125391px;
+	height: 69.125391px;
 }
 
 .h6 {
-	height: 50.671875px;
+	height: 57.671875px;
 }
 
 .h11 {
@@ -961,6 +961,10 @@
 	left: 522.820000px;
 }
 
+.customtopdate{
+	left:170px;
+}
+
 @media print {
 	.v0 {
 		vertical-align: 0.000000pt;
@@ -1023,7 +1027,7 @@
 		font-size: 58.880000pt;
 	}
 	.fs2 {
-		font-size: 64.000000pt;
+		font-size: 59.000000pt;
 	}
 	.fs1 {
 		font-size: 74.880000pt;
@@ -1077,7 +1081,7 @@
 		bottom: 14.912000pt;
 	}
 	.y32 {
-		bottom: 18.920000pt;
+		bottom: 23.320000pt;
 	}
 	.y19 {
 		bottom: 19.080000pt;
@@ -1233,7 +1237,7 @@
 		bottom: 1088.480000pt;
 	}
 	.y3page2andmore {
-		bottom: 1099.480000pt;
+		bottom: 1110.480000pt;
 	}
 	.y2 {
 		bottom: 1109.280000pt;
@@ -1287,13 +1291,13 @@
 		height: 61.208750pt;
 	}
 	.h4 {
-		height: 62.157500pt;
+		height: 72.157500pt;
 	}
 	.h3 {
-		height: 64.167187pt;
+		height: 88.167187pt;
 	}
 	.h6 {
-		height: 67.562500pt;
+		height: 75.562500pt;
 	}
 	.h11 {
 		height: 99.712000pt;
@@ -1414,6 +1418,9 @@
 	}
 	.x9 {
 		left: 697.093333pt;
+	}
+	.customtopdate{
+		left:260.093333pt;
 	}
 }
 
